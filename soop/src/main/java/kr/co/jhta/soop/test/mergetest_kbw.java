@@ -1,9 +1,9 @@
 package kr.co.jhta.soop.test;
 
-public class test_merge100 {
-	
+public class mergetest_kbw {
+
 	public static void main(String[] args) {
-		System.out.println("merge test 병욱!");
+		System.out.println("merge_test_kbw");
 	}
 
 }
