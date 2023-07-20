@@ -1,7 +1,10 @@
 package kr.co.jhta.soop.test;
 
-public class test {
+public class testtest {
+
 	public static void main(String[] args) {
-		System.out.println("kbw test");
+		System.out.println("testtesttesttest");
+
 	}
+
 }
