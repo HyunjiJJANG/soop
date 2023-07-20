@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>test.jsp</h2>
+	<h2>JH test</h2>
 </body>
 </html>
