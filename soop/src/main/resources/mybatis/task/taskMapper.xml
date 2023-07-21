@@ -6,7 +6,7 @@
   
 <mapper namespace="kr.co.jhta.soop.dao.TaskDAO">
 	
-	<select id="selectAll" resultType="kr.co.jhta.soop.dto.TaskDTO" >
+	<select id="selectAll" resultType="TaskDTO" >
 		SELECT task_no, project_no, member_no, task_title, task_register_date, task_content, task_status, task_start_date, task_end_date
 		FROM task
 	</select>
