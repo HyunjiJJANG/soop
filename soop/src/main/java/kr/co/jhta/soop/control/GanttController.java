@@ -13,11 +13,6 @@ public class GanttController {
 	@Autowired
 	ProjectService service;
 	
-//	@GetMapping("/gantt")
-//	public String gantt() {
-//		return "gantt";
-//	}
-	
 	@GetMapping("/gantt")
 	public String myProject(Model model) {
 		model.addAttribute("list", service.selectAll());
