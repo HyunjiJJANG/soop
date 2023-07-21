@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 public class HistoryDTO {
 	
 	
-	private int historyNo;
-	private int taskNo;
-	private String historyType;
-	private String historyRegisterDate;
-	private String historyContent;
+	private int history_no;
+	private int task_no;
+	private String history_type;
+	private String history_register_date;
+	private String history_content;
 	
 
 }

@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProjectMemberDTO {
 	
-	private int memberNo;
-	private int projectNo;
-	private int memberPosition;
+	private int member_no;
+	private int project_no;
+	private int member_position;
 	
 
 }
