@@ -15,8 +15,8 @@ public class TaskDTO {
 	private int projectNo;
 	private int memberNo;
 	private String taskTitle;
-	private String task_register_date;
-	private 	String taskContent;
+	private String taskRegisterDate;
+	private String taskContent;
 	private int taskStatus;
 	private String taskStartDate;
 	private String taskEndDate;
