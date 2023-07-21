@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -40,7 +44,11 @@
       }
     </style>
   </head>
+  
   <body>
+  
+  	<h2>${list }</h2>
+  
   
     <div class="chartMenu">
       <!-- <p>WWW.CHARTJS3.COM (Chart JS <span id="chartVersion"></span>)</p> -->
@@ -62,12 +70,12 @@
       datasets: [{
         label: 'Weekly Sales',
         data: [
-        	{x:['2022-10-03', '2022-10-06'], y: 'project_name', name: 'James' }, // x : 첫날짜, 끝날짜를 지정할 수 있음 / [] 안에 있어야함
-        	{x:['2022-10-06', '2022-10-12'], y: 'task1', name: ['Luna' , ' two'] }, // x : 첫날짜, 끝날짜를 지정할 수 있음 / [] 안에 있어야함
-        	{x:['2022-10-09', '2022-10-12'], y: 'task2', name: 'David' }, // x : 첫날짜, 끝날짜를 지정할 수 있음 / [] 안에 있어야함
-        	{x:['2022-10-12', '2022-10-21'], y: 'task3', name: 'Lily' }, // x : 첫날짜, 끝날짜를 지정할 수 있음 / [] 안에 있어야함
-        	{x:['2022-10-15', '2022-10-24'], y: 'task4', name: 'Santino' }, // x : 첫날짜, 끝날짜를 지정할 수 있음 / [] 안에 있어야함
-        	{x:['2022-10-18', '2022-10-30'], y: 'task5', name: 'Bob' } // x : 첫날짜, 끝날짜를 지정할 수 있음 / [] 안에 있어야함
+        	{x:['2022-10-03', '2022-10-06'], y: 'project_name', name: 'James' }, // x : ì²«ë ì§, ëë ì§ë¥¼ ì§ì í  ì ìì / [] ìì ìì´ì¼í¨
+        	{x:['2022-10-06', '2022-10-12'], y: 'task1', name: ['Luna' , ' two'] }, // x : ì²«ë ì§, ëë ì§ë¥¼ ì§ì í  ì ìì / [] ìì ìì´ì¼í¨
+        	{x:['2022-10-09', '2022-10-12'], y: 'task2', name: 'David' }, // x : ì²«ë ì§, ëë ì§ë¥¼ ì§ì í  ì ìì / [] ìì ìì´ì¼í¨
+        	{x:['2022-10-12', '2022-10-21'], y: 'task3', name: 'Lily' }, // x : ì²«ë ì§, ëë ì§ë¥¼ ì§ì í  ì ìì / [] ìì ìì´ì¼í¨
+        	{x:['2022-10-15', '2022-10-24'], y: 'task4', name: 'Santino' }, // x : ì²«ë ì§, ëë ì§ë¥¼ ì§ì í  ì ìì / [] ìì ìì´ì¼í¨
+        	{x:['2022-10-18', '2022-10-30'], y: 'task5', name: 'Bob' } // x : ì²«ë ì§, ëë ì§ë¥¼ ì§ì í  ì ìì / [] ìì ìì´ì¼í¨
         ],
         backgroundColor: [
           'rgba(255, 26, 104, 0.2)',
@@ -105,13 +113,13 @@
         ctx.textBaseline = 'middle';
 
         data.datasets[0].data.forEach((datapoint, index) => {
-          ctx.fillText(datapoint.name, 10, y.getPixelForValue(index)); // 좌측 이름
+          ctx.fillText(datapoint.name, 10, y.getPixelForValue(index)); // ì¢ì¸¡ ì´ë¦
         });
 
       }
     }
  
-      // shortYGridLines plugin block (용도 : 그래프 아래 작은 그래프를 넣을 예정이었으나..실패 => 프로젝트장 이름 밑줄용도로 사용 )
+      // shortYGridLines plugin block (ì©ë : ê·¸ëí ìë ìì ê·¸ëíë¥¼ ë£ì ìì ì´ìì¼ë..ì¤í¨ => íë¡ì í¸ì¥ ì´ë¦ ë°ì¤ì©ëë¡ ì¬ì© )
       const shortYGridLines = {
     	id: 'shortYGridLines',
     	beforeDatasetsDraw(chart, args, pluginOptions){
@@ -144,10 +152,10 @@
             position: 'top',
             type: 'time',            
             time: {
-            	unit: 'day' // 월별 : month / 일 : day
+            	unit: 'day' // ìë³ : month / ì¼ : day
             },           
-            min: '2022-10-01',	// 시작날짜 (x축 맨 처음 날짜)
-            max: '2022-10-31'	// 끝날짜 (x축 맨 끝 날짜)
+            min: '2022-10-01',	// ììë ì§ (xì¶ ë§¨ ì²ì ë ì§)
+            max: '2022-10-31'	// ëë ì§ (xì¶ ë§¨ ë ë ì§)
           }                  
         },        
         plugins: {
