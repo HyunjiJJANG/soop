@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class CommentDTO {
 	
-	private int commentNo;
-	private int taskNo;
-	private int memberNo;
-	private int parentCommentNo;
-	private int commentLevel;
-	private int comentContent;
-	private String comentRegisterDate;
+	private int comment_no;
+	private int task_no;
+	private int member_no;
+	private int parent_comment_no;
+	private int comment_level;
+	private int coment_content;
+	private String coment_register_date;
 	
 	
 

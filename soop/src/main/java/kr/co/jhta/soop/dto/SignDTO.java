@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @Data
 public class SignDTO {
 	
-	private int signNo;
-	private int taskNo;
-	private int memberNo;
-	private int signStep;
-	private String signApprover;
-	private int signStatus;
-	private String signDate;
+	private int sign_no;
+	private int task_no;
+	private int member_no;
+	private int sign_step;
+	private String sign_approver;
+	private int sign_status;
+	private String sign_date;
 	
 	
 
