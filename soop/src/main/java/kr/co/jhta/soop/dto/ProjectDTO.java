@@ -14,7 +14,7 @@ public class ProjectDTO {
 	private int project_no;
 	private String project_title;
 	private String project_description;
-	private	String projectStartDate;
+	private	String project_start_date;
 	private String project_end_Date;
 	private int project_status;
 	private String color;
