@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProjectInvitationDTO {
 
-	private int invitationNo;
-	private String invitationEmail;
-	private int invitationCode;
-	private String invitationValidTime;
-	private int invitationSuccess;
+	private int invitation_no;
+	private String invitation_email;
+	private int invitation_code;
+	private String invitation_validTime;
+	private int invitation_success;
 	
 	
 }

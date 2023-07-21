@@ -11,15 +11,15 @@ import lombok.NoArgsConstructor;
 @Data
 public class TaskDTO {
 	
-	private int taskNo;
-	private int projectNo;
-	private int memberNo;
-	private String taskTitle;
+	private int task_no;
+	private int project_no;
+	private int member_no;
+	private String task_title;
 	private String task_register_date;
-	private 	String taskContent;
-	private int taskStatus;
-	private String taskStartDate;
-	private String taskEndDate;
+	private String task_content;
+	private int task_status;
+	private String task_start_date;
+	private String task_end_date;
 
 }
 
