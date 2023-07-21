@@ -6,12 +6,12 @@
   <mapper namespace="kr.co.jhta.soop.dao.ProjectDAO">
 	  	
   	<select id="selectAll" resultType="kr.co.jhta.soop.dto.ProjectDTO">
-	  	SELECT 	project_no as projectNo,
-	  		 	project_title as projectTitle,  		 	
-	  		 	project_description as projectDescription,
-	  		 	project_start_date as project_start_date,
-	  		 	project_end_date as projectEndDate,
-	  		 	project_status as projectStatus,
+	  	SELECT 	project_no,
+	  		 	project_title,  		 	
+	  		 	project_description,
+	  		 	project_start_date,
+	  		 	project_end_date,
+	  		 	project_status,
 	  		 	color 	
 	  	FROM project  	
   	</select>
