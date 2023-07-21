@@ -32,23 +32,25 @@
   <script>
   // Range Calender 
   $( function() {
-	    var dateFormat = "yy/mm/dd", // dateFormat mm/dd/yy에서 수정함
+	    var dateFormat = "yyyy-MM-dd",
 	      from = $( "#from" )
 	        .datepicker({
 	          defaultDate: "+1w",
 	          changeMonth: true,
-	          numberOfMonths: 3
+	          numberOfMonths: 1
 	        })
 	        .on( "change", function() {
 	          to.datepicker( "option", "minDate", getDate( this ) );
-	        }),
+	        })
+	        //,
+	        
 	      to = $( "#to" ).datepicker({
 	        defaultDate: "+1w",
 	        changeMonth: true,
-	        numberOfMonths: 3
+	        numberOfMonths: 1
 	      })
 	      .on( "change", function() {
-	        from.datepicker( "option", "maxDate", getDate( this ) );
+	        from.datepicker( "option", "maxDate", getDate( this ) );	        
 	      });
 	 
 	    function getDate( element ) {
@@ -93,36 +95,20 @@
 			<th>task_end_date</th>
 		</tr>
 		<c:forEach var="dto" items="${list }">
+
 		<tr>
-			<td>${dto.taskNo}</td>
-			<td>${dto.projectNo}</td>
-			<td>${dto.memberNo}</td>
-			<td>${dto.taskTitle}</td>
-			<td>
-			<!-- 날짜 포맷팅 -->
-			<fmt:parseDate var="dateString" 
-							value="${dto.taskRegisterDate}" 
-							pattern="yyyy-MM-dd HH:mm:ss" /> <!-- ~~이런 형식의 날짜를 문자로 바꿔주세요 -->
-			<fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd"/> <!-- 위에서 가져온 날짜를 이런 형식으로 출력해주세요 -->
-			</td>
-			<td>${dto.taskContent}</td>
-			<td>
-			<!-- 날짜 포맷팅 -->
-			<fmt:parseDate var="dateString" 
-							value="${dto.taskStartDate}" 
-							pattern="yyyy-MM-dd HH:mm:ss" /> <!-- ~~이런 형식의 날짜를 문자로 바꿔주세요 -->
-			<fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd"/> <!-- 위에서 가져온 날짜를 이런 형식으로 출력해주세요 -->
-			</td>
-			<td>
-			<!-- 날짜 포맷팅 -->
-			<fmt:parseDate var="dateString" 
-							value="${dto.taskEndDate}" 
-							pattern="yyyy-MM-dd HH:mm:ss" /> <!-- ~~이런 형식의 날짜를 문자로 바꿔주세요 -->
-			<fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd"/> <!-- 위에서 가져온 날짜를 이런 형식으로 출력해주세요 -->
-			</td>
+			<td>${dto.task_no}</td>
+			<td>${dto.project_no}</td>
+			<td>${dto.member_no}</td>
+			<td>${dto.task_title}</td>
+			<td>${dto.task_register_date}</td>
+			<td>${dto.task_content}</td>
+			<td>${dto.task_status}</td>
+			<td>${dto.task_start_date}</td>
+			<td>${dto.task_end_date}</td>
 		</tr>
-		</table>
 		</c:forEach>
+		</table>
 </div>  
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -130,6 +116,8 @@
 </button>
 
 <!-- Modal -->
+<!-- 일단 업무 생성 구현 용으로 project_no와 member_no을 임의로 지정 -->
+<form action="insert?project_no=1&member_no=1" method="post">
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -141,7 +129,7 @@
         	<table class="table">
 			<tr>
 				<td>업무 제목</td>
-				<td><input class="form-control" id="taskName" type="text"></td>
+				<td><input class="form-control" id="taskName" type="text" name="task_title"></td>
 				<br />
 			</tr>
 			<tr>
@@ -163,33 +151,13 @@
 			<tr>
 				<!-- Calender -->
 				<label for="from">시작일</label>
-				<input type="text" id="from" name="from">
+				<input type="text" id="from" name="task_start_date">
 				&nbsp; &nbsp;
 				<label for="to">마감일</label>
-				<input type="text" id="to" name="to">
+				<input type="text" id="to" name="task_end_date">
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+				<!-- 첨부파일 버튼 -->
 				<button type="button" class="btn btn-outline-secondary">첨부파일</button>
-					<!-- 서브 모달 (첨부파일) -->
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal2">첨부파일</button>
-						
-					<div class="modal fade" id="modal2" tabindex="-1" role="dialog">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title">두번째 모달 창</h5>
-						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						          <span aria-hidden="true">&times;</span>
-						        </button>
-						      </div>
-						      <div class="modal-body">
-						        <p>모달 내용</p>
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>
 			</tr>
 			<tr>
 				<br />
@@ -197,18 +165,18 @@
 				<td>업무 내용</td>
 				<br />
 				<br />
-				<td><textarea class="form-control" id="taskContext" rows="10"></textarea></td>
+				<td><textarea class="form-control" id="taskContext" rows="10" name="task_content"></textarea></td>
 			</tr>
 		</table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="button" class="btn btn-primary">업무 생성</button>
+        <button type="submit" class="btn btn-primary">업무 생성</button>
       </div>
     </div>
   </div>
 </div>
-
+</form>
 
 
 </body>

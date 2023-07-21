@@ -1,5 +1,7 @@
 package kr.co.jhta.soop.control;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.jhta.soop.dto.TaskDTO;
+import kr.co.jhta.soop.service.MemberService;
+import kr.co.jhta.soop.service.ProjectService;
 import kr.co.jhta.soop.service.TaskService;
 
 @Controller
@@ -23,12 +29,18 @@ public class TaskController {
 //	FileValidator fileValidator;
 	
 	@Autowired
-	TaskService service;
+	TaskService taskService;
 
 	@GetMapping("/task")
 	public String register(Model model) {
-		model.addAttribute("list", service.selectAll());
+		model.addAttribute("list", taskService.selectAll());
 		return "task";
+	}
+	
+	@PostMapping("/insert")
+	public String insert(@ModelAttribute TaskDTO dto) throws UnsupportedEncodingException {
+		taskService.insertOne(dto);
+		return "redirect:/soop/task";
 	}
 	
 	
