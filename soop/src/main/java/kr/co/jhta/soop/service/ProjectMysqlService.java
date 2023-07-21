@@ -19,8 +19,8 @@ public class ProjectMysqlService implements ProjectService {
 	}
 
 	@Override
-	public ProjectDTO selectOne(int projectNo) {
-		return dao.selectOne(projectNo);
+	public ProjectDTO selectOne(int project_no) {
+		return dao.selectOne(project_no);
 	}
 
 	@Override
@@ -36,8 +36,8 @@ public class ProjectMysqlService implements ProjectService {
 	}
 
 	@Override
-	public void deleteOne(int projectNo) {
-		dao.deleteOne(projectNo);
+	public void deleteOne(int project_no) {
+		dao.deleteOne(project_no);
 		
 	}
 

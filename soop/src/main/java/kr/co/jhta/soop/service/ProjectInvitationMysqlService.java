@@ -21,9 +21,9 @@ public class ProjectInvitationMysqlService implements ProjectInvitationService {
 	}
 
 	@Override
-	public ProjectInvitationDTO selectOne(int invitationNo) {
+	public ProjectInvitationDTO selectOne(int invitation_no) {
 
-		return dao.selectOne(invitationNo);
+		return dao.selectOne(invitation_no);
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class ProjectInvitationMysqlService implements ProjectInvitationService {
 	}
 
 	@Override
-	public void deleteOne(int invitationNo) {
-		dao.deleteOne(invitationNo);
+	public void deleteOne(int invitation_no) {
+		dao.deleteOne(invitation_no);
 
 	}
 
