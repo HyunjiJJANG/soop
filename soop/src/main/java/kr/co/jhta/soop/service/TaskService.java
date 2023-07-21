@@ -8,13 +8,13 @@ public interface TaskService {
 	
 	public List<TaskDTO> selectAll();
 
-	public TaskDTO selectOne(int taskNo);
+	public TaskDTO selectOne(int task_no);
 
 	public void insertOne(TaskDTO dto);
 
 	public void updateOne(TaskDTO dto);
 
-	public void deleteOne(int taskNo);
+	public void deleteOne(int task_no);
 
 	
 

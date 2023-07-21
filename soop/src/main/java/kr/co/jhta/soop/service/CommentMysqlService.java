@@ -21,9 +21,9 @@ public class CommentMysqlService implements CommentService {
 	}
 
 	@Override
-	public CommentDTO selectOne(int commentNo) {
+	public CommentDTO selectOne(int comment_no) {
 
-		return dao.selectOne(commentNo);
+		return dao.selectOne(comment_no);
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class CommentMysqlService implements CommentService {
 	}
 
 	@Override
-	public void deleteOne(int commentNo) {
-		dao.deleteOne(commentNo);
+	public void deleteOne(int comment_no) {
+		dao.deleteOne(comment_no);
 
 	}
 

@@ -21,9 +21,9 @@ public class AttachedFileMysqlService implements AttachedFileService{
 	}
 
 	@Override
-	public AttachedFileDTO selectOne(int fileNo) {
+	public AttachedFileDTO selectOne(int file_no) {
 		
-		return dao.selectOne(fileNo);
+		return dao.selectOne(file_no);
 	}
 
 	@Override
@@ -38,8 +38,8 @@ public class AttachedFileMysqlService implements AttachedFileService{
 	}
 
 	@Override
-	public void deleteOne(int fileNo) {
-		dao.deleteOne(fileNo);
+	public void deleteOne(int file_no) {
+		dao.deleteOne(file_no);
 	}
 	
 	

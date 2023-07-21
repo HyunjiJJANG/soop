@@ -23,8 +23,8 @@ public class TaskMysqlService implements TaskService{
 	}
 
 	@Override
-	public TaskDTO selectOne(int taskNo) {
-		return dao.selectOne(taskNo);
+	public TaskDTO selectOne(int task_no) {
+		return dao.selectOne(task_no);
 	}
 
 	@Override
@@ -40,8 +40,8 @@ public class TaskMysqlService implements TaskService{
 	}
 
 	@Override
-	public void deleteOne(int taskNo) {
-		dao.deleteOne(taskNo);
+	public void deleteOne(int task_no) {
+		dao.deleteOne(task_no);
 		
 	}
 

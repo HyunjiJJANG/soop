@@ -13,13 +13,13 @@ public interface ProjectInvitationDAO {
 	
 	public List<ProjectInvitationDTO> selectAll();
 
-	public ProjectInvitationDTO selectOne(int invitationNo);
+	public ProjectInvitationDTO selectOne(int invitation_no);
 
 	public void insertOne(ProjectInvitationDTO dto);
 
 	public void updateOne(ProjectInvitationDTO dto);
 
-	public void deleteOne(int invitationNo);
+	public void deleteOne(int invitation_no);
 
 
 }
