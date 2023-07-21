@@ -8,12 +8,12 @@ public interface SignService {
 
 	public List<SignDTO> selectAll();
 
-	public SignDTO selectOne(int signNo);
+	public SignDTO selectOne(int sign_no);
 
 	public void insertOne(SignDTO dto);
 
 	public void updateOne(SignDTO dto);
 
-	public void deleteOne(int signNo);
+	public void deleteOne(int sign_no);
 
 }

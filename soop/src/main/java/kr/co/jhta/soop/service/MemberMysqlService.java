@@ -21,8 +21,8 @@ public class MemberMysqlService implements MemberService{
 	}
 
 	@Override
-	public MemberDTO selectOne(int memberNo) {
-		return dao.selectOne(memberNo);
+	public MemberDTO selectOne(int member_no) {
+		return dao.selectOne(member_no);
 	}
 
 	@Override
@@ -38,8 +38,8 @@ public class MemberMysqlService implements MemberService{
 	}
 
 	@Override
-	public void deleteOne(int memberNo) {
-		dao.deleteOne(memberNo);
+	public void deleteOne(int member_no) {
+		dao.deleteOne(member_no);
 		
 	}
 

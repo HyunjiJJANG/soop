@@ -8,11 +8,11 @@ public interface HistoryService {
 
 	public List<HistoryDTO> selectAll();
 
-	public  HistoryDTO selectOne(int historyNo);
+	public  HistoryDTO selectOne(int history_no);
 
 	public void insertOne(HistoryDTO dto);
 
 	public void updateOne(HistoryDTO dto);
 
-	public void deleteOne(int historyNo);
+	public void deleteOne(int history_no);
 }

@@ -13,13 +13,13 @@ public interface CommentDAO {
 	
 	public List<CommentDTO> selectAll();
 	
-	public CommentDTO selectOne(int commentNo);
+	public CommentDTO selectOne(int comment_no);
 
 	public void insertOne(CommentDTO dto);
 
 	public void updateOne(CommentDTO dto);
 
-	public void deleteOne(int commentNo);
+	public void deleteOne(int comment_no);
 	
 	
 

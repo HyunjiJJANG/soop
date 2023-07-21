@@ -22,8 +22,8 @@ public class HistoryMysqlService implements HistoryService {
 	}
 
 	@Override
-	public HistoryDTO selectOne(int historyNo) {
-		return dao.selectOne(historyNo);
+	public HistoryDTO selectOne(int history_no) {
+		return dao.selectOne(history_no);
 	}
 
 	@Override
@@ -40,8 +40,8 @@ public class HistoryMysqlService implements HistoryService {
 	}
 
 	@Override
-	public void deleteOne(int historyNo) {
-		dao.deleteOne(historyNo);
+	public void deleteOne(int history_no) {
+		dao.deleteOne(history_no);
 		
 	}
 
