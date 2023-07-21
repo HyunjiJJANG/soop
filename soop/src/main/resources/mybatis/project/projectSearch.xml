@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
+<!DOCTYPE mapper     
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
@@ -14,6 +14,12 @@
 	  		 	project_status,
 	  		 	color 	
 	  	FROM project  	
+  	</select>
+  	
+  	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.soop.dto.ProjectDTO">
+  		SELECT *
+  		FROM project
+  		WHERE project_no = #{project_no}
   	</select>
   	
   </mapper>
