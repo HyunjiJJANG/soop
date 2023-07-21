@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 public class MemberDTO {
 	
 	
-	private int memberNo;
+	private int member_no;
 	private String email;
 	private String password;
 	private String name;
-	private String profileName;
-	private String profilePath;
+	private String profile_name;
+	private String profile_path;
 	
 	
 

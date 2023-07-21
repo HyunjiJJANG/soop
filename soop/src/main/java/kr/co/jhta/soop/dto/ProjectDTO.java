@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @Data
 public class ProjectDTO {
 	
-	private int projectNo;
-	private String projectTitle;
-	private String projectDescription;
+	private int project_no;
+	private String project_title;
+	private String project_description;
 	private	String projectStartDate;
-	private String projectEndDate;
-	private int projectStatus;
+	private String project_end_Date;
+	private int project_status;
 	private String color;
 
 }
