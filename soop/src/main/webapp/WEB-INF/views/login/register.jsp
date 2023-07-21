@@ -8,7 +8,7 @@
 
 <!-- AJAX -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
 <!-- 부트스트랩 cdn -->
 <link
@@ -110,15 +110,16 @@ form {
 <script type="text/javascript">
 	$(function(){
 		
+		var $email = $("#mid");
 		
-		$("#emailCheck").on("keyup", function(){
+		$("#email").on("keyup", function(){
 			$.ajax({
-				type: "POST",
+				type: "GET",
 				url: "/emailCheck",
 				data: {"email":$("#email").val().trim()},
 				dataType : "text", 
-				success: function(response){
-					var resp = response.trim();
+				success: function(result){
+					var resp = result.trim();
 					if(resp == "OK") {
 						$("#idCheck").html("사용가능한 아이디입니다.").css("color","blue");
 					}else{
@@ -147,12 +148,11 @@ form {
 				$(this).addClass("form-control");
 			}
 		})
-
 		// 인증메일 비동기화 방식으로 보내기
 		$("#btnMailCheck").on("click",function(){
 			$.ajax({
-				type:"POST",
-				url:"emailCheck.jsp",
+				type:"GET",
+				url:"/mailCheck",
 				data: {"email":$("#email").val().trim()}
 			});
 			$("#authCodeDiv").show();
@@ -214,13 +214,13 @@ form {
 							</div>
 							
 					</div>
-					<!-- <div class="col-1">
+					< <div class="col-1">
 						<input type="button" class="btn btn-outline-success btn-sm"
 							value="인증번호 받기" id="btnMailCheck"
 							style="height: 45px; margin-top: 15px;" />
-					</div> -->
+					</div>
 				</div>
-				<!-- <div class="row g-3 align-items-center" id="authCodeDiv"
+				 <div class="row g-3 align-items-center" id="authCodeDiv"
 					style="display: none" style="width: 800px;">
 					<div class="col-6">
 						<div class="form-floating">
@@ -235,7 +235,7 @@ form {
 							value="인증" id="btnAuth" /> &nbsp;&nbsp;&nbsp; <span
 							id="authCodeCheck" class="form-text"></span>
 					</div>
-				</div> -->
+				</div>
 						</div>
 						<div class="row g-3 align-items-center" style="width: 800px;">
 							<div class="col-6">
