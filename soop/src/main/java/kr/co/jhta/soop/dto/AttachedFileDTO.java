@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class AttachedFileDTO {
 	
-	private int fileNo;
-	private int taskNo;
+	private int file_no;
+	private int task_no;
 	private String fileType;
 	private String fileName;
 	private String filePath;

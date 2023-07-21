@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>login.jsp</h2>
+	<h2>logout.jsp</h2>
 </body>
 </html>
