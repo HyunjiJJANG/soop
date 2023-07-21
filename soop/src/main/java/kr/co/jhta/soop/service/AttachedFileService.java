@@ -8,12 +8,12 @@ public interface AttachedFileService {
 	
 public List<AttachedFileDTO> selectAll();
 	
-	public AttachedFileDTO selectOne(int fileNo);
+	public AttachedFileDTO selectOne(int file_no);
 	
 	public void insertOne(AttachedFileDTO dto);
 	
 	public void updateOne(AttachedFileDTO dto);
 	
-	public void deleteOne(int fileNo);
+	public void deleteOne(int file_no);
 
 }

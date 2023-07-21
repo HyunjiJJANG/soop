@@ -13,12 +13,12 @@ public interface ProjectDAO {
 	
 	public List<ProjectDTO> selectAll();
 
-	public ProjectDTO  selectOne(int projectNo);
+	public ProjectDTO  selectOne(int project_no);
 
 	public void insertOne(ProjectDTO dto);
 
 	public void updateOne(ProjectDTO dto);
 
-	public void deleteOne(int projectNo);
+	public void deleteOne(int project_no);
 
 }

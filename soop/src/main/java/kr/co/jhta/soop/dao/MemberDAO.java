@@ -14,13 +14,13 @@ public interface MemberDAO {
 
 public List<MemberDTO> selectAll();
 
-public  MemberDTO selectOne(int memberNo);
+public  MemberDTO selectOne(int member_no);
 
 public void insertOne(MemberDTO dto);
 
 public void updateOne(MemberDTO dto);
 
-public void deleteOne(int memberNo);
+public void deleteOne(int member_no);
 	
 
 }
