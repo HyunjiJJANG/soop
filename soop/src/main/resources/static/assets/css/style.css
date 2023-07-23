@@ -5,7 +5,7 @@ Author: Phoenixcoded
 Support: support@phoenixcoded.net
 File: style.css
 =========================================================================
-=================================================================================== */
+=================================================================================== **/
 /* cyrillic-ext */
 @import url(plugins/animate.min.css);
 
@@ -184,9 +184,9 @@ File: style.css
     transition: background-color .2s linear, opacity .2s linear;
     -webkit-transition: background-color .2s linear, opacity .2s linear;
     height: 15px;
-  there must be 'bottom' or 'top' for ps__rail-x
+  /*there must be 'bottom' or 'top' for ps__rail-x*/
     bottom: 0px;
-  please don't change 'position'
+  /*please don't change 'position'*/
   position: absolute; }
 
 .ps__rail-y {
@@ -195,9 +195,9 @@ File: style.css
   transition: background-color .2s linear, opacity .2s linear;
   -webkit-transition: background-color .2s linear, opacity .2s linear;
   width: 15px;
-  there must be 'right' or 'left' for ps__rail-y
+  /*there must be 'right' or 'left' for ps__rail-y*/
   right: 0;
-  please don't change 'position'
+  /*please don't change 'position'*/
     position: absolute;
 }
 
@@ -235,9 +235,9 @@ File: style.css
     transition: background-color .2s linear, height .2s ease-in-out;
     -webkit-transition: background-color .2s linear, height .2s ease-in-out;
     height: 6px;
-  there must be 'bottom' for ps__thumb-x
+ /* there must be 'bottom' for ps__thumb-x*/
     bottom: 2px;
-  please don't change 'position'
+  /*please don't change 'position'*/
   position: absolute; }
 
 .ps__thumb-y {
@@ -246,9 +246,9 @@ File: style.css
   transition: background-color .2s linear, width .2s ease-in-out;
   -webkit-transition: background-color .2s linear, width .2s ease-in-out;
   width: 6px;
-  there must be 'right' for ps__thumb-y
+  /*there must be 'right' for ps__thumb-y*/
   right: 2px;
-  please don't change 'position'
+ /* please don't change 'position'*/
     position: absolute;
 }
 
@@ -593,6 +593,7 @@ input[type="radio"],
 input[type="checkbox"] {
     box-sizing: border-box;
     padding: 0;
+    
 }
 
 input[type="date"],
@@ -10601,7 +10602,7 @@ a.text-dark:hover, a.text-dark:focus {
   h3 {
         page-break-after: avoid;
     }
-  @    page {
+  @page {
         size: a3;
     }
 
@@ -17324,7 +17325,7 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 @media screen and (-webkit-min-device-pixel-ratio: 0) {
-  @    font-face {
+  @font-face {
         font-family: "Flaticon";
         src: url("../fonts/Flaticon.svg#Flaticon") format("svg");
     }

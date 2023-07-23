@@ -26,8 +26,8 @@
 
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
-
 </head>
+
 <body>
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
@@ -40,19 +40,12 @@
                 <div class="card table-card">
                     <div class="card-header">
                         <h5>참여 중인 프로젝트</h5>
-                        <div class="card-header-right">
-                            <div class="btn-group card-option">
-                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="feather icon-more-horizontal"></i>
-                                </button>
-                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                    <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
-                                    <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
-                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                                <select style="width:30%;float:right;" class="form-select" aria-label="Default select example">
+								<option selected>진행상황</option>
+								<option value="1">진행중</option>
+								<option value="2">보류</option>
+								<option value="3">완료</option>
+							</select>
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -116,7 +109,9 @@
 								<option value="2">프로젝트2</option>
 								<option value="3">프로젝트3</option>
 							</select>
-                    </div>
+						</div>
+					<!-- 파일함 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
+					<div class="scrollbar" style="overflow-y: auto; height: 300px;">	
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-hover mb-0">
@@ -124,7 +119,7 @@
                                     <tr>
                                         <td>
                                             <div class="chk-option">
-                                                <label class="check-task custom-control custom-checkbox d-flex justify-content-center done-task">
+                                                <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
                                                     <input  type="radio" name="options" class="custom-control-input">
                                                     <span class="custom-control-label"></span>
                                                 </label>
@@ -144,7 +139,7 @@
                                     <tr>
                                         <td>
                                             <div class="chk-option">
-                                                <label class="check-task custom-control custom-checkbox d-flex justify-content-center done-task">
+                                                <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
                                                     <input type="radio" name="options" class="custom-control-input">
                                                     <span class="custom-control-label"></span>
                                                 </label>
@@ -164,7 +159,47 @@
                                     <tr>
                                         <td>
                                             <div class="chk-option">
-                                                <label class="check-task custom-control custom-checkbox d-flex justify-content-center done-task">
+                                                <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
+                                                    <input  type="radio" name="options" class="custom-control-input">
+                                                    <span class="custom-control-label"></span>
+                                                </label>
+                                            </div>
+                                            <div class="d-inline-block align-middle">
+                                                <img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
+                                                <div class="d-inline-block">
+                                                    <h6>William Jem</h6>
+                                                    <p class="text-muted m-b-0">Developer</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Flatable</td>
+                                        <td>Aug, 02</td>
+                                        <td class="text-right"><label class="badge badge-light-success">medium</label></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="chk-option">
+                                                <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
+                                                    <input type="radio" name="options" class="custom-control-input">
+                                                    <span class="custom-control-label"></span>
+                                                </label>
+                                            </div>
+                                            <div class="d-inline-block align-middle">
+                                                <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
+                                                <div class="d-inline-block">
+                                                    <h6>Jenifer Vintage</h6>
+                                                    <p class="text-muted m-b-0">Web Designer</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Mashable</td>
+                                        <td>March, 31</td>
+                                        <td class="text-right"><label class="badge badge-light-primary">high</label></td>
+                                    </tr>
+                                      <tr>
+                                        <td>
+                                            <div class="chk-option">
+                                                <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
                                                     <input  type="radio" name="options" class="custom-control-input">
                                                     <span class="custom-control-label"></span>
                                                 </label>
@@ -185,6 +220,7 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>  
@@ -319,28 +355,15 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            <div class="chk-option">
-                                                <label class="check-task custom-control custom-checkbox d-flex justify-content-center done-task">
-                                                    <input type="checkbox" class="custom-control-input">
-                                                    <span class="custom-control-label"></span>
-                                                </label>
-                                            </div>
                                             Assigned
                                         </th>
                                         <th>Name</th>
                                         <th>Due Date</th>
-                                        <th class="text-right">Priority</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <div class="chk-option">
-                                                <label class="check-task custom-control custom-checkbox d-flex justify-content-center done-task">
-                                                    <input type="checkbox" class="custom-control-input">
-                                                    <span class="custom-control-label"></span>
-                                                </label>
-                                            </div>
                                             <div class="d-inline-block align-middle">
                                                 <img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
                                                 <div class="d-inline-block">
@@ -351,16 +374,9 @@
                                         </td>
                                         <td>Able Pro</td>
                                         <td>Jun, 26</td>
-                                        <td class="text-right"><label class="badge badge-light-danger">Low</label></td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <div class="chk-option">
-                                                <label class="check-task custom-control custom-checkbox d-flex justify-content-center done-task">
-                                                    <input type="checkbox" class="custom-control-input">
-                                                    <span class="custom-control-label"></span>
-                                                </label>
-                                            </div>
                                             <div class="d-inline-block align-middle">
                                                 <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
                                                 <div class="d-inline-block">
@@ -371,16 +387,9 @@
                                         </td>
                                         <td>Mashable</td>
                                         <td>March, 31</td>
-                                        <td class="text-right"><label class="badge badge-light-primary">high</label></td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <div class="chk-option">
-                                                <label class="check-task custom-control custom-checkbox d-flex justify-content-center done-task">
-                                                    <input type="checkbox" class="custom-control-input">
-                                                    <span class="custom-control-label"></span>
-                                                </label>
-                                            </div>
                                             <div class="d-inline-block align-middle">
                                                 <img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
                                                 <div class="d-inline-block">
@@ -391,7 +400,6 @@
                                         </td>
                                         <td>Flatable</td>
                                         <td>Aug, 02</td>
-                                        <td class="text-right"><label class="badge badge-light-success">medium</label></td>
                                     </tr>
                                     
                                 </tbody>
