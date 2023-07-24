@@ -43,6 +43,23 @@ public class TaskController {
 		return "redirect:/soop/task";
 	}
 	
+	@GetMapping("/update")
+	public String update(@RequestParam("task_no")int task_no, Model model) {
+		model.addAttribute("dto", taskService.selectOne(task_no));
+		return "/update";
+	}
+	
+	@PostMapping("/update")
+	public String updateOk(@ModelAttribute TaskDTO dto, Model model) {
+		taskService.updateOne(dto);
+		return "redirect:/soop/task";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(@ModelAttribute TaskDTO dto) {
+		taskService.deleteOne(dto);
+		return "redirect:/soop/task";
+	}
 	
 	/*
 	 * @PostMapping("/upload.do") public ModelAndView upload(HttpServletRequest req,

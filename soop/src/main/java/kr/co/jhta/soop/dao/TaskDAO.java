@@ -19,7 +19,7 @@ public interface TaskDAO {
 
 	public void updateOne(TaskDTO dto);
 
-	public void deleteOne(int task_no);
+	public void deleteOne(TaskDTO dto);
 
 	
 }
