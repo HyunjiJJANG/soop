@@ -22,8 +22,8 @@ public class ProjectMemberMysqlService implements ProjectMemberService {
 	}
 
 	@Override
-	public ProjectMemberDTO selectOne(int memberNo) {
-		return dao.selectOne(memberNo);
+	public ProjectMemberDTO selectOne(int member_no) {
+		return dao.selectOne(member_no);
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class ProjectMemberMysqlService implements ProjectMemberService {
 	}
 
 	@Override
-	public void deleteOne(int memberNo) {
-		dao.deleteOne(memberNo);
+	public void deleteOne(int member_no) {
+		dao.deleteOne(member_no);
 		
 	}
 
