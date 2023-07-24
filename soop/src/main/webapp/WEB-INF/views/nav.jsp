@@ -5,6 +5,7 @@
 <head>
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <title>::: SOOP :::</title>
+<link rel="stylesheet" type="text/css" href="/css/nav.css">
 <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 11]>
@@ -89,39 +90,39 @@
 					</li>
 					<li class="nav-item">
 						<a href="#" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-clock-rotate-left" style="color: #707272;"></i></span>
+							<span class="pcoded-micon"><i class="fa-solid fa-clock-rotate-left"></i></span>
 							<span class="pcoded-mtext">히스토리</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="#" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-calendar-days"	style="color: #707272;"></i></span>
+							<span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span>
 							<span class="pcoded-mtext">일정</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="#" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-list-ul" style="color: #707272;"></i></span>
+							<span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span>
 							<span class="pcoded-mtext">내 할 일</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="faq" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-phone-volume" style="color: #707272;"></i></span>
+							<span class="pcoded-micon"><i class="fa-solid fa-phone-volume"></i></span>
 							<span class="pcoded-mtext">고객센터</span>
 						</a>
 					</li>
 					<li class="nav-item pcoded-menu-caption"><label>프로젝트</label></li>
 					<li class="nav-item">
 						<a href="#">
-							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus" style="color: #707272;" data-bs-toggle="modal" data-bs-target="#Modal"></i></span>
+							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus" data-bs-toggle="modal" data-bs-target="#Modal"></i></span>
 							<span class="pcoded-mtext">프로젝트 생성</span>
 						</a>
 					</li>
 					
 					<!-- 프로젝트 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
 					<li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a>
+						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a>
 						<ul class="pcoded-submenu">
 							<li><a href="bc_alert.html">프로젝트1</a></li>
 							<li><a href="bc_button.html">프로젝트2</a></li>
@@ -181,7 +182,7 @@
 			<h4 style="width: 500px;">홍길동님 환영합니다&nbsp;<span class="pcoded-micon"><i class="fa-regular fa-face-smile"></i></span></h4>
 		</div>
 		<div class="collapse navbar-collapse" style="padding-left: 200px;">
-			<h6 style="width: 750px;" align="right">2023년 7월 21일 금요일</h6>
+			<h6 style="width: 700px;" align="right">2023년 7월 21일 금요일</h6>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-auto">
