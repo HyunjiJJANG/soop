@@ -53,7 +53,7 @@
   <body>
   
   	<h2>${list }</h2>  
-  	
+  
     <div class="chartMenu">
       <p>SOOP<span id="chartVersion"></span></p>
     </div>
@@ -61,12 +61,12 @@
     <div class="chartCard">
       <div class="chartBox">
         <canvas id="myChart"></canvas>
-        <input type="month" onchange="chartFilter(this)" /> <!-- 달력 -->
       </div>
     </div>
-           
+    
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+        
     <script>    
    
     //var result = '${list}';
@@ -97,8 +97,8 @@
 		            console.log("프로젝트 상태: " + project_info[i].project_status);
 		            console.log("프로젝트 색: " +project_info[i].color);
 		            console.log("-----"); 
-					
-		            console.log(
+
+					console.log(
 							project_info[i].project_no, 
 							project_info[i].project_title, 
 							project_info[i].project_start_date,
@@ -109,7 +109,6 @@
 	            		                  		            
 	            } 
 */
-
 	            
 	        },
 	        error: function(errorThrown) {
@@ -120,8 +119,8 @@
     
     projectinfo();  
     
-   	console.log(gproject_info); 	
-  	
+   	console.log(gproject_info);
+         
     // setup  
     const data = {
       //labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -130,18 +129,12 @@
         data: [
         	// x : 시작일 / 종료일, y : 프로젝트 이름 / 업무이름, name : 이름 / 다수 이름일 경우 [] 에 작성
         	// Completed : 2 / pending : 1 / Delayed : 0
-        	{x:['2022-10-03', '2022-10-06'], y: 'task1', name: 'James', status: 2 },
-        	{x:['2022-10-06', '2022-10-12'], y: 'task2', name: ['Luna' , ' two'], status: 2 },  
-        	{x:['2022-10-09', '2022-10-12'], y: 'task3', name: 'David', status: 2 }, 
-        	{x:['2022-10-12', '2022-10-21'], y: 'task4', name: 'Lily', status: 2 }, 
-        	{x:['2022-10-15', '2022-10-24'], y: 'task5', name: 'Santino', status: 0 },
-        	
-        	{x:['2022-10-18', '2022-10-30'], y: 'task6', name: 'James', status: 1 }, 
-        	{x:['2022-11-12', '2022-11-21'], y: 'task7', name: 'Lily', status: 1 }, 
-        	{x:['2022-11-15', '2022-11-24'], y: 'task8', name: 'Santino', status: 0}, 
-        	
-        	{x:['2022-11-18', '2022-11-30'], y: 'task9', name: 'James', status: 1 }, 
-        	
+        	{x:['2022-10-03', '2022-10-06'], y: 'project_name', name: 'James', status: 2 },
+        	{x:['2022-10-06', '2022-10-12'], y: 'task1', name: ['Luna' , ' two'], status: 2 },  
+        	{x:['2022-10-09', '2022-10-12'], y: 'task2', name: 'David', status: 2 }, 
+        	{x:['2022-10-12', '2022-10-21'], y: 'task3', name: 'Lily', status: 2 }, 
+        	{x:['2022-10-15', '2022-10-24'], y: 'task4', name: 'Santino', status: 0 }, 
+        	{x:['2022-10-18', '2022-10-30'], y: 'task5', name: 'Bob', status: 1 } 
         ],
         backgroundColor: [
           'rgba(255, 26, 104, 0.2)',
@@ -281,31 +274,6 @@
       document.getElementById('myChart'),
       config
     );
-    
-    // 달력
-    function chartFilter(date){
-    	
-    	const year = date.value.substring(0, 4);
-    	const month = date.value.substring(5, 7);
-    	//console.log(month)
-    	
-    	const lastDay = (y, m) => {
-    		return new Date(y, m, 0).getDate();
-    	}
-    	//console.log(lastDay(year, month)) // 달마다 끝 수 출력 ex) 1월-> 31일 / 12월-> 31일
-    	
-    	const startDate = '<c:out value="${year}"/>';
-    	
-    	console.log(startDate) 
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    	
-    }
 
     // Instantly assign Chart.js version
     const chartVersion = document.getElementById('chartVersion');
