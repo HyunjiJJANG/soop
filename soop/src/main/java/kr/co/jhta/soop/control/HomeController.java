@@ -11,4 +11,10 @@ public class HomeController {
 	public String main(Model model) {
 		return "home";
 	}
+	
+	@GetMapping("/feed")
+	public String main2(Model model) {
+		return "feed";
+	}
+	
 }

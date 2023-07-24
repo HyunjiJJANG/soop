@@ -37,7 +37,7 @@
 	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
 	crossorigin="anonymous"></script>
 <!-- jquery -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -113,8 +113,8 @@
 					</li>
 					<li class="nav-item pcoded-menu-caption"><label>프로젝트</label></li>
 					<li class="nav-item">
-						<a href="#">
-							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus" style="color: #707272;" data-bs-toggle="modal" data-bs-target="#Modal"></i></span>
+						<a href="#" data-bs-toggle="modal" data-bs-target="#Modal">
+							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus" style="color: #707272;"></i></span>
 							<span class="pcoded-mtext">프로젝트 생성</span>
 						</a>
 					</li>
@@ -167,7 +167,7 @@
 	
 	<!-- [ navigation menu ] end -->
 	<!-- [ Header ] start -->
-	<header	class="navbar pcoded-header navbar-expand-lg navbar-light header-dark">
+	<header	class="navbar pcoded-header navbar-expand-lg navbar-light header-dark" style="position: fixed;">
 		<div class="m-header">
 			<a href="#!" class="b-brand"> <!-- ========   change your logo hear   ============ -->
 				<img src="assets/images/logo.png" alt="" class="logo">
@@ -300,12 +300,13 @@
 	<script src="assets/js/pcoded.min.js"></script>
 
 	<!-- Modal -->
-	<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+	<!-- <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true"> -->
+	<div class="modal" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5" id="ModalLabel">새 프로젝트 생성</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				</div>
 				<form action="#" method="post">
 					<div class="modal-body">
@@ -316,7 +317,13 @@
 							</tr>
 							<tr>
 								<td>프로젝트 기간</td>
-								<td><input type="text" class="form-control" id="projectStartDate" name="projectStartDate" placeholder="시작일"></td>
+								<td>
+									<div class="input-group">
+										<input type="text" class="form-control datepicker" name="projectStartDate" id="projectStartDate" placeholder="시작일">
+										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
+									</div>								
+									<!-- <input type="text" class="form-control" id="projectStartDate" name="projectStartDate" placeholder="시작일"> -->
+								</td>
 								<td><input type="text" class="form-control" id="projectEndDate" name="projectEndDate" placeholder="종료일"></td>
 							</tr>
 							<tr>
@@ -326,7 +333,7 @@
 						</table>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" class="btn btn-success" value="프로젝트 생성">
+						<input type="submit" class="btn btn-primary" value="프로젝트 생성">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 					</div>
 				</form>
