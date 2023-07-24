@@ -39,6 +39,4 @@ public class ProjectTaskMemberDTO {
 	private String profile_name;
 	private String profile_path;
 	
-	
-	
 }
