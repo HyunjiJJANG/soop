@@ -2,6 +2,7 @@ package kr.co.jhta.soop.control;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,11 @@ public class ProjectController {
 	@Autowired
 	ProjectService service;
 	
+	// side nav에 프로젝트 목록 띄워주기
+	@GetMapping("/")
+	public String getAll(@RequestParam())
+	
+	// side nav의 프로젝트 생성 버튼 누르면 프로젝트 생성하기
 	@PostMapping("/insertProject")
 	public String insert(@RequestParam("project_no")int project_no,
 						 @RequestParam("project_title")String project_title,

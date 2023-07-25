@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,13 +75,6 @@
 	    }
 	  } );
 
-	/* 프로젝트 생성시 side nav에 프로젝트 링크 추가 */
-	$(document).ready(function(){
-		$("#btnCreateProject").on("click", function(){
-			var txt = "<li><a href="#" class="nav-link"><span class="pcoded-micon"><i class="fa-solid fa-user-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>";
-			$("#projectList").
-		})
-	})
 </script>
 </head>
 <body class="">
@@ -132,7 +126,9 @@
 					<li class="nav-item pcoded-hasmenu">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a>
 						<ul class="pcoded-submenu" id="projectList">
-							<li><a href="#" class="nav-link"><span class="pcoded-micon"><i class="fa-solid fa-user-group"></i></span><span class="pcoded-mtext">[IT]SOOP 프로젝트</span></a></li>
+							<c:forEach var="projectDTO" items="${projectDTOList}">
+								<li><a href="#" class="nav-link"><span class="pcoded-micon"><i class="fa-solid fa-user-group"></i></span><span class="pcoded-mtext">${projectDTO.project_title}</span></a></li>								
+							</c:forEach>
 						</ul>
 					</li>
 <!-- 					<div class="scrollbar" style="overflow-y: auto; height: 300px;">
