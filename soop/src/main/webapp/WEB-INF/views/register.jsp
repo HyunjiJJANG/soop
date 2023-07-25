@@ -306,6 +306,7 @@ form {
 				<h3 class="card-title text-center">SIGN UP</h3>
 				<div class="card-text">
 					<form action="/registerOk" method="post" name="frm" id="frm">
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 						<div class="row g-3 align-items-center " style="width: 800px;">
 							<div class="col-md-6 position-relative">
 								<div class="col-6">
@@ -423,6 +424,7 @@ form {
 							<a href="/clogin">이미 계정이 있습니다</a>
 						</div>
 					</form>
+					
 				</div>
 			</div>
 		</div>

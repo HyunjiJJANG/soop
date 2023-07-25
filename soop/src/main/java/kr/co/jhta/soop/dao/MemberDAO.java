@@ -18,11 +18,15 @@ public  MemberDTO selectOne(int member_no);
 
 public String selectOneByEmail(String email);
 
+public MemberDTO selectMemberByEmail(String email);
+
 public void insertOne(MemberDTO dto);
 
 public void updateOne(MemberDTO dto);
 
 public void deleteOne(int member_no);
+
+public void insertRole(String email);
 	
 
 }
