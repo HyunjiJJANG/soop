@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>HOME : SOOP</title>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-<link rel="stylesheet" type="text/css" href="/css/memo.css">
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+<link rel="stylesheet" type="text/css" href="assets/css/memo.css">
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 <title>::: SOOP :::</title>
@@ -30,6 +31,7 @@
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
+	<!-- 대시보드 일정(캘린더) -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -53,43 +55,9 @@
     </script>
 <body>
 	
-<!DOCTYPE html>
-<html>
-<head>
-<script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
-<title>::: SOOP :::</title>
-<link rel="stylesheet" type="text/css" href="/css/nav.css">
-<!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 11]>
-    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    	<![endif]-->
-<!-- Meta -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="description" content="" />
-<meta name="keywords" content="">
-<meta name="author" content="Phoenixcoded" />
-
-<!-- Favicon icon -->
-<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-
-<!-- vendor css -->
-<link rel="stylesheet" href="assets/css/style.css">
-
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
-	crossorigin="anonymous"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script>
 <!-- jquery -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -125,7 +93,14 @@
 	      }	 
 	      return date;
 	    }
+	    
+	    
+	    
+	    
+	    
+	    
 	  } );
+
   </script>
 </head>
 <body class="">
@@ -619,7 +594,7 @@
                     <!-- 포스트잇 start -->
 						<div class="postbody">
 							<div class="outline">
-									<textarea class="memo-content" name="content" id="content" cols="29" rows="12" placeholder="메모를 입력해주세요" ></textarea>
+									<textarea class="memo_content" name="memo_content" id="memo_content" cols="40" rows="12" placeholder="메모를 입력해주세요" >${memoMemberDTO.memo_content}</textarea>
 							</div>
 						</div>
 					<!-- 포스트잇 end -->

@@ -5,7 +5,7 @@
 <head>
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <title>::: SOOP :::</title>
-<link rel="stylesheet" type="text/css" href="/css/nav.css">
+<link rel="stylesheet" type="text/css" href="assets/css/nav.css">
 <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 11]>
