@@ -75,6 +75,7 @@
     <script>    
  
   	var gproject_info; 
+  	var glist = []; 
   	
     function projectinfo() {
 	    $.ajax({
@@ -88,8 +89,7 @@
 	        	console.log(project_info);
 	        	
 	        	gproject_info = project_info;	// 전역변수로 선언하기 위한 대입
-	        	
-/*	
+
 	            for(var i=0; i<=project_info.length-1; i++ ){
 
 	   	 	        console.log("프로젝트 번호: " + project_info[i].project_no);
@@ -100,19 +100,31 @@
 		            console.log("프로젝트 상태: " + project_info[i].project_status);
 		            console.log("프로젝트 색: " +project_info[i].color);
 		            console.log("-----"); 
-
-					console.log(
-							project_info[i].project_no, 
-							project_info[i].project_title, 
-							project_info[i].project_start_date,
-							project_info[i].project_end_Date,
-							project_info[i].project_description,
-							project_info[i].project_status,
-							project_info[i].color);
-	            		                  		            
-	            } 
-*/
-	            
+		            
+					var p = {
+				    		"project_no": gproject_info[i].project_no, 
+				    		"project_title": gproject_info[i].project_title, 
+				    		"project_start_date": gproject_info[i].project_start_date, 
+				    		"project_end_Date": gproject_info[i].project_end_Date,
+				    		"project_description": gproject_info[i].project_description,
+				    		"project_status": gproject_info[i].project_status,
+				    		"color": gproject_info[i].color
+			    	};
+					
+		            console.log(
+		            		p.project_no  + " : " + 
+		            		p.project_title + " : " + 
+		            		p.project_start_date + " : " + 
+		            		p.project_end_Date + " : " + 
+		            		p.project_description + " : " + 
+		            		p.project_status + " : " + 
+		            		p.color);
+					
+		             glist.push(p); 
+		             
+		        
+	            }
+	        		      	            		                  		               
 	        },
 	        error: function(errorThrown) {
 	            alert(errorThrown.statusText);
@@ -120,39 +132,34 @@
 	    });            
 	}
     
-    projectinfo();  
+    projectinfo(); //  projectinfo() 실행해 
     
-   	console.log(gproject_info);
+    console.log("push 확인 : " + glist);    
+     
+// json형식 예시    
+//	[
+	//x : 시작일 / 종료일, y : 프로젝트 이름 / 업무이름, name : 이름 / 다수 이름일 경우 [] 에 작성
+   	// Completed : 2 / pending : 1 / Delayed : 0   	
+   	//{x:[p.x, p.y], y: 'task1', name: 'James', status: 2 },
    	
-    var project_no;
-    var project_title;
-    var project_start_date;
-    var project_end_Date;
-    var project_description;
-    var project_status;
-    var color;
-   	
+//	]
+	
+	var g2list = 
+    [
+    	{x:[p.project_start_date, p.project_end_Date ], y:project_title, name:"K", status:p.project_status},
+    	{x:[p.project_start_date, p.project_end_Date ], y:project_title, name:"Kk", status:p.project_status} 
+    	
+    ];
+    console.log("g2list 확인 : " + g2list);  
+    
     // setup  
     const data = {
       //labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       datasets: [{
         label: 'Weekly Sales',
-        data: [
-        	// x : 시작일 / 종료일, y : 프로젝트 이름 / 업무이름, name : 이름 / 다수 이름일 경우 [] 에 작성
-        	// Completed : 2 / pending : 1 / Delayed : 0
-        	{x:['2022-10-03', '2022-10-06'], y: 'task1', name: 'James', status: 2 },
-        	{x:['2022-10-06', '2022-10-12'], y: 'task2', name: ['Luna' , ' two'], status: 2 },  
-        	{x:['2022-10-09', '2022-10-12'], y: 'task3', name: 'David', status: 2 }, 
-        	{x:['2022-10-12', '2022-10-21'], y: 'task4', name: 'Lily', status: 2 }, 
-        	{x:['2022-10-15', '2022-10-24'], y: 'task5', name: 'Santino', status: 0 },
-        	
-        	{x:['2022-10-18', '2022-10-30'], y: 'task6', name: 'James', status: 1 }, 
-        	{x:['2022-11-12', '2022-11-21'], y: 'task7', name: 'Lily', status: 1 }, 
-        	{x:['2022-11-15', '2022-11-24'], y: 'task8', name: 'Santino', status: 0 }, 
         
-        	{x:['2022-10-18', '2022-10-30'], y: 'task9', name: 'James', status: 1 }, 
-       	
-        	],
+        data: glist,
+        
         backgroundColor: [
           'rgba(255, 26, 104, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -250,8 +257,8 @@
             		day: 'd'
             	}
             },           
-            min: '2022-10-01',	// x축 : 차트 처음 시작일
-            max: '2022-10-31'	// x축 : 차트 끝 종료일
+            min: '2023-07-01',	// x축 : 차트 처음 시작일
+            max: '2023-08-30'	// x축 : 차트 끝 종료일
           }                  
         },
         plugins:{ 
