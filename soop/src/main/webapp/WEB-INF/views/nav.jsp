@@ -43,8 +43,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-  <script>
-  /* Range Calender */
+<script>
+/* Range Calender */
   $( function() {
 	  	/* dateFormat mm/dd/yy에서 수정함 */
 	    var dateFormat = "yy/mm/dd",
@@ -73,7 +73,15 @@
 	      return date;
 	    }
 	  } );
-  </script>
+
+	/* 프로젝트 생성시 side nav에 프로젝트 링크 추가 */
+	$(document).ready(function(){
+		$("#btnCreateProject").on("click", function(){
+			var txt = "<li><a href="#" class="nav-link"><span class="pcoded-micon"><i class="fa-solid fa-user-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>";
+			$("#projectList").
+		})
+	})
+</script>
 </head>
 <body class="">
 	<!-- [ navigation menu ] start -->
@@ -123,8 +131,8 @@
 					<!-- 프로젝트 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
 					<li class="nav-item pcoded-hasmenu">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a>
-						<ul class="pcoded-submenu">
-							<li><a href="#">프로젝트1</a></li>
+						<ul class="pcoded-submenu" id="projectList">
+							<li><a href="#" class="nav-link"><span class="pcoded-micon"><i class="fa-solid fa-user-group"></i></span><span class="pcoded-mtext">[IT]SOOP 프로젝트</span></a></li>
 						</ul>
 					</li>
 <!-- 					<div class="scrollbar" style="overflow-y: auto; height: 300px;">
@@ -299,7 +307,7 @@
 						<table class="table">
 							<tr>
 								<td>프로젝트 이름</td>
-								<td colspan="2"><input type="text" class="form-control" id="projectName"></td>
+								<td colspan="2"><input type="text" class="form-control" id="projectTitle"></td>
 							</tr>
 							<tr>
 								<td>프로젝트 기간</td>
@@ -319,7 +327,7 @@
 						</table>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" class="btn btn-primary" value="프로젝트 생성">
+						<input type="submit" class="btn btn-primary" id="btnCreateProject" value="프로젝트 생성">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 					</div>
 				</form>
