@@ -104,19 +104,6 @@
 	  } );
 </script>
 
-<!-- 업무 상태 버튼 -->
-<script type="text/javascript">
-	// status_btn1(발의됨) 버튼을 클릭하면, 함수 실행
-	$("#status_btn1").on("click", (e) => { // 클릭하면 익명 함수(>status1();)가 실행됨
-		status1();
-	}); 
-
-	// 발의됨 버튼을 클릭하면 호출되는 함수
-	function status1(){
-		console.log("btn1 클릭됨");
-	}
-</script>
-
 <style>
 	#tb{
 		text-align:center;
@@ -164,7 +151,7 @@
 			<td>${dto.task_end_date}</td>
 			<td>
 					<!-- 수정 모달 버튼 -->
-					<button type="button" class="btn cmodel-btn btn-primary" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-bs-toggle="modal" data-bs-target="#updateModal">수정</button>
+					<button type="button" class="btn cmodel-btn btn-primary" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-status="${dto.task_status}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-bs-toggle="modal" data-bs-target="#updateModal">수정</button>
 					<a href="delete?task_no=${dto.task_no}"><input type="button" value="삭제" class="btn btn-outline-danger" id="btn"/></a>	
 			</td>
 		</tr>
@@ -185,16 +172,19 @@
       <div class="modal-body">
         	<table class="table">
 			<tr>
-				<td>업무 제목</td>
+				<td colspan="8">업무 제목</td>
 				<td><input class="form-control" id="taskName" type="text" name="task_title"></td>
 				<br />
 			</tr>
-			<tr><td colspan="8">업무상태
-				
-				<input type="button" value="발의됨" id="status_btn1" name="task_status"/>
-				<input type="button" value="진행중" id="status_btn2" name="task_status"/>
-				<input type="button" value="일시중지" id="status_btn3" name="task_status"/>
-				<input type="button" value="완료" id="status_btn4" name="task_status"/>
+			<tr><td colspan="8">업무 상태	&nbsp; &nbsp;
+						<td>
+						<select name="task_status"id="task_status" class="form-select" aria-label="Default select example">
+							<option selected>------업무 상태 선택-----</option>
+							<option value="0">발의됨</option>
+							<option value="1">진행중</option>
+							<option value="2">일시중지</option>
+							<option value="3">완료</option>
+						</td>
 			</td></tr>
 			<tr>
 				<table class="table" id="tb" >
@@ -214,12 +204,12 @@
 			</tr>
 			<tr>
 				<!-- Calender -->
-				<label for="from">시작일</label>
+				<label for="from">시작일</label>&nbsp; &nbsp;
 				<input type="text" id="from" name="task_start_date">
 				&nbsp; &nbsp;
-				<label for="to">마감일</label>
+				<label for="to">마감일</label>&nbsp; &nbsp;
 				<input type="text" id="to" name="task_end_date">
-				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
 				<!-- 첨부파일 버튼 -->
 				<button type="button" class="btn btn-outline-secondary">첨부파일</button>
 			</tr>
@@ -258,10 +248,21 @@
       <div class="modal-body">
         	<table class="table">
 			<tr>
-				<td>업무 제목</td>
+				<td colspan="8">업무 제목</td>
 				<td><input class="form-control" id="titlevalue" type="text" name="task_title"></td>
 				<br />
 			</tr>
+			<tr><td colspan="8">업무 상태	&nbsp; &nbsp;
+				<td>
+				<select name="task_status" id="statusvalue" class="form-select" aria-label="Default select example">
+					<option selected>------업무 상태 선택-----</option>
+					<option value="0">발의됨</option>
+					<option value="1">진행중</option>
+					<option value="2">일시중지</option>
+					<option value="3">완료</option>
+				</td>
+			</td></tr>
+			<tr>
 			<tr>
 				<table class="table" id="tb" >
 				<p>결재 라인</p>
@@ -280,12 +281,12 @@
 			</tr>
 			<tr>
 				<!-- Calender -->
-				<label for="from2">시작일</label>
+				<label for="from2">시작일</label>&nbsp; &nbsp;
 				<input type="text" id="startvalue" name="task_start_date">
 				&nbsp; &nbsp;
-				<label for="to2">마감일</label>
+				<label for="to2">마감일</label>&nbsp; &nbsp;
 				<input type="text" id="endvalue" name="task_end_date">
-				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
 				<!-- 첨부파일 버튼 -->
 				<button type="button" class="btn btn-outline-secondary">첨부파일</button>
 			</tr>
@@ -321,6 +322,7 @@
 		var no = $(e.relatedTarget).data().no; // e의 no라는 데이터를 no라는 변수에 대입
 		var title = $(e.relatedTarget).data().title;
 		var content = $(e.relatedTarget).data().content;
+		var status = $(e.relatedTarget).data().status;
 		var start = $(e.relatedTarget).data().start;
 		var end = $(e.relatedTarget).data().end;
 		console.log(no);
@@ -328,6 +330,7 @@
 		$("#tasknovalue").val(no); // #tasknovalue값(수정 모달에서 사용)에 no 밸류 넣기
 		$("#titlevalue").val(title);
 		$("#contentvalue").val(content);
+		$("#statusvalue").val(status);
 		$("#startvalue").val(start);
 		$("#endvalue").val(end);
 	/* 	$("#hvalue2").val(no); */

@@ -1,6 +1,7 @@
 package kr.co.jhta.soop.control;
 
 import java.io.UnsupportedEncodingException;
+import java.net.http.HttpRequest;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -37,8 +38,9 @@ public class TaskController {
 		return "task";
 	}
 	
-	@PostMapping("/insert")
-	public String insert(@ModelAttribute TaskDTO dto) throws UnsupportedEncodingException {
+	@RequestMapping("/insert")
+	public String insert(@ModelAttribute TaskDTO dto, @RequestParam("task_status")int task_status, Model model) throws UnsupportedEncodingException {
+		dto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 		taskService.insertOne(dto);
 		return "redirect:/soop/task";
 	}
@@ -49,8 +51,9 @@ public class TaskController {
 		return "/update";
 	}
 	
-	@PostMapping("/update")
-	public String updateOk(@ModelAttribute TaskDTO dto, Model model) {
+	@RequestMapping("/update")
+	public String updateOk(@ModelAttribute TaskDTO dto, @RequestParam("task_status")int task_status, Model model) {
+		dto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 		taskService.updateOne(dto);
 		return "redirect:/soop/task";
 	}
