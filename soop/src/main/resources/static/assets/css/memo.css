@@ -21,10 +21,11 @@
   border-color:transparent transparent rgba(255, 255, 255, 0.9); 
 } */
 
-.memo-content{
+.memo_content{
   font-size: 15px;
   margin:10px;
   background-color:transparent;
   border: none;
   resize: none;
+  overflow:hidden;
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.jhta.soop.dao.MemoMemberDAO">
+ <select id="selectOne" parameterType="int" resultType="kr.co.jhta.soop.dto.MemoMemberDTO">
+ 	SELECT memo_content
+ 	FROM memo mm JOIN member m
+ 	ON mm.member_no = m.member_no
+ 	WHERE mm.member_no = #{member_no} 
+ </select>
+ <insert id="insertOne" parameterType="kr.co.jhta.soop.dto.MemoMemberDTO">
+ 	INSERT INTO memo
+ 	VALUES (#{member_no}, #{memo_content})
+ </insert>
+ <update id="updateOne" parameterType="kr.co.jhta.soop.dto.MemoMemberDTO">
+ 	UPDATE memo
+ 	SET memo_content = #{memo_content}
+ 	WHERE member_no = #{member_no}
+ </update>
+</mapper>
