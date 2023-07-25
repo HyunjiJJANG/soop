@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+<<<<<<< HEAD
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang='en'>
@@ -62,5 +63,16 @@ p{
 			</p>
 		</div>
 	</div>
+=======
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>test.jsp</h2>
+>>>>>>> refs/remotes/origin/develop
 </body>
 </html>
