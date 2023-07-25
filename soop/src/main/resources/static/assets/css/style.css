@@ -3004,7 +3004,7 @@ fieldset:disabled a.btn {
     border-color: #1abc9c;
 }
 
-.btn-outline-primary:hover {
+.btn-outline-primary:hover{
     color: #fff;
     background-color: #1abc9c;
     border-color: #1abc9c;
@@ -11144,6 +11144,7 @@ a.text-dark:hover, a.text-dark:focus {
     content: "\e87a";
 }
 
+
 .icon-github:before {
     content: "\e87b";
 }
@@ -11506,6 +11507,10 @@ a.text-dark:hover, a.text-dark:focus {
 
 .icon-thumbs-up:before {
     content: "\e8d6";
+}
+
+.fa-pen-to-square:before {
+    content: "\f044";
 }
 
 .icon-thumbs-down:before {
@@ -24405,6 +24410,7 @@ body.box-layout .pcoded-navbar.theme-horizontal ~ .pcoded-header {
 
 .table-card .card-body .table > thead > tr > th {
     border-top: 0;
+    
 }
 
 .table-card .card-body .table .chk-option {
