@@ -201,7 +201,7 @@
                     </div>
                 </div>
             </div>
-            			<div class="col-xl-6 col-md-12">
+            <div class="col-xl-6 col-md-12">
                 <div class="card table-card">
                     <div class="card-header">
                         <h5>참여 중인 프로젝트</h5>
@@ -249,12 +249,12 @@
             </div>
             
 		<!-- buttons -->            
-		<div class="col-xl-2 col-md-12" style="position: fixed; top: 150px; right: 20px;">
+		<div class="col-xl-2 col-md-12" style="position: fixed; top: 150px; right: 508px;">
 			<button class="btn btn-primary col-md-12" type="button"><i class="fa-solid fa-pen-to-square" style="color: #fff;"></i>&nbsp;&nbsp;업무 등록</button> <br />
 		</div>
                 
 		<!-- project member start -->
-        <div class="col-xl-2 col-md-12" style="position: fixed; top: 200px; right: 20px;">
+        <div class="col-xl-2 col-md-12" style="position: fixed; top: 200px; right: 508px;">
             <div class="card table-card">
                 <div class="card-header">
                     <h5>참여자</h5>
@@ -311,6 +311,72 @@
                 </div>
             </div>
         </div>
+		
+		<!-- chatting -->
+		<div class="col-lg-3 col-md-30" style="position: fixed; top: 150px; right: 20px;">
+                <div class="card chat-card">
+                    <div class="card-header">
+                        <h5>대화</h5>
+                        <div class="card-header-right">
+                            <div class="btn-group card-option">
+                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="feather icon-more-horizontal"></i>
+                                </button>
+                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+                                    <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
+                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
+                                    <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
+                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row m-b-20 received-chat">
+                            <div class="col-auto p-r-0">
+                                <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
+                            </div>
+                            <div class="col">
+                                <div class="msg">
+                                    <p class="m-b-0">Nice to meet you!</p>
+                                </div>
+                                <p class="text-muted m-b-0"><i class="fa fa-clock-o m-r-10"></i>10:20am</p>
+                            </div>
+                        </div>
+                        <div class="row m-b-20 send-chat">
+                            <div class="col">
+                                <div class="msg">
+                                    <p class="m-b-0">Nice to meet you!</p>
+                                </div>
+                                <p class="text-muted m-b-0"><i class="fa fa-clock-o m-r-10"></i>10:20am</p>
+                            </div>
+                            <div class="col-auto p-l-0">
+                                <img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40">
+                            </div>
+                        </div>
+                        <div class="row m-b-20 received-chat">
+                            <div class="col-auto p-r-0">
+                                <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
+                            </div>
+                            <div class="col">
+                                <div class="msg">
+                                    <p class="m-b-0">Nice to meet you!</p>
+                                    <img src="assets/images/widget/dashborad-1.jpg" alt="">
+                                    <img src="assets/images/widget/dashborad-3.jpg" alt="">
+                                </div>
+                                <p class="text-muted m-b-0"><i class="fa fa-clock-o m-r-10"></i>10:20am</p>
+                            </div>
+                        </div>
+                        <div class="input-group m-t-15">
+                            <input type="text" name="task-insert" class="form-control" id="Project" placeholder="Send message">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary">
+                                    <i class="feather icon-message-circle"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 		
 		
 		</div>

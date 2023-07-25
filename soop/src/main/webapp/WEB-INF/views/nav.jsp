@@ -114,13 +114,8 @@
 					</li>
 					<li class="nav-item pcoded-menu-caption"><label>프로젝트</label></li>
 					<li class="nav-item">
-<<<<<<< HEAD
 						<a href="#" data-bs-toggle="modal" data-bs-target="#Modal">
-							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus" style="color: #707272;"></i></span>
-=======
-						<a href="#">
-							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus" data-bs-toggle="modal" data-bs-target="#Modal"></i></span>
->>>>>>> refs/remotes/origin/seulki
+							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus"></i></span>
 							<span class="pcoded-mtext">프로젝트 생성</span>
 						</a>
 					</li>
@@ -129,22 +124,7 @@
 					<li class="nav-item pcoded-hasmenu">
 						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a>
 						<ul class="pcoded-submenu">
-							<li><a href="bc_alert.html">프로젝트1</a></li>
-							<li><a href="bc_button.html">프로젝트2</a></li>
-							<li><a href="bc_badges.html">프로젝트1</a></li>
-							<li><a href="bc_breadcrumb-pagination.html">프로젝트2</a></li>
-							<li><a href="bc_card.html">프로젝트1</a></li>
-							<li><a href="bc_collapse.html">프로젝트2</a></li>
-							<li><a href="bc_carousel.html">프로젝트2</a></li>
-							<li><a href="bc_grid.html">프로젝트1</a></li>
-							<li><a href="bc_progress.html">프로젝트2</a></li>
-							<li><a href="bc_modal.html">프로젝트1</a></li>
-							<li><a href="bc_spinner.html">프로젝트2</a></li>
-							<li><a href="bc_tabs.html">프로젝트1</a></li>
-							<li><a href="bc_typography.html">프로젝트2</a></li>
-							<li><a href="bc_tooltip-popover.html">프로젝트1</a></li>
-							<li><a href="bc_toasts.html">프로젝트2</a></li>
-							<li><a href="bc_extra.html">프로젝트1</a></li>
+							<li><a href="#">프로젝트1</a></li>
 						</ul>
 					</li>
 <!-- 					<div class="scrollbar" style="overflow-y: auto; height: 300px;">
