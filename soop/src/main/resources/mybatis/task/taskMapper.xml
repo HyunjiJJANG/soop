@@ -24,7 +24,7 @@
 		WHERE task_no = #{task_no}
 	</select>
 	
-
+	
 	<update id="updateOne" parameterType="kr.co.jhta.soop.dto.TaskDTO">
 		UPDATE task
 		SET task_title = #{task_title}, task_register_date = DATE_ADD(NOW(), INTERVAL 9 HOUR), task_content = #{task_content}, task_status = #{task_status}, task_start_date = DATE_FORMAT(STR_TO_DATE(#{task_start_date}, '%m/%d/%Y'),'%Y-%m-%d '), task_end_date = DATE_FORMAT(STR_TO_DATE( #{task_end_date}, '%m/%d/%Y'),'%Y-%m-%d ')
