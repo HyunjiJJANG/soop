@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
@@ -9,7 +8,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>gantt chart</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<!--     
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+-->
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <style>
       * {
         margin: 0;
@@ -48,34 +51,34 @@
     
     <!-- 프로젝트 상태표시 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 	
   </head>
   
   <body>
   
-  	<h2>${list }</h2>  
-  
     <div class="chartMenu">
-      <p>SOOP<span id="chartVersion"></span></p>
+      <p><span id="chartVersion"></span></p>
     </div>
     
     <div class="chartCard">
       <div class="chartBox">
         <canvas id="myChart"></canvas>
+        <input type="month" onchange="chartFilter(this)" /> 
+        
       </div>
     </div>
     
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+   	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+   
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
         
     <script>    
-   
-    //var result = '${list}';
-    
+ 
   	var gproject_info; 
   	
     function projectinfo() {
 	    $.ajax({
-	        url: "<c:url value="/data" />",
+	        url: "<c:url value="/data" />",	        
 	        type: "get",
 	        //data: JSON.stringify(obj),
 	        dataType: "json",
@@ -129,13 +132,19 @@
         data: [
         	// x : 시작일 / 종료일, y : 프로젝트 이름 / 업무이름, name : 이름 / 다수 이름일 경우 [] 에 작성
         	// Completed : 2 / pending : 1 / Delayed : 0
-        	{x:['2022-10-03', '2022-10-06'], y: 'project_name', name: 'James', status: 2 },
-        	{x:['2022-10-06', '2022-10-12'], y: 'task1', name: ['Luna' , ' two'], status: 2 },  
-        	{x:['2022-10-09', '2022-10-12'], y: 'task2', name: 'David', status: 2 }, 
-        	{x:['2022-10-12', '2022-10-21'], y: 'task3', name: 'Lily', status: 2 }, 
-        	{x:['2022-10-15', '2022-10-24'], y: 'task4', name: 'Santino', status: 0 }, 
-        	{x:['2022-10-18', '2022-10-30'], y: 'task5', name: 'Bob', status: 1 } 
-        ],
+        	{x:['2022-10-03', '2022-10-06'], y: 'task1', name: 'James', status: 2 },
+        	{x:['2022-10-06', '2022-10-12'], y: 'task2', name: ['Luna' , ' two'], status: 2 },  
+        	{x:['2022-10-09', '2022-10-12'], y: 'task3', name: 'David', status: 2 }, 
+        	{x:['2022-10-12', '2022-10-21'], y: 'task4', name: 'Lily', status: 2 }, 
+        	{x:['2022-10-15', '2022-10-24'], y: 'task5', name: 'Santino', status: 0 },
+        	
+        	{x:['2022-10-18', '2022-10-30'], y: 'task6', name: 'James', status: 1 }, 
+        	{x:['2022-11-12', '2022-11-21'], y: 'task7', name: 'Lily', status: 1 }, 
+        	{x:['2022-11-15', '2022-11-24'], y: 'task8', name: 'Santino', status: 0 }, 
+        
+        	{x:['2022-10-18', '2022-10-30'], y: 'task9', name: 'James', status: 1 }, 
+       	
+        	],
         backgroundColor: [
           'rgba(255, 26, 104, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -242,17 +251,20 @@
         	tooltip: {
         		callbacks: {
         			title: (ctx) => {
-        				
-        				console.log(ctx[0].raw.x[0])
+        				//console.log(ctx)
+        				//console.log(ctx[0].raw.x[0])
         				
         				const startDate = new Date(ctx[0].raw.x[0])
         				const endDate = new Date(ctx[0].raw.x[1])
+        				
+        				//console.log(startDate)
+        				//console.log(endDate)
         				
         				const formattedStartDate = startDate.toLocaleString([], {
         					year:'numeric',
         					month:'short',
         					day:'numeric',       					
-        				});
+        				});        				        			
         				
         				const formattedEndDate = endDate.toLocaleString([], {
         					year:'numeric',
@@ -261,6 +273,7 @@
         				});      			
         				
         				return [ctx[0].raw.name, "기간 : " + formattedStartDate + " ~ " + formattedEndDate];
+        			
         			}
         		}
         	}
@@ -274,6 +287,17 @@
       document.getElementById('myChart'),
       config
     );
+    
+    function chartFilter(date){
+    	const year = date.value.substring(0,4);
+    	const month = date.value.substring(5,7);
+    	const lastDay = (y,m) => {
+	    	return new Date(y,m,0).getDate();    		
+    	}
+    	console.log(lastDay(year,month))
+    }
+    
+    
 
     // Instantly assign Chart.js version
     const chartVersion = document.getElementById('chartVersion');

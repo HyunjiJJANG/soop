@@ -32,7 +32,7 @@ public class GanttController {
 	@ResponseBody
 	
 	public List<ProjectDTO> getData(Model model) {
-		model.addAttribute("list", PJservice.selectAll());
+		model.addAttribute("list", PJservice.selectAll());		
 		return PJservice.selectAll();
 	}
 	
