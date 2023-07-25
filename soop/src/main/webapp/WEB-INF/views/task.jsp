@@ -25,14 +25,14 @@
 	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
 	crossorigin="anonymous"></script>
 <!-- jquery -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>jQuery UI Datepicker - Default functionality</title>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-  <script>
-  // Range Calender (생성)
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>jQuery UI Datepicker - Default functionality</title>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+// Range Calender (생성)
   $( function() {
 	    var dateFormat = "yyyy-MM-dd",
 	      from = $( "#from" )
@@ -66,9 +66,9 @@
 	      return date;
 	    }
 	  } );
-  </script>
-  <script>
-  // Range Calender (수정)
+</script>
+<script>
+// Range Calender (수정)
   $( function() {
 	    var dateFormat = "yyyy-MM-dd",
 	    startvalue = $( "#startvalue" )
@@ -102,12 +102,27 @@
 	      return date;
 	    }
 	  } );
-  </script>
+</script>
+
+<!-- 업무 상태 버튼 -->
+<script type="text/javascript">
+	// status_btn1(발의됨) 버튼을 클릭하면, 함수 실행
+	$("#status_btn1").on("click", (e) => { // 클릭하면 익명 함수(>status1();)가 실행됨
+		status1();
+	}); 
+
+	// 발의됨 버튼을 클릭하면 호출되는 함수
+	function status1(){
+		console.log("btn1 클릭됨");
+	}
+</script>
+
 <style>
 	#tb{
 		text-align:center;
 	}
 </style>
+
 </head>
 <body>
 	<h2>test page - main</h2>
@@ -175,10 +190,11 @@
 				<br />
 			</tr>
 			<tr><td colspan="8">업무상태
-				<input type="button" value="발의됨" id="status_btn1"/>
-				<input type="button" value="진행중" id="status_btn2"/>
-				<input type="button" value="일시중지" id="status_btn3"/>
-				<input type="button" value="완료" id="status_btn4"/>
+				
+				<input type="button" value="발의됨" id="status_btn1" name="task_status"/>
+				<input type="button" value="진행중" id="status_btn2" name="task_status"/>
+				<input type="button" value="일시중지" id="status_btn3" name="task_status"/>
+				<input type="button" value="완료" id="status_btn4" name="task_status"/>
 			</td></tr>
 			<tr>
 				<table class="table" id="tb" >
