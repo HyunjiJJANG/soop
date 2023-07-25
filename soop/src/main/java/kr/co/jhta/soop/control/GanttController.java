@@ -29,8 +29,7 @@ public class GanttController {
 	}
 	
 	@GetMapping("/data")
-	@ResponseBody
-	
+	@ResponseBody	
 	public List<ProjectDTO> getData(Model model) {
 		model.addAttribute("list", PJservice.selectAll());		
 		return PJservice.selectAll();

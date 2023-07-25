@@ -123,7 +123,15 @@
     projectinfo();  
     
    	console.log(gproject_info);
-         
+   	
+    var project_no;
+    var project_title;
+    var project_start_date;
+    var project_end_Date;
+    var project_description;
+    var project_status;
+    var color;
+   	
     // setup  
     const data = {
       //labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
