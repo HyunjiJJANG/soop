@@ -18,7 +18,9 @@ public class ProjectController {
 	
 	// side nav에 프로젝트 목록 띄워주기
 	@GetMapping("/")
-	public String getAll(@RequestParam())
+	public String getAll() {
+		return "";
+	}
 	
 	// side nav의 프로젝트 생성 버튼 누르면 프로젝트 생성하기
 	@PostMapping("/insertProject")
