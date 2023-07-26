@@ -20,6 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource datasource;
 
+	
 	@Autowired
 	CustomerOAuth2UserDetailService userDetailService;
 	
