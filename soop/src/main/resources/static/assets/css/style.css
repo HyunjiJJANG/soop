@@ -168,7 +168,7 @@ File: style.css
   top: 0;
 }
 /* 스크롤바의 폭 너비 */
-.scrollbar::-webkit-scrollbar {
+.scrollbar::-webkit-scrollbar{
     width: 15px;  
 }
 .scrollbar::-webkit-scrollbar-thumb {
@@ -177,6 +177,18 @@ File: style.css
 }
 .scrollbar::-webkit-scrollbar-track {
     background: #F6F6F6;  /*스크롤바 뒷 배경 색상*/
+    border-radius: 0px; /* 스크롤바 뒷 배경 테두리 */
+}
+/* 네비 스크롤바 스타일적용 */
+.nav-scrollbar::-webkit-scrollbar{
+    width: 15px;  
+}
+.nav-scrollbar::-webkit-scrollbar-thumb {
+    background: #1ABC9C; /* 스크롤바 색상 */
+    border-radius: 9px; /* 스크롤바 둥근 테두리 */
+}
+.nav-scrollbar::-webkit-scrollbar-track {
+    background: #D5F5E3;  /*스크롤바 뒷 배경 색상*/
     border-radius: 0px; /* 스크롤바 뒷 배경 테두리 */
 }
 /* .ps__rail-x {

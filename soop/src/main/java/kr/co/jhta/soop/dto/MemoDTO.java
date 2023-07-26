@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemoMemberDTO {
+public class MemoDTO {
 	private int member_no;
 	private String memo_content;
 }

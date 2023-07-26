@@ -52,6 +52,7 @@
         });
         calendar.render(); // 달력을 띄워 주는 메뉴
       });
+
     </script>
 <body>
 	
@@ -93,278 +94,27 @@
 	      }	 
 	      return date;
 	    }
-	    
-	    
-	    
-	    
-	    
-	    
+
 	  } );
 
+  // 메모 비동기 수정
+  $(function(){
+	  $("#memo_content").on("focusout", function(event){
+		  var memo_content = $("#memo_content").val();
+	  	  $.ajax({
+	  		  type: "POST",
+	  		  url: "/home?member_no=1",
+	  		  data:{
+	  			  "memo_content" : memo_content
+	  		  }
+	  	  })
+	  })
+  })
   </script>
+  
 </head>
-<body class="">
-	<!-- [ navigation menu ] start -->
-	<nav class="pcoded-navbar  ">
-		<div class="navbar-wrapper  ">
-			<div class="navbar-content scroll-div ">
-				<ul class="nav pcoded-inner-navbar ">
-					<li class="nav-item pcoded-menu-caption"><label>모아보기</label></li>
-					<li class="nav-item">
-						<a href="#" class="nav-link ">
-							<span class="pcoded-micon"><i class="feather icon-home"></i></span>
-							<span class="pcoded-mtext">홈</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-clock-rotate-left"></i></span>
-							<span class="pcoded-mtext">히스토리</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span>
-							<span class="pcoded-mtext">일정</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="#" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span>
-							<span class="pcoded-mtext">내 할 일</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="faq" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-phone-volume"></i></span>
-							<span class="pcoded-mtext">고객센터</span>
-						</a>
-					</li>
-					<li class="nav-item pcoded-menu-caption"><label>프로젝트</label></li>
-					<li class="nav-item">
-						<a href="#">
-							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus" data-bs-toggle="modal" data-bs-target="#Modal"></i></span>
-							<span class="pcoded-mtext">프로젝트 생성</span>
-						</a>
-					</li>
-					
-					<!-- 프로젝트 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
-					<li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a>
-						<ul class="pcoded-submenu">
-							<li><a href="bc_alert.html">프로젝트1</a></li>
-							<li><a href="bc_button.html">프로젝트2</a></li>
-							<li><a href="bc_badges.html">프로젝트1</a></li>
-							<li><a href="bc_breadcrumb-pagination.html">프로젝트2</a></li>
-							<li><a href="bc_card.html">프로젝트1</a></li>
-							<li><a href="bc_collapse.html">프로젝트2</a></li>
-							<li><a href="bc_carousel.html">프로젝트2</a></li>
-							<li><a href="bc_grid.html">프로젝트1</a></li>
-							<li><a href="bc_progress.html">프로젝트2</a></li>
-							<li><a href="bc_modal.html">프로젝트1</a></li>
-							<li><a href="bc_spinner.html">프로젝트2</a></li>
-							<li><a href="bc_tabs.html">프로젝트1</a></li>
-							<li><a href="bc_typography.html">프로젝트2</a></li>
-							<li><a href="bc_tooltip-popover.html">프로젝트1</a></li>
-							<li><a href="bc_toasts.html">프로젝트2</a></li>
-							<li><a href="bc_extra.html">프로젝트1</a></li>
-						</ul>
-					</li>
-<!-- 					<div class="scrollbar" style="overflow-y: auto; height: 300px;">
-						<li class="nav-item">
-							<a href="#">
-								<span class="pcoded-micon"><i class="fa-regular fa-file" style="color: #707272;"></i></span>
-								<span class="pcoded-mtext">프로젝트1</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="#">
-								<span class="pcoded-micon"><i class="fa-regular fa-file" style="color: #707272;"></i></span>
-								<span class="pcoded-mtext">프로젝트2</span>
-							</a>
-						</li>
-
-					</div> -->
-					
-					<br><br>
-					
-
-				</ul>
-			</div>
-		</div>
-	</nav>
-	
-	<!-- [ navigation menu ] end -->
-	<!-- [ Header ] start -->
-	<header	class="navbar pcoded-header navbar-expand-lg navbar-light header-dark">
-		<div class="m-header">
-			<a href="#!" class="b-brand"> <!-- ========   change your logo hear   ============ -->
-				<img src="assets/images/logo.png" alt="" class="logo">
-				<img src="assets/images/logo-icon.png" alt="" class="logo-thumb">
-			</a> 
-			<a href="#!" class="mob-toggler"> 
-				<i class="feather icon-more-vertical"></i>
-			</a>
-		</div>
-		<div class="collapse navbar-collapse" style="padding-left: 20px;">
-			<h4 style="width: 500px;">홍길동님 환영합니다&nbsp;<span class="pcoded-micon"><i class="fa-regular fa-face-smile"></i></span></h4>
-		</div>
-		<div class="collapse navbar-collapse" style="padding-left: 200px;">
-			<h6 style="width: 700px;" align="right">2023년 7월 21일 금요일</h6>
-		</div>
-		<div class="collapse navbar-collapse">
-			<ul class="navbar-nav ml-auto">
-				<li>
-					<div class="dropdown">
-						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
-							<i class="icon feather icon-bell"></i>
-							<span class="badge badge-pill badge-danger">5</span>
-						</a>
-						<div class="dropdown-menu dropdown-menu-right notification">
-							<div class="noti-head">
-								<h6 class="d-inline-block m-b-0">알림</h6>
-								<div class="float-right">
-									<a href="#!">읽음 처리</a>
-								</div>
-							</div>
-							<ul class="noti-body">
-								<li class="notification">
-									<div class="media">
-										<img class="img-radius" src="assets/images/user/avatar-1.jpg"
-											alt="Generic placeholder image">
-										<div class="media-body">
-											<p>
-												<strong>John Doe</strong>
-												<span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>5 min</span>
-											</p>
-											<p>New ticket Added</p>
-										</div>
-									</div>
-								</li>
-								<li class="notification">
-									<div class="media">
-										<img class="img-radius" src="assets/images/user/avatar-2.jpg"
-											alt="Generic placeholder image">
-										<div class="media-body">
-											<p>
-												<strong>Joseph William</strong>
-												<span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>10 min</span>
-											</p>
-											<p>Prchace New Theme and make payment</p>
-										</div>
-									</div>
-								</li>
-								<li class="notification">
-									<div class="media">
-										<img class="img-radius" src="assets/images/user/avatar-1.jpg"
-											alt="Generic placeholder image">
-										<div class="media-body">
-											<p>
-												<strong>Sara Soudein</strong>
-												<span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>12 min</span>
-											</p>
-											<p>currently login</p>
-										</div>
-									</div>
-								</li>
-								<li class="notification">
-									<div class="media">
-										<img class="img-radius" src="assets/images/user/avatar-2.jpg"
-											alt="Generic placeholder image">
-										<div class="media-body">
-											<p>
-												<strong>Joseph William</strong>
-												<span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span>
-											</p>
-											<p>Prchace New Theme and make payment</p>
-										</div>
-									</div>
-								</li>
-							</ul>
-							<div class="noti-footer">
-								<a href="#!">모든 히스토리 보기</a>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="dropdown drp-user">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-							<i class="feather icon-user"></i>
-						</a>
-						<div
-							class="dropdown-menu dropdown-menu-right profile-notification">
-							<div class="pro-head">
-								<img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-								<span>John Doe</span>
-							</div>
-							<ul class="pro-body">
-								<li>
-									<a href="user-profile.html" class="dropdown-item">
-										<i class="feather icon-user" style="color: #707272;"></i>마이페이지
-									</a>
-								</li>
-								<li>
-									<a href="email_inbox.html" class="dropdown-item">
-										<i class="fa-regular fa-address-book" style="color: #707272;"></i>주소록
-									</a>
-								</li>
-								<li>
-									<a href="auth-signin.html" class="dropdown-item">
-										<i class="feather icon-log-out" style="color: #707272;"></i>로그아웃
-									</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
-	</header>
-	<!-- [ Header ] end -->
-	
-	<!-- Required Js -->
-	<script src="assets/js/vendor-all.min.js"></script>
-	<script src="assets/js/plugins/bootstrap.min.js"></script>
-	<script src="assets/js/pcoded.min.js"></script>
-
-	<!-- Modal -->
-	<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="ModalLabel">새 프로젝트 생성</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<form action="#" method="post">
-					<div class="modal-body">
-						<table class="table">
-							<tr>
-								<td>프로젝트 이름</td>
-								<td colspan="2"><input type="text" class="form-control" id="projectName"></td>
-							</tr>
-							<tr>
-								<td>프로젝트 기간</td>
-								<td><input type="text" class="form-control" id="projectStartDate" name="projectStartDate" placeholder="시작일"></td>
-								<td><input type="text" class="form-control" id="projectEndDate" name="projectEndDate" placeholder="종료일"></td>
-							</tr>
-							<tr>
-								<td>프로젝트 설명</td>
-								<td colspan="2"><textarea class="form-control" name="projectContent" id="projectContent" rows="5"></textarea></td>
-							</tr>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<input type="submit" class="btn btn-success" value="프로젝트 생성">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
-
+<body>
+	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
 	<!-- 왼쪽 네비바(삭제금지) -->
 	<div class="pcoded-main-container">
@@ -394,16 +144,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <c:forEach var="dto" items="${list}">
                                     <tr>
                                         <td  colspan="2">
                                             <div class="d-inline-block align-middle">
                                                 <div class="d-inline-block">
-                                                    <h6>[중앙HTA] SOOP 프로젝트</h6>
+                                                    <h6>${dto.project_title}</h6>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>23/7/21 ~ 23/7/23</td>
-                                        <td><label class="badge badge-light-danger">보류</label></td>
+                                        <td>${dto.project_start_date} ~ ${dto.project_end_Date}</td>
+                                        <td><label class="badge badge-light-primary"">${dto.project_status}</label></td>
                                     </tr>
                                     <tr>
                                         <td  colspan="2">
@@ -460,7 +211,7 @@
                                         <td>23/7/31 ~ 23/8/23</td>
                                         <td><label class="badge badge-light-success">진행중</label></td>
                                     </tr>
-                                    
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -594,7 +345,7 @@
                     <!-- 포스트잇 start -->
 						<div class="postbody">
 							<div class="outline">
-									<textarea class="memo_content" name="memo_content" id="memo_content" cols="40" rows="12" placeholder="메모를 입력해주세요" >${memoMemberDTO.memo_content}</textarea>
+									<textarea class="memo_content" name="memo_content" id="memo_content" cols="40" rows="12" placeholder="메모를 입력해주세요" >${memoDTO.memo_content}</textarea>
 							</div>
 						</div>
 					<!-- 포스트잇 end -->
