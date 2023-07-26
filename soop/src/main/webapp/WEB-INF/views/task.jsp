@@ -161,7 +161,7 @@
 
 <!-- 업무 생성 모달 -->
 <!-- 일단 업무 생성 구현 용으로 project_no와 member_no을 임의로 지정 -->
-<form action="insert?project_no=1&member_no=1" method="post">
+<form action="insert?project_no=1&member_no=1" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
 <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -179,8 +179,8 @@
 			<tr><td colspan="8">업무 상태	&nbsp; &nbsp;
 						<td>
 						<select name="task_status"id="task_status" class="form-select" aria-label="Default select example">
-							<option selected>------업무 상태 선택-----</option>
-							<option value="0">발의됨</option>
+							<!-- <option selected>------업무 상태 선택-----</option> -->
+							<option selected value="0">발의됨</option>
 							<option value="1">진행중</option>
 							<option value="2">일시중지</option>
 							<option value="3">완료</option>
@@ -210,8 +210,13 @@
 				<label for="to">마감일</label>&nbsp; &nbsp;
 				<input type="text" id="to" name="task_end_date">
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
-				<!-- 첨부파일 버튼 -->
-				<button type="button" class="btn btn-outline-secondary">첨부파일</button>
+			</tr>
+			<br /><br />
+			<tr>	
+				<!-- 첨부파일 -->
+				<!-- controller로 file 넘김 -->
+				<input type="file" name="file" id="" /> 
+
 			</tr>
 			<tr>
 				<br />
@@ -287,7 +292,8 @@
 				<label for="to2">마감일</label>&nbsp; &nbsp;
 				<input type="text" id="endvalue" name="task_end_date">
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
-				<!-- 첨부파일 버튼 -->
+				
+				<!-- 첨부파일 버튼 (수정해야함) -->
 				<button type="button" class="btn btn-outline-secondary">첨부파일</button>
 			</tr>
 			<tr>
@@ -298,8 +304,10 @@
 				<br />
 				<td><textarea class="form-control" id="contentvalue" rows="10" name="task_content" ></textarea></td>
 			</tr>
+			
 		</table>
       </div>
+      
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
         <button type="submit" class="btn btn-primary">업무 수정</button>
@@ -340,6 +348,36 @@
 	});
 </script>
 
+<!-- 첨부파일 -->
+<!-- <script>
+	$(document).on('click', '#attachedBtn', function(e) {
+	   머리로는 알겠는데
+	   코드를 모르겠어요
+	   ㅠㅠ
+	});
+</script> -->
+
+<!-- <script type="text/javascript">
+    $(document).ready(function() {
+        $("a[name='file-delete']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile($(this));
+        });
+    })
+ 
+    function addFile() {
+        var str = "<div class='file-group'><input type='file' name='file'><a href='#this' name='file-delete'>삭제</a></div>";
+        $("#file-list").append(str);
+        $("a[name='file-delete']").on("click", function(e) {
+            e.preventDefault();
+            deleteFile($(this));
+        });
+    }
+ 
+    function deleteFile(obj) {
+        obj.parent().remove();
+    }
+</script> -->
 
 </body>
 </html>
