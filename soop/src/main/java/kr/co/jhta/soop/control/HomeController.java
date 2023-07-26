@@ -23,16 +23,16 @@ public class HomeController {
 
 	
 	// 홈화면 처음 들어갈 때 프로젝트,파일함,메모,캘린더,관심업무 보여주기
-	@GetMapping("/home")
-	public String showHome(@RequestParam("member_no")int member_no, Model model) {
-		MemoDTO dto = memoService.selectOne(member_no);
-		// List<ProjectDTO> list =proService.selectAll();
-		
-		model.addAttribute("memoDTO", dto);
-		// model.addAttribute("list", list);
-		
-		return "home";
-	}
+//	@GetMapping("/home")
+//	public String showHome(@RequestParam("member_no")int member_no, Model model) {
+//		MemoDTO dto = memoService.selectOne(member_no);
+//		// List<ProjectDTO> list =proService.selectAll();
+//		
+//		model.addAttribute("memoDTO", dto);
+//		// model.addAttribute("list", list);
+//		
+//		return "home";
+//	}
 	
 	// 메모 수정
 	@PostMapping("/home")
