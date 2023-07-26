@@ -4,8 +4,8 @@
   float: left;
   background-color: #ffff99;
   border: 1px;
-  width: 315px;
-  height: 290px;
+  width: auto;
+  height: auto;
   margin: 10px;
   padding: 10px;
   font-family: 'Nanum Pen Script', cursive;
@@ -21,10 +21,11 @@
   border-color:transparent transparent rgba(255, 255, 255, 0.9); 
 } */
 
-.memo-content{
+.memo_content{
   font-size: 15px;
   margin:10px;
   background-color:transparent;
   border: none;
   resize: none;
+  overflow:hidden;
 }

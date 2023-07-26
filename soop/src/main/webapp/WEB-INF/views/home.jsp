@@ -1,13 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<<<<<<< HEAD
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+=======
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+>>>>>>> refs/remotes/origin/seulki
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>HOME : SOOP</title>
-<link rel="stylesheet" type="text/css" href="/css/main.css">
-<link rel="stylesheet" type="text/css" href="/css/memo.css">
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+<link rel="stylesheet" type="text/css" href="assets/css/memo.css">
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 <title>::: SOOP :::</title>
@@ -31,6 +35,7 @@
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
+	<!-- 대시보드 일정(캘린더) -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
@@ -51,7 +56,67 @@
         });
         calendar.render(); // 달력을 띄워 주는 메뉴
       });
+
     </script>
+<body>
+	
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script>
+<!-- jquery -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+  <script>
+  /* Range Calender */
+  $( function() {
+	  	/* dateFormat mm/dd/yy에서 수정함 */
+	    var dateFormat = "yy/mm/dd",
+	      from = $( "#projectStartDate" ).datepicker({
+	          changeMonth: true,
+	          numberOfMonths: 1
+	      })
+	        .on( "change", function() {
+	          to.datepicker( "option", "minDate", getDate( this ) );
+	        }),
+	      to = $( "#projectEndDate" ).datepicker({
+	        changeMonth: true,
+	        numberOfMonths: 1
+	      })
+	      .on( "change", function() {
+	        from.datepicker( "option", "maxDate", getDate( this ) );
+	      });
+	 
+	    function getDate( element ) {
+	      var date;
+	      try {
+	        date = $.datepicker.parseDate( dateFormat, element.value );
+	      } catch( error ) {
+	        date = null;
+	      }	 
+	      return date;
+	    }
+
+	  } );
+
+  // 메모 비동기 수정
+  $(function(){
+	  $("#memo_content").on("focusout", function(event){
+		  var memo_content = $("#memo_content").val();
+	  	  $.ajax({
+	  		  type: "POST",
+	  		  url: "/home?member_no=1",
+	  		  data:{
+	  			  "memo_content" : memo_content
+	  		  }
+	  	  })
+	  })
+  })
+  </script>
+  
+</head>
 <body>
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
@@ -73,27 +138,38 @@
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
+                        <div class="scrollbar" style="overflow-y: auto; height: 300px;">
                             <table class="table table-hover mb-0">
                                 <thead>
                                     <tr>
                                         <th colspan="2">프로젝트명</th>
-                                        <th>프로젝트 기간</th>
-                                        <th>진행상황</th>
+                                        <th >프로젝트 기간</th>
+                                        <th >진행상황</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <c:forEach var="dto" items="${list}">
                                     <tr>
                                     <c:forEach var="projectProjectMemberMemberServiceDTO" items="${projectList}">
                                         <td  colspan="2">
                                             <div class="d-inline-block align-middle">
                                                 <div class="d-inline-block">
+<<<<<<< HEAD
                                                     <h6>${projectProjectMemberMemberDTO.project_title}</h6>
+=======
+                                                    <h6>${dto.project_title}</h6>
+>>>>>>> refs/remotes/origin/seulki
                                                 </div>
                                             </div>
                                         </td>
+<<<<<<< HEAD
                                         <td>23/7/21 ~ 23/7/23</td>
                                         <td><label class="badge badge-light-danger">보류</label></td>
                                     </c:forEach>
+=======
+                                        <td>${dto.project_start_date} ~ ${dto.project_end_Date}</td>
+                                        <td><label class="badge badge-light-primary"">${dto.project_status}</label></td>
+>>>>>>> refs/remotes/origin/seulki
                                     </tr>
                                     <tr>
                                         <td  colspan="2">
@@ -117,9 +193,43 @@
                                         <td>23/7/31 ~ 23/8/23</td>
                                         <td><label class="badge badge-light-success">진행중</label></td>
                                     </tr>
-                                    
+                                    <tr>
+                                      <td  colspan="2">
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[네이바] NAVE 프로젝트</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>23/7/31 ~ 23/8/23</td>
+                                        <td><label class="badge badge-light-success">진행중</label></td>
+                                    </tr>
+                                    <tr>
+                                      <td  colspan="2">
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[네이바] NAVE 프로젝트</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>23/7/31 ~ 23/8/23</td>
+                                        <td><label class="badge badge-light-success">진행중</label></td>
+                                    </tr>
+                                    <tr>
+                                      <td  colspan="2">
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[네이바] NAVE 프로젝트</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>23/7/31 ~ 23/8/23</td>
+                                        <td><label class="badge badge-light-success">진행중</label></td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -241,29 +351,27 @@
                     </div>
                 </div>
             </div>
-            <!-- 메모 -->
+            <!-- 메모 start -->
             <div class="col-xl-3 col-md-12">
                 <div class="card table-card">
                     <div class="card-header">
                         <h5>메모</h5>
-                        <div class="card-header-right">
-								<button type="button" class="btn btn-primary btn-sm"><i class="fa-regular fa-floppy-disk" style="color: #fff; "></i>&nbsp;&nbsp;저장</button>
-						</div>
                     </div>
                     <!-- 포스트잇 start -->
 						<div class="postbody">
 							<div class="outline">
-									<textarea class="memo-content" name="content" id="content" cols="29" rows="12" placeholder="메모를 입력해주세요" ></textarea>
+									<textarea class="memo_content" name="memo_content" id="memo_content" cols="40" rows="12" placeholder="메모를 입력해주세요" >${memoDTO.memo_content}</textarea>
 							</div>
 						</div>
 					<!-- 포스트잇 end -->
-                  
 
 					</div>
-            </div>   
-			<!-- 캘린더 -->
-            <div class="col-xl-5 col-md-12">
-                <div class="card table-card" style="height:670px;">
+            </div> 
+            <!-- 메모 end -->
+            
+			<!-- 캘린더 start -->
+            <div class="col-xl-6 col-md-12">
+                <div class="card table-card" style="height:730px;">
                     <div class="card-header">
                         <h5>캘린더</h5>
 							<div class="card-header-right">
@@ -272,31 +380,176 @@
 						</div>
                     <div id="calendar" style="float:left; padding-left: 10px; padding-right: 10px;"></div>
                 </div>
-            </div>              
-   			<!-- 관심업무 -->
-            <div class="col-xl-7 col-md-12">
+            </div>   
+            <!-- 캘린더 end -->   
+                    
+   			<!-- 관심업무 start -->
+           <div class="col-xl-6 col-md-12">
                 <div class="card table-card">
                     <div class="card-header">
                         <h5>관심업무</h5>
-                        <!-- 리스트로 스크롤 추가하기 -->
-                        
                     </div>
-                    <!-- 포스트잇 start -->
-						<div class="postbody">
-							<div class="outline">
-									<textarea class="memo-content" name="content" id="content" cols="20" rows="12" placeholder="메모를 입력해주세요" ></textarea>
-							</div>
-						</div>
-					<!-- 포스트잇 end -->
-                  
-
-					</div>
-            </div>  
-   
+                    
+                        <div class="card-body p-0">
+                        <div class="table-responsive">
+                        <!-- 관심업무 리스트가 들어갈곳(리스트가 많아지면 자동 스크롤 생성됨) -->
+                            <div class="scrollbar" style="overflow-y: auto; height: 300px;">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="stiky"></th>
+                                        <th class="stiky">업무명</th>
+                                        <th class="stiky">프로젝트명</th>
+                                        <th class="stiky">진행상황</th>
+                                    </tr>
+                                </thead>
+                        			
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[보완] 랜딩페이지 개선</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[중앙HTA] SOOP 프로젝트</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                        	<label class="badge badge-light-success">진행중</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[신규기능] 로그인 프로세스 개선</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[까까오똑] KAKA 프로젝트</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                        	<label class="badge badge-light-success">진행중</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[로고] 이미지 시안</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[네이바] NAVE 프로젝트</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                        	<label class="badge badge-light-success">진행중</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[로고] 이미지 시안</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[네이바] NAVE 프로젝트</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                        	<label class="badge badge-light-success">진행중</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[로고] 이미지 시안</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[네이바] NAVE 프로젝트</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                        	<label class="badge badge-light-success">진행중</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[로고] 이미지 시안</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-inline-block align-middle">
+                                                <div class="d-inline-block">
+                                                    <h6>[네이바] NAVE 프로젝트</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                        	<label class="badge badge-light-success">진행중</label>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                              </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                    <!-- 관심업무 end -->
+                    
 		</div>
-	</div>
-	
-	<!-- [ Main Content ] end -->
+	</div> 
+</div>
+<!-- [ Main Content ] end -->
 
 </body>
 </html>

@@ -6,7 +6,7 @@
 <head>
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <title>::: SOOP :::</title>
-<link rel="stylesheet" type="text/css" href="/css/nav.css">
+<link rel="stylesheet" type="text/css" href="assets/css/nav.css">
 <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 11]>
@@ -122,6 +122,7 @@
 						</a>
 					</li>
 					
+<<<<<<< HEAD
 					<!-- 프로젝트 리스트가 보여지는 곳 -->
 					<c:forEach var="dto" items="${projectList}">
 						<li class="nav-item">
@@ -131,6 +132,22 @@
 							</a>
 						</li>
 					</c:forEach>
+=======
+					<!-- 프로젝트 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
+					<div class="nav-scrollbar" style="overflow-y: auto; height: 400px;">
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+						<li class="nav-item"><a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a></li>
+					</div>
+>>>>>>> refs/remotes/origin/seulki
 				</ul>
 			</div>
 		</div>
