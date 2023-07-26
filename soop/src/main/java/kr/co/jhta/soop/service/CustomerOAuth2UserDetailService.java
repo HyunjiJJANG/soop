@@ -2,6 +2,7 @@ package kr.co.jhta.soop.service;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,11 +105,14 @@ public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {
 			log.info("멤버 : " + dto );
 			
 			
+			String memberpassword = Integer.toString(new Random().nextInt(100000));
+			
 			//등록되어 있지 않으면 db에 추가하기 
 			if(dto == null) {
+				
 				dto = MemberDTO.builder()
 							   .email(email)
-							   .password(passwordEncoder.encode("1111"))
+							   .password(passwordEncoder.encode(memberpassword))
 							   .name(name)
 							   .build();	//마지막에 build 해야 set하게 되는거야 
 				

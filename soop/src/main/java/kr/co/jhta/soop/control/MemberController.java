@@ -8,10 +8,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,13 +31,31 @@ public class MemberController {
 
 	@Autowired
 	JavaMailSender javaMailSender;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 
 	@GetMapping("/clogin")
 	public String login() {
 
 		return "login";
 	}
-
+	
+	@GetMapping("/searchPassword")
+	public String searchPassword() {
+		
+		
+		return "serachPassword";
+	}
+	
+	@RequestMapping("/searchPasswordOk")
+	public String searchPasswordOk(@RequestParam("email")String email){
+		
+		
+		
+		return "searchPasswordOk";
+	}
 
 	@GetMapping("/clogout")
 	public String logout() {
@@ -48,16 +68,26 @@ public class MemberController {
 
 		return "register";
 	}
+	
+	@GetMapping("/registerTest")
+	public String registerFormTest() {
+
+		return "register2";
+	}
+	
+	
 
 	@RequestMapping("/registerOk")
-	public String registerOk(Model model, HttpServletRequest req, @ModelAttribute MemberDTO memberDto, @RequestParam("email")String email) {
+	public String registerOk(Model model, HttpServletRequest req, @ModelAttribute MemberDTO memberDto, @RequestParam("email")String email, @RequestParam("password")String password) {
 
 		memberService.insertRole(email);
+		memberDto.setPassword(passwordEncoder.encode(password));
 		memberService.insertOne(memberDto);
 		
 		return "redirect:/clogin";
 	}
 
+	//회원 가입시 이메일 중복체크를 위한 mapping
 	@GetMapping("/emailCheck")
 	public @ResponseBody String emailCheck(@RequestParam("email") String email) {
 
@@ -69,7 +99,7 @@ public class MemberController {
 		return result;
 
 	}
-
+	//이메일 인증 코드 일치 여부를 위한 mapping
 	@GetMapping("/mailCheck")
 	@ResponseBody
 	public String SendMail(@RequestParam("email") String email, HttpSession session) {
@@ -87,6 +117,7 @@ public class MemberController {
 		}
 		int numIndex = random.nextInt(8999) + 1000; // 4자리 정수를 생성
 		key += numIndex;
+		
 		message.setSubject("[SOOP]이메일 계정을 인증해주세요");
 		message.setText("안녕하세요.\n 이메일 계정을 인증받으시려면 아래 인증 번호를 확인해주세요. \n 인증 번호 : " + key);
 		javaMailSender.send(message);
@@ -116,5 +147,7 @@ public class MemberController {
 		}
 
 	}
+	
+	
 
 }

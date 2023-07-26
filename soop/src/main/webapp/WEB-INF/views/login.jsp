@@ -57,6 +57,10 @@ form {
 	font-weight: 300;
 }
 
+.card-text {
+	
+}
+
 .form-floating {
 	margin-top: 10px;
 }
@@ -99,6 +103,46 @@ form {
 .row g-3 align-items-center {
 	width: 800px;
 }
+
+.line {
+	display: flex;
+	flex-basis: 100%;
+	align-items: center;
+	color: rgba(0, 0, 0, 0.35);
+	font-size: 14px;
+	margin: 8px 0px;
+}
+
+.line::before {
+	content: "";
+	flex-grow: 1;
+	margin: 0px 16px;
+	background: rgba(0, 0, 0, 0.35);
+	height: 1px;
+	font-size: 0px;
+	line-height: 0px;
+}
+
+.line::after {
+	content: "";
+	flex-grow: 1;
+	margin: 0px 16px;
+	background: rgba(0, 0, 0, 0.35);
+	height: 1px;
+	font-size: 0px;
+	line-height: 0px;
+}
+
+.loginButton {
+	
+}
+
+.link {
+	font-size: 16px;
+	margin-top: 80px;
+	color: black;
+	align-items: center;
+}
 </style>
 </head>
 <body class="d-flex flex-column h-100">
@@ -138,22 +182,40 @@ form {
 												id="password" placeholder="Password" class="form-control"
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required>
-											<label for="password">비밀번호</label>
-											<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+											<label for="password">비밀번호</label> <input type="hidden"
+												name="${_csrf.parameterName }" value="${_csrf.token }" />
 										</div>
 									</div>
 								</div>
 							</div>
 
 						</div>
-						<div class="d-grid gap-2 col-12" style="height: 65px;">
+
+
+						<div class="d-grid gap-2 col-12"
+							style="width: 276px; height: 36px;">
 							<input type="submit" class="btn btn-success" value="로그인"
-								style="margin-top: 20px;" />
+								style="margin-top: 20px; width: 450px; height: 50px; " />
 						</div>
 					</form>
-					<a class="btn btn-outline-primary" href="oauth2/authorization/google">구글</a>
-					<a class="btn btn-outline-primary" href="oauth2/authorization/naver">네이버</a>
-					<a class="btn btn-outline-primary" href="oauth2/authorization/kakao">카카오</a>
+					<div class="link">
+						<a href="/searchPassword" style="margin-left: 90px; color: black;  text-decoration-line: none;">비밀번호 찾기</a> <a
+							href="/register" style="margin-left: 100px; color: black;  text-decoration-line: none;">회원가입</a>
+
+					</div>
+
+					<div class="line" style="margin-top: 70px; padding-right: 20px; margin-bottom: 35px;">SNS
+						계정 로그인</div>
+
+					<div class="loginButton">
+						<a href="oauth2/authorization/kakao"><img alt="kakaoLogin"
+							src="/images/kakao_login_medium_narrow.png"
+							style="width: 150px; height: 40px; margin-left: 45px;"></a> <a
+							href="oauth2/authorization/google"><img alt="googleLogin"
+							src="/images/btn_google_signin_light_normal_web.png"
+							style="margin-left: 10px; width: 150px; height: 43px; margin-left: 50px;"></a>
+					</div>
+
 				</div>
 			</div>
 		</div>
