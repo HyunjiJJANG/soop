@@ -11,15 +11,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import kr.co.jhta.soop.dto.ProjectDTO;
+import kr.co.jhta.soop.dto.ProjectTaskMemberDTO;
 import kr.co.jhta.soop.service.ProjectService;
 import kr.co.jhta.soop.service.ProjectTaskMemberService;
+import lombok.extern.slf4j.Slf4j;
 
-// @Controller
 @Controller
 public class GanttController {
 	
 	@Autowired
 	ProjectService PJservice;
+	
+	@Autowired
 	ProjectTaskMemberService PTMservice;
 	
 	@GetMapping("/gantt")
@@ -30,9 +33,14 @@ public class GanttController {
 	
 	@GetMapping("/data")
 	@ResponseBody	
-	public List<ProjectDTO> getData(Model model) {
-		model.addAttribute("list", PJservice.selectAll());		
-		return PJservice.selectAll();
+	public List<ProjectTaskMemberDTO> getData(Model model) {
+//		model.addAttribute("list", PJservice.selectAll());
+		List<ProjectTaskMemberDTO>  list = PTMservice.projectByMemberName();
+		System.out.println("list : " + list);
+		model.addAttribute("list", PTMservice.projectByMemberName());
+		
+		return PTMservice.projectByMemberName();
+
 	}
 	
 	

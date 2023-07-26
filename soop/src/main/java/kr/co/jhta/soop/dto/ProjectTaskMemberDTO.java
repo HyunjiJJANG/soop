@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-// 로그인시 자신의 프로젝트만 보이게하기 위해 만듬
 public class ProjectTaskMemberDTO {
 	
 	// project 테이블

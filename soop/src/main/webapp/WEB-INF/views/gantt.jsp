@@ -73,11 +73,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
         
     <script>    
- 
+    
   	var gproject_info; 
   	var glist = []; 
   	
     function projectinfo() {
+    	
 	    $.ajax({
 	        url: "<c:url value="/data" />",	        
 	        type: "get",
@@ -86,20 +87,11 @@
 	        contentType: "application/json",
 	        success: function(project_info) {
 	        	
-	        	console.log(project_info);
+	        	console.log("project_info : " + project_info);
 	        	
 	        	gproject_info = project_info;	// 전역변수로 선언하기 위한 대입
 
 	            for(var i=0; i<=project_info.length-1; i++ ){
-
-	   	 	        console.log("프로젝트 번호: " + project_info[i].project_no);
-		            console.log("프로젝트 제목: " + project_info[i].project_title);
-		            console.log("프로젝트 시작일: " + project_info[i].project_start_date);
-		            console.log("프로젝트 마감일: " + project_info[i].project_end_Date);
-		            console.log("프로젝트 내용: " + project_info[i].project_description);
-		            console.log("프로젝트 상태: " + project_info[i].project_status);
-		            console.log("프로젝트 색: " +project_info[i].color);
-		            console.log("-----"); 
 		            
 					var p = {
 				    		"project_no": gproject_info[i].project_no, 
@@ -108,7 +100,8 @@
 				    		"project_end_Date": gproject_info[i].project_end_Date,
 				    		"project_description": gproject_info[i].project_description,
 				    		"project_status": gproject_info[i].project_status,
-				    		"color": gproject_info[i].color
+				    		"color": gproject_info[i].color,
+				    		"name": gproject_info[i].name
 			    	};
 					
 		            console.log(
@@ -118,47 +111,71 @@
 		            		p.project_end_Date + " : " + 
 		            		p.project_description + " : " + 
 		            		p.project_status + " : " + 
-		            		p.color);
+		            		p.color + " : " +
+		            		p.name)
 					
-		             glist.push(p); 
-		             
-		        
+		             glist.push(p); 		             
+		             		        
 	            }
-	        		      	            		                  		               
+	        	       		        		      	            		                  		               
 	        },
 	        error: function(errorThrown) {
 	            alert(errorThrown.statusText);
-	        }
-	    });            
-	}
-    
+	        },
+	        async: false
+	    }); 
+    	
+	} // projectinfo() end
+  
     projectinfo(); //  projectinfo() 실행해 
-    
+      
     console.log("push 확인 : " + glist);    
-     
-// json형식 예시    
+    
+    // json형식 예시    
 //	[
 	//x : 시작일 / 종료일, y : 프로젝트 이름 / 업무이름, name : 이름 / 다수 이름일 경우 [] 에 작성
    	// Completed : 2 / pending : 1 / Delayed : 0   	
    	//{x:[p.x, p.y], y: 'task1', name: 'James', status: 2 },
    	
 //	]
+   
+	var project_no;
+	var project_title;
+	var project_start_date;
+	var project_end_Date;
+	var project_description;
+	var	project_status; 
+	var color; 
+	var name;
 	
-	var g2list = 
-    [
-    	{x:[p.project_start_date, p.project_end_Date ], y:project_title, name:"K", status:p.project_status},
-    	{x:[p.project_start_date, p.project_end_Date ], y:project_title, name:"Kk", status:p.project_status} 
-    	
-    ];
-    console.log("g2list 확인 : " + g2list);  
-    
+	var mglist = [];
+	
+	for(var ele in glist){
+		
+		console.log("프로젝트 번호 : " + glist[ele].project_no);
+		console.log("프로젝트 제목 : " + glist[ele].project_title);
+		console.log("프로젝트 시작일 : " + glist[ele].project_start_date);
+		console.log("프로젝트 마감일 : " + glist[ele].project_end_Date);
+		console.log("프로젝트 내용 : " + glist[ele].project_description);
+		console.log("프로젝트 상태 : " + glist[ele].project_status);
+		console.log("프로젝트 색깔 : " + glist[ele].color);
+		console.log("이름 : " + glist[ele].name);
+		
+		console.log("-----------");
+				
+		var t = {x:[glist[ele].project_start_date, glist[ele].project_end_Date], y:glist[ele].project_title, name:glist[ele].name, status:glist[ele].project_status};
+		
+		mglist.push(t);
+		
+	}
+   
     // setup  
     const data = {
       //labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       datasets: [{
         label: 'Weekly Sales',
         
-        data: glist,
+        data: mglist,
         
         backgroundColor: [
           'rgba(255, 26, 104, 0.2)',
@@ -191,9 +208,12 @@
       afterDatasetsDraw(chart, args, pluginOptions){
         const {ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y} } = chart;
         
-        // 아이콘
-        const icons=['\uf00d','\uf110','\uf00c'];
-        const colors=['rgba(255, 26, 104, 1)','rgba(255, 159, 64, 1)','rgba(75, 192, 192, 1)'];
+      	/*  const colors=['rgba(255, 26, 104, 1) - 빨강','rgba(255, 159, 64, 1) - 보류색','rgba(75, 192, 192, 1) - 완료색']; */
+        // 아이콘 "진행중 - \uf110 / 완료 - \uf087"
+        // 프로젝트상태 - 0 : 진행 / - 1 : 완료
+	  	const icons=['\uf110','\uf14a'];
+      	const colors=['rgba(255, 159, 64, 1)','rgba(75, 192, 192, 1)'];
+      
         const angle = Math.PI / 180;
         
         ctx.save();
@@ -311,9 +331,7 @@
     	}
     	console.log(lastDay(year,month))
     }
-    
-    
-
+       
     // Instantly assign Chart.js version
     const chartVersion = document.getElementById('chartVersion');
     chartVersion.innerText = Chart.version;

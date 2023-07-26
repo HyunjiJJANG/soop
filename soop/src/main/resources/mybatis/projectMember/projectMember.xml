@@ -5,12 +5,22 @@
   
   <mapper namespace="kr.co.jhta.soop.dao.ProjectTaskMemberDAO">
   
-  	<select id="selectAll" resultType="kr.co.jhta.soop.dto.ProjectTaskMemberDTO" parameterType="int">
+  	<select id="projectByMemberName" resultType="kr.co.jhta.soop.dto.ProjectTaskMemberDTO">
+  		SELECT p.project_no, p.project_title, p.project_description, p.project_start_date,
+  		p.project_end_Date, p.project_status, p.color, m.member_no, m.name
+		FROM project p join task t 
+		ON p.project_no = t.project_no
+		JOIN member m 
+		ON m.member_no = t.member_no	
+			
+  	</select>  
+  
+  	<select id="myproject_SelectAll" resultType="kr.co.jhta.soop.dto.ProjectTaskMemberDTO" parameterType="int">
   		SELECT p.project_title, m.email, m.name 
 		FROM project p join task t 
 		ON p.project_no = t.project_no
 		JOIN member m 
 		ON m.member_no = t.member_no
-		WHERE m.member_no= #{member_no}; <!-- test로 임의로 설정 --> 	
+		WHERE m.member_no= #{member_no} <!-- test로 임의로 설정 --> 	
   	</select>
   </mapper>
