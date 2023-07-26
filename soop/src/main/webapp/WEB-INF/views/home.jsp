@@ -30,9 +30,19 @@
 
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
-</head>
+
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script>
+<!-- jquery -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
 	<!-- 대시보드 일정(캘린더) -->
     <script>
+
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -54,17 +64,60 @@
       });
 
     </script>
-<body>
-	
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
-<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script>
-<!-- jquery -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    
+    <script type="text/javascript">
+    function projectSelect(){
+  	  let status = $("#projectStatusOption").val();
+  	  $.ajax({
+  		type: "GET",  
+  		url: "/home/selectStatus/1",
+  		data : {
+  			member_no : 1
+  		},
+  		dataType: "text",
+  		success: function(data){
+  			var obj = JSON.parse(data);
+  			console.dir(obj);
+  			console.log("status : " + status);
+  			console.log(" data : " + data);
+  			var text = "";
+  			for(var i=0; i<obj.length; i++){
+   				var txt = "<tr><td colspan='8'><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+  						+ obj[i].project_title + 
+  						"</h6></div></div></td><td>"
+  						+ obj[i].project_start_date
+  						+ " ~ " + obj[i].project_end_date + "</td>";
+  				if(status==0 && obj[i].project_status==status){
+  					text += txt + "<td><label class='badge badge-light-success'>진행중</label></td></tr>";
+  				}else if(status==1 && obj[i].project_status==status){
+  					text += txt + "<td><label class='badge badge-light-dark'>완료</label></td></tr>";                                      
+  				}else if(status==2 && obj[i].project_status==status){
+  					text += txt + "<td><label class='badge badge-light-danger'>보류</label></td></tr>"; 
+  				}else if(status==3) {
+  					if(obj[i].project_status==0){
+  	  					text += txt + "<td><label class='badge badge-light-success'>진행중</label></td></tr>";
+  	  				}
+  					if(obj[i].project_status==1){
+  	  					text += txt + "<td><label class='badge badge-light-dark'>완료</label></td></tr>";                                      
+  	  				}
+  					if(obj[i].project_status==2){
+  	  					text += txt + "<td><label class='badge badge-light-danger'>보류</label></td></tr>"; 
+  					}
+  				}
+		
+  				
+  			}
 
+  				$("#projectList").html(text);
+  			
+  			console.log(text);
+  		}
+  	  })
+  	 }    
+    </script>
+    
+    
+    
   <script>
   /* Range Calender */
   $( function() {
@@ -97,6 +150,10 @@
 
 	  } );
 
+  // 참여 중인 프로젝트 비동기 선택옵션
+  // (value=0,1,2 선택시 진행중,완료,보류에 해당하는 옵션 리스트만 나오게)
+ 
+  
   // 메모 비동기 수정
   $(function(){
 	  $("#memo_content").on("focusout", function(event){
@@ -111,7 +168,6 @@
 	  })
   })
   </script>
-  
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
@@ -126,11 +182,12 @@
                 <div class="card table-card"  style="height:370px;">
                     <div class="card-header">
                         <h5>참여 중인 프로젝트</h5>
-                                <select style="width:30%;float:right;" class="form-select" aria-label="Default select example">
-								<option selected>진행상황</option>
-								<option value="1">진행중</option>
+                            <select id="projectStatusOption" onchange="projectSelect();" style="width:30%;float:right;" class="form-select" aria-label="Default select example">
+								
+								<option value="3">전체</option>
+								<option value="0">진행중</option>
+								<option value="1">완료</option>
 								<option value="2">보류</option>
-								<option value="3">완료</option>
 							</select>
                     </div>
                     <div class="card-body p-0">
@@ -139,25 +196,40 @@
                             <table class="table table-hover mb-0">
                                 <thead>
                                     <tr>
-                                        <th colspan="2">프로젝트명</th>
+                                        <th >프로젝트명</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
                                         <th >프로젝트 기간</th>
                                         <th >진행상황</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="projectList">
                                 <c:forEach var="dto" items="${projectList}">
                                     <tr>
-                                        <td  colspan="2">
+                                        <td  colspan="8">
                                             <div class="d-inline-block align-middle">
                                                 <div class="d-inline-block">
                                                     <h6>${dto.project_title}</h6>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>23/7/21 ~ 23/7/23</td>
-                                        <td><label class="badge badge-light-danger">보류</label></td>
-                                        <td>${dto.project_start_date} ~ ${dto.project_end_Date}</td>
-                                        <td><label class="badge badge-light-primary"">${dto.project_status}</label></td>
+                                        <td>${dto.project_start_date} ~ ${dto.project_end_date}</td>
+                                        
+                                        <c:if test="${dto.project_status == 0}">
+                                        	<td><label class="badge badge-light-success">진행중</label></td>                                        
+                                        </c:if>
+                                        <c:if test="${dto.project_status == 1}">
+                                        	<td><label class="badge badge-light-dark">완료</label></td>                                        
+                                        </c:if>
+                                        <c:if test="${dto.project_status == 2}">
+                                        	<td><label class="badge badge-light-danger">보류</label></td>                                        
+                                        </c:if>
+                                        
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -174,9 +246,9 @@
                         <h5>파일함</h5>
 							<select style="width:30%;" class="form-select" aria-label="Default select example">
 								<option selected>프로젝트 선택</option>
-								<option value="1">프로젝트1</option>
-								<option value="2">프로젝트2</option>
-								<option value="3">프로젝트3</option>
+								<c:forEach var="dto" items="${projectList}">
+									<option value="${dto.project_no}">${dto.project_title}</option>								
+								</c:forEach>
 							</select>
                         <button type="button" style="float:right;" class="btn btn-primary btn-sm"><i class="fa-solid fa-download" style="color: #fff;"></i>&nbsp;&nbsp;다운로드</button>
 						</div>
@@ -293,7 +365,7 @@
                     <!-- 포스트잇 start -->
 						<div class="postbody">
 							<div class="outline">
-									<textarea class="memo_content" name="memo_content" id="memo_content" cols="40" rows="12" placeholder="메모를 입력해주세요" >${memoDTO.memo_content}</textarea>
+								<textarea class="memo_content" name="memo_content" id="memo_content" placeholder="메모를 입력해주세요" >${memoDTO.memo_content}</textarea>
 							</div>
 						</div>
 					<!-- 포스트잇 end -->
@@ -321,6 +393,13 @@
                 <div class="card table-card">
                     <div class="card-header">
                         <h5>관심업무</h5>
+                        <select style="width:30%;float:right;" id="" class="form-select" aria-label="Default select example">
+								<option value="4">전체</option>
+								<option value="0">발의</option>
+								<option value="1">진행</option>
+								<option value="2">보류</option>
+								<option value="3">완료</option>
+						</select>
                     </div>
                     
                         <div class="card-body p-0">
@@ -357,7 +436,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                        	<label class="badge badge-light-success">진행중</label>
+                                        	<label class="badge badge-light-warning">발의</label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -401,7 +480,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                        	<label class="badge badge-light-success">진행중</label>
+                                        	<label class="badge badge-light-dark">완료</label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -423,7 +502,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                        	<label class="badge badge-light-success">진행중</label>
+                                        	<label class="badge badge-light-danger">보류</label>
                                         </td>
                                     </tr>
                                     <tr>

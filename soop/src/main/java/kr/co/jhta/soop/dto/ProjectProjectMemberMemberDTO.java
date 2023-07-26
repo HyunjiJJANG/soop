@@ -16,7 +16,7 @@ public class ProjectProjectMemberMemberDTO {
 	private String project_title;
 	private String project_description;
 	private	String project_start_date;
-	private String project_end_Date;
+	private String project_end_date;
 	private int project_status;
 	private String color;
 	

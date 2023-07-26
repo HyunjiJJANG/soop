@@ -123,7 +123,6 @@
 					</li>
 					
 					<!-- 프로젝트 리스트가 보여지는 곳 -->
-					<div class="nav-scrollbar" style="overflow-y: auto; height: 400px;">
 					<c:forEach var="dto" items="${projectList}">
 						<li class="nav-item">
 							<a href="#" class="nav-link">
@@ -132,7 +131,6 @@
 							</a>
 						</li>
 					</c:forEach>
-					</div>
 				</ul>
 			</div>
 		</div>
