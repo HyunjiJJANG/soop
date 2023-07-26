@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,15 +83,17 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                    <c:forEach var="projectProjectMemberMemberServiceDTO" items="${projectList}">
                                         <td  colspan="2">
                                             <div class="d-inline-block align-middle">
                                                 <div class="d-inline-block">
-                                                    <h6>[중앙HTA] SOOP 프로젝트</h6>
+                                                    <h6>${projectProjectMemberMemberDTO.project_title}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>23/7/21 ~ 23/7/23</td>
                                         <td><label class="badge badge-light-danger">보류</label></td>
+                                    </c:forEach>
                                     </tr>
                                     <tr>
                                         <td  colspan="2">

@@ -116,40 +116,21 @@
 					</li>
 					<li class="nav-item pcoded-menu-caption"><label>프로젝트</label></li>
 					<li class="nav-item">
-						<a href="#" data-bs-toggle="modal" data-bs-target="#Modal">
+						<a href="insertProject" data-bs-toggle="modal" data-bs-target="#Modal">
 							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus"></i></span>
 							<span class="pcoded-mtext">프로젝트 생성</span>
 						</a>
 					</li>
 					
-					<!-- 프로젝트 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
-					<li class="nav-item pcoded-hasmenu">
-						<a href="#!" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span><span class="pcoded-mtext">전체 프로젝트</span></a>
-						<ul class="pcoded-submenu" id="projectList">
-							<c:forEach var="projectDTO" items="${projectDTOList}">
-								<li><a href="#" class="nav-link"><span class="pcoded-micon"><i class="fa-solid fa-user-group"></i></span><span class="pcoded-mtext">${projectDTO.project_title}</span></a></li>								
-							</c:forEach>
-						</ul>
-					</li>
-<!-- 					<div class="scrollbar" style="overflow-y: auto; height: 300px;">
+					<!-- 프로젝트 리스트가 보여지는 곳 -->
+					<c:forEach var="dto" items="${projectList}">
 						<li class="nav-item">
-							<a href="#">
-								<span class="pcoded-micon"><i class="fa-regular fa-file" style="color: #707272;"></i></span>
-								<span class="pcoded-mtext">프로젝트1</span>
+							<a href="#" class="nav-link">
+								<span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span>
+								<span class="pcoded-mtext">${dto.project_title}</span>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="#">
-								<span class="pcoded-micon"><i class="fa-regular fa-file" style="color: #707272;"></i></span>
-								<span class="pcoded-mtext">프로젝트2</span>
-							</a>
-						</li>
-
-					</div> -->
-					
-					<br><br>
-					
-
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
