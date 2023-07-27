@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class TaskDTO {
-	
+
 	private int task_no;
 	private int project_no;
 	private int member_no;
