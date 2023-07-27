@@ -594,7 +594,7 @@
                     <!-- 포스트잇 start -->
 						<div class="postbody">
 							<div class="outline">
-									<textarea class="memo_content" name="memo_content" id="memo_content" cols="40" rows="12" placeholder="메모를 입력해주세요" >${memoMemberDTO.memo_content}</textarea>
+									<textarea class="memo_content" name="memo_content" id="memo_content" placeholder="메모를 입력해주세요" >${memoMemberDTO.memo_content}</textarea>
 							</div>
 						</div>
 					<!-- 포스트잇 end -->

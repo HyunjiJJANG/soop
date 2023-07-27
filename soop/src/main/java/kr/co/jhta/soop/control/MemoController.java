@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.soop.dto.MemoMemberDTO;
 import kr.co.jhta.soop.service.MemoMemberService;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 public class MemoController {
