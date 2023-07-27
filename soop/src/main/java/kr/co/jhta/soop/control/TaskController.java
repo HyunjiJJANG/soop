@@ -129,7 +129,7 @@ public class TaskController {
 		Filedto.setFile_register_date(fileDate);
 		
 		// 파일 경로 받아서 Filedto에 저장
-		Filedto.setFile_path(filePath);
+		Filedto.setFile_path(filePath + "\\" + file.getOriginalFilename());
 		
 		// Taskdto의 task_no를 가져와서 Filedto의 Task_no에 넣어줌 => 안됨.. 계속 0 
 //		Filedto.setTask_no(Taskdto.getTask_no());
@@ -144,14 +144,23 @@ public class TaskController {
 
 	@GetMapping("/update")
 	public String update(@RequestParam("task_no") int task_no, Model model) {
-		model.addAttribute("dto", taskService.selectOne(task_no));
+		TaskDTO taskDTO = taskService.selectOne(task_no);
+		AttachedFileDTO attachedFileDTO = attachedfileService.selectOne(task_no);
+
+		model.addAttribute("dtoTask", taskDTO);
+		model.addAttribute("dtoAttachedFile", attachedFileDTO);
 		return "/update";
 	}
 
 	@RequestMapping("/update")
-	public String updateOk(@ModelAttribute TaskDTO dto, @RequestParam("task_status") int task_status, Model model) {
-		dto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-		taskService.updateOne(dto);
+	public String updateOk(@ModelAttribute TaskDTO taskdto, @ModelAttribute AttachedFileDTO filedto, @RequestParam("task_status") int task_status, Model model) {
+		taskdto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+		taskService.updateOne(taskdto);
+		
+		
+		attachedfileService.updateOne(filedto);
+		
+		
 		return "redirect:/soop/task";
 	}
 

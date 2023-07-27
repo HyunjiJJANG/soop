@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html xmlns:th="http://www.thymeleaf.org">
 <!DOCTYPE html>
 <html>
@@ -32,27 +33,32 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
-// Range Calender (생성)
+// Range calendar (생성)
   $( function() {
-	    var dateFormat = "yyyy-MM-dd",
-	      from = $( "#from" )
-	        .datepicker({
+	    var dateFormat = "yy-mm-dd",
+	      from = $( "#from" ).datepicker({
 	          defaultDate: "+1w",
 	          changeMonth: true,
-	          numberOfMonths: 1
+	          numberOfMonths: 1,
+	          dateFormat: dateFormat // 날짜 형식을 변경
 	        })
 	        .on( "change", function() {
 	          to.datepicker( "option", "minDate", getDate( this ) );
-	        })
-	        //,
+	        }).on("select", function() {
+		        $(this).change();
+		    });
 	        
-	      to = $( "#to" ).datepicker({
+	        
+	     to = $( "#to" ).datepicker({
 	        defaultDate: "+1w",
 	        changeMonth: true,
-	        numberOfMonths: 1
+	        numberOfMonths: 1,
+	        dateFormat: dateFormat // 날짜 형식을 변경
 	      })
 	      .on( "change", function() {
 	        from.datepicker( "option", "maxDate", getDate( this ) );	        
+	      }).on("select", function() {
+	          $(this).change();
 	      });
 	 
 	    function getDate( element ) {
@@ -68,28 +74,33 @@
 	  } );
 </script>
 <script>
-// Range Calender (수정)
+// Range calendar (수정)
   $( function() {
-	    var dateFormat = "yyyy-MM-dd",
+	    var dateFormat = "yy-mm-dd",
 	    startvalue = $( "#startvalue" )
 	        .datepicker({
 	          defaultDate: "+1w",
 	          changeMonth: true,
-	          numberOfMonths: 1
+	          numberOfMonths: 1,
+	          dateFormat: dateFormat // 날짜 형식을 변경
 	        })
 	        .on( "change", function() {
 	          to2.datepicker( "option", "minDate", getDate( this ) );
-	        })
-	        //,
+	        }).on("select", function() {
+		        $(this).change();
+		    });
 	        
 	      endvalue = $( "#endvalue" ).datepicker({
 	        defaultDate: "+1w",
 	        changeMonth: true,
-	        numberOfMonths: 1
+	        numberOfMonths: 1,
+	        dateFormat: dateFormat // 날짜 형식을 변경
 	      })
 	      .on( "change", function() {
 	        from2.datepicker( "option", "maxDate", getDate( this ) );	        
-	      });
+	      }).on("select", function() {
+		        $(this).change();
+		  });
 	 
 	    function getDate( element ) {
 	      var date;
@@ -172,7 +183,7 @@
 
 <!-- 업무 생성 모달 -->
 <!-- 일단 업무 생성 구현 용으로 project_no와 member_no을 임의로 지정 -->
-<form action="insert?project_no=1&member_no=1" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
+<form action="insert?project_no=4&member_no=7" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
 <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -214,12 +225,16 @@
 				<br />
 			</tr>
 			<tr>
-				<!-- Calender -->
+				<!-- calendar -->
+				
+					<!-- Calendar에 기본값 주기 위한 셋팅 -->
+					<c:set var="ymd" value="<%=new java.util.Date()%>" />
+
 				<label for="from">시작일</label>&nbsp; &nbsp;
-				<input type="text" id="from" name="task_start_date">
+				<input type="text" id="from" name="task_start_date" value="<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>">
 				&nbsp; &nbsp;
 				<label for="to">마감일</label>&nbsp; &nbsp;
-				<input type="text" id="to" name="task_end_date">
+				<input type="text" id="to" name="task_end_date" value="<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>">
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
 			</tr>
 			<br /><br />
@@ -295,16 +310,19 @@
 				<br />
 			</tr>
 			<tr>
-				<!-- Calender -->
+				<!-- calendar -->
 				<label for="from2">시작일</label>&nbsp; &nbsp;
-				<input type="text" id="startvalue" name="task_start_date">
+				<input type="text" id="startvalue" name="task_start_date" >
 				&nbsp; &nbsp;
 				<label for="to2">마감일</label>&nbsp; &nbsp;
 				<input type="text" id="endvalue" name="task_end_date">
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
-				
-				<!-- 첨부파일 버튼 (수정해야함) -->
-				<button type="button" class="btn btn-outline-secondary">첨부파일</button>
+			</tr>	
+			<br /><br />
+			<tr>	
+				<!-- 첨부파일 -->
+				<!-- controller로 file 넘김 -->
+				<input type="file" name="file" id="" /> 
 			</tr>
 			<tr>
 				<br />
