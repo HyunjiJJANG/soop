@@ -33,13 +33,13 @@ public class GanttController {
 	
 	@GetMapping("/data")
 	@ResponseBody	
-	public List<ProjectTaskMemberDTO> getData(Model model) {
+	public List<ProjectDTO> getData(Model model) {
 //		model.addAttribute("list", PJservice.selectAll());
-		List<ProjectTaskMemberDTO>  list = PTMservice.projectByMemberName();
+		List<ProjectDTO>  list = PJservice.selectAll();
 		System.out.println("list : " + list);
 		model.addAttribute("list", PTMservice.projectByMemberName());
-		
-		return PTMservice.projectByMemberName();
+
+		return PJservice.selectAll();
 
 	}
 	

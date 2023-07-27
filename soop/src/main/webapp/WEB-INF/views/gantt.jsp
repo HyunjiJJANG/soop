@@ -100,8 +100,7 @@
 				    		"project_end_Date": gproject_info[i].project_end_Date,
 				    		"project_description": gproject_info[i].project_description,
 				    		"project_status": gproject_info[i].project_status,
-				    		"color": gproject_info[i].color,
-				    		"name": gproject_info[i].name
+				    		"color": gproject_info[i].color
 			    	};
 					
 		            console.log(
@@ -111,8 +110,7 @@
 		            		p.project_end_Date + " : " + 
 		            		p.project_description + " : " + 
 		            		p.project_status + " : " + 
-		            		p.color + " : " +
-		            		p.name)
+		            		p.color)
 					
 		             glist.push(p); 		             
 		             		        
@@ -146,7 +144,6 @@
 	var project_description;
 	var	project_status; 
 	var color; 
-	var name;
 	
 	var mglist = [];
 	
@@ -159,11 +156,10 @@
 		console.log("프로젝트 내용 : " + glist[ele].project_description);
 		console.log("프로젝트 상태 : " + glist[ele].project_status);
 		console.log("프로젝트 색깔 : " + glist[ele].color);
-		console.log("이름 : " + glist[ele].name);
 		
 		console.log("-----------");
 				
-		var t = {x:[glist[ele].project_start_date, glist[ele].project_end_Date], y:glist[ele].project_title, name:glist[ele].name, status:glist[ele].project_status};
+		var t = {x:[glist[ele].project_start_date, glist[ele].project_end_Date], y:glist[ele].project_title, status:glist[ele].project_status};
 		
 		mglist.push(t);
 		
@@ -173,7 +169,7 @@
     const data = {
       //labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       datasets: [{
-        label: 'Weekly Sales',
+        label: 'hello gantt chart',
         
         data: mglist,
         
@@ -211,8 +207,8 @@
       	/*  const colors=['rgba(255, 26, 104, 1) - 빨강','rgba(255, 159, 64, 1) - 보류색','rgba(75, 192, 192, 1) - 완료색']; */
         // 아이콘 "진행중 - \uf110 / 완료 - \uf087"
         // 프로젝트상태 - 0 : 진행 / - 1 : 완료
-	  	const icons=['\uf110','\uf14a'];
-      	const colors=['rgba(255, 159, 64, 1)','rgba(75, 192, 192, 1)'];
+	  	const icons=['\uf110','\uf14a','\uf14a','\uf14a'];
+      	const colors=['rgba(255, 159, 64, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)'];
       
         const angle = Math.PI / 180;
         
@@ -250,7 +246,6 @@
         data.datasets[0].data.forEach((datapoint, index) => {
           ctx.fillText(datapoint.name, 10, y.getPixelForValue(index)); // 차트 좌측 이름표시
         })
-
       }
     }
  
@@ -282,9 +277,21 @@
           }                  
         },
         plugins:{ 
-        	// 그래프에 마우스를 올려놓을 경우 보여지는 정보
+        	
         	tooltip: {
+        		
+        		
+        		/* 그래프에 마우스 올려놓을 때 보이는 color 제거*/
+        		displayColors: false,
+        		yAlign : 'bottom',
+        		
         		callbacks: {
+        			
+        			/* 그래프에 마우스 올려놓을 때 보이는 label 제거*/
+        			label:(ctx) => {
+        				return '';
+        			},
+        			
         			title: (ctx) => {
         				//console.log(ctx)
         				//console.log(ctx[0].raw.x[0])
@@ -329,7 +336,19 @@
     	const lastDay = (y,m) => {
 	    	return new Date(y,m,0).getDate();    		
     	}
+    	console.log(year)
+    	console.log(month)
     	console.log(lastDay(year,month))
+    	
+    	const startDate = year + "-" + month + "-" + "01";
+    	console.log(startDate)
+    	const endDate = year + "-" + month + "-" + lastDay(year,month);
+    	console.log(endDate)
+    	
+    	myChart.config.options.scales.x.min = startDate;
+    	myChart.config.options.scales.x.max = endDate;
+    	myChart.update();
+    	
     }
        
     // Instantly assign Chart.js version
