@@ -114,6 +114,7 @@
 <body>
 	<h2>test page - main</h2>
 <div class="container">
+	<%-- <h2><%= application.getRealPath("/data") %></h2> --%>
 	<br /><br />
 	<h2>list</h2>
 	<br /><br />
@@ -137,8 +138,13 @@
 			<th>task_status</th>
 			<th>task_start_date</th>
 			<th>task_end_date</th>
+			<th>file_name</th>
+			<th>file_no</th>
+			<th>file_type</th>
+			<th>file_path</th>
+			<th>file_register_date</th>
 		</tr>
-		<c:forEach var="dto"  items="${list }">
+		<c:forEach var="dto"  items="${list }"> <!-- list라는 아이템을 dto라는 이름으로 controller에서 가져옴 -->
 		<tr>
 			<td>${dto.task_no}</td>
 			<td>${dto.project_no}</td>
@@ -149,6 +155,11 @@
 			<td>${dto.task_status}</td>
 			<td>${dto.task_start_date}</td>
 			<td>${dto.task_end_date}</td>
+			<td>${dto.file_name}</td>
+			<td>${dto.file_no}</td>
+			<td>${dto.file_type}</td>
+			<td>${dto.file_path}</td>
+			<td>${dto.file_register_date}</td>
 			<td>
 					<!-- 수정 모달 버튼 -->
 					<button type="button" class="btn cmodel-btn btn-primary" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-status="${dto.task_status}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-bs-toggle="modal" data-bs-target="#updateModal">수정</button>
@@ -216,7 +227,6 @@
 				<!-- 첨부파일 -->
 				<!-- controller로 file 넘김 -->
 				<input type="file" name="file" id="" /> 
-
 			</tr>
 			<tr>
 				<br />

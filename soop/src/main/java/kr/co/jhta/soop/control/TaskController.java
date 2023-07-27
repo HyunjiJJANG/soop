@@ -1,4 +1,4 @@
-package kr.co.jhta.soop.control;
+   package kr.co.jhta.soop.control;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +26,10 @@ import org.springframework.web.servlet.ModelAndView;
 import jdk.internal.org.jline.utils.Log;
 import kr.co.jhta.soop.dto.AttachedFileDTO;
 import kr.co.jhta.soop.dto.TaskDTO;
+import kr.co.jhta.soop.service.AttachedFileService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectService;
+import kr.co.jhta.soop.service.TaskAttachedFileService;
 import kr.co.jhta.soop.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,9 +44,18 @@ public class TaskController {
 	@Autowired
 	TaskService taskService;
 
+	@Autowired
+	AttachedFileService attachedfileService;
+	
+	@Autowired
+	TaskAttachedFileService taskAttachedFileService;
+	
 	@GetMapping("/task")
 	public String register(Model model) {
-		model.addAttribute("list", taskService.selectAll());
+		// model.addAttribute("list", taskService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌
+		
+		// JOIN한 service로 교체 
+		model.addAttribute("list", taskAttachedFileService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌 
 		return "task";
 	}
 
@@ -63,14 +74,15 @@ public class TaskController {
 		Taskdto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 		taskService.insertOne(Taskdto);
 		
+		
+		
+// 아래 코드(file Validator 대신에 )application.properties에 파일 크기 지정		
 		// 파일 유효성 검사 후 성공하면 작업을 계속하고,
 		// 실패하면 중단시키도록
-		fileValidator.validate(file, result); // error가 생기면 result로 넘겨줌
-		if (result.hasErrors()) {
-			// 결과에 에러가 존재한다면
-			// 다시 돌아가
-			return "redirect:/soop/task";
-		}
+//		fileValidator.validate(file, result); // error가 생기면 result로 넘겨줌 
+//		if 	(result.hasErrors()) { // 결과에 에러가 존재한다면 // 다시 돌아가 
+//			return 	"redirect:/soop/task";
+//		}
 
 		
 		// 파일은 어디에 저장  /data <== (현재 임시 파일은 properties에 c:\\temp\\data 로 지정됨)
@@ -109,14 +121,23 @@ public class TaskController {
 		Filedto.setFile_type(file.getContentType());
 		
 		// 오늘 날짜 담아서 Filedto에 저장
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		// 현재날짜를받아옴
 		Date date = new Date();
 		String fileDate = sdf.format(date);
-		log.info("파일 날짜 : {} ", date);
+		log.info("파일 날짜 : {} ", fileDate);
 		Filedto.setFile_register_date(fileDate);
-	
 		
+		// 파일 경로 받아서 Filedto에 저장
+		Filedto.setFile_path(filePath);
+		
+		// Taskdto의 task_no를 가져와서 Filedto의 Task_no에 넣어줌 => 안됨.. 계속 0 
+//		Filedto.setTask_no(Taskdto.getTask_no());
+//		int task = Taskdto.getTask_no();
+//		String taskk = Integer.toString(task);
+//		log.info(taskk); // 0이 찍힘 ㅜㅜ
+
+		attachedfileService.insertOne(Filedto);
 		
 		return "redirect:/soop/task";
 	}

@@ -5,6 +5,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import org.springframework.web.multipart.MultipartFile;
 
+// 현재 필요 없는 파일. 설정 파일(application.properties)에서 크기 지정하는 것으로 방식 바꿈
 @Repository
 public class FileValidator implements Validator{
 
@@ -19,10 +20,13 @@ public class FileValidator implements Validator{
 	public void validate(Object target, Errors errors) {
 		// 검사의 대상 : target 
 		// 이 때, 발생하는 에러 : errors
-		UploadFile file = (UploadFile)target; // 형변환
+		System.out.println(target);
+		MultipartFile mf = (MultipartFile) target;
+		 
+		//UploadFile file = (UploadFile)target; // 형변환
 		
-		MultipartFile mf = file.getFile();
-		
+	//	MultipartFile mf = file.getFile();
+//		
 		int fileSize = 1024 * 1024 * 100; // 100MB
 		if(mf.getSize() == 0) {
 			errors.rejectValue("file", null, "파일을 선택해 주세요");
