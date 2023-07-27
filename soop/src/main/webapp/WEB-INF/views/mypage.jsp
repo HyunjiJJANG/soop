@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -111,7 +108,14 @@ form {
 
 #MypageH6 {
 	margin-top: 40px;
-	margin-bottom: 40px;
+	margin-bottom: 20px;
+}
+
+#btnNext {
+	margin-top: 50px;
+	width: 250px;
+	height: 40px;
+	margin-left: 330px;
 }
 
 .pill {
@@ -123,32 +127,73 @@ form {
 }
 </style>
 
+
+
+
+
+<script type="text/javascript">
+ $(function() {
+	 $("#testbutton").on(
+			"click",
+			function() {
+				var email = $("#email").value;
+				var password = $("#password").val().trim(); 
+			
+				 $.ajax({
+						type : "GET",
+						url : "/mypagePasswordCheck",
+						data : {
+							/* "email" : $("#email").val().trim(),
+							"password" : $("#password").val().trim() */
+							"email" : email,
+							"password" : password 
+						},
+						dataType : "text",
+						success : function(result) {
+							var resp = result.trim();
+							if (resp == "OK") {
+								alert("비밀번호 확인이 완료되었습니다.");
+								isCertification = true; //인증 성공여부 check	
+							} 
+								
+							}else {
+								isCertification = false; //인증 실패
+								alert("인증에 실패");
+							}
+					});
+	
+	
+	});
+	
+})
+ 
+ 
+
+ function validation() {
+	 
+
+	$("#frm").attr("action", "/mypageOk").submit();
+} 
+
+
+</script>
 </head>
 <body class="d-flex flex-column h-100">
-	<h3>
-
 		<div class="global-container">
 			<div class="card mypage-form">
 				<div class="card-body">
 					<h2 class="card-title text-left" id="MypageH2">마이페이지</h2>
-					<hr class="pill">
+					<hr class="pill"/>
 					<div class="card-text">
-						<form action="/registerOk" method="post" name="frm" id="frm">
+						<form action="/mypageOk" method="post" name="frm" id="frm">
 							<div class="card-title text-left" id="MypageH6">
-								<h6>비밀번호 재확인</h6>
+								<h5>비밀번호 재확인</h5>
 							</div>
-							<hr />
-							<div class="row g-3 align-items-center " style="width: 800px;">
-								<div class="col-md-6 position-relative">
-									<div class="col-6">
-										<span class="join-label-title">닉네임</span>
-										<div class="form-floating">
-											<input type="text" class="form-control" name="name" id="name"
-												placeholder="Name"> <label for="name">닉네임</label>
-											<div class="invalid-feedback">닉네임은 2글자 이상 작성해주세야합니다.</div>
-										</div>
-									</div>
-								</div>
+							<div>
+								<span>회원님의 소중한 정보보호를 위해 비밀번호를 재확인하고 있습니다.</span>
+							</div>
+							<div style="margin-top: 30px; margin-bottom: 40px;">
+								<hr />
 							</div>
 							<div class="row g-3 align-items-center" style="width: 800px;">
 								<div class="col-md-6 position-relative">
@@ -156,54 +201,17 @@ form {
 										<span class="join-label-title">이메일</span>
 										<div class="form-floating">
 											<div class="form-floating mb-3">
-												<input type="email" class="form-control" name="email"
-													id="email" placeholder="account@example.com"
-													aria-labelledby="emailCheck" class="form-control"
-													id="validationTooltipUsername"
-													aria-describedby="validationTooltipUsernamePrepend"
-													required> <label for="email">이메일</label>
-												<div class="invalid-feedback">이메일을 입력해주세요</div>
+												<input type="email" class="form-control" name="emailView"
+													id="emailView" value="${memberDto.email }"
+													style="--bs-border-color: #ffffff;" readonly />
+													<input type="hidden" id="email" name="email" value="${memberDto.email }"/>
+
 											</div>
 										</div>
 									</div>
-									<div class="col-6">
-										<span id="idCheck" class="form-text"></span>
-									</div>
-								</div>
-
-								<div class="col-1">
-									<input type="button" class="btn btn-outline-success btn-sm"
-										value="인증번호 받기" id="btnMailCheck"
-										style="display: none; height: 45px; margin-top: 15px; margin-left: 60px;" />
 								</div>
 							</div>
-							<div class="row g-3 align-items-center" id="authCodeDiv"
-								style="display: none" style="width: 800px;">
-								<div class="col-md-6 position-relative">
-									<div class="col-6">
-										<span class="join-label-title"
-											style="width: 200px; margin-top: 20px;">이메일 확인 인증번호</span>
-										<div class="form-floating">
-											<input type="text" class="form-control" name="authCode"
-												id="authCode" placeholder="authCode"
-												aria-labelledby="btnAuth" class="form-control"
-												id="validationTooltipUsername"
-												aria-describedby="validationTooltipUsernamePrepend" required>
-											<div class="invalid-feedback">이메일 확인 인증번호를 입력해주세요</div>
 
-										</div>
-									</div>
-								</div>
-								<div class="col-6">
-									<input type="button"
-										style="height: 45px; margin-top: 60px; margin-left: 220px;"
-										class="btn btn-outline-success btn-sm" value="인증" id="btnAuth" />
-									&nbsp;&nbsp;&nbsp;
-								</div>
-								<div class="col-6">
-									<span id="authCodeCheck" class="form-text"></span>
-								</div>
-							</div>
 
 							<div class="row g-3 align-items-center" style="width: 800px;">
 								<div class="col-md-6 position-relative">
@@ -216,47 +224,25 @@ form {
 													id="password" placeholder="Password" class="form-control"
 													id="validationTooltipUsername"
 													aria-describedby="validationTooltipUsernamePrepend"
-													required> <label for="password">비밀번호</label>
-												<div class="invalid-feedback">비밀번호는 8자 이상으로 입력해주세요</div>
+													required /> <label for="password">비밀번호</label> <input
+													type="hidden" id="passwordCheckTest" name="passwordCheckTeset"
+													value="${memberDto.password }" /> 
+													<input type="text"
+													value="${memberDto.password }" />
+													<input type="button" id="testbutton" name="testbutton" value="테스트버튼" />
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-6">
-									<span id="pwCheck" class="form-text"></span>
-								</div>
+
 							</div>
-
-							<div class="row g-3 align-items-center" style="width: 800px;">
-								<div class="col-md-6 position-relative">
-									<div class="col-6">
-										<span class="join-label-title">비밀번호 확인</span>
-										<div class="form-floating">
-											<div class="form-floating">
-												<input type="password" class="form-control"
-													name="passwordCheck" id="repeatPw" placeholder="Password"
-													class="form-control"
-													aria-describedby="validationTooltipUsernamePrepend"
-													required> <label for="repeatPw">비밀번호 확인</label>
-												<div class="invalid-feedback">비밀번호와 동일하지 않습니다.</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-6">
-									<span id="repeatPwCheck" class="form-text"></span>
-								</div>
-							</div>
-
-
+							<hr />
 							<div class="d-grid gap-2 col-12" style="height: 65px;">
-								<button type="button" class="btn btn-success" value="가입하기"
-									onclick="validation()">가입하기</button>
+								<button type="button" class="btn btn-success" id="btnNext"
+									value="다음" onclick="validation()">다음</button>
 
 							</div>
-							<div class="sign-in">
-								<a href="/clogin">이미 계정이 있습니다</a>
-							</div>
+
 						</form>
 
 					</div>

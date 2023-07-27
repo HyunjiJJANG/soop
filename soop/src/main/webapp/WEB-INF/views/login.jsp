@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -146,6 +147,7 @@ form {
 </style>
 </head>
 <body class="d-flex flex-column h-100">
+
 	<div class="global-container">
 		<div class="card login-form">
 			<div class="card-body">

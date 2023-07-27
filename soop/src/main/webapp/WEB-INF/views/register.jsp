@@ -290,7 +290,7 @@ form {
 		//비밀번호와 아이디 비교
 		else if (password.value == email.value) {
 			alert("이메일과 동일한 비밀번호를 사용할 수 없습니다.")
-			pw.focus();
+			password.focus();
 			return false;
 		}
 

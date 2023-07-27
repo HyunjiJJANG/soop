@@ -40,6 +40,8 @@ public class MemberController {
 	//커스텀 로그인
 	@GetMapping("/clogin")
 	public String login() {
+		
+		
 
 		return "login";
 	}
