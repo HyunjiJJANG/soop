@@ -9,3 +9,22 @@
 		VALUES (#{project_no}, #{project_title}, #{project_description}, #{project_start_date}, #{project_end_Date}, 0, "#1ABC9C")
 	</insert>
 </mapper>
+
+<mapper namespace="kr.co.jhta.soop.dao.ProjectMemberDAO">
+	<insert id="insertOne" parameterType="kr.co.jhta.soop.dto.ProjectMemberDTO">
+		INSERT INTO project_member (member_no, project_no, member_position)
+		VALUES (#{member_no}, #{project_no}, 0)
+	</insert>
+</mapper>
+  
+<mapper namespace="kr.co.jhta.soop.dao.ProjectProjectMemberMemberDAO">
+	<select id="selectAllProjectTitle" parameterType="int" resultType="kr.co.jhta.soop.dto.ProjectProjectMemberMemberDTO">
+		SELECT p.project_no, p.project_title, p.project_start_date, p.project_end_date, p.project_status, m.member_no
+		FROM project p
+		JOIN project_member pm
+		ON p.project_no = pm.project_no
+		JOIN member m
+		ON m.member_no = pm.member_no
+		WHERE m.member_no = #{member_no}
+	</select>
+</mapper>

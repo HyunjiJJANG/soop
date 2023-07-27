@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.soop.dto.MemoDTO;
 import kr.co.jhta.soop.dto.ProjectDTO;
+import kr.co.jhta.soop.dto.ProjectProjectMemberMemberDTO;
 import kr.co.jhta.soop.service.MemoService;
+import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
 
 @Controller
@@ -21,18 +23,18 @@ public class HomeController {
 	// @Autowired	
 	// ProjectService proService;
 
+	@Autowired
+	ProjectProjectMemberMemberService projectProjectMemberMemberService;
 	
 	// 홈화면 처음 들어갈 때 프로젝트,파일함,메모,캘린더,관심업무 보여주기
-//	@GetMapping("/home")
-//	public String showHome(@RequestParam("member_no")int member_no, Model model) {
-//		MemoDTO dto = memoService.selectOne(member_no);
-//		// List<ProjectDTO> list =proService.selectAll();
-//		
-//		model.addAttribute("memoDTO", dto);
-//		// model.addAttribute("list", list);
-//		
-//		return "home";
-//	}
+	@GetMapping("/home")
+	public String showHome(@RequestParam("member_no")int member_no, Model model) {
+		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+		model.addAttribute("memoDTO", memoService.selectOne(member_no));
+
+		return "home";
+	}
+	
 	
 	// 메모 수정
 	@PostMapping("/home")
