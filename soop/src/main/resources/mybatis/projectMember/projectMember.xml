@@ -11,7 +11,8 @@
 		FROM project p join task t 
 		ON p.project_no = t.project_no
 		JOIN member m 
-		ON m.member_no = t.member_no	
+		ON m.member_no = t.member_no
+		WHERE m.member_no = #{m.member_no}	
 			
   	</select>  
   

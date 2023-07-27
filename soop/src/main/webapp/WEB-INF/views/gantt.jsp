@@ -55,7 +55,7 @@
   </head>
   
   <body>
-  
+  	<jsp:include page="nav.jsp" />
     <div class="chartMenu">
       <p><span id="chartVersion"></span></p>
     </div>

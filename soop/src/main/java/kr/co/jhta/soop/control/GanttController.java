@@ -26,14 +26,18 @@ public class GanttController {
 	ProjectTaskMemberService PTMservice;
 	
 	@GetMapping("/gantt")
-	public String myProject(Model model) {
+	public String myProject(
+			Model model,
+			@RequestParam("member_no")int member_no) {
 		//model.addAttribute("list", PJservice.selectAll());
 		return "gantt";
 	}
 	
 	@GetMapping("/data")
 	@ResponseBody	
-	public List<ProjectDTO> getData(Model model) {
+	public List<ProjectDTO> getData(
+			Model model,
+			@RequestParam("member_no")int member_no) {
 //		model.addAttribute("list", PJservice.selectAll());
 		List<ProjectDTO>  list = PJservice.selectAll();
 		System.out.println("list : " + list);
