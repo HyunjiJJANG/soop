@@ -5,11 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemoMemberDTO {
+@Builder
+public class ScheduleDTO {
+	private int schedule_no;
 	private int member_no;
-	private String memo_content;
+	private String schedule_title;
+	private String schedule_start_date;
+	private String schedule_end_date;
 }
