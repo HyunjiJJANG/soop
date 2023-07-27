@@ -21,13 +21,12 @@ public class ProjectRestController {
 	ProjectProjectMemberMemberService projectProjectMemberMemberService;
 	
 	@GetMapping(value="/home/selectStatus/{member_no}", produces= MediaType.APPLICATION_JSON_VALUE)
-	public List<ProjectProjectMemberMemberDTO> test(@PathVariable("member_no") int member_no) {
+	public List<ProjectProjectMemberMemberDTO> projectShow(@PathVariable("member_no") int member_no) {
 		
 		List<ProjectProjectMemberMemberDTO> list  = 
 				projectProjectMemberMemberService.selectAllProjectTitle(member_no);
 		
 		return list ;
-		
 	}
 	
 	

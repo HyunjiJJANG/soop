@@ -9,7 +9,10 @@
 <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 <link rel="stylesheet" type="text/css" href="assets/css/memo.css">
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
+
+<!-- Full Calendar -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+
 <title>::: SOOP :::</title>
 <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,32 +43,40 @@
 
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-	<!-- 대시보드 일정(캘린더) -->
-    <script>
+<script type="text/javascript">
+	// 대시보드 일정(캘린더)
+ 	document.addEventListener("DOMContentLoaded", function() {
+ 		$.ajax({
+ 			type: "GET", 
+ 			url: "/home/selectStatus/1",
+ 	  		data : {
+ 	  			member_no : 1
+ 	  		},
+ 			success: function(data){
+ 				let e = [];
+ 	  			for(var i=0; i<data.length; i++){
+ 	  				e.push(
+ 						{
+     						title: data[i].project_title,
+     						start: data[i].project_start_date,
+     		                end: data[i].project_end_date
+ 						}
+ 					);
+ 				}
+ 	  			
+ 	  			var calendarEl = document.getElementById("calendar");
+ 		        var calendar = new FullCalendar.Calendar(calendarEl, {
+ 			          	initialView: "dayGridMonth",
+ 			          	events: e
+ 			     });
+ 		       
+ 		        calendar.render(); // 달력을 띄워 주는 메뉴
 
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-        	// aspectRatio: 1.35, // 가로 세로 비율(창크기 바뀔때 비율유지됨)
-          	initialView: 'dayGridMonth',
-          	events: [
-                {
-                  title: '프로젝트1',
-                  start: '2023-07-01',
-                  end: '2023-07-05',
-                },
-                {
-                  title: '프로젝트2',
-                  start: '2023-07-17',
-                  end: '2023-07-20',   
-            }],
-        });
-        calendar.render(); // 달력을 띄워 주는 메뉴
-      });
+ 			}// success
+ 		}); // ajax		
+    });
 
-    </script>
-    
-    <script type="text/javascript">
+	// 참여 중인 프로젝트 비동기 선택옵션
     function projectSelect(){
   	  let status = $("#projectStatusOption").val();
   	  $.ajax({
@@ -77,9 +88,6 @@
   		dataType: "text",
   		success: function(data){
   			var obj = JSON.parse(data);
-  			console.dir(obj);
-  			console.log("status : " + status);
-  			console.log(" data : " + data);
   			var text = "";
   			for(var i=0; i<obj.length; i++){
    				var txt = "<tr><td colspan='8'><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
@@ -104,21 +112,12 @@
   	  					text += txt + "<td><label class='badge badge-light-danger'>보류</label></td></tr>"; 
   					}
   				}
-		
-  				
   			}
-
-  				$("#projectList").html(text);
-  			
-  			console.log(text);
+  			$("#projectList").html(text);
   		}
   	  })
   	 }    
-    </script>
-    
-    
-    
-  <script>
+ 
   /* Range Calender */
   $( function() {
 	  	/* dateFormat mm/dd/yy에서 수정함 */
@@ -149,10 +148,6 @@
 	    }
 
 	  } );
-
-  // 참여 중인 프로젝트 비동기 선택옵션
-  // (value=0,1,2 선택시 진행중,완료,보류에 해당하는 옵션 리스트만 나오게)
- 
   
   // 메모 비동기 수정
   $(function(){
@@ -167,12 +162,19 @@
 	  	  })
 	  })
   })
-  </script>
+  
+  // 일정추가 버튼 클릭하면 캘린더에 나의 일정 추가
+  $(function(){
+	  $("#scheduleAdd").on("click", function(){
+		  
+	  })
+  })
+  
+</script>
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
-	<!-- 왼쪽 네비바(삭제금지) -->
 	<br /><br />
 	<div class="pcoded-main-container">
 		<div class="pcoded-content">
@@ -380,7 +382,7 @@
                     <div class="card-header">
                         <h5>캘린더</h5>
 							<div class="card-header-right">
-								<button type="button" class="btn btn-primary btn-sm"><i class="fa-regular fa-pen-to-square" style="color: #fff; "></i>&nbsp;&nbsp;일정추가</button>
+								<button type="button" class="btn btn-primary btn-sm scheduleAdd"><i class="fa-regular fa-pen-to-square" style="color: #fff; "></i>&nbsp;&nbsp;일정추가</button>
 							</div>
 						</div>
                     <div id="calendar" style="float:left; padding-left: 10px; padding-right: 10px;"></div>
@@ -419,7 +421,7 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -441,7 +443,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -463,7 +465,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -485,7 +487,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -507,7 +509,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -529,7 +531,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
