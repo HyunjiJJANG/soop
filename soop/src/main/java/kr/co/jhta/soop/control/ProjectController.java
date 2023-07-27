@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.soop.dto.ProjectDTO;
 import kr.co.jhta.soop.dto.ProjectMemberDTO;
+import kr.co.jhta.soop.service.FeedService;
 import kr.co.jhta.soop.service.ProjectMemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
@@ -24,24 +25,27 @@ public class ProjectController {
 	ProjectMemberService projectMemberService;
 	
 	@Autowired
-	ProjectProjectMemberMemberService projectProjectMemberMemberService;
+	FeedService feedService;
 	
-	// home화면 들어가면 side nav에 프로젝트 목록 띄워주기
-	@GetMapping("/home")
-	public String getMyAllProject(@RequestParam("member_no")int member_no,
-								  Model model) {
-		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
-		return "home";
-	}
+//	@Autowired
+//	ProjectProjectMemberMemberService projectProjectMemberMemberService;
+//	
+//	// home화면 들어가면 side nav에 프로젝트 목록 띄워주기
+//	@GetMapping("/home")
+//	public String getMyAllProject(@RequestParam("member_no")int member_no,
+//								  Model model) {
+//		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+//		return "home";
+//	}
 	
 	// side nav의 프로젝트 생성 버튼 누르면 프로젝트 생성하기
 	@PostMapping("/createProject")
-	public String addProject(@RequestParam("project_no")int project_no,
+	public String addProject(@RequestParam(value="project_no", defaultValue="10")int project_no,
 						 	 @RequestParam("project_title")String project_title,
 						 	 @RequestParam("project_description")String project_description,
 						 	 @RequestParam("project_start_date")String project_start_date,
 						 	 @RequestParam("project_end_date")String project_end_date,
-						 	 @RequestParam("member_no")int member_no) {
+						 	 @RequestParam(value="member_no")int member_no) {
 		
 		ProjectDTO projectDto = new ProjectDTO();
 		projectDto.setProject_no(project_no);
@@ -56,7 +60,16 @@ public class ProjectController {
 		projectMemberDto.setProject_no(project_no);
 		projectMemberService.insertOne(projectMemberDto);
 		
-		return "redirect:home"; // 생성 완료하면 해당 프로젝트의 피드로 이동
+		return "feed"; // 생성 완료하면 해당 프로젝트의 피드로 이동
+	}
+	
+	// side nav의 프로젝트 이름 클릭시 해당 프로젝트 피드 화면으로 이동
+	@GetMapping("/goFeed")
+	public String goFeed(@RequestParam("project_no")int project_no,
+						 @RequestParam(value="member_no")int member_no,
+						 Model model) {
+		model.addAttribute("projectDetailDto", feedService.selectAllProjectDetail(project_no, member_no));
+		return "feed";
 	}
 	
 }

@@ -87,7 +87,7 @@
 					<!-- 프로젝트 리스트가 보여지는 곳 -->
 					<c:forEach var="dto" items="${projectList}">
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="goFeed?project_no=${dto.project_no}" class="nav-link">
 								<span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span>
 								<span class="pcoded-mtext">${dto.project_title}</span>
 							</a>
@@ -245,7 +245,9 @@
 						<table class="table">
 							<tr>
 								<td>프로젝트 이름</td>
-								<td colspan="2"><input type="text" class="form-control" id="project_title"></td>
+								<td colspan="2">
+									<input type="text" class="form-control" name="project_title" id="project_title">
+								</td>
 							</tr>
 							<tr>
 								<td>프로젝트 기간</td>
@@ -264,7 +266,7 @@
 							</tr>
 							<tr>
 								<td>프로젝트 설명</td>
-								<td colspan="2"><textarea class="form-control" name="project_content" id="project_content" rows="5"></textarea></td>
+								<td colspan="2"><textarea class="form-control" name="project_description" id="project_description" rows="5"></textarea></td>
 							</tr>
 						</table>
 					</div>
