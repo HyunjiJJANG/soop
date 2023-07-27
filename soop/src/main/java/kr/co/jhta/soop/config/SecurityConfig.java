@@ -69,8 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.passwordParameter("password")
 				// 로그인 처리할 url 
 				.loginProcessingUrl("/login")
+				
 				// 로그인성공하면 "/"로 이동
-				.defaultSuccessUrl("/")
+				.defaultSuccessUrl("/loginOkIndex")
 				// 로그인 실패하면 /clogin?error=true
 				.failureUrl("/clogin?error=true")
 				.and()

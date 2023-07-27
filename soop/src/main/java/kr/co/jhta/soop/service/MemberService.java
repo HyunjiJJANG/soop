@@ -14,6 +14,7 @@ public interface MemberService {
 	
 	public MemberDTO selectMemberByEmail(String email);
 	
+	
 	public void insertOne(MemberDTO dto);
 
 	public void updateOne(MemberDTO dto);

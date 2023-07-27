@@ -103,9 +103,25 @@ form {
 	width: 800px;
 }
 
+#searchPasswordH2 {
+	font-weight: bold;
+}
+
+#searchPasswordH6 {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+#email {
+	width: 350px;
+}
+#authCode{
+	width: 350px;
+}
+
 $
 hr-height: 2px ; $hr-line-color: currentColor ; $hr-content-color: currentColor 
-	; hr {
+	 ; hr {
 	height: $hr-height;
 	overflow: visible;
 	color: #999;
@@ -234,13 +250,22 @@ hr-height: 2px ; $hr-line-color: currentColor ; $hr-content-color: currentColor
 	<div class="global-container">
 		<div class="card login-form">
 			<div class="card-body">
-				<h3 class="card-title text-center">비밀번호 찾기</h3>
+				<h2 class="card-title text-center" id="searchPasswordH2">비밀번호
+					찾기</h2>
 				<div class="card-text">
 					<form action="searchPasswordOk" method="post" name="frm" id="frm">
 
 						<hr />
+						<div class="card-title text-center" id="searchPasswordH6">
+							<h6>가입한 아이디(이메일)를 입력해주세요</h6>
+							<h6>이메일 본인인증을 통해</h6>
+							<h6>비밀번호를 변경합니다.</h6>
+
+						</div>
+
 						<div class="row g-3 align-items-center" style="width: 800px;">
-							<div class="col-md-6 position-relative">
+							<div class="col-md-6 position-relative"
+								style="padding-right: 0px; width: 378px;">
 								<div class="col-6">
 									<span class="join-label-title">이메일</span>
 									<div class="form-floating">
@@ -263,7 +288,7 @@ hr-height: 2px ; $hr-line-color: currentColor ; $hr-content-color: currentColor
 							<div class="col-1">
 								<input type="button" class="btn btn-outline-success btn-sm"
 									value="인증번호 받기" id="btnMailCheck"
-									style="height: 45px; margin-top: 15px; margin-left: 60px;" />
+									style="height: 45px; margin-top: 15px;" />
 							</div>
 						</div>
 						<div class="row g-3 align-items-center" id="authCodeDiv"
@@ -285,7 +310,7 @@ hr-height: 2px ; $hr-line-color: currentColor ; $hr-content-color: currentColor
 							</div>
 							<div class="col-6">
 								<input type="button"
-									style="height: 45px; margin-top: 60px; margin-left: 220px;"
+									style="height: 45px; margin-top: 57px; margin-left: 139px; width: 85px;"
 									class="btn btn-outline-success btn-sm" value="인증" id="btnAuth" />
 								&nbsp;&nbsp;&nbsp;
 							</div>
@@ -295,7 +320,7 @@ hr-height: 2px ; $hr-line-color: currentColor ; $hr-content-color: currentColor
 						</div>
 
 						<div class="d-grid gap-2 col-12" id="serachButtonDiv"
-							style="width: 276px; height: 36px;" style="display: none">
+							style="width: 276px; height: 36px; margin-top: 40px;">
 							<input type="button" id="serachButton" class="btn btn-success"
 								value="비밀번호 찾기"
 								style="margin-top: 20px; width: 450px; height: 50px;"
