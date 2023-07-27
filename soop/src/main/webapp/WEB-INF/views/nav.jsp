@@ -4,15 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <title>::: SOOP :::</title>
-<link rel="stylesheet" type="text/css" href="assets/css/nav.css">
-<!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 11]>
-    	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    	<![endif]-->
 <!-- Meta -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -20,62 +12,32 @@
 <meta name="description" content="" />
 <meta name="keywords" content="">
 <meta name="author" content="Phoenixcoded" />
-
+<link rel="stylesheet" type="text/css" href="assets/css/nav.css">
 <!-- Favicon icon -->
 <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
-
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
-
-
-<!-- jquery -->
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<!-- font awesome -->
+<script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
+<!-- datepicker -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
-	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
-<script>
-/* Range Calender */
-  $( function() {
-	  	/* dateFormat mm/dd/yy에서 수정함 */
-	    var dateFormat = "yy/mm/dd",
-	      from = $( "#projectStartDate" ).datepicker({
-	          changeMonth: true,
-	          numberOfMonths: 1
-	      })
-	        .on( "change", function() {
-	          to.datepicker( "option", "minDate", getDate( this ) );
-	        }),
-	      to = $( "#projectEndDate" ).datepicker({
-	        changeMonth: true,
-	        numberOfMonths: 1
-	      })
-	      .on( "change", function() {
-	        from.datepicker( "option", "maxDate", getDate( this ) );
-	      });
-	 
-	    function getDate( element ) {
-	      var date;
-	      try {
-	        date = $.datepicker.parseDate( dateFormat, element.value );
-	      } catch( error ) {
-	        date = null;
-	      }	 
-	      return date;
-	    }
-	  } );
-
+<script type="text/javascript">
+	$(function() {
+		$("#daterangepicker").daterangepicker();
+	})
 </script>
+
+
+
 </head>
 <body>
 	<!-- [ navigation menu ] start -->
@@ -116,7 +78,7 @@
 					</li>
 					<li class="nav-item pcoded-menu-caption"><label>프로젝트</label></li>
 					<li class="nav-item">
-						<a href="insertProject" data-bs-toggle="modal" data-bs-target="#Modal">
+						<a href="insertProject" data-bs-toggle="modal" data-bs-target="#createProjectModal">
 							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus"></i></span>
 							<span class="pcoded-mtext">프로젝트 생성</span>
 						</a>
@@ -273,41 +235,44 @@
 	<script src="assets/js/pcoded.min.js"></script>
 
 	<!-- Modal -->
-	<!-- <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true"> -->
-	<div class="modal" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" role="dialog">
+	<div class="modal" id="createProjectModal" role="dialog">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="ModalLabel">새 프로젝트 생성</h1>
-					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">새 프로젝트 생성</h4>
+					<button type="button" class="close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 				</div>
-				<form action="#" method="post">
+				<form action="createProject" method="post">
 					<div class="modal-body">
 						<table class="table">
 							<tr>
 								<td>프로젝트 이름</td>
-								<td colspan="2"><input type="text" class="form-control" id="projectTitle"></td>
+								<td colspan="2"><input type="text" class="form-control" id="project_title"></td>
 							</tr>
 							<tr>
 								<td>프로젝트 기간</td>
 								<td>
-									<div class="input-group">
-										<input type="text" class="form-control datepicker" name="projectStartDate" id="projectStartDate" placeholder="시작일">
-										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
+									<div class="input-group" >
+										<input type="text" id="daterangepicker" class="form-control" name="project_start_date" id="project_start_date" placeholder="시작일">
+										<label for="project_start_date" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>
 									</div>								
-									<!-- <input type="text" class="form-control" id="projectStartDate" name="projectStartDate" placeholder="시작일"> -->
 								</td>
-								<td><input type="text" class="form-control" id="projectEndDate" name="projectEndDate" placeholder="종료일"></td>
+								<td>
+									<div class="input-group">
+										<input type="text" class="form-control datepicker" name="project_end_date" id="project_end_date" placeholder="종료일">
+										<label for="project_end_date" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td>프로젝트 설명</td>
-								<td colspan="2"><textarea class="form-control" name="projectContent" id="projectContent" rows="5"></textarea></td>
+								<td colspan="2"><textarea class="form-control" name="project_content" id="project_content" rows="5"></textarea></td>
 							</tr>
 						</table>
 					</div>
 					<div class="modal-footer">
 						<input type="submit" class="btn btn-primary" id="btnCreateProject" value="프로젝트 생성">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>			
 					</div>
 				</form>
 			</div>
