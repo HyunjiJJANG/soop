@@ -1,7 +1,10 @@
 package kr.co.jhta.soop.control;
 
+<<<<<<< HEAD
+=======
 import java.util.List;
 
+>>>>>>> branch 'seulki' of https://github.com/HyunjiJJANG/soop.git
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +26,13 @@ public class HomeController {
 	// @Autowired	
 	// ProjectService proService;
 
+<<<<<<< HEAD
+=======
 	@Autowired
 	ProjectProjectMemberMemberService projectProjectMemberMemberService;
 	
 	// 홈화면 처음 들어갈 때 프로젝트,파일함,메모,캘린더,관심업무 보여주기
+>>>>>>> branch 'seulki' of https://github.com/HyunjiJJANG/soop.git
 	@GetMapping("/home")
 	public String showHome(@RequestParam("member_no")int member_no, Model model) {
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
