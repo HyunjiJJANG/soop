@@ -16,7 +16,6 @@ public class MemberMysqlService implements MemberService{
 	MemberDAO dao;
 	@Override
 	public List<MemberDTO> selectAll() {
-
 		return dao.selectAll();
 	}
 
@@ -42,5 +41,6 @@ public class MemberMysqlService implements MemberService{
 		dao.deleteOne(member_no);
 		
 	}
+
 
 }

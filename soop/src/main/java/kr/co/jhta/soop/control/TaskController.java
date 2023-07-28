@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.http.HttpRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -32,8 +33,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import jdk.internal.org.jline.utils.Log;
 import kr.co.jhta.soop.dto.AttachedFileDTO;
+import kr.co.jhta.soop.dto.MemberDTO;
 import kr.co.jhta.soop.dto.TaskDTO;
+import kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO;
 import kr.co.jhta.soop.service.AttachedFileService;
+import kr.co.jhta.soop.service.MemberProjectProjectmemberService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectService;
 import kr.co.jhta.soop.service.TaskAttachedFileService;
@@ -57,6 +61,12 @@ public class TaskController {
 	@Autowired
 	TaskAttachedFileService taskAttachedFileService;
 	
+	@Autowired
+	MemberService memberService;
+	
+	@Autowired
+	MemberProjectProjectmemberService memberProjectProjectmemberService;
+	
 	@GetMapping("/task")
 	public String register(Model model) {
 		// model.addAttribute("list", taskService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌
@@ -75,21 +85,23 @@ public class TaskController {
 			@ModelAttribute AttachedFileDTO Filedto,
 			@ModelAttribute UploadFile uploadfile, // task.jsp의 업무 생성 모달 폼에서 uploadfile 받아오기
 			BindingResult result, // 유효성 검사를 위한
-			HttpServletRequest req) // 파일 경로를 위한 
+			HttpServletRequest req,  // 파일 경로를 위한 
+			@RequestParam("project_no") int project_no) // 결재라인에서 프로젝트 넘버로 결재자 리스트(member) 띄우기 위해
 			throws UnsupportedEncodingException {
 		
-		// task 생성(insert)
+		// ** task 생성(insert) **
 		Taskdto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 		taskService.insertOne(Taskdto);
 		
-	
-		// 파일 유효성 검사 후 성공하면 작업을 계속하고,
-		// 실패하면 중단시키도록
-//		fileValidator.validate(file, result); // error가 생기면 result로 넘겨줌 
-//		if 	(result.hasErrors()) { // 결과에 에러가 존재한다면 // 다시 돌아가 
-//			return 	"redirect:/soop/task";
-//		}
+		
+		// ** 결재라인 **
+		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no); // => memberService가 아니라 memberProject를 join한 service가 필요!
+		model.addAttribute("members", members);
+		log.info("members : {}", members.get(project_no));
+		model.addAttribute("list", taskAttachedFileService.selectAll()); 
+		
 
+		// ** 파일 첨부 **
 		
 		// 파일은 어디에 저장  /data <== (현재 임시 파일은 properties에 c:\\temp\\data 로 지정됨)
 		// 서버에 저장할 실제 디렉토리 경로 구하기

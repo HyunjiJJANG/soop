@@ -289,12 +289,10 @@
 					<tr>
 						<td>
 							<select name="sign_approval" id="sign_approval" class="form-select" aria-label="Default select example">
-								<option selected>------업무 상태 선택-----</option>
-								<option value="0">사람1</option>
-								<!-- project dto에서 해당 project의 사람을 한사람씩 띄워줌? -->
-								<option value="1">사람2</option>
-								<option value="2">사람3</option>
-								<option value="3">사람4</option>
+								<option selected>------결재자 선택-----</option>
+								<c:forEach items="${members}" var="member">
+            								<option value="${member.id}">${member.name}</option>
+        						</c:forEach>
 						</td>
 						<td>
 							<select name="sign_approval" id="sign_approval" class="form-select" aria-label="Default select example">
