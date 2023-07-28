@@ -338,11 +338,7 @@
                     <!-- 포스트잇 start -->
 						<div class="postbody">
 							<div class="outline">
-<<<<<<< HEAD
-									<textarea class="memo_content" name="memo_content" id="memo_content" placeholder="메모를 입력해주세요" >${memoMemberDTO.memo_content}</textarea>
-=======
-								<textarea class="memo_content" name="memo_content" id="memo_content" placeholder="메모를 입력해주세요" >${memoDTO.memo_content}</textarea>
->>>>>>> branch 'seulki' of https://github.com/HyunjiJJANG/soop.git
+									<textarea class="memo_content" name="memo_content" id="memo_content" rows="12" maxlength="264" placeholder="메모를 입력해주세요" >${memoDTO.memo_content}</textarea>
 							</div>
 						</div>
 					<!-- 포스트잇 end -->

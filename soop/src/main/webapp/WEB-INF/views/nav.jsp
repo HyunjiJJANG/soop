@@ -134,7 +134,7 @@ $(function(){
 	<!-- [ Header ] start -->
 	<header	class="navbar pcoded-header navbar-expand-lg navbar-light header-dark" style="position: fixed;">
 		<div class="m-header">
-			<a href="#!" class="b-brand"> <!-- ========   change your logo hear   ============ -->
+			<a href="home?member_no=1" class="b-brand"> <!-- ========   change your logo hear   ============ -->
 				<img src="assets/images/logo.png" alt="" class="logo">
 				<img src="assets/images/logo-icon.png" alt="" class="logo-thumb">
 			</a> 
