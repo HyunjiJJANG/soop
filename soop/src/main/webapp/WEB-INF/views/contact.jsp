@@ -4,21 +4,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
-<title>Insert title here</title>
+<title>주소록</title>
 
-
-<link rel="stylesheet" type="text/css" href="/css/hhj.css">
-
-
-=======
-<title>login.jsp</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="" />
-<meta name="author" content="" />
 <!-- 폰트 적용 -->
 <link rel="stylesheet" type="text/css" href="/css/hhj.css">
-<!-- 부트스트랩 -->
+
+<!-- AJAX -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
 <!-- 부트스트랩 cdn -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -38,6 +33,8 @@
 	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
 	crossorigin="anonymous"></script>
 
+
+
 <!-- css -->
 
 <style>
@@ -46,6 +43,7 @@ html, body {
 }
 
 .global-container {
+	margin-top: 100px;
 	height: 100%;
 	display: flex;
 	align-items: center;
@@ -67,14 +65,8 @@ form {
 	margin-top: 10px;
 }
 
-#btnRegister {
-	font-size: 14px;
-	margin-top: 20px;
-	width: 450px;
-}
-
-.register-form {
-	width: 500px;
+.mypage-form {
+	width: 900px;
 	margin: 20px;
 }
 
@@ -110,40 +102,75 @@ form {
 .row g-3 align-items-center {
 	width: 800px;
 }
+
+#MypageH2 {
+	font-weight: bold;
+}
+
+#MypageH6 {
+	margin-top: 40px;
+	margin-bottom: 20px;
+}
+
+#btnNext {
+	margin-top: 50px;
+	width: 250px;
+	height: 40px;
+	margin-left: 330px;
+}
+
+.pill {
+	height: 0px;
+	border-radius: 2px;
+	color: #009e2a;
+	border: 2px solid currentColor;
+	width: 100%;
+}
+
+#profileImageModifyButton {
+	position: fixed;
+	top: 308px; /* 화면 위쪽에서 20px 떨어진 위치에 고정됩니다. */
+	left: 314px; /* 화면 오른쪽에서 20px 떨어진 위치에 고정됩니다. */
+	width: 50px;
+	background-color: #bdbdbd;
+	padding: 10px;
+	border-radius: 50%; /* 반지름 값이 너비와 높이의 절반 크기가 되도록 설정 */
+	object-fit: cover; /* 이미지가 요소에 꽉 차도록 설정 */
+}
 </style>
 
+
 </head>
+
+${list }
 <body class="d-flex flex-column h-100">
-		<div class="global-container"> 
-			<div class="card login-form">
-				<div class="card-body">
-					<h3 class="card-title text-center">SIGN IN</h3>
-					<div class="card-text">
-						<form action="loginOk.jsp" name="frm" method="post">
-							<div class="form-group">
-							  	<div class="form-floating">
-									<input type="text" class="form-control" name="id" id="id" placeholder="ID" aria-labelledby="btnIdCheck">
-									<label for="id">아이디</label>
-								</div>
-							</div>
-							<div class="form-group">
-						  		<div class="form-floating">
-									<input type="password" class="form-control" name="pw" id="pw" placeholder="Password" aria-labelledby="repeatPw">
-									<label for="pw">비밀번호</label>
-								</div>
-								<!-- <a href="###" style="float:right;font-size:12px;text-decoration:none;">비밀번호를 잊으셨나요?</a> -->
-							</div>
-							<div class="d-grid gap-2 col-12">
-								<input type="submit" class="btn btn-primary" value="로그인" id="btn" />
-							</div>
-							<div class="sign-up">
-								<span>계정이 없으신가요?</span>
-								<a href="register.jsp" style="text-decoration:none;">여기를 눌러 회원가입</a>
-							</div>
-						</form>
-					</div>
+	<div class="global-container">
+		<div class="card mypage-form">
+			<div class="card-body">
+				<h2 class="card-title text-left" id="MypageH2">주소록</h2>
+				<hr class="pill" />
+				<div class="card-text">
+					
+						
+						<!--회원 프로필 사진  -->
+						<div class="text-left"
+							style="margin-top: 50px; margin-bottom: 50px;">
+							<img src="${memberDto.profile_path }" class="rounded"
+								alt="profile_image"> 
+
+
+						</div>
+
+
+			
+
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
+
+
+
+
 </html>

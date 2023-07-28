@@ -3,6 +3,9 @@ package kr.co.jhta.soop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 public class SoopApplication {
@@ -11,8 +14,8 @@ public class SoopApplication {
 		SpringApplication.run(SoopApplication.class, args);
 	}
 
-	/*
-	 * @Bean PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder();
-	 * }
-	 */
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 }
