@@ -50,8 +50,13 @@ public class HomeController {
 	}
 	
 
-	@GetMapping("/test")
+	@GetMapping("/feed")
 	public String test() {
+		return "feed";
+	}
+	
+	@GetMapping("/test")
+	public String test2() {
 		return "test";
 	}
 	

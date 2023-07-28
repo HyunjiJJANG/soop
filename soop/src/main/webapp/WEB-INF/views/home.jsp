@@ -547,7 +547,7 @@
 						<table class="table">
 							<tr>
 								<td>제목</td>
-								<td colspan="2">
+								<td colspan="3">
 									<input type="text" class="form-control" id="projectTitle" placeholder="일정을 입력해주세요">
 								</td>
 							</tr>
@@ -565,6 +565,7 @@
 										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>
 									</div>
 								</td>
+								<td>입력형식 : YYYY-MM-DD</td>
 							</tr>
 						</table>
 					</div>
