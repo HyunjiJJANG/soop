@@ -126,6 +126,17 @@ form {
 	border: 2px solid currentColor;
 	width: 100%;
 }
+
+#profileImageModifyButton {
+	position: fixed;
+	top: 308px; /* 화면 위쪽에서 20px 떨어진 위치에 고정됩니다. */
+	left: 314px; /* 화면 오른쪽에서 20px 떨어진 위치에 고정됩니다. */
+	width: 50px;
+	background-color: #bdbdbd;
+	padding: 10px;
+	border-radius: 50%; /* 반지름 값이 너비와 높이의 절반 크기가 되도록 설정 */
+	object-fit: cover; /* 이미지가 요소에 꽉 차도록 설정 */
+}
 </style>
 <!--
 이름 변경 : nameChange
@@ -216,53 +227,51 @@ form {
 		})
 
 		//이름 변경 확인 버튼을 누르면
-		$("#nameChangeOk").on("click", function() {
-			console.log("이름 변경 확인 버튼 눌림 ");
-			var name = $("#name").val().trim();
+		$("#nameChangeOk")
+				.on(
+						"click",
+						function() {
+							console.log("이름 변경 확인 버튼 눌림 ");
 
-			//유효성 검사 
-			var regName = /^[가-힣a-zA-Z]{2,15}$/;
+							if ($("#name").val().trim().length > 2
+									&& $("#name").val().trim() !== $(
+											"#nameView").val()) {
 
-			//이름 확인 = 한글과 영어만 가능하도록
-			if (name.value == "") {
-				alert("이름을 입력하세요.")
-				name.focus();
+								$.ajax({
+									type : 'GET',
+									url : '/nameChange',
+									data : {
+										"name" : $("#name").val().trim(),
+										"nameView" : $("#nameView").val(),
+										"email" : $("#email").val()
+									},
+									dataType : 'text',
+									success : function(result) {
+										var resp = result.trim();
+										if (resp == "OK") {
+											alert("닉네임(이름) 변경이 완료되었습니다.");
 
-			} else if (!regName.test(name.value)) {
-				alert("최소 2글자 이상, 한글과 영어만 입력하세요.")
-				name.focus();
+											$("#newChangeNameDiv").hide();
+											$("#nameDiv").show();
+											location.reload();
 
-			} else {
+										} else {
+											alert("닉네임(이름) 변경에 실패했습니다.");
 
-				$.ajax({
-					type : 'GET',
-					url : '/nameChange',
-					data : {
-						"name" : $("#name").val().trim(),
-						"nameView" : $("#nameView").val(),
-						"email" : $("#email").val()
-					},
-					dataType : 'text',
-					success : function(result) {
-						var resp = result.trim();
-						if (resp == "OK") {
-							alert("닉네임(이름) 변경이 완료되었습니다.");
-							$("#newChangeNameDiv").hide();
-							$("#nameChangOkDiv").show();
-							const nameValue = document.getElementById("name").value;
-							 document.getElementById("nameView").value = nameValue;
-							
+										}
+									}
 
-						} else {
-							alert("닉네임(이름) 변경에 실패했습니다.");
-						}
-					}
+								});
 
-				});
+							} else if ($("#name").val().trim().length < 3) {
+								alert("최소 2글자 이상 입력하세요.");
+							} else if ($("#name").val().trim() == $("#nameView")
+									.val().trim()) {
 
-			}
+								alert("변경 전 같은 이름은 사용 불가능합니다.");
+							}
 
-		});
+						});
 
 		//비밀번호 변경 버튼을 누르면 입력받는 창이 보이게
 		$("#passwordChange").on("click", function() {
@@ -278,66 +287,52 @@ form {
 			$("#passwordDiv").show();
 		});
 
-		passwordView
-
 		//비밀번호 변경 확인 버튼을 누르면
-		$("#passwordChangeOk").on("click", function() {
-			console.log("비밀번호 변경 확인 버튼 눌림 ");
+		$("#passwordChangeOk").on(
+				"click",
+				function() {
+					console.log("비밀번호 변경 확인 버튼 눌림 ");
 
-			var password = $("#password").val().trim();
-			var repeatPw = $("#repeatPw").val().trim();
+					if ($("#password").val().trim().length > 7
+							&& $("#password").val().trim() == $("#repeatPw")
+									.val().trim()) {
 
-			//유효성 검사 
-			var regIdPw = /^[a-zA-Z0-9]{8,30}$/;
+						$.ajax({
+							type : 'GET',
+							url : '/passwordChange',
+							data : {
 
-			//비밀번호 확인
-			if (password.value == "") {
-				alert("비밀번호를 입력하세요.")
-				password.focus();
+								"password" : $("#password").val(),
+								"repeatPw" : $("#repeatPw").val(),
+								"email" : $("#email").val()
+							},
+							dataType : 'text',
+							success : function(result) {
+								var resp = result.trim();
+								if (resp == "OK") {
+									alert("비밀번호 변경이 완료되었습니다.");
+									$("#newChangePasswordDiv").hide();
+									$("#newChangePasswordCheckDiv").hide();
+									$("#passwordDiv").show();
+									location.reload();
 
-			}
-			//비밀번호 영어 대소문자 확인
-			else if (!regIdPw.test(password.value)) {
-				alert("8~30자 영문 대소문자, 숫자만 입력하세요.")
-				password.focus();
+								} else {
+									alert("비밀번호 변경에 실패했습니다.");
 
-			} else if (repeatPw == "") {
-				alert("비밀번호 확인이 입력되지 않았습니다.");
-			} else //비밀번호 확인
-			if (password.value !== repeatPw.value) {
-				alert("비밀번호와 비밀번호 확인이 동일하지 않습니다.")
-				repeatPw.focus();
+								}
+							}
 
-			} else {
+						});
 
-				$.ajax({
-					type : 'GET',
-					url : '/passwordChange',
-					data : {
+					} else if ($("#password").val().trim().length < 7) {
+						alert("8~30자 영문 대소문자, 숫자만 입력하세요.");
+					} else if ($("#password").val().trim() !== $("#repeatPw")
+							.val().trim()) {
 
-						"password" : $("#password").val(),
-						"repeatPw" : $("#repeatPw").val(),
-						"email" : $("#email").val()
-					},
-					dataType : 'text',
-					success : function(result) {
-						var resp = result.trim();
-						if (resp == "OK") {
-							alert("비밀번호 변경이 완료되었습니다.");
-							$("#newChangePasswordDiv").hide();
-							$("#newChangePasswordCheckDiv").hide();
-							$("#passwordDiv").show();
-
-						} else {
-							alert("비밀번호 변경에 실패했습니다.");
-						}
+						alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
 					}
 
 				});
-
-			}
-
-		});
 
 	})
 </script>
@@ -351,18 +346,22 @@ form {
 				<h2 class="card-title text-left" id="MypageH2">마이페이지</h2>
 				<hr class="pill" />
 				<div class="card-text">
-					<form action="/mypagePasswordCheckOk" method="post" name="frm"
-						id="frm">
+					<form name="frm" id="frm">
 						<div class="card-title text-left" id="MypageH6">
-							<h5>회원정보 수정</h5>
+							<h5>회원정보</h5>
 						</div>
-						<div style="margin-top: 30px; margin-bottom: 40px;">
-							<hr />
+						<!--회원 프로필 사진  -->
+						<div class="text-left"
+							style="margin-top: 50px; margin-bottom: 50px;">
+							<img src="${memberDto.profile_path }" class="rounded"
+								alt="profile_image"> 
+								<a href="#" id="profileImageModify"><img src="/images/iconmodify.png"
+								 alt="profile_image"
+								id="profileImageModifyButton"></a>
+								
+
 						</div>
-						<div style="margin-bottom: 30px;">
-							<span>로그인 정보</span>
-						</div>
-						<!-- hidden -->
+
 
 
 
@@ -384,6 +383,42 @@ form {
 								</div>
 							</div>
 						</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<div style="margin-top: 30px; margin-bottom: 40px;">
+							<hr />
+						</div>
+						<div class="card-title text-left" id="MypageH6">
+							<h5>회원정보 수정</h5>
+						</div>
+						<div style="margin-top: 30px; margin-bottom: 40px;">
+							<hr />
+						</div>
+						<div style="margin-bottom: 30px;">
+							<span>로그인 정보</span>
+						</div>
+						<!-- hidden -->
+
+
+
 
 						<!-- 닉네임 -->
 						<div class="row g-3 align-items-center" style="width: 800px;"
@@ -411,20 +446,19 @@ form {
 							</div>
 
 						</div>
-						
+
 						<!-- 닉네임 변경 후 보일 div -->
-						<div class="row g-3 align-items-center" style="width: 800px; display: none;"
-							id="nameChangOkDiv">
+						<div class="row g-3 align-items-center"
+							style="width: 800px; display: none;" id="nameChangOkDiv">
 							<div class="col-md-6 position-relative" style="width: 150px;">
 								<div class="col-6">
 									<span class="join-label-title"
 										style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
 									<div class="form-floating">
 										<div class="form-floating mb-3">
-											<input type="text" class="form-control" name="nameChangOkView"
-												id="nameChangOkView"
-												style="--bs-border-color: #ffffff; padding-top: 0px; width: 100px; margin-bottom: 45px;"
-												readonly />
+											<div class="col-6">
+												<span id="nameCkView" class="form-text"></span>
+											</div>
 										</div>
 
 									</div>
@@ -438,7 +472,7 @@ form {
 							</div>
 
 						</div>
-						
+
 
 						<!-- 새로 받을 닉네임 -->
 						<div class="row g-3 align-items-center" id="newChangeNameDiv"
@@ -520,7 +554,9 @@ form {
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required />
 											<label for="password"></label>
-											<div class="invalid-feedback" style="width: 300px; margin-bottom: 30px; margin-top: -20px;">8~30자 영문 대소문자, 숫자만 입력하세요.</div>
+											<div class="invalid-feedback"
+												style="width: 300px; margin-bottom: 30px; margin-top: -20px;">8~30자
+												영문 대소문자, 숫자만 입력하세요.</div>
 										</div>
 									</div>
 								</div>
@@ -542,7 +578,9 @@ form {
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required />
 											<label for="password"></label>
-											<div class="invalid-feedback" style="width: 300px; margin-bottom: 30px; margin-top: -20px;">비밀번호와 동일하지 않습니다.</div>
+											<div class="invalid-feedback"
+												style="width: 300px; margin-bottom: 30px; margin-top: -20px;">비밀번호와
+												동일하지 않습니다.</div>
 										</div>
 									</div>
 								</div>
@@ -562,11 +600,6 @@ form {
 
 
 						<hr />
-						<div class="d-grid gap-2 col-12" style="height: 65px;">
-							<button type="button" class="btn btn-success" id="btnNext"
-								value="다음" onclick="validation()">다음</button>
-
-						</div>
 
 					</form>
 
