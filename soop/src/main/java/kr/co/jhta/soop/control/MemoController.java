@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.jhta.soop.dto.MemoMemberDTO;
-import kr.co.jhta.soop.service.MemoMemberService;
+import kr.co.jhta.soop.dto.MemoDTO;
+import kr.co.jhta.soop.service.MemoService;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 public class MemoController {
 	@Autowired
-	MemoMemberService service;
+	MemoService service;
 	
 	@GetMapping("/")
 	public String showMemo(@RequestParam("member_no")int member_no, Model model) {
-		MemoMemberDTO dto = service.selectOne(member_no);
-		model.addAttribute("memoMemberDTO", dto);
+		MemoDTO dto = service.selectOne(member_no);
+		model.addAttribute("memoDTO", dto);
 		return "home";
 	}
 	
