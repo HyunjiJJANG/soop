@@ -39,5 +39,5 @@
 		WHERE task_no = #{task_no}
 	</delete>
 	
-	
+
 </mapper>

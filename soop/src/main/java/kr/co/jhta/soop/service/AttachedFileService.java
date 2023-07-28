@@ -12,7 +12,7 @@ public List<AttachedFileDTO> selectAll();
 	
 	public void insertOne(AttachedFileDTO dto);
 	
-	public void updateOne(AttachedFileDTO dto);
+	public void updateOne(AttachedFileDTO filedto);
 	
 	public void deleteOne(int file_no);
 

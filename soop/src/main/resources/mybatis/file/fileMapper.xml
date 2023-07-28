@@ -6,7 +6,7 @@
 <mapper namespace="kr.co.jhta.soop.dao.AttachedFileDAO">
 
 	<select id="selectAll" resultType="kr.co.jhta.soop.dto.AttachedFileDTO" >
-
+		
 	</select>
 	
 	<insert id="insertOne" parameterType="kr.co.jhta.soop.dto.AttachedFileDTO">
@@ -33,7 +33,8 @@
 
 
 	<delete id="deleteOne" parameterType="int">
-		
+		DELETE FROM attached_file
+		WHERE file_no = #{file_no}
 	</delete>
 	
 </mapper>
