@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +11,41 @@
 <meta name="keywords" content="">
 <meta name="author" content="Phoenixcoded" />
 <title>FEED : SOOP</title>
+<!-- fontawesome -->
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <!-- Favicon icon -->
 <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
+<!-- jQuery & bootstrap -->
+<!-- <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script> -->
+
+<!-- bootstrap -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+	crossorigin="anonymous">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+	crossorigin="anonymous"></script>
+<!-- jquery -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
-	
- 
 	<!-- [ Main Content ] start -->
 	<div class="pcoded-main-container">
 		<div class="pcoded-content">
@@ -66,17 +92,18 @@
 		        </div>
 		    </nav>
 			<br /><br /><br /><br /><br /><br />
+			
+			<!-- 업무 피드 card -->
 			<div class="col-xl-6 col-md-12">
-                <div class="card table-card">
-                    <div class="card-header">
-                        <div class="d-inline-block align-middle">
-                             <img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                             <div class="d-inline-block" style="position: absolute; top: 35%;">
-                                 <span style="font-size: 15px; font-weight: bold;">업무 작성자</span>
-                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                 <span style="font-size: 15px;">업무 작성 일자 2023-07-19 15:10</span>
+				<div class="card table-card">
+					<div class="card-header">
+						<div class="d-inline-block align-middle">
+							<img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
+							<div class="d-inline-block" style="position: absolute; top: 35%;">
+								<span style="font-size: 15px; font-weight: bold;">작성자</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;								
+								<span style="font-size: 15px;"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;2023-07-19 15:10</span>
                              </div>
-                         </div>
+                        </div>
                         <div class="card-header-right">
 	                        <div class="btn-group card-option">
 	                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -90,167 +117,113 @@
 	                            </ul>
 	                        </div>
 	                    </div>
-                </div>
+                	</div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead>
+                            <table class="table mb-0" >
+                                <thead style="border-color: transparent;">
                                     <tr>
-                                        <th colspan="2">프로젝트명</th>
-                                        <th>프로젝트 기간</th>
-                                        <th>진행상황</th>
+                                        <td>
+                                        	<div class="row m-b-0"><h4>업무 이름</h4></div>
+                                        </td>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    
+                                <tbody style="border-color: transparent;">
+                                	<tr>
+                                		<td>
+                                			<i class="fa-solid fa-chart-simple"></i>
+                                			&nbsp;&nbsp;
+											<div class="btn-group btn-group-toggle" data-toggle="buttons">
+												<label class="btn btn-outline-info btn-sm active" style="border-radius: 10px;">
+												<input type="radio" name="options" id="option1" checked>발의</label>
+												&nbsp;&nbsp;&nbsp;
+												<label class="btn btn-outline-success btn-sm" style="border-radius: 10px;">
+												<input type="radio" name="options" id="option2">진행</label>
+												&nbsp;&nbsp;&nbsp;
+												<label class="btn btn-outline-warning btn-sm" style="border-radius: 10px;">
+												<input type="radio" name="options" id="option3">검토</label>
+												&nbsp;&nbsp;&nbsp;
+												<label class="btn btn-outline-secondary btn-sm" style="border-radius: 10px;">
+												<input type="radio" name="options" id="option4">완료</label>
+												&nbsp;&nbsp;&nbsp;
+												<label class="btn btn-outline-danger btn-sm" style="border-radius: 10px;">
+												<input type="radio" name="options" id="option5">보류</label>
+											</div>
+                                		</td>
+                                	</tr>
+                                    <tr>
+                                    	<td><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;0000/00/00부터&nbsp;&nbsp;&nbsp;0000/00/00까지</td>
+                                    </tr>
+                                    <tr style="border-bottom: #DEE2E6;">
+                                    	<td>
+                                    		냉무 <br />
+                                    		냉무 <br />
+                                    		냉무 <br />
+                                    		냉무 <br />
+                                    		냉무 <br />
+                                    		냉무 <br />
+                                    		냉무 <br />
+                                    		냉무 <br />
+                                    		냉무 <br />
+                                    		냉무 <br />
+                                    	</td>
+                                    </tr>
                                 </tbody>
+                                <tfoot style="border-color: transparent;">
+                                	<tr>
+                                		<td>
+											<div class="input-group m-t-0">
+												<div class="col-auto p-r-0">
+													<img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
+												</div>
+												&nbsp;&nbsp;&nbsp;
+												<input type="text" name="" class="form-control" id="comment" placeholder="댓글을 입력하세요.">
+												<div class="input-group-append">
+													<button class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i></button>
+												</div>
+                       						</div>
+                                		</td>
+                                	</tr>
+                                	<!-- 댓글 입력하면 여기에 append -->
+                                	<tr>
+                                		<td>
+                                			<div class="row m-b-0">
+												<div class="col-auto p-r-0">
+													<img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
+												</div>
+												<div class="col">
+													<p class="text-muted m-b-0">작성자&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o m-r-10"></i>작성시간</p>
+													<p class="m-b-0">Nice to meet you!</p>
+												</div>
+                       						</div>
+                                		</td>
+                                	</tr>
+                                	<tr>
+                                		<td>
+                                			<div class="row m-b-0">
+												<div class="col-auto p-r-0">
+													<img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40">
+												</div>
+												<div class="col">
+													<p class="text-muted m-b-0">작성자&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o m-r-10"></i>작성시간</p>
+													<p class="m-b-0">Nice to meet you too!</p>
+												</div>
+                       						</div>
+                                		</td>
+                                	</tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-            			<div class="col-xl-6 col-md-12">
-                <div class="card table-card">
-                    <div class="card-header">
-                        <h5>참여 중인 프로젝트</h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">프로젝트명</th>
-                                        <th>프로젝트 기간</th>
-                                        <th>진행상황</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            			<div class="col-xl-6 col-md-12">
-                <div class="card table-card">
-                    <div class="card-header">
-                        <h5>참여 중인 프로젝트</h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">프로젝트명</th>
-                                        <th>프로젝트 기간</th>
-                                        <th>진행상황</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            			<div class="col-xl-6 col-md-12">
-                <div class="card table-card">
-                    <div class="card-header">
-                        <h5>참여 중인 프로젝트</h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">프로젝트명</th>
-                                        <th>프로젝트 기간</th>
-                                        <th>진행상황</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            			<div class="col-xl-6 col-md-12">
-                <div class="card table-card">
-                    <div class="card-header">
-                        <h5>참여 중인 프로젝트</h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">프로젝트명</th>
-                                        <th>프로젝트 기간</th>
-                                        <th>진행상황</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-12">
-                <div class="card table-card">
-                    <div class="card-header">
-                        <h5>참여 중인 프로젝트</h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">프로젝트명</th>
-                                        <th>프로젝트 기간</th>
-                                        <th>진행상황</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            			<div class="col-xl-6 col-md-12">
-                <div class="card table-card">
-                    <div class="card-header">
-                        <h5>참여 중인 프로젝트</h5>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th colspan="2">프로젝트명</th>
-                                        <th>프로젝트 기간</th>
-                                        <th>진행상황</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
+
+
 		<!-- buttons -->            
 		<div class="col-xl-2 col-md-12" style="position: fixed; top: 150px; right: 508px;">
-			<button class="btn btn-primary col-md-12" type="button"><i class="fa-solid fa-pen-to-square" style="color: #fff;"></i>&nbsp;&nbsp;업무 등록</button> <br />
+			<button class="btn btn-primary col-md-12" type="button" data-bs-toggle="modal" data-bs-target="#insertModal">
+				<i class="fa-solid fa-pen-to-square" style="color: #fff;"></i>&nbsp;&nbsp;업무 생성
+			</button> <br />
 		</div>
                 
 		<!-- project member start -->
@@ -311,7 +284,8 @@
                 </div>
             </div>
         </div>
-		
+
+
 		<!-- chatting -->
 		<div class="col-lg-3 col-md-30" style="position: fixed; top: 150px; right: 20px;">
                 <div class="card chat-card">
@@ -380,6 +354,8 @@
 		
 		
 		</div>
+
+	</div>
 	</div>
 </body>
 </html>
