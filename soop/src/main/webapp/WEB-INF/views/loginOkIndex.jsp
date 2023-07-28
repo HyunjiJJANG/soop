@@ -19,5 +19,6 @@
 ${memberDto }
 
 	<h1><a href="/mypage?member_no=${memberDto.member_no }&email=${memberDto.email}">mypage</a></h1>
+	<h1><a href="/contact?member_no=${memberDto.member_no }&email=${memberDto.email}">/주소록</a></h1>
 </body>
-</html>
+</html> 

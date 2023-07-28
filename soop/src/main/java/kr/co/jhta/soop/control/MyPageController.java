@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.soop.dto.MemberDTO;
+import kr.co.jhta.soop.dto.MemberProjectMemberDTO;
 import kr.co.jhta.soop.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -113,6 +114,8 @@ public class MyPageController {
 		
 		
 	}
+	
+
 	
 	
 	@GetMapping("/passwordChange")
