@@ -20,6 +20,7 @@
 	<dependencies>
 
 
+
 		<!--
 		https://mvnrepository.com/artifact/org.springframework.security/spring-security-oauth2-client -->
 		<dependency>
@@ -45,6 +46,14 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+
+		<!-- commons-fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.5</version>
 		</dependency>
 
 		<!--
@@ -98,6 +107,7 @@
 			<version>2.3.1</version>
 			<scope>test</scope>
 		</dependency>
+		
 	</dependencies>
 
 	<build>

@@ -1,0 +1,8 @@
+
+UML(unified Modeling Lauguage)
+
+use case 작성 : wondershare edrawmax
+
+ovenapp.io 화면 설계		==> 하는 중
+
+https://www.erdcloud.com/ : ERD
