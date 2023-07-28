@@ -26262,6 +26262,7 @@ body.box-layout .pcoded-navbar.theme-horizontal ~ .pcoded-header {
     border: 1px solid rgba(0, 0, 0, 0.15);
     box-shadow: 0 0 25px rgba(26, 188, 156, 0.15);
     background-color: #fff;
+    z-index: 3000;
 }
 
 .daterangepicker .calendar-table {

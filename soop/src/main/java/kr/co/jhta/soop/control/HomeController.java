@@ -20,8 +20,6 @@ import kr.co.jhta.soop.service.ProjectService;
 public class HomeController {
 	@Autowired
 	MemoService memoService;
-	// @Autowired	
-	// ProjectService proService;
 
 	@Autowired
 	ProjectProjectMemberMemberService projectProjectMemberMemberService;
