@@ -132,19 +132,20 @@ form {
 
 
 <script type="text/javascript">
- $(function() {
+ /*  $(function() {
 	 $("#testbutton").on(
 			"click",
 			function() {
-				var email = $("#email").value;
+				var email = $("#email").val().trim(); 
+				console.log(email);
 				var password = $("#password").val().trim(); 
-			
+				console.log(password);
 				 $.ajax({
 						type : "GET",
 						url : "/mypagePasswordCheck",
 						data : {
-							/* "email" : $("#email").val().trim(),
-							"password" : $("#password").val().trim() */
+							 "email" : $("#email").val().trim(),
+							"password" : $("#password").val().trim() 
 							"email" : email,
 							"password" : password 
 						},
@@ -156,23 +157,60 @@ form {
 								isCertification = true; //인증 성공여부 check	
 							} 
 								
-							}else {
+							else {
 								isCertification = false; //인증 실패
-								alert("인증에 실패");
+								alert("비밀번호가 맞지않습니다. 다시 확인해주세요.");
 							}
+						}
 					});
 	
-	
+
 	});
 	
 })
+ */
  
+
  
 
  function validation() {
 	 
+	 var email = $("#email").val().trim(); 
+		console.log(email);
+		var password = $("#password").val().trim(); 
+		console.log(password);
+		 $.ajax({
+				type : "GET",
+				url : "/mypagePasswordCheck",
+				data : {
+					/* "email" : $("#email").val().trim(),
+					"password" : $("#password").val().trim() */
+					"email" : email,
+					"password" : password 
+				},
+				dataType : "text",
+				success : function(result) {
+					var resp = result.trim();
+					if (resp == "OK") {
+						alert("비밀번호 확인이 완료되었습니다.");
+						isCertification = true; //인증 성공여부 check	
+						$("#frm").attr("action", "/mypagePasswordCheckOk").submit();
+					} 
+						
+					else {
+						isCertification = false; //인증 실패
+						alert("비밀번호가 맞지않습니다. 다시 확인해주세요.");
+					}
+				}
+			});
+		 
+		 
+	 if (isCertification == false) {
+			alert("비밀번호가 맞지않습니다. 다시 확인해주세요.")
+			return false;
+		}
 
-	$("#frm").attr("action", "/mypageOk").submit();
+	
 } 
 
 
@@ -185,7 +223,7 @@ form {
 					<h2 class="card-title text-left" id="MypageH2">마이페이지</h2>
 					<hr class="pill"/>
 					<div class="card-text">
-						<form action="/mypageOk" method="post" name="frm" id="frm">
+						<form action="/mypagePasswordCheckOk" method="post" name="frm" id="frm">
 							<div class="card-title text-left" id="MypageH6">
 								<h5>비밀번호 재확인</h5>
 							</div>
@@ -227,9 +265,8 @@ form {
 													required /> <label for="password">비밀번호</label> <input
 													type="hidden" id="passwordCheckTest" name="passwordCheckTeset"
 													value="${memberDto.password }" /> 
-													<input type="text"
-													value="${memberDto.password }" />
-													<input type="button" id="testbutton" name="testbutton" value="테스트버튼" />
+													
+													
 											</div>
 										</div>
 									</div>

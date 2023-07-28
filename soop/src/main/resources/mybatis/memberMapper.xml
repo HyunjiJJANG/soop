@@ -45,4 +45,14 @@
 	WHERE member_no = #{member_no}
 	</update>
 	
+	<!-- 마이페이지에서 이름 변경  -->
+	<update id="updateOneName" parameterType="memberDTO">
+	UPDATE member
+	SET name = #{name}
+	WHERE email = #{email}
+	</update>
+	
+	<!-- 마이페이지에서 비밀번호 변경 -->
+	
+	
 </mapper>

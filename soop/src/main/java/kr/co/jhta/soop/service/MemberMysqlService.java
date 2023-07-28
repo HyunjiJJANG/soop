@@ -78,6 +78,11 @@ public class MemberMysqlService implements MemberService{
 		dao.insertRole(email);	
 	}
 
+	@Override
+	public void updateOneName(MemberDTO dto) {
+		dao.updateOneName(dto);
+		
+	}
 
-
+	
 }

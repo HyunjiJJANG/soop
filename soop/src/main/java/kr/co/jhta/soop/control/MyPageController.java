@@ -79,14 +79,65 @@ public class MyPageController {
 		
 	}
 	
-	@RequestMapping("/mypageOk")
-	//public String mypageOk(@RequestParam("email")String email, @RequestParam("password")String password, Model model){
-	public String mypageOk(){
+	@RequestMapping("/mypagePasswordCheckOk")
+	public String mypageOk(@RequestParam("email")String email, @RequestParam("password")String password, Model model){
+	
+		MemberDTO memberDto = memberService.selectMemberByEmail(email);
+		model.addAttribute("memberDto",memberDto);
 		
 		
 		
 		
-		return "mypageModify";
+		return "mypagePasswordCheckOk";
 	}
+	
+	
+	@GetMapping("/nameChange")
+	@ResponseBody
+	public String nameChangeOk(@RequestParam("name")String name, @RequestParam("nameView")String nameView,@RequestParam("email")String email ) {
+		String result = "";
+		if(name == null) {
+			result = "name input False";
+			return result;
+		}else {
+			
+			MemberDTO memberDto = memberService.selectMemberByEmail(email);
+			memberDto.setName(name);
+			memberDto.setEmail(email);
+			memberService.updateOneName(memberDto);
+			result = "OK";
+			return result;
+			
+		}
+		
+		
+		
+	}
+	
+	
+	@GetMapping("/passwordChange")
+	@ResponseBody
+	public String passwordChangeOk(@RequestParam("password")String password, @RequestParam("repeatPw")String repeatPw,@RequestParam("email")String email ) {
+		String result = "";
+		if(password == null || repeatPw==null ) {
+			result = "passwrod input False";
+			return result;
+		}else {
+			
+			MemberDTO memberDto = memberService.selectMemberByEmail(email);
+			int member_no = memberDto.getMember_no();
+			memberDto.setPassword(passwordEncoder.encode(password));
+			memberDto.setMember_no(member_no);
+			memberService.updateOne(memberDto);
+			result = "OK";
+			return result;
+			
+		}
+		
+		
+		
+	}
+	
+	
 
 }
