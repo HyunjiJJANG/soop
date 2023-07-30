@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>HOME : SOOP</title>
+
 <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 <link rel="stylesheet" type="text/css" href="assets/css/memo.css">
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
@@ -34,16 +35,22 @@
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
 
+<link href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script>
 <!-- jquery -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <script type="text/javascript">
+
+
 	// 대시보드 일정(캘린더)
  	document.addEventListener("DOMContentLoaded", function() {
  		$.ajax({
@@ -147,7 +154,8 @@
 	      return date;
 	    }
 
-	  } );
+	  } ); 
+
   
   // 메모 비동기 수정
   $(function(){
@@ -164,11 +172,11 @@
   })
   
   // 일정추가 버튼 클릭하면 캘린더에 나의 일정 추가
-  $(function(){
+/*   $(function(){
 	  $("#scheduleAdd").on("click", function(){
 		  
 	  })
-  })
+  }) */
   
 </script>
 </head>
@@ -367,11 +375,7 @@
                     <!-- 포스트잇 start -->
 						<div class="postbody">
 							<div class="outline">
-<<<<<<< HEAD
-									<textarea class="memo_content" name="memo_content" id="memo_content" placeholder="메모를 입력해주세요" >${memoMemberDTO.memo_content}</textarea>
-=======
 								<textarea class="memo_content" name="memo_content" id="memo_content" placeholder="메모를 입력해주세요" >${memoDTO.memo_content}</textarea>
->>>>>>> branch 'seulki' of https://github.com/HyunjiJJANG/soop.git
 							</div>
 						</div>
 					<!-- 포스트잇 end -->
@@ -386,7 +390,9 @@
                     <div class="card-header">
                         <h5>캘린더</h5>
 							<div class="card-header-right">
-								<button type="button" class="btn btn-primary btn-sm scheduleAdd"><i class="fa-regular fa-pen-to-square" style="color: #fff; "></i>&nbsp;&nbsp;일정추가</button>
+							<a href="insertProject" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+								<button type="button" class="btn btn-primary btn-sm scheduleAdd" ><i class="fa-regular fa-pen-to-square" style="color: #fff; "></i>&nbsp;&nbsp;일정추가</button>
+							</a>
 							</div>
 						</div>
                     <div id="calendar" style="float:left; padding-left: 10px; padding-right: 10px;"></div>
@@ -568,6 +574,45 @@
 	</div> 
 </div>
 <!-- [ Main Content ] end -->
-
+<!-- Modal -->
+	<div class="modal" id="scheduleModal" tabindex="-1" aria-labelledby="ModalLabel" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="ModalLabel">일정생성</h1>
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<form action="#" method="post">
+					<div class="modal-body">
+						<table class="table">
+							<tr>
+								<td>제목</td>
+								<td colspan="2"><input type="text" class="form-control" id="projectTitle"></td>
+							</tr>
+							<tr>
+								<td>기간</td>
+								<td>
+									<div class="input-group">
+										<input type="text" class="form-control datepicker" name="projectStartDate" id="projectStartDate" placeholder="시작일">
+										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
+									</div>								
+								</td>
+								<td>
+									<div class="input-group">
+										<input type="text" class="form-control" id="projectEndDate" name="projectEndDate" placeholder="종료일">
+										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
+									</div>	
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-primary" id="btnCreateProject" value="일정추가">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>
