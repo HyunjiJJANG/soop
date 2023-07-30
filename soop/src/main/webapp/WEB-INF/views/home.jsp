@@ -42,17 +42,11 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script>
-
 <!-- jquery -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
-<!-- jquery -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
 
 <script type="text/javascript">
 
@@ -130,9 +124,39 @@
   		}
   	  })
   	 }    
+ 
+  /* Range Calender */
+  $( function() {
+	  	/* dateFormat mm/dd/yy에서 수정함 */
+	    var dateFormat = "yy/mm/dd",
+	      from = $( "#projectStartDate" ).datepicker({
+	          changeMonth: true,
+	          numberOfMonths: 1
+	      })
+	        .on( "change", function() {
+	          to.datepicker( "option", "minDate", getDate( this ) );
+	        }),
+	      to = $( "#projectEndDate" ).datepicker({
+	        changeMonth: true,
+	        numberOfMonths: 1
+	      })
+	      .on( "change", function() {
+	        from.datepicker( "option", "maxDate", getDate( this ) );
+	      });
+	 
+	    function getDate( element ) {
+	      var date;
+	      try {
+	        date = $.datepicker.parseDate( dateFormat, element.value );
+	      } catch( error ) {
+	        date = null;
+	      }	 
+	      return date;
+	    }
 
 	  } ); 
 
+  
   // 메모 비동기 수정
   $(function(){
 	  $("#memo_content").on("focusout", function(event){
@@ -149,9 +173,6 @@
   
   // 일정추가 버튼 클릭하면 캘린더에 나의 일정 추가
 /*   $(function(){
-
-  $(function(){
-	  $("#datepicker").datepicker();
 	  $("#scheduleAdd").on("click", function(){
 		  
 	  })
@@ -354,14 +375,11 @@
                     <!-- 포스트잇 start -->
 						<div class="postbody">
 							<div class="outline">
-<<<<<<< HEAD
 								<textarea class="memo_content" name="memo_content" id="memo_content" placeholder="메모를 입력해주세요" >${memoDTO.memo_content}</textarea>
-=======
-									<textarea class="memo_content" name="memo_content" id="memo_content" rows="12" maxlength="264" placeholder="메모를 입력해주세요" >${memoDTO.memo_content}</textarea>
->>>>>>> branch 'seulki' of https://github.com/HyunjiJJANG/soop.git
 							</div>
 						</div>
 					<!-- 포스트잇 end -->
+
 					</div>
             </div> 
             <!-- 메모 end -->
@@ -372,13 +390,9 @@
                     <div class="card-header">
                         <h5>캘린더</h5>
 							<div class="card-header-right">
-<<<<<<< HEAD
 							<a href="insertProject" data-bs-toggle="modal" data-bs-target="#scheduleModal">
 								<button type="button" class="btn btn-primary btn-sm scheduleAdd" ><i class="fa-regular fa-pen-to-square" style="color: #fff; "></i>&nbsp;&nbsp;일정추가</button>
 							</a>
-=======
-								<button type="button" class="btn btn-primary btn-sm scheduleAdd" data-bs-toggle="modal" data-bs-target="#scheduleAddModal"><i class="fa-regular fa-pen-to-square" style="color: #fff; "></i>&nbsp;&nbsp;일정추가</button>
->>>>>>> branch 'seulki' of https://github.com/HyunjiJJANG/soop.git
 							</div>
 						</div>
                     <div id="calendar" style="float:left; padding-left: 10px; padding-right: 10px;"></div>
@@ -434,7 +448,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                        	<label class="badge badge-light-info">발의</label>
+                                        	<label class="badge badge-light-warning">발의</label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -522,7 +536,7 @@
                                             </div>
                                         </td>
                                         <td>
-                                        	<label class="badge badge-light-warning">검토</label>
+                                        	<label class="badge badge-light-success">진행중</label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -560,7 +574,6 @@
 	</div> 
 </div>
 <!-- [ Main Content ] end -->
-<<<<<<< HEAD
 <!-- Modal -->
 	<div class="modal" id="scheduleModal" tabindex="-1" aria-labelledby="ModalLabel" role="dialog">
 		<div class="modal-dialog modal-lg">
@@ -590,40 +603,6 @@
 										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
 									</div>	
 								</td>
-=======
-	<!-- Modal -->
-	<div class="modal" id="scheduleAddModal" tabindex="-1" aria-labelledby="ModalLabel" role="dialog">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="ModalLabel">일정추가</h1>
-					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				</div>
-				<form action="#" method="post">
-					<div class="modal-body">
-						<table class="table">
-							<tr>
-								<td>제목</td>
-								<td colspan="3">
-									<input type="text" class="form-control" id="projectTitle" placeholder="일정을 입력해주세요">
-								</td>
-							</tr>
-							<tr>
-								<td>기간</td>
-								<td>
-									<div class="input-group">
-										<input type="text" class="form-control datepicker" name="projectStartDate" id="projectStartDate" placeholder="시작일">
-										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
-									</div>						
-								</td>
-								<td>
-									<div class="input-group">
-										<input type="text" class="form-control" id="projectEndDate" name="projectEndDate" placeholder="종료일">
-										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>
-									</div>
-								</td>
-								<td>입력형식 : YYYY-MM-DD</td>
->>>>>>> branch 'seulki' of https://github.com/HyunjiJJANG/soop.git
 							</tr>
 						</table>
 					</div>
