@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.jhta.soop.dao.ProjectMemberDAO">
+	<insert id="insertOne" parameterType="kr.co.jhta.soop.dto.ProjectMemberDTO">
+		INSERT INTO project_member (member_no, project_no, member_position)
+		VALUES (#{member_no}, #{project_no}, 0)
+	</insert>
+</mapper>

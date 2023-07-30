@@ -555,6 +555,16 @@ button:focus {
     outline: 5px auto -webkit-focus-ring-color;
 }
 
+/* 읽음 처리 버튼(투명하게) */
+.read-button {
+	border: none;
+	background-color: rgba(0,0,0,0);
+	color: #707272;
+}
+.read-button:focus {
+    outline: none;
+}
+
 input,
 button,
 select,
@@ -3708,7 +3718,7 @@ input[type="button"].btn-block {
 
 .btn-group-toggle > .btn,
 .btn-group-toggle > .btn-group > .btn {
-    margin-bottom: 0;
+    margin-bottom: 0px;
 }
 
 .btn-group-toggle > .btn input[type="radio"],
@@ -26252,6 +26262,7 @@ body.box-layout .pcoded-navbar.theme-horizontal ~ .pcoded-header {
     border: 1px solid rgba(0, 0, 0, 0.15);
     box-shadow: 0 0 25px rgba(26, 188, 156, 0.15);
     background-color: #fff;
+    z-index: 3000;
 }
 
 .daterangepicker .calendar-table {
