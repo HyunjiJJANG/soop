@@ -5,11 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+
+
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MemberDTO {
+public class MemberProjectMemberDTO {
+	
 	
 	
 	private int member_no;
@@ -19,9 +23,7 @@ public class MemberDTO {
 	private String profile_name;
 	private String profile_path;
 	private int enabled;
-	
-	
+	private int project_no;
+	private int member_position;
 
 }
-
-
