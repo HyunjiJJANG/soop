@@ -7,8 +7,8 @@
 <mapper namespace="kr.co.jhta.soop.dao.MemberProjectProjectmemberDAO">
 	
 	
-	<select id="selectAll" resultType="kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO">
-		SELECT m.member_name
+	<select id="selectAllbyprojectno" resultType="kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO">
+		SELECT m.member_no, m.email, m.password, m.name, m.profile_name, m.profile_path, p.project_no, p.project_title, p.project_description, p.project_status, p.color, pm.member_position
 		FROM member m
 		JOIN project_member pm
 		ON m.member_no = pm.member_no
@@ -16,5 +16,6 @@
 		ON pm.project_no = p.project_no
 		WHERE m.member_no = #{member_no}
 	</select>
+	
 	
 </mapper>

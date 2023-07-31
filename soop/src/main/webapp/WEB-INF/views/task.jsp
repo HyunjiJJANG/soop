@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html xmlns:th="http://www.thymeleaf.org">
@@ -288,13 +288,14 @@
 					<tr>
 										
 					<tr>
-						<td>
-							<select name="sign_approval" id="sign_approval" class="form-select" aria-label="Default select example">
-								<option selected>------결재자 선택-----</option>
-								<c:forEach items="${members}" var="member">
-            								<option value="${member.id}">${member.name}</option>
-        						</c:forEach>
-						</td>
+					    <td>
+					        <select name="sign_approval" id="sign_approval" class="form-select" aria-label="Default select example">
+					            <option value="">------결재자 선택-----</option> <!-- 선택하지 않은 경우의 기본 옵션 -->
+					            <c:forEach items="${members}" var="member">
+					                <option value="${member.member_no}">${member.name}</option>
+					            </c:forEach>
+					        </select>
+					    </td>
 						<td>
 							<select name="sign_approval" id="sign_approval" class="form-select" aria-label="Default select example">
 								<option selected>------업무 상태 선택-----</option>

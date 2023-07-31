@@ -35,6 +35,7 @@ import jdk.internal.org.jline.utils.Log;
 import kr.co.jhta.soop.dto.AttachedFileDTO;
 import kr.co.jhta.soop.dto.MemberDTO;
 import kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO;
+import kr.co.jhta.soop.dto.TaskAttachedFileDTO;
 import kr.co.jhta.soop.dto.TaskDTO;
 import kr.co.jhta.soop.service.AttachedFileService;
 import kr.co.jhta.soop.service.MemberProjectProjectmemberService;
@@ -96,13 +97,22 @@ public class TaskController {
 		taskService.insertOne(Taskdto);
 		
 		
-		// ** 결재라인 **
-//		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no); // => memberService가 아니라 memberProject를 join한 service가 필요!
-//		model.addAttribute("members", members);
-//		log.info("members : {}", members.get(project_no));
-//		model.addAttribute("list", taskAttachedFileService.selectAll()); 
 		
+		
+		// ** 결재라인 **
+		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no);
+		model.addAttribute("members", members);
 
+		// 로그를 통해 프로젝트 멤버를 확인 (이 코드가 정확한 결과를 가져올 수 있도록 project_no에 해당하는 값을 지정해야 합니다.)
+		log.info("members : {}", members);
+
+		// 작업 첨부 파일 리스트를 조회하여 모델에 저장
+		List<TaskAttachedFileDTO> attachedFiles = taskAttachedFileService.selectAll();
+		model.addAttribute("list", attachedFiles);
+
+		
+		
+		
 		// ** 파일 첨부 **
 		
 		// 파일은 어디에 저장  /data <== (현재 임시 파일은 properties에 c:\\temp\\data 로 지정됨)
