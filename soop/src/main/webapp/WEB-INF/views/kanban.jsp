@@ -106,12 +106,10 @@ body {
 		</c:forEach>
 		
 	</table> --%>
-	
-		
-	
-
+  
  		<div class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
 		 	<c:forEach var="tasklist" items="${dto }">
+		 		
 	 	 		<c:if test="${tasklist.task_status == 0}">	<!-- 발의 : 0번 -->
 	 			  <div class="portlet">
 				    <div class="portlet-header"> Title : ${tasklist.project_title} </div>
@@ -142,8 +140,22 @@ body {
 				    			<td>${tasklist.name }</td>
 				    		</tr>
 				    		<tr>
+				    			<th>업무등록일 : </th>
+				    			<td>${tasklist.task_register_date }</td>
+				    		</tr>
+				    		<tr>
+				    			<th>업무시작일 : </th>
+				    			<td>${tasklist.task_start_date }</td>
+				    		</tr>
+				    		<tr>
+				    			<th>업무종료일 : </th>
+				    			<td>${tasklist.task_end_date }</td>
+				    		</tr>
+				    		<tr>
 				    			<th>업무 상태 : </th>				    			
-				    			<td>${tasklist.task_status }</td>
+				    			<%-- <td>${tasklist.task_status }</td> --%>	
+				    			<td><c:out value="발의"></c:out></td>	
+				    					    			
 				    		</tr>
 				    		
 				    	</table>		    
@@ -186,8 +198,21 @@ body {
 				    			<td>${tasklist.name }</td>
 				    		</tr>
 				    		<tr>
+				    			<th>업무등록일 : </th>
+				    			<td>${tasklist.task_register_date }</td>
+				    		</tr>
+				    		<tr>
+				    			<th>업무시작일 : </th>
+				    			<td>${tasklist.task_start_date }</td>
+				    		</tr>
+				    		<tr>
+				    			<th>업무종료일 : </th>
+				    			<td>${tasklist.task_end_date }</td>
+				    		</tr>				    		
+				    		<tr>
 				    			<th>업무 상태 : </th>				    			
-				    			<td>${tasklist.task_status }</td>
+				    			<%-- <td>${tasklist.task_status }</td> --%>
+				    			<td><c:out value="진행"></c:out></td>	
 				    		</tr>
 				    		
 				    	</table>	
@@ -231,8 +256,21 @@ body {
 				    			<td>${tasklist.name }</td>
 				    		</tr>
 				    		<tr>
+				    			<th>업무등록일 : </th>
+				    			<td>${tasklist.task_register_date }</td>
+				    		</tr>
+				    		<tr>
+				    			<th>업무시작일 : </th>
+				    			<td>${tasklist.task_start_date }</td>
+				    		</tr>
+				    		<tr>
+				    			<th>업무종료일 : </th>
+				    			<td>${tasklist.task_end_date }</td>
+				    		</tr>				    		
+				    		<tr>
 				    			<th>업무 상태 : </th>				    			
-				    			<td>${tasklist.task_status }</td>
+				    			<%-- <td>${tasklist.task_status }</td> --%>
+				    			<td><c:out value="보류"></c:out></td>	
 				    		</tr>
 				    		
 				    	</table>					   
@@ -275,8 +313,21 @@ body {
 				    			<td>${tasklist.name }</td>
 				    		</tr>
 				    		<tr>
+				    			<th>업무등록일 : </th>
+				    			<td>${tasklist.task_register_date }</td>
+				    		</tr>
+				    		<tr>
+				    			<th>업무시작일 : </th>
+				    			<td>${tasklist.task_start_date }</td>
+				    		</tr>
+				    		<tr>
+				    			<th>업무종료일 : </th>
+				    			<td>${tasklist.task_end_date }</td>
+				    		</tr>				    		
+				    		<tr>
 				    			<th>업무 상태 : </th>				    			
-				    			<td>${tasklist.task_status }</td>
+				    			<%-- <td>${tasklist.task_status }</td> --%>
+				    			<td><c:out value="완료"></c:out></td>	
 				    		</tr>
 				    		
 				    	</table>
