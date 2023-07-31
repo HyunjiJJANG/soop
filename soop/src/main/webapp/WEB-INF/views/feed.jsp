@@ -60,7 +60,7 @@
 						type : "GET",
 						url : "/emailCheck",
 						data : {
-							"email" : $("#email").val().trim()
+							"invitationEmail" : $("#invitationEmail").val().trim()
 						},
 						dataType : "text",
 						success : function(result) {
@@ -69,12 +69,12 @@
 								$("#idCheck").html("사용가능한 아이디입니다.").css(
 										"color", "blue");
 								$("#btnMailCheck").show();
-							} else if($("#email").val().trim() == ""){
+							} else if($("#invitationEmail").val().trim() == ""){
 								$("#idCheck").hide();
 								$("#btnMailCheck").hide();
 								
 							}else {
-								$("#idCheck").html("이미 존재하는 아이디입니다.").css(
+								$("#idCheck").html("이미 초대된 파트너입니다.").css(
 										"color", "red");
 								$("#btnMailCheck").hide();
 							}

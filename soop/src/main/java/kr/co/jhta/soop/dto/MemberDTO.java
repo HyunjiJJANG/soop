@@ -18,6 +18,7 @@ public class MemberDTO {
 	private String name;
 	private String profile_name;
 	private String profile_path;
+	private int enabled;
 	
 	
 

@@ -119,7 +119,7 @@ $(function(){
 					<!-- 프로젝트 리스트가 보여지는 곳 -->
 					<c:forEach var="dto" items="${projectList}">
 						<li class="nav-item">
-							<a href="feed?project_no=${dto.project_no}&member_no=${member_no}" class="nav-link">
+							<a href="feed?project_no=${dto.project_no}&member_no=${dto.member_no}" class="nav-link">
 								<span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span>
 								<span class="pcoded-mtext">${dto.project_title}</span>
 							</a>
