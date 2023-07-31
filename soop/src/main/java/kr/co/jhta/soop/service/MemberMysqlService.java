@@ -19,26 +19,6 @@ public class MemberMysqlService implements MemberService{
 
 		return dao.selectAll();
 	}
-	
-	@Override
-	public String selectOneByEmail(String email) {
-		String checkEmail = dao.selectOneByEmail(email);
-		System.out.println(" service checkEmail : " + checkEmail);
-		String result;
-		if(checkEmail == null) {
-			//아이디 사용 가능
-			result = "OK";	
-		}else {
-			//이미 사용중인 아이디
-			result="NO";
-		}
-		
-		System.out.println("service result : "+ result);
-		return result;
-		
-	}
-	
-	
 
 	@Override
 	public MemberDTO selectOne(int member_no) {
@@ -62,7 +42,5 @@ public class MemberMysqlService implements MemberService{
 		dao.deleteOne(member_no);
 		
 	}
-
-
 
 }

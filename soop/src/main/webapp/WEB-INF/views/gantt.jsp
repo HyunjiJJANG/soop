@@ -55,7 +55,7 @@
   </head>
   
   <body>
-  	<jsp:include page="nav.jsp" />
+  
     <div class="chartMenu">
       <p><span id="chartVersion"></span></p>
     </div>
@@ -63,8 +63,8 @@
     <div class="chartCard">
       <div class="chartBox">
         <canvas id="myChart"></canvas>
-        <input type="month" onchange="chartFilter(this)" /> 
-        
+        <input type="month" onchange="chartFilter(this)" />
+        <button onclick="hrefLink()">칸반보드 이동</button> 
       </div>
     </div>
     
@@ -74,14 +74,24 @@
         
     <script>    
     
-  	var gproject_info; 
+  	var gproject_info;  // 프로젝트 정보
+  	var gproject_task;	// 프로젝트에서 간단하게 업무생성된거 보기
+  	
   	var glist = []; 
+  	var tasklist = [];  
+  	
+  	function hrefLink() { /* 칸반보드로 이동하기 => 칸반 완성 후 수정하기*/
+  		location.href = "/kanban?member_no=1";
+  	}
   	
     function projectinfo() {
     	
 	    $.ajax({
 	        url: "<c:url value="/data" />",	        
 	        type: "get",
+	        data: {
+	        	"member_no":${no}
+	        },
 	        //data: JSON.stringify(obj),
 	        dataType: "json",
 	        contentType: "application/json",
@@ -100,7 +110,8 @@
 				    		"project_end_Date": gproject_info[i].project_end_Date,
 				    		"project_description": gproject_info[i].project_description,
 				    		"project_status": gproject_info[i].project_status,
-				    		"color": gproject_info[i].color
+				    		"color": gproject_info[i].color,
+				    		"name": gproject_info[i].name
 			    	};
 					
 		            console.log(
@@ -110,25 +121,69 @@
 		            		p.project_end_Date + " : " + 
 		            		p.project_description + " : " + 
 		            		p.project_status + " : " + 
-		            		p.color)
+		            		p.color + " : " +
+		            		p.name)
 					
 		             glist.push(p); 		             
 		             		        
-	            }
+	            } // for end
 	        	       		        		      	            		                  		               
-	        },
+	        }, // function(project_info) end
+	        
 	        error: function(errorThrown) {
 	            alert(errorThrown.statusText);
-	        },
+	        }, // error end
 	        async: false
-	    }); 
+	    }); // ajax end
     	
 	} // projectinfo() end
   
     projectinfo(); //  projectinfo() 실행해 
       
-    console.log("push 확인 : " + glist);    
+    console.log("projectinfo : " + glist);    
+        
+    // ajax으로 데이터 가져옴 => 함수명 : projecttask / 전역함수 : gproject_task => for문으로 task라는 변수에 담음  
+    // => tasklist 리스트 생성 후 tasklist에 push
     
+    function projecttask(){
+    	
+    	$.ajax({
+	        url: "<c:url value="/taskdata" />",	        
+	        type: "get",
+	        data: {
+	        	"member_no":${no}	        	
+	        },
+	        dataType: "json",
+	        contentType: "application/json",
+	        success: function(project_task){
+	        	
+	        	gproject_task = project_task;
+	        	
+	        	for(var i=0; i<=project_task.length-1; i++){
+	        		var task = {
+	        				"task_title":gproject_task[i].task_title,
+	        				"task_content":gproject_task[i].task_content
+	        		};
+	        		
+	        		console.log("task_title : " + task.task_title + " , task_content : " + task.task_content)
+	        		
+	        		tasklist.push(task);
+	        		
+	        	}
+	        		        	
+	        },
+	        error: function(errorThrown) {
+	            alert(errorThrown.statusText);
+	        }, // error end
+	        async: false		
+    	}); // ajax end	
+   	
+    } // projecttask() end 
+    
+    projecttask();
+    
+    console.log("projecttask : " + tasklist); 
+        
     // json형식 예시    
 //	[
 	//x : 시작일 / 종료일, y : 프로젝트 이름 / 업무이름, name : 이름 / 다수 이름일 경우 [] 에 작성
@@ -143,7 +198,8 @@
 	var project_end_Date;
 	var project_description;
 	var	project_status; 
-	var color; 
+	var color;
+	var name;
 	
 	var mglist = [];
 	
@@ -156,15 +212,34 @@
 		console.log("프로젝트 내용 : " + glist[ele].project_description);
 		console.log("프로젝트 상태 : " + glist[ele].project_status);
 		console.log("프로젝트 색깔 : " + glist[ele].color);
+		console.log("이름 : " + glist[ele].name);
 		
 		console.log("-----------");
 				
-		var t = {x:[glist[ele].project_start_date, glist[ele].project_end_Date], y:glist[ele].project_title, status:glist[ele].project_status};
+		var t = {x:[glist[ele].project_start_date, glist[ele].project_end_Date], y:glist[ele].project_title, name:glist[ele].name, status:glist[ele].project_status};
 		
 		mglist.push(t);
 		
 	}
-   
+	console.log("mglist check : " + mglist);
+	
+	var task_title;
+	var task_content;
+
+	var mtasklist = [];
+	
+	for(var ele in tasklist){
+		console.log("업무 제목 : " + tasklist[ele].task_title);
+		console.log("업무 내용 : " + tasklist[ele].task_content);
+		
+		console.log("-----------");
+		
+		var tl = {x:tasklist[ele].task_title , y:tasklist[ele].task_content};
+		mtasklist.push(tl);
+		
+	}
+	console.log("mtasklist check : " + mtasklist);
+  
     // setup  
     const data = {
       //labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
@@ -273,7 +348,7 @@
             	}
             },           
             min: '2023-07-01',	// x축 : 차트 처음 시작일
-            max: '2023-08-30'	// x축 : 차트 끝 종료일
+            max: '2023-07-31'	// x축 : 차트 끝 종료일
           }                  
         },
         plugins:{ 
@@ -289,11 +364,13 @@
         			
         			/* 그래프에 마우스 올려놓을 때 보이는 label 제거*/
         			label:(ctx) => {
+        				//console.dir(ctx[0].label);
+        				/* return  mtasklist; */ /* => 일단 보류<칸반보드 진행후>(간략한 업무생성된거 보이게하기) */
         				return '';
         			},
         			
         			title: (ctx) => {
-        				//console.log(ctx)
+        				//console.dir(ctx);
         				//console.log(ctx[0].raw.x[0])
         				
         				const startDate = new Date(ctx[0].raw.x[0])

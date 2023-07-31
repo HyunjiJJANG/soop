@@ -13,17 +13,15 @@ public class ProjectTaskMemberMysqlService implements ProjectTaskMemberService{
 
 	@Autowired
 	ProjectTaskMemberDAO PTMdao;
-	
-	@Override
-	public List<ProjectTaskMemberDTO> myproject_SelectAll(int member_no) {
-		
-		return PTMdao.myproject_SelectAll(member_no);
-	}
 
 	@Override
-	public List<ProjectTaskMemberDTO> projectByMemberName() {
+	public List<ProjectTaskMemberDTO> myproject_Select_task(int member_no) {
 		
-		return PTMdao.projectByMemberName();
+		return PTMdao.myproject_Select_task(member_no);
 	}
+
+
+	
+
 
 }
