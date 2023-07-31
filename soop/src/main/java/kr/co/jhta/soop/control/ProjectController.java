@@ -15,6 +15,7 @@ import kr.co.jhta.soop.service.FeedService;
 import kr.co.jhta.soop.service.ProjectMemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
+import kr.co.jhta.soop.service.TaskService;
 
 @Controller
 public class ProjectController {
@@ -30,6 +31,8 @@ public class ProjectController {
 	@Autowired
 	FeedService feedService;
 	
+	@Autowired
+	TaskService taskService;
 //	
 //	// home화면 들어가면 side nav에 프로젝트 목록 띄워주기
 //	@GetMapping("/home")
@@ -66,12 +69,11 @@ public class ProjectController {
 	
 	// side nav의 프로젝트 이름 클릭시 해당 프로젝트 피드 화면으로 이동
 	@GetMapping("/selectProject")
-	public String goFeed(@RequestParam("project_no")int project_no,
-						 @RequestParam("member_no")int member_no,
-						 Model model) {
-		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
-//		model.addAttribute("projectDetailDto", feedService.selectAllProjectDetail(project_no, member_no));
-		return "feed";
+	public String showFeed(@RequestParam("project_no")int project_no,
+			 			   @RequestParam("member_no")int member_no,
+			 			   Model model) {
+		model.addAttribute("taskDTO", taskService.selectAll(project_no));
+		return "projectDetail";
 	}
 	
 }

@@ -93,14 +93,15 @@
 			<br /><br /><br /><br /><br /><br />
 			
 			<!-- 업무 피드 card -->
+			<c:forEach var="taskDTO" items="${taskDTO}">
 			<div class="col-xl-6 col-md-12">
 				<div class="card table-card">
 					<div class="card-header">
 						<div class="d-inline-block align-middle">
 							<img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
 							<div class="d-inline-block" style="position: absolute; top: 35%;">
-								<span style="font-size: 15px; font-weight: bold;">작성자</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;								
-								<span style="font-size: 15px;"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;2023-07-19 15:10</span>
+								<span style="font-size: 15px; font-weight: bold;">${taskDTO.member_no}로 member에서 name가져오기</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;								
+								<span style="font-size: 15px;"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;${taskDTO.task_register_date}</span>
                              </div>
                         </div>
                         <div class="card-header-right">
@@ -123,7 +124,7 @@
                                 <thead style="border-color: transparent;">
                                     <tr>
                                         <td>
-                                        	<div class="row m-b-0"><h4>업무명</h4></div>
+                                        	<div class="row m-b-0"><h4>${taskDTO.task_title}</h4></div>
                                         </td>
                                     </tr>
                                 </thead>
@@ -153,7 +154,7 @@
                                 		</td>
                                 	</tr>
                                     <tr>
-                                    	<td><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;0000/00/00부터&nbsp;&nbsp;&nbsp;0000/00/00까지</td>
+                                    	<td><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;${taskDTO.task_start_date}부터&nbsp;&nbsp;&nbsp;${taskDTO.task_end_date}까지</td>
                                     </tr>
                                     <tr>
                                     	<td>
@@ -166,16 +167,7 @@
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">
                                     	<td>
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
+                                    		${taskDTO.task_content}
                                     	</td>
                                     </tr>
                                 </tbody>
@@ -227,7 +219,7 @@
                     </div>
                 </div>
             </div>
-
+		</c:forEach>
 
 		<!-- buttons -->            
 		<div class="col-xl-2 col-md-12" style="position: fixed; top: 150px; right: 508px;">
