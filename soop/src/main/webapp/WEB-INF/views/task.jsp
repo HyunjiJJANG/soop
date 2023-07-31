@@ -121,6 +121,7 @@
 	  $("#cmodal_btn").click(function(){ // cmodal_btn 버튼을 클릭하면 아래(updateModal) 실행
 	    $("#updateModal").modal(); 
 	    
+	  
 	  });
 	  
 	$("#updateModal").on('show.bs.modal', function(e){ // #updateModal 실행해서 모달 창 보이면 function(e)실행

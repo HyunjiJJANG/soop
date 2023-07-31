@@ -18,4 +18,4 @@ public class SoopApplication {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-}
+

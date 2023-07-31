@@ -9,6 +9,7 @@
 		
 	</select>
 	
+	
 	<insert id="insertOne" parameterType="kr.co.jhta.soop.dto.AttachedFileDTO">
 		INSERT INTO attached_file(file_no, task_no, file_type, file_name, file_path, file_register_date)
  		VALUES (#{file_no}, #{task_no}, #{file_type}, #{file_name}, #{file_path}, #{file_register_date})

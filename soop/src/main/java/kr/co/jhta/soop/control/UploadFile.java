@@ -10,4 +10,5 @@ import lombok.Setter;
 	public class UploadFile {
 		private MultipartFile file;
 		
+		
 	}

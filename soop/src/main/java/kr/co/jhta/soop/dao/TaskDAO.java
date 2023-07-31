@@ -11,6 +11,7 @@ import kr.co.jhta.soop.dto.TaskDTO;
 @Mapper
 public interface TaskDAO {
 
+	
 	public List<TaskDTO> selectAll();
 
 	public TaskDTO selectOne(int task_no);

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class TaskAttachedFileDTO {
 
+	
 	private int task_no;
 	private int project_no;
 	private int member_no;

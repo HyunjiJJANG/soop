@@ -11,6 +11,7 @@ import kr.co.jhta.soop.dto.AttachedFileDTO;
 @Service
 public class AttachedFileMysqlService implements AttachedFileService{
 	
+	
 	@Autowired
 	private AttachedFileDAO dao;
 
