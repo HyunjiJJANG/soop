@@ -115,15 +115,42 @@
 	  } );
 </script>
 
-<!-- 수정 모달에 데이터 값 넘기기 -->
+<!-- 생성/수정 모달에 데이터 값 넘기기 -->
 <script>
+	//1. 페이지 로딩 시에 서버에서 리스트 데이터를 가져오기 위한 AJAX 호출
+	var membersData; // 리스트 데이터를 저장할 변수
+	
 	$(document).ready(function(){
 	  $("#cmodal_btn").click(function(){ // cmodal_btn 버튼을 클릭하면 아래(updateModal) 실행
 	    $("#updateModal").modal(); 
-	    
-	  
 	  });
 	  
+	  $.ajax({
+		    url: '/api/members', // 멤버 리스트를 가져오는 API 엔드포인트 URL
+		    type: 'GET',
+		    dataType: 'json',
+		    success: function(data) {
+		        // 서버에서 받아온 데이터를 이용하여 동적으로 리스트를 생성하거나 처리합니다.
+		        // 예를 들어, members라는 배열이 있다고 가정하고 각 데이터를 처리하는 방법은 아래와 같을 수 있습니다.
+
+		        // members 배열을 순회하며 각 데이터를 처리
+		        $.each(data.members, function(index, member) {
+		            // 처리할 코드 작성
+		            // 예를 들어, 새로운 <option> 태그를 생성하고 select 요소에 추가할 수 있습니다.
+		            var option = $('<option>', {
+		                value: member.member_no,
+		                text: member.name
+		            });
+		            $("#selectMembersCreate").append(option);
+		        });
+		    },
+		    error: function(error) {
+		        console.error('Error fetching data:', error);
+		    }
+		});
+	    });
+	  
+	  // 수정 모달에 값 넘기기
 	$("#updateModal").on('show.bs.modal', function(e){ // #updateModal 실행해서 모달 창 보이면 function(e)실행
 		console.dir(e.relatedTarget); // e의 값 확인
 		var no = $(e.relatedTarget).data().no; // e의 no라는 데이터를 no라는 변수에 대입
@@ -199,9 +226,10 @@
 	<h2>list</h2>
 	<br /><br />
 	<!-- 업무 생성 모달 버튼 -->
-	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">
+	<button type="button" class="btn btn-primary" data-no="${dto.task_no}" data-bs-toggle="modal" data-bs-target="#insertModal">업무 생성</button>
+<!-- 	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">
 	  업무 생성
-	</button>
+	</button> -->
 	<table class="table">
 	<tr>	
 	<td colspan="8">	
@@ -287,15 +315,16 @@
 					</tr>
 					<tr>
 										
-					<tr>
-					    <td>
-					        <select name="sign_approval" id="sign_approval" class="form-select" aria-label="Default select example">
-					            <option value="">------결재자 선택-----</option> <!-- 선택하지 않은 경우의 기본 옵션 -->
-					            <c:forEach items="${members}" var="member">
-					                <option value="${member.member_no}">${member.name}</option>
-					            </c:forEach>
-					        </select>
-					    </td>
+					<tr> 
+						<td>
+						    <select name="sign_approval" id="selectMembersCreate" class="form-select" aria-label="Default select example">
+						        <option value="">------결재자 선택-----</option>
+						        <!-- 반복문을 사용하여 members 리스트를 순회하여 옵션 태그를 동적으로 생성 -->
+						        <c:forEach var="member" items="${members}">
+						            <option value="${member.member_no}">${member.member_no}</option>
+						        </c:forEach>
+						    </select>
+						</td>
 						<td>
 							<select name="sign_approval" id="sign_approval" class="form-select" aria-label="Default select example">
 								<option selected>------업무 상태 선택-----</option>

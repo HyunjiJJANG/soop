@@ -102,15 +102,12 @@ public class TaskController {
 		// ** 결재라인 **
 		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no);
 		model.addAttribute("members", members);
+//		 List<MemberDTO> members = memberService.selectAll();
+//	     model.addAttribute("members", members);
 
 		// 로그를 통해 프로젝트 멤버를 확인 (이 코드가 정확한 결과를 가져올 수 있도록 project_no에 해당하는 값을 지정해야 합니다.)
 		log.info("members : {}", members);
 
-		// 작업 첨부 파일 리스트를 조회하여 모델에 저장
-		List<TaskAttachedFileDTO> attachedFiles = taskAttachedFileService.selectAll();
-		model.addAttribute("list", attachedFiles);
-
-		
 		
 		
 		// ** 파일 첨부 **
