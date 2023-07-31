@@ -23,28 +23,92 @@
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script> -->
 
 <!-- bootstrap -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-	crossorigin="anonymous">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
-	crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script>
 <!-- jquery -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script type="text/javascript">
+	const exampleModal = document.getElementById("exampleModal")
+	if (exampleModal) {
+	  exampleModal.addEventListener("show.bs.modal", event => {
+	    // Button that triggered the modal
+	    const button = event.relatedTarget
+	    // Extract info from data-bs-* attributes
+	    const recipient = button.getAttribute("data-bs-whatever")
+	    // If necessary, you could initiate an Ajax request here
+	    // and then do the updating in a callback.
+	
+	    // Update the modal's content.
+	    const modalTitle = exampleModal.querySelector(".modal-title")
+	    const modalBodyInput = exampleModal.querySelector(".modal-body input")
+	
+	    modalTitle.textContent = `New message to ${recipient}`
+	    modalBodyInput.value = recipient
+	  })
+	}
+	
+	$(function() {
+		$("#invitationEmail").on(
+				"keyup",
+				function() {
+					$.ajax({
+						type : "GET",
+						url : "/emailCheck",
+						data : {
+							"email" : $("#email").val().trim()
+						},
+						dataType : "text",
+						success : function(result) {
+							var resp = result.trim();
+							if (resp == "OK") {
+								$("#idCheck").html("사용가능한 아이디입니다.").css(
+										"color", "blue");
+								$("#btnMailCheck").show();
+							} else if($("#email").val().trim() == ""){
+								$("#idCheck").hide();
+								$("#btnMailCheck").hide();
+								
+							}else {
+								$("#idCheck").html("이미 존재하는 아이디입니다.").css(
+										"color", "red");
+								$("#btnMailCheck").hide();
+							}
+						}
+					});
+				});
+
+	// 인증메일 비동기화 방식으로 보내기
+		/* $("#invitationEmail").on("click", function() {// 메일 입력 유효성 검사
+			var invitationEmail = $("#invitationEmail").val(); //사용자의 이메일 입력값
+
+			if (invitationEmail == "") {
+				alert("메일 주소가 입력되지 않았습니다.");
+			} else {
+
+				$.ajax({
+					type : 'GET',
+					url : '/mailCheck',
+					data : {
+						"invitationEmail" : $("#invitationEmail").val().trim()
+					},
+					dataType : 'text',
+
+				});
+				alert("인증번호가 전송되었습니다.")
+				isCertification = false; //추후 인증 여부를 알기위한 값
+				$("#authCodeDiv").show();
+			}
+		}); */
+		
+	})
+</script>
 </head>
-<body>
+<body class="modal-open" style="overflow: hidden; padding-right: 0px;">
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
 	<div class="pcoded-main-container">
@@ -275,7 +339,7 @@
                             <tfoot>
                             	<tr>
                             		<td style="text-align: center;">
-                                       <a href="#"><i class="fa-solid fa-user-plus" style="color: #1abc9c;"></i>&nbsp;&nbsp;새 멤버 초대</a>
+                            			<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa-solid fa-user-plus" style="color:#78C2AD"></i>&nbsp;&nbsp;새 멤버 초대</a>
                             		</td>
                             	</tr>
                             </tfoot>
@@ -357,5 +421,33 @@
 
 	</div>
 	</div>
+	
+	<!-- 새 멤버 추가 modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">파트너 초대하기</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">초대할 이메일</label>
+            <input type="text" class="form-control" id="invitationEmail"  placeholder="example@soop.team">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">초대내용 입력</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnInvitation">파트너 초대하기</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
