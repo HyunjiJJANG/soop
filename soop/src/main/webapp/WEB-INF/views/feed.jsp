@@ -65,18 +65,14 @@
 						dataType : "text",
 						success : function(result) {
 							var resp = result.trim();
-							if (resp == "OK") {
-								$("#idCheck").html("사용가능한 아이디입니다.").css(
-										"color", "blue");
-								$("#btnMailCheck").show();
-							} else if($("#invitationEmail").val().trim() == ""){
-								$("#idCheck").hide();
-								$("#btnMailCheck").hide();
-								
-							}else {
+							if() {
 								$("#idCheck").html("이미 초대된 파트너입니다.").css(
 										"color", "red");
-								$("#btnMailCheck").hide();
+								$("#btnInvitation").attr("disabled", true);
+							}else if($("#invitationEmail").val().trim() == ""){
+								$("#btnInvitation").attr("disabled", true);
+							}else if(resp == "OK"){
+								$("#btnInvitation").attr("disabled", false);
 							}
 						}
 					});
@@ -436,7 +432,10 @@
             <label for="recipient-name" class="col-form-label">초대할 이메일</label>
             <input type="text" class="form-control" id="invitationEmail"  placeholder="example@soop.team">
           </div>
-          <div class="mb-3">
+		<div class="col-6">
+			<span id="idCheck" class="form-text"></span>
+		</div>
+		  <div class="mb-3">
             <label for="message-text" class="col-form-label">초대내용 입력</label>
             <textarea class="form-control" id="message-text"></textarea>
           </div>
