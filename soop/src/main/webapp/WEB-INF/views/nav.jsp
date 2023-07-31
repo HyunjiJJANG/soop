@@ -17,6 +17,7 @@
 <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
+
 <!-- font awesome -->
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <!-- datepicker -->

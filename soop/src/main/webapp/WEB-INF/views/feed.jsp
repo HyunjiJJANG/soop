@@ -123,7 +123,7 @@
                                 <thead style="border-color: transparent;">
                                     <tr>
                                         <td>
-                                        	<div class="row m-b-0"><h4>업무 이름</h4></div>
+                                        	<div class="row m-b-0"><h4>업무명</h4></div>
                                         </td>
                                     </tr>
                                 </thead>
@@ -148,10 +148,21 @@
 												<label class="btn btn-outline-danger btn-sm" style="border-radius: 10px;">
 												<input type="radio" name="options" id="option5">보류</label>
 											</div>
+											&nbsp;&nbsp;
+											<i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;결재현황
                                 		</td>
                                 	</tr>
                                     <tr>
                                     	<td><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;0000/00/00부터&nbsp;&nbsp;&nbsp;0000/00/00까지</td>
+                                    </tr>
+                                    <tr>
+                                    	<td>
+                                    		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
+                                    		<!-- 해당 업무 첨부파일 보이는 곳 -->
+											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">첨부파일1.pdf</a>
+											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">첨부파일2.xml</a>
+
+                                    	</td>
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">
                                     	<td>
