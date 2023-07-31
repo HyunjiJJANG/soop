@@ -13,10 +13,10 @@ public class MemberProjectProjectmemberMysqlService implements MemberProjectProj
 
 	@Autowired
 	MemberProjectProjectmemberDAO dao;
-	
+
 	@Override
 	public List<MemberProjectProjectmemberDTO> selectAllbyprojectno(int project_no) {
 		return dao.selectAllbyprojectno(project_no);
 	}
-
+	
 }

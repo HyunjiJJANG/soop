@@ -14,6 +14,7 @@ public class MemberMysqlService implements MemberService{
 	
 	@Autowired
 	MemberDAO dao;
+	
 	@Override
 	public List<MemberDTO> selectAll() {
 		return dao.selectAll();

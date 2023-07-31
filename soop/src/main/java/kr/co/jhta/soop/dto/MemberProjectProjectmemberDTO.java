@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class MemberProjectProjectmemberDTO {
-	
+
 	private int member_no;
 	private String email;
 	private String password;
@@ -25,7 +25,8 @@ public class MemberProjectProjectmemberDTO {
 	private String project_end_Date;
 	private int project_status;
 	private String color;
-	
+
 	private int member_position;
+	
 	
 }

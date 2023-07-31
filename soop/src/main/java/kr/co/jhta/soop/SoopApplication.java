@@ -10,4 +10,5 @@ public class SoopApplication {
 		SpringApplication.run(SoopApplication.class, args);
 	}
 
+	
 }

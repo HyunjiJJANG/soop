@@ -1,4 +1,4 @@
-   package kr.co.jhta.soop.control;
+package kr.co.jhta.soop.control;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,8 +34,8 @@ import org.springframework.web.servlet.ModelAndView;
 import jdk.internal.org.jline.utils.Log;
 import kr.co.jhta.soop.dto.AttachedFileDTO;
 import kr.co.jhta.soop.dto.MemberDTO;
-import kr.co.jhta.soop.dto.TaskDTO;
 import kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO;
+import kr.co.jhta.soop.dto.TaskDTO;
 import kr.co.jhta.soop.service.AttachedFileService;
 import kr.co.jhta.soop.service.MemberProjectProjectmemberService;
 import kr.co.jhta.soop.service.MemberService;
@@ -49,6 +49,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/soop")
 public class TaskController {
 
+	
 //	@Autowired
 //	FileValidator fileValidator;
 
@@ -61,9 +62,10 @@ public class TaskController {
 	@Autowired
 	TaskAttachedFileService taskAttachedFileService;
 	
+	
 	@Autowired
 	MemberService memberService;
-	
+//	
 	@Autowired
 	MemberProjectProjectmemberService memberProjectProjectmemberService;
 	
@@ -95,10 +97,10 @@ public class TaskController {
 		
 		
 		// ** 결재라인 **
-		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no); // => memberService가 아니라 memberProject를 join한 service가 필요!
-		model.addAttribute("members", members);
-		log.info("members : {}", members.get(project_no));
-		model.addAttribute("list", taskAttachedFileService.selectAll()); 
+//		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no); // => memberService가 아니라 memberProject를 join한 service가 필요!
+//		model.addAttribute("members", members);
+//		log.info("members : {}", members.get(project_no));
+//		model.addAttribute("list", taskAttachedFileService.selectAll()); 
 		
 
 		// ** 파일 첨부 **

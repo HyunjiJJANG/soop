@@ -11,6 +11,7 @@ import kr.co.jhta.soop.dto.TaskAttachedFileDTO;
 @Mapper
 public interface TaskAttachedFileDAO {
 	
+	
 	public List<TaskAttachedFileDTO> selectAll();
 	
 	public TaskAttachedFileDTO selectOne(int task_no);

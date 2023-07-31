@@ -6,6 +6,7 @@ import kr.co.jhta.soop.dto.TaskAttachedFileDTO;
 
 public interface TaskAttachedFileService {
 
+	
 	public List<TaskAttachedFileDTO> selectAll();
 	
 	public TaskAttachedFileDTO selectOne(int task_no);
