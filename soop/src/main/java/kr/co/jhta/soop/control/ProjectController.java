@@ -46,7 +46,7 @@ public class ProjectController {
 						 	 @RequestParam("project_description")String project_description,
 						 	 @RequestParam("project_start_date")String project_start_date,
 						 	 @RequestParam("project_end_date")String project_end_date,
-						 	 @RequestParam(value="member_no")int member_no) {
+						 	 @RequestParam("member_no")int member_no) {
 		
 		ProjectDTO projectDto = new ProjectDTO();
 		projectDto.setProject_no(project_no);
@@ -65,9 +65,9 @@ public class ProjectController {
 	}
 	
 	// side nav의 프로젝트 이름 클릭시 해당 프로젝트 피드 화면으로 이동
-	@GetMapping("/feed")
+	@GetMapping("/selectProject")
 	public String goFeed(@RequestParam("project_no")int project_no,
-						 @RequestParam(value="member_no", defaultValue="1")int member_no,
+						 @RequestParam("member_no")int member_no,
 						 Model model) {
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 //		model.addAttribute("projectDetailDto", feedService.selectAllProjectDetail(project_no, member_no));
