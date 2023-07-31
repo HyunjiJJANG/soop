@@ -14,6 +14,7 @@ public class MemberMysqlService implements MemberService{
 	
 	@Autowired
 	MemberDAO dao;
+
 	@Override
 	public List<MemberDTO> selectAll() {
 
@@ -39,10 +40,6 @@ public class MemberMysqlService implements MemberService{
 		
 	}
 	
-	
-	
-	
-
 	@Override
 	public MemberDTO selectOne(int member_no) {
 		return dao.selectOne(member_no);

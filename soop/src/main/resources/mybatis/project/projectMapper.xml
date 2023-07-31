@@ -4,7 +4,6 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-
 <mapper namespace="kr.co.jhta.soop.dao.ProjectDAO">
 	<insert id="insertOne" parameterType="kr.co.jhta.soop.dto.ProjectDTO">
 		INSERT INTO project (project_no, project_title, project_description, project_start_date, project_end_Date, project_status, color)

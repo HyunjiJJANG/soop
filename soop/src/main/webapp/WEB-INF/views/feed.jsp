@@ -53,31 +53,39 @@
 	}
 	
 	$(function() {
-		$("#invitationEmail").on(
+		$("#email").on(
 				"keyup",
 				function() {
 					$.ajax({
 						type : "GET",
-						url : "/emailCheck",
+						url : "/emailCheck2",
 						data : {
-							"invitationEmail" : $("#invitationEmail").val().trim()
+							"email" : $("#email").val().trim(),
+							"project_no" : 1
 						},
-						dataType : "text",
-						success : function(result) {
-							var resp = result.trim();
-							if() {
-								$("#idCheck").html("이미 초대된 파트너입니다.").css(
-										"color", "red");
-								$("#btnInvitation").attr("disabled", true);
-							}else if($("#invitationEmail").val().trim() == ""){
-								$("#btnInvitation").attr("disabled", true);
-							}else if(resp == "OK"){
-								$("#btnInvitation").attr("disabled", false);
+						dataType : "json",
+						success : function(list) {
+							console.log(list);	
+						
+							for(i=0; i<list.length; i++){
+								if( list[i] == 1) { // 이미 초대되었으면
+									console.log("이미 초대 성공");
+									$("#idCheck").html("<span class='form-text' style='color: red;'>이미 초대된 파트너입니다.</span>");
+									$("#btnInvitation").attr("disabled", true);
+									break;
+								}else if($("#email").val().trim() == ""){ // 빈내용
+									$("#btnInvitation").attr("disabled", true);
+								}else if(list[i] != 1 || list == null){ // 초대되어있지 않으면
+									$("#idCheck").html("");
+									$("#btnInvitation").attr("disabled", false);
+								}
+								break;
 							}
 						}
 					});
 				});
 
+	
 	// 인증메일 비동기화 방식으로 보내기
 		/* $("#invitationEmail").on("click", function() {// 메일 입력 유효성 검사
 			var invitationEmail = $("#invitationEmail").val(); //사용자의 이메일 입력값
@@ -429,20 +437,20 @@
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="recipient-name" class="col-form-label">초대할 이메일</label>
-            <input type="text" class="form-control" id="invitationEmail"  placeholder="example@soop.team">
+            <label for="email" class="col-form-label">초대할 이메일</label>
+            <input type="text" class="form-control" id="email"  placeholder="example@soop.team">
           </div>
-		<div class="col-6">
-			<span id="idCheck" class="form-text"></span>
+		<div class="col-6" id="idCheck">
+			
 		</div>
 		  <div class="mb-3">
-            <label for="message-text" class="col-form-label">초대내용 입력</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <label for="message" class="col-form-label">초대내용 입력</label>
+            <textarea class="form-control" id="message"></textarea>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="btnInvitation">파트너 초대하기</button>
+      <div class="modal-footer"> <!-- 여기 잠깐 건드렷음 -->
+        <button type="button" class="btn btn-primary" id="btnInvitation" disabled>파트너 초대하기</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
       </div>
     </div>

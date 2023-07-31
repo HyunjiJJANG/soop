@@ -12,12 +12,10 @@ import kr.co.jhta.soop.dto.MemberProjectMemberDTO;
 @Repository
 public interface MemberProjectMemberDAO {
 	
-	
 
 public List<MemberProjectMemberDTO> selectAll(MemberProjectMemberDTO dto);
 
 public  MemberProjectMemberDTO selectOne(int member_no);
-
 
 
 public MemberProjectMemberDTO selectMemberByEmail(String email);
@@ -27,10 +25,9 @@ public void insertOne(MemberProjectMemberDTO dto);
 public void updateOne(MemberProjectMemberDTO dto);
 
 
-
 public void deleteOne(int member_no);
 
+public List<Integer> selectAllProjectByEmail(String email);
 
-	
 
 }

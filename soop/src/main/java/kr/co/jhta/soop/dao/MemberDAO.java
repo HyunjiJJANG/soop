@@ -11,7 +11,6 @@ import kr.co.jhta.soop.dto.MemberDTO;
 @Mapper
 public interface MemberDAO {
 	
-
 public List<MemberDTO> selectAll();
 
 public  MemberDTO selectOne(int member_no);
@@ -29,6 +28,6 @@ public void updateOneName(MemberDTO dto);
 public void deleteOne(int member_no);
 
 public void insertRole(String email);
-	
+
 
 }
