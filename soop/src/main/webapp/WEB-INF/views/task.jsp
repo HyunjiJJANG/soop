@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html xmlns:th="http://www.thymeleaf.org">
 <!DOCTYPE html>
 <html>
 <head>
@@ -117,63 +116,91 @@
 
 <!-- 생성/수정 모달에 데이터 값 넘기기 -->
 <script>
-	//1. 페이지 로딩 시에 서버에서 리스트 데이터를 가져오기 위한 AJAX 호출
+/* 	//1. 페이지 로딩 시에 서버에서 리스트 데이터를 가져오기 위한 AJAX 호출
 	var membersData; // 리스트 데이터를 저장할 변수
-	
+	 */
 	$(document).ready(function(){
+		
 	  $("#cmodal_btn").click(function(){ // cmodal_btn 버튼을 클릭하면 아래(updateModal) 실행
 	    $("#updateModal").modal(); 
 	  });
-	  
-	  $.ajax({
-		    url: '/api/members', // 멤버 리스트를 가져오는 API 엔드포인트 URL
-		    type: 'GET',
-		    dataType: 'json',
-		    success: function(data) {
-		        // 서버에서 받아온 데이터를 이용하여 동적으로 리스트를 생성하거나 처리합니다.
-		        // 예를 들어, members라는 배열이 있다고 가정하고 각 데이터를 처리하는 방법은 아래와 같을 수 있습니다.
 
-		        // members 배열을 순회하며 각 데이터를 처리
-		        $.each(data.members, function(index, member) {
-		            // 처리할 코드 작성
-		            // 예를 들어, 새로운 <option> 태그를 생성하고 select 요소에 추가할 수 있습니다.
-		            var option = $('<option>', {
-		                value: member.member_no,
-		                text: member.name
-		            });
-		            $("#selectMembersCreate").append(option);
-		        });
-		    },
-		    error: function(error) {
-		        console.error('Error fetching data:', error);
-		    }
+
+	  $(function() {
+		  $("#member").on("keyup", function() {
+		    $.ajax({
+		      type: "GET",
+		      url: '/task',
+		      data: {
+		        "member": $("#member").val().trim(),
+		        project_no: 1, // 실제 프로젝트 번호로 교체
+		        // 다른 요청 데이터가 필요한 경우 추가
+		      },
+		      success: function(list) {
+		        console.log(list);
+
+		        // <select> 요소를 가져옵니다.
+		        var selectElement = $("#selectMembersCreate");
+
+		        // 기존의 옵션을 삭제합니다.
+		        selectElement.empty();
+
+		        // 기본 옵션을 추가합니다.
+		        selectElement.append('<option value="">------결재자 선택-----</option>');
+
+		        // 서버로부터 받아온 members 데이터를 순회하며 옵션을 동적으로 추가합니다.
+		        for (var i = 0; i < list.length; i++) {
+		          var memberNo = list[i].member_no;
+		          // option 요소를 생성하여 select 요소에 추가합니다.
+		          selectElement.append('<option value="' + memberNo + '">' + memberNo + '</option>');
+		        }
+		      },
+		      error: function(error) {
+		        // 에러 처리
+		      }
+		    });
+		  });
 		});
-	    });
-	  
-	  // 수정 모달에 값 넘기기
-	$("#updateModal").on('show.bs.modal', function(e){ // #updateModal 실행해서 모달 창 보이면 function(e)실행
-		console.dir(e.relatedTarget); // e의 값 확인
-		var no = $(e.relatedTarget).data().no; // e의 no라는 데이터를 no라는 변수에 대입
-		var title = $(e.relatedTarget).data().title;
-		var content = $(e.relatedTarget).data().content;
-		var status = $(e.relatedTarget).data().status;
-		var start = $(e.relatedTarget).data().start;
-		var end = $(e.relatedTarget).data().end;
-		var filename = $(e.relatedTarget).data().filename;
-		console.log(no);
-		
-		$("#tasknovalue").val(no); // #tasknovalue값(수정 모달에서 사용)에 no 밸류 넣기
-		$("#titlevalue").val(title);
-		$("#contentvalue").val(content);
-		$("#statusvalue").val(status);
-		$("#startvalue").val(start);
-		$("#endvalue").val(end);
-		$("#filename").val(filename);
-	    $("#filedto").empty(); // 이전 파일 정보를 지웁니다.
-	    $("#filedto").append("<p>기존파일 : " + filename + "</p>");
-		
-	 });
-	  
+
+		// 생성 모달에 값 넘기기
+		/*  		$("#insertModal").on('show.bs.modal', function(e) {
+		 var members = $(e.relatedTarget).data().members; // 클릭된 요소의 데이터에서 members 리스트 추출
+		 console.log(members);
+
+		 // members 리스트를 순회하면서 각 member 값을 가져와서 Modal 필드에 설정
+		 members.forEach(function(member) {
+		 var memberNo = member.member_no;
+		 var memberName = member.name;
+		 // 이제 각 member 값에 대해 원하는 작업을 수행할 수 있습니다.
+		 // 예를 들어, 가져온 값을 필드에 설정하거나 콘솔에 출력하거나 다른 처리를 수행할 수 있습니다.
+		 console.log(memberNo, memberName);
+		 });
+		 });  */
+
+		// 수정 모달에 값 넘기기
+		$("#updateModal").on('show.bs.modal', function(e) { // #updateModal 실행해서 모달 창 보이면 function(e)실행
+			console.dir(e.relatedTarget); // e의 값 확인
+			var no = $(e.relatedTarget).data().no; // e의 no라는 데이터를 no라는 변수에 대입
+			var title = $(e.relatedTarget).data().title;
+			var content = $(e.relatedTarget).data().content;
+			var status = $(e.relatedTarget).data().status;
+			var start = $(e.relatedTarget).data().start;
+			var end = $(e.relatedTarget).data().end;
+			var filename = $(e.relatedTarget).data().filename;
+			console.log(no);
+
+			$("#tasknovalue").val(no); // #tasknovalue값(수정 모달에서 사용)에 no 밸류 넣기
+			$("#titlevalue").val(title);
+			$("#contentvalue").val(content);
+			$("#statusvalue").val(status);
+			$("#startvalue").val(start);
+			$("#endvalue").val(end);
+			$("#filename").val(filename);
+			$("#filedto").empty(); // 이전 파일 정보를 지웁니다.
+			$("#filedto").append("<p>기존파일 : " + filename + "</p>");
+
+		});
+
 	});
 </script>
 
@@ -220,13 +247,14 @@
 
 </head>
 <body>
+
 <div class="container">
 	<%-- <h2><%= application.getRealPath("/data") %></h2> --%>
 	<br /><br />
 	<h2>list</h2>
 	<br /><br />
 	<!-- 업무 생성 모달 버튼 -->
-	<button type="button" class="btn btn-primary" data-no="${dto.task_no}" data-bs-toggle="modal" data-bs-target="#insertModal">업무 생성</button>
+	<button type="button" id="insert_btn" class="btn btn-primary" data-no="${dto.task_no}" <%-- data-member="${members}"  --%>data-bs-toggle="modal" data-bs-target="#insertModal">업무 생성</button>
 <!-- 	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">
 	  업무 생성
 	</button> -->
@@ -236,6 +264,7 @@
 		<!-- <a href="write" class="btn btn-outline-primary" id="btn"/>작성</a> -->
 	</td>
 	</tr>
+	
 		<tr>
 			<th>task_no</th>
 			<th>project_no</th>
@@ -306,6 +335,7 @@
 						</td>
 			</td></tr>
 			<tr>
+
 				<table class="table" id="tb" >
 				<p>결재 라인</p>
 					<tr>
@@ -314,16 +344,14 @@
 						<th>3단계</th>
 					</tr>
 					<tr>
-										
 					<tr> 
 						<td>
-						    <select name="sign_approval" id="selectMembersCreate" class="form-select" aria-label="Default select example">
-						        <option value="">------결재자 선택-----</option>
-						        <!-- 반복문을 사용하여 members 리스트를 순회하여 옵션 태그를 동적으로 생성 -->
-						        <c:forEach var="member" items="${members}">
-						            <option value="${member.member_no}">${member.member_no}</option>
-						        </c:forEach>
-						    </select>
+				            <select name="sign_approval" id="selectMembersCreate" class="form-select" aria-label="Default select example">
+				              <option value="">------결재자 선택-----</option>
+				              <c:forEach var="member" items="${members}">
+				                <option value="${member.member_no}">${member.name}</option>
+				              </c:forEach>
+				            </select>
 						</td>
 						<td>
 							<select name="sign_approval" id="sign_approval" class="form-select" aria-label="Default select example">
