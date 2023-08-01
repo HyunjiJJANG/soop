@@ -1,8 +1,13 @@
 package kr.co.jhta.soop.control;
 
 import java.util.List;
+import java.util.Random;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class MemberProjectMemberController {
+	@Autowired
+	JavaMailSender javaMailSender;
 	
 	@Autowired
 	MemberProjectMemberService memberProjectMemberService;
@@ -38,4 +45,6 @@ public class MemberProjectMemberController {
 		return list;
 	}
 
+	
+	
 }

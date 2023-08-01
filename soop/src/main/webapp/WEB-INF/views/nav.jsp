@@ -18,8 +18,6 @@
 <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
-<<<<<<< HEAD
-
 
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
@@ -40,7 +38,6 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
 <script>
 /* Range Calender */
   $( function() {
@@ -153,7 +150,7 @@ $(function(){
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" style="padding-left: 20px;">
-			<h4 style="width: 500px;">홍길동님 환영합니다&nbsp;<span class="pcoded-micon"><i class="fa-regular fa-face-smile"></i></span></h4>
+			<h4 style="width: 500px;"> ${name} 님 환영합니다&nbsp;<span class="pcoded-micon"><i class="fa-regular fa-face-smile"></i></span></h4>
 		</div>
 		<div class="collapse navbar-collapse" style="padding-left: 200px;">
 			<h6 style="width: 700px;" align="right">

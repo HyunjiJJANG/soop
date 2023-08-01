@@ -66,20 +66,15 @@
 						dataType : "json",
 						success : function(list) {
 							console.log(list);	
-						
+							$("#btnInvitation").attr("disabled", false);
+							$("#idCheck").html("");
 							for(i=0; i<list.length; i++){
 								if( list[i] == 1) { // 이미 초대되었으면
 									console.log("이미 초대 성공");
 									$("#idCheck").html("<span class='form-text' style='color: red;'>이미 초대된 파트너입니다.</span>");
 									$("#btnInvitation").attr("disabled", true);
 									break;
-								}else if($("#email").val().trim() == ""){ // 빈내용
-									$("#btnInvitation").attr("disabled", true);
-								}else if(list[i] != 1 || list == null){ // 초대되어있지 않으면
-									$("#idCheck").html("");
-									$("#btnInvitation").attr("disabled", false);
 								}
-								break;
 							}
 						}
 					});
@@ -87,27 +82,28 @@
 
 	
 	// 인증메일 비동기화 방식으로 보내기
-		/* $("#invitationEmail").on("click", function() {// 메일 입력 유효성 검사
-			var invitationEmail = $("#invitationEmail").val(); //사용자의 이메일 입력값
+		$("#btnInvitation").on("click", function() {// 메일 입력 유효성 검사
+			var email = $("#email").val(); //사용자의 이메일 입력값
 
-			if (invitationEmail == "") {
+			if (email == "") {
 				alert("메일 주소가 입력되지 않았습니다.");
 			} else {
-
 				$.ajax({
 					type : 'GET',
-					url : '/mailCheck',
+					url : '/invite',
 					data : {
-						"invitationEmail" : $("#invitationEmail").val().trim()
+						"email" : $("#email").val().trim(),
+						"name" : "홍길동",
+						"inviteMessage" : $("#inviteMessage").val().trim()
 					},
 					dataType : 'text',
 
 				});
-				alert("인증번호가 전송되었습니다.")
+				alert("초대링크가 전송되었습니다.")
 				isCertification = false; //추후 인증 여부를 알기위한 값
-				$("#authCodeDiv").show();
+
 			}
-		}); */
+		});
 		
 	})
 </script>
@@ -116,46 +112,46 @@
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
 	<div class="pcoded-main-container">
-		<div class="pcoded-content">
+		<div class="pcoded-content" style="padding-left: 250px;">
 			<!-- [ Feed navigation menu ] start -->
-		    <nav class="pcoded-navbar theme-horizontal menu-light" style="position: fixed;">
+		    <nav class="pcoded-navbar theme-horizontal menu-light" style="position: fixed;height: 100px;">
 		        <div class="navbar-wrapper container" style="text-align: left;">
 		            <div class="navbar-content sidenav-horizontal" id="layout-sidenav">
-		                <ul class="nav pcoded-inner-navbar sidenav-inner">		                    
+		            	<table>
+			                <tr>
+		                       <td> 
+		                       <ul class="nav pcoded-inner-navbar sidenav-inner">
+		                       <li class="nav-item">
+		                       <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">프로젝트명</span></a>
+		            			</li>
+		            			</ul>
+		            			</td>
+		            		</tr>
+		            	<tr>
+		            	 <td>
+		            	<ul class="nav pcoded-inner-navbar sidenav-inner">
+                    
 		                    <li class="nav-item">
 		                        <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
 		                    </li>
-		                    <li class="nav-item pcoded-menu-caption">
-		                        <label>Forms &amp; table</label>
+		                    <li class="nav-item">
+		                        <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span><span class="pcoded-mtext">일정</span></a>
 		                    </li>
 		                    <li class="nav-item">
-		                        <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">Forms</span></a>
+		                        <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
 		                    </li>
 		                    <li class="nav-item">
-		                        <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-align-justify"></i></span><span class="pcoded-mtext">Bootstrap table</span></a>
-		                    </li>
-		                    <li class="nav-item pcoded-menu-caption">
-		                    	<label>Chart & Maps</label>
+		                        <a href="chart-apex.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-address-book"></i></span><span class="pcoded-mtext">주소록</span></a>
 		                    </li>
 		                    <li class="nav-item">
-		                        <a href="chart-apex.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a>
+		                        <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-file-arrow-down"></i></span><span class="pcoded-mtext">첨부파일</span></a>
 		                    </li>
-		                    <li class="nav-item">
-		                        <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Maps</span></a>
-		                    </li>
-		                    <li class="nav-item pcoded-menu-caption">
-		                    	<label>Pages</label>
-		                    </li>
-		                    <li class="nav-item pcoded-hasmenu">
-		                        <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Authentication</span></a>
-		                        <ul class="pcoded-submenu">
-		                            <li><a href="auth-signup.html" target="_blank">Sign up</a></li>
-		                            <li><a href="auth-signin.html" target="_blank">Sign in</a></li>
-		                        </ul>
-		                    </li>
-		                    <li class="nav-item"><a href="sample-page.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-sidebar"></i></span><span class="pcoded-mtext">Sample page</span></a></li>
-		
+
 		                </ul>
+						</td>
+		                
+		                </tr>
+		                </table>
 		            </div>
 		        </div>
 		    </nav>
@@ -234,6 +230,9 @@
                                     		냉무 <br />
                                     		냉무 <br />
                                     		냉무 <br />
+                                    		냉무 <br />
+                                    		냉무 <br />
+                                    		냉무 <br />
                                     	</td>
                                     </tr>
                                 </tbody>
@@ -288,14 +287,14 @@
 
 
 		<!-- buttons -->            
-		<div class="col-xl-2 col-md-12" style="position: fixed; top: 150px; right: 508px;">
+		<div class="col-xl-2 col-md-12" style="position: fixed; top: 172px; right: 300px;">
 			<button class="btn btn-primary col-md-12" type="button" data-bs-toggle="modal" data-bs-target="#insertModal">
 				<i class="fa-solid fa-pen-to-square" style="color: #fff;"></i>&nbsp;&nbsp;업무 생성
 			</button> <br />
 		</div>
                 
 		<!-- project member start -->
-        <div class="col-xl-2 col-md-12" style="position: fixed; top: 200px; right: 508px;">
+        <div class="col-xl-2 col-md-12" style="position: fixed; top: 230px; right: 300px;">
             <div class="card table-card">
                 <div class="card-header">
                     <h5>참여자</h5>
@@ -354,74 +353,6 @@
         </div>
 
 
-		<!-- chatting -->
-		<div class="col-lg-3 col-md-30" style="position: fixed; top: 150px; right: 20px;">
-                <div class="card chat-card">
-                    <div class="card-header">
-                        <h5>대화</h5>
-                        <div class="card-header-right">
-                            <div class="btn-group card-option">
-                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="feather icon-more-horizontal"></i>
-                                </button>
-                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                    <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
-                                    <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
-                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row m-b-20 received-chat">
-                            <div class="col-auto p-r-0">
-                                <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
-                            </div>
-                            <div class="col">
-                                <div class="msg">
-                                    <p class="m-b-0">Nice to meet you!</p>
-                                </div>
-                                <p class="text-muted m-b-0"><i class="fa fa-clock-o m-r-10"></i>10:20am</p>
-                            </div>
-                        </div>
-                        <div class="row m-b-20 send-chat">
-                            <div class="col">
-                                <div class="msg">
-                                    <p class="m-b-0">Nice to meet you!</p>
-                                </div>
-                                <p class="text-muted m-b-0"><i class="fa fa-clock-o m-r-10"></i>10:20am</p>
-                            </div>
-                            <div class="col-auto p-l-0">
-                                <img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40">
-                            </div>
-                        </div>
-                        <div class="row m-b-20 received-chat">
-                            <div class="col-auto p-r-0">
-                                <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
-                            </div>
-                            <div class="col">
-                                <div class="msg">
-                                    <p class="m-b-0">Nice to meet you!</p>
-                                    <img src="assets/images/widget/dashborad-1.jpg" alt="">
-                                    <img src="assets/images/widget/dashborad-3.jpg" alt="">
-                                </div>
-                                <p class="text-muted m-b-0"><i class="fa fa-clock-o m-r-10"></i>10:20am</p>
-                            </div>
-                        </div>
-                        <div class="input-group m-t-15">
-                            <input type="text" name="task-insert" class="form-control" id="Project" placeholder="Send message">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary">
-                                    <i class="feather icon-message-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-		
-		
-		</div>
 
 	</div>
 	</div>
@@ -445,12 +376,12 @@
 		</div>
 		  <div class="mb-3">
             <label for="message" class="col-form-label">초대내용 입력</label>
-            <textarea class="form-control" id="message"></textarea>
+            <textarea class="form-control" id="inviteMessage"></textarea>
           </div>
         </form>
       </div>
-      <div class="modal-footer"> <!-- 여기 잠깐 건드렷음 -->
-        <button type="button" class="btn btn-primary" id="btnInvitation" disabled>파트너 초대하기</button>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnInvitation" >파트너 초대하기</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
       </div>
     </div>
