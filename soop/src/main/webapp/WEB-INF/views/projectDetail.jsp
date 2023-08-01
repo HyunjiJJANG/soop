@@ -49,48 +49,48 @@
 	<div class="pcoded-main-container">
 		<div class="pcoded-content">
 			<!-- [ Feed navigation menu ] start -->
-		    <nav class="pcoded-navbar theme-horizontal menu-light" style="position: fixed;">
+		    <nav class="pcoded-navbar theme-horizontal menu-light" style="position: fixed; height:100px;">
 		        <div class="navbar-wrapper container" style="text-align: left;">
 		            <div class="navbar-content sidenav-horizontal" id="layout-sidenav">
-		                <ul class="nav pcoded-inner-navbar sidenav-inner">		                    
-		                    <li class="nav-item">
-		                        <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
-		                    </li>
-		                    <li class="nav-item pcoded-menu-caption">
-		                        <label>Forms &amp; table</label>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">Forms</span></a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-align-justify"></i></span><span class="pcoded-mtext">Bootstrap table</span></a>
-		                    </li>
-		                    <li class="nav-item pcoded-menu-caption">
-		                    	<label>Chart & Maps</label>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="chart-apex.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Maps</span></a>
-		                    </li>
-		                    <li class="nav-item pcoded-menu-caption">
-		                    	<label>Pages</label>
-		                    </li>
-		                    <li class="nav-item pcoded-hasmenu">
-		                        <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Authentication</span></a>
-		                        <ul class="pcoded-submenu">
-		                            <li><a href="auth-signup.html" target="_blank">Sign up</a></li>
-		                            <li><a href="auth-signin.html" target="_blank">Sign in</a></li>
-		                        </ul>
-		                    </li>
-		                    <li class="nav-item"><a href="sample-page.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-sidebar"></i></span><span class="pcoded-mtext">Sample page</span></a></li>
-		
-		                </ul>
+		                <table>
+                         <tr>
+                             <td> 
+                             <ul class="nav pcoded-inner-navbar sidenav-inner">
+                             <li class="nav-item">
+                             <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">프로젝트명</span></a>
+                           </li>
+                           </ul>
+                           </td>
+                        </tr>
+                     <tr>
+                      <td>
+                     <ul class="nav pcoded-inner-navbar sidenav-inner">
+                    
+                          <li class="nav-item">
+                              <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span><span class="pcoded-mtext">일정</span></a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="chart-apex.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-address-book"></i></span><span class="pcoded-mtext">주소록</span></a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-file-arrow-down"></i></span><span class="pcoded-mtext">첨부파일</span></a>
+                          </li>
+
+                      </ul>
+                  </td>
+                      
+                      </tr>
+                      </table>
 		            </div>
 		        </div>
 		    </nav>
-			<br /><br /><br /><br /><br /><br />
+			<br /><br /><br /><br /><br /><br /><br />
 			
 			<!-- 업무 피드 card -->
 			<c:forEach var="taskDTO" items="${taskDTO}">
@@ -289,7 +289,7 @@
 
 
 		<!-- chatting -->
-		<div class="col-lg-3 col-md-30" style="position: fixed; top: 150px; right: 20px;">
+<!-- 		<div class="col-lg-3 col-md-30" style="position: fixed; top: 150px; right: 20px;">
                 <div class="card chat-card">
                     <div class="card-header">
                         <h5>대화</h5>
@@ -352,10 +352,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
 		
 		
-		</div>
+		</div> -->
 
 	</div>
 	</div>
