@@ -17,7 +17,7 @@
 		JOIN member m
 		ON t.member_no = m.member_no
 		WHERE m.member_no = #{m.member_no}
-		AND p.project_no = #{p.project_no}
+		<!-- AND p.project_no = #{p.project_no} -->
 		AND t.task_title != '';
   	</select>
   </mapper>

@@ -1,5 +1,6 @@
 package kr.co.jhta.soop.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,15 @@ public class ProjectTaskMemberMysqlService implements ProjectTaskMemberService{
 	ProjectTaskMemberDAO PTMdao;
 
 	@Override
+	public List<ProjectTaskMemberDTO> myproject_Select_task(HashMap<String, Integer> map) {
+		
+		return PTMdao.myproject_Select_task(map);
+	}
+
+	@Override
 	public List<ProjectTaskMemberDTO> myproject_Select_task(int member_no) {
 		
 		return PTMdao.myproject_Select_task(member_no);
 	}
-
-
-	
-
 
 }

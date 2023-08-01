@@ -56,7 +56,7 @@ body {
       connectWith: ".column",
       handle: ".portlet-header",
       cancel: ".portlet-toggle",
-      placeholder: "portlet-placeholder ui-corner-all"
+      placeholder: "portlet-placeholder ui-corner-all"    	
     });
  
     $( ".portlet" )
@@ -69,16 +69,17 @@ body {
       var icon = $( this );
       icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
       icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
+      
     });
+	
   } );
   </script>
 
 </head>
 <body>
 	<h2>kanban.jsp</h2>
-	
-	<p>${dto }</p>
-	
+	<p>${dto  }</p>
+
 <%-- 	<table>
 		<c:forEach var="tasklist" items="${dto }">
 		
@@ -113,7 +114,7 @@ body {
 	 	 		<c:if test="${tasklist.task_status == 0}">	<!-- 발의 : 0번 -->
 	 			  <div class="portlet">
 				    <div class="portlet-header"> Title : ${tasklist.project_title} </div>
-				    <div class="portlet-content">
+				    <div class="portlet-content">				    
 				    	<table>
 				    		<tr>
 				    			<th>프로젝트 번호 : </th>
@@ -154,8 +155,7 @@ body {
 				    		<tr>
 				    			<th>업무 상태 : </th>				    			
 				    			<%-- <td>${tasklist.task_status }</td> --%>	
-				    			<td><c:out value="발의"></c:out></td>	
-				    					    			
+				    			<td><c:out value="발의"></c:out></td>					    					    			
 				    		</tr>
 				    		
 				    	</table>		    
@@ -164,7 +164,6 @@ body {
 				 </c:if>		
 			</c:forEach>
 		</div>
-		
 		
 		<div class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
 		 	<c:forEach var="tasklist" items="${dto }">
@@ -221,9 +220,7 @@ body {
 				 </c:if>		
 			</c:forEach>
 		</div>
-		
-		
-		
+				
 		<div class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
 		 	<c:forEach var="tasklist" items="${dto }">
 	 	 		<c:if test="${tasklist.task_status == 2}">	<!-- 보류 : 2번 -->
@@ -279,8 +276,7 @@ body {
 				 </c:if>		
 			</c:forEach>
 		</div>
-		
-		
+				
 		<div class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
 		 	<c:forEach var="tasklist" items="${dto }">
 	 	 		<c:if test="${tasklist.task_status == 3}">	<!-- 완료 : 3번 -->
@@ -337,7 +333,6 @@ body {
 				 </c:if>		
 			</c:forEach>
 		</div>
-		
-	
+			
 </body>
 </html>
