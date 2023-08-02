@@ -81,12 +81,5 @@ public class MemberMysqlService implements MemberService{
 		
 	}
 
-
-	@Override
-	public void updateOneName(MemberDTO dto) {
-		dao.updateOneName(dto);
-		
-	}
-
 	
 }

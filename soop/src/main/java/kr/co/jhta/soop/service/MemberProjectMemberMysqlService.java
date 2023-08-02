@@ -57,5 +57,11 @@ public class MemberProjectMemberMysqlService implements MemberProjectMemberServi
 		return dao.selectAllProjectByEmail(email);
 	}
 
+	@Override
+	public List<MemberProjectMemberDTO> getSearchList(MemberProjectMemberDTO dto) {
+		
+		return null;
+	}
+
 
 }
