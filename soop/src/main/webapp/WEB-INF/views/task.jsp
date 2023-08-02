@@ -119,9 +119,9 @@
 /* 	//1. 페이지 로딩 시에 서버에서 리스트 데이터를 가져오기 위한 AJAX 호출
 	var membersData; // 리스트 데이터를 저장할 변수
 	 */
-	$(document).ready(function(){
+$(document).ready(function(){
 		
-	  $("#cmodal_btn").click(function(){ // cmodal_btn 버튼을 클릭하면 아래(updateModal) 실행
+	/* 	 $("#cmodal_btn").click(function(){ // cmodal_btn 버튼을 클릭하면 아래(updateModal) 실행
 	    $("#updateModal").modal(); 
 	  });
 
@@ -160,7 +160,7 @@
 		      }
 		    });
 		  });
-		});
+		}); */
 
 		// 생성 모달에 값 넘기기
 		/*  		$("#insertModal").on('show.bs.modal', function(e) {
@@ -202,6 +202,26 @@
 		});
 
 	});
+</script>
+
+<!-- 결재라인 : 선택된 결재자 정보 띄우기 -->
+<script>
+    $(document).ready(function () {
+        $("#selectMembersCreate").change(function () {
+            var selectedMemberNo = $(this).val(); // 선택된 결재자의 member_no 값
+            var selectedMemberName = $("#selectMembersCreate option:selected").data("membername"); // 선택된 결재자의 이름
+            var selectedProjectNo = $("#selectMembersCreate option:selected").data("projectno"); // 선택된 결재자의 프로젝트 넘버
+
+            // 나중에 여기서 결재 테이블에 넣으면 되지 않을까?
+            console.log("선택된 결재자의 member_no:", selectedMemberNo);
+            console.log("선택된 결재자의 이름:", selectedMemberName);
+            console.log("선택된 결재자의 project_no:", selectedProjectNo);
+            console.log("------------------------");
+            
+            
+            
+        });
+    });
 </script>
 
 <!-- 수정 모달에서 새 파일 선택했을 때, 기존 파일 보여주는 div 숨기기 -->
@@ -349,33 +369,26 @@
 				            <select name="sign_approval" id="selectMembersCreate" class="form-select" aria-label="Default select example">
 				              <option value="">------결재자 선택-----</option>
 				              <c:forEach var="member" items="${members}">
-				                <option value="${member.member_no}">${member.name}</option>
+				                <option value="${member.member_no}" data-membername="${member.name}" data-projectno="${member.project_no}" >${member.name}</option>
 				              </c:forEach>
 				            </select>
 						</td>
 						<td>
-							<select name="sign_approval" id="sign_approval" class="form-select" aria-label="Default select example">
-								<option selected>------업무 상태 선택-----</option>
-								<option value="0">사람1</option>
-								<!-- project dto에서 해당 project의 사람을 한사람씩 띄워줌? -->
-								<option value="1">사람2</option>
-								<option value="2">사람3</option>
-								<option value="3">사람4</option>
+				            <select name="sign_approval" id="selectMembersCreate" class="form-select" aria-label="Default select example">
+				              <option value="">------결재자 선택-----</option>
+				              <c:forEach var="member" items="${members}">
+				                <option value="${member.member_no}" data-membername="${member.name}" >${member.name}</option>
+				              </c:forEach>
+				            </select>
 						</td>
 						<td>
-							<select name="sign_approval" id="sign_approval" class="form-select" aria-label="Default select example">
-								<option selected>------업무 상태 선택-----</option>
-								<option value="0">사람1</option>
-								<!-- project dto에서 해당 project의 사람을 한사람씩 띄워줌? -->
-								<option value="1">사람2</option>
-								<option value="2">사람3</option>
-								<option value="3">사람4</option>
+				            <select name="sign_approval" id="selectMembersCreate" class="form-select" aria-label="Default select example">
+				              <option value="">------결재자 선택-----</option>
+				              <c:forEach var="member" items="${members}">
+				                <option value="${member.member_no}" data-membername="${member.name}" >${member.name}</option>
+				              </c:forEach>
+				            </select>
 						</td>
-	
-					
-<!-- 						<th><input type="button" value="+" /></th>
-						<th><input type="button" value="+" /></th>
-						<th><input type="button" value="+" /></th> -->
 					</tr>
 				</table>
 				<br />
