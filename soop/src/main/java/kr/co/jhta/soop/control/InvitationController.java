@@ -80,5 +80,4 @@ public class InvitationController {
 		return "login";
 	}
 	
-		
 } // class end
