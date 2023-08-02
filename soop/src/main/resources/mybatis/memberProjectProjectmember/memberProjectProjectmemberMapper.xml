@@ -14,7 +14,7 @@
 		ON m.member_no = pm.member_no
 		JOIN project p
 		ON pm.project_no = p.project_no
-		WHERE m.member_no = #{member_no}
+		WHERE p.project_no = #{p.project_no}
 	</select>
 	
 	
