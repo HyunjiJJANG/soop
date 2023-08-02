@@ -15,7 +15,6 @@ public class TaskMysqlService implements TaskService{
 	
 	@Autowired 
 	TaskDAO dao;
-	
 	@Override
 	public List<TaskDTO> selectAll() {
 
@@ -38,6 +37,7 @@ public class TaskMysqlService implements TaskService{
 		dao.updateOne(dto);
 		
 	}
+
 
 	@Override
 	public void deleteOne(TaskDTO dto) {

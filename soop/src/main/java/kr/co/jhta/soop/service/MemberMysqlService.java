@@ -19,7 +19,7 @@ public class MemberMysqlService implements MemberService{
 	public List<MemberDTO> selectAll() {
 		return dao.selectAll();
 	}
-	
+
 	//회원가입시 아이디 중복체크를 위한 
 	@Override
 	public String selectOneByEmail(String email) {
@@ -38,9 +38,6 @@ public class MemberMysqlService implements MemberService{
 		return result;
 		
 	}
-	
-	
-	
 	
 
 	@Override

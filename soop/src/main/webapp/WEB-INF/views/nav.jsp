@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <title>::: SOOP :::</title>
+<link rel="stylesheet" type="text/css" href="assets/css/nav.css">
 <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 11]>
@@ -24,6 +26,8 @@
 
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
+
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script
@@ -35,21 +39,20 @@
 	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
 	crossorigin="anonymous"></script>
 <!-- jquery -->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-  <script>
-  /* Range Calender */
+<script>
+/* Range Calender */
   $( function() {
 	  	/* dateFormat mm/dd/yy에서 수정함 */
 	    var dateFormat = "yy/mm/dd",
-	      from = $( "#projectStartDate" )
-	        .datepicker({
+	      from = $( "#projectStartDate" ).datepicker({
 	          changeMonth: true,
 	          numberOfMonths: 1
-	        })
+	      })
 	        .on( "change", function() {
 	          to.datepicker( "option", "minDate", getDate( this ) );
 	        }),
@@ -71,9 +74,10 @@
 	      return date;
 	    }
 	  } );
-  </script>
+
+</script>
 </head>
-<body class="">
+<body>
 	<!-- [ navigation menu ] start -->
 	<nav class="pcoded-navbar  ">
 		<div class="navbar-wrapper  ">
@@ -88,89 +92,45 @@
 					</li>
 					<li class="nav-item">
 						<a href="#" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-clock-rotate-left" style="color: #707272;"></i></span>
+							<span class="pcoded-micon"><i class="fa-solid fa-clock-rotate-left"></i></span>
 							<span class="pcoded-mtext">히스토리</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="#" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-calendar-days"	style="color: #707272;"></i></span>
+							<span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span>
 							<span class="pcoded-mtext">일정</span>
 						</a>
 					</li>
 					<li class="nav-item">
 						<a href="#" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-list-ul" style="color: #707272;"></i></span>
+							<span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span>
 							<span class="pcoded-mtext">내 할 일</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="faq" class="nav-link ">
+							<span class="pcoded-micon"><i class="fa-solid fa-phone-volume"></i></span>
+							<span class="pcoded-mtext">고객센터</span>
 						</a>
 					</li>
 					<li class="nav-item pcoded-menu-caption"><label>프로젝트</label></li>
 					<li class="nav-item">
-						<a href="#">
-							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus" style="color: #707272;" data-bs-toggle="modal" data-bs-target="#Modal"></i></span>
+						<a href="insertProject" data-bs-toggle="modal" data-bs-target="#Modal">
+							<span class="pcoded-micon"><i class="fa-solid fa-circle-plus"></i></span>
 							<span class="pcoded-mtext">프로젝트 생성</span>
 						</a>
-							<!-- Modal -->
-						<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-							<div class="modal-dialog modal-lg">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title fs-5" id="ModalLabel">새 프로젝트 생성</h1>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<form action="#" method="post">
-										<div class="modal-body">
-											<table class="table">
-												<tr>
-													<td>프로젝트 이름</td>
-													<td colspan="2"><input type="text" class="form-control" id="projectName"></td>
-												</tr>
-												<tr>
-													<td>프로젝트 기간</td>
-													<td><input type="text" class="form-control" id="projectStartDate" name="projectStartDate" placeholder="시작일"></td>
-													<td><input type="text" class="form-control" id="projectEndDate" name="projectEndDate" placeholder="종료일"></td>
-												</tr>
-												<tr>
-													<td>프로젝트 설명</td>
-													<td colspan="2"><textarea class="form-control" name="projectContent" id="projectContent" rows="5"></textarea></td>
-												</tr>
-											</table>
-										</div>
-										<div class="modal-footer">
-											<input type="submit" class="btn btn-success" value="프로젝트 생성">
-											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
 					</li>
 					
-					<!-- 프로젝트 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
-					<div class="scrollbar" style="overflow-y: auto; height: 300px;">
+					<!-- 프로젝트 리스트가 보여지는 곳 -->
+					<c:forEach var="dto" items="${projectList}">
 						<li class="nav-item">
-							<a href="#">
-								<span class="pcoded-micon"><i class="fa-regular fa-file" style="color: #707272;"></i></span>
-								<span class="pcoded-mtext">프로젝트1</span>
+							<a href="#" class="nav-link">
+								<span class="pcoded-micon"><i class="fa-solid fa-people-group"></i></span>
+								<span class="pcoded-mtext">${dto.project_title}</span>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="#">
-								<span class="pcoded-micon"><i class="fa-regular fa-file" style="color: #707272;"></i></span>
-								<span class="pcoded-mtext">프로젝트2</span>
-							</a>
-						</li>
-
-					</div>
-					<br><br>
-					
-					<!-- 고객센터 -->
-					<li class="nav-item">
-						<a href="faq" class="nav-link ">
-							<span class="pcoded-micon"><i class="fa-solid fa-phone-volume" style="color: #707272;"></i></span>
-							<span class="pcoded-mtext">고객센터</span>
-						</a>
-					</li>
+					</c:forEach>
 				</ul>
 			</div>
 		</div>
@@ -178,7 +138,7 @@
 	
 	<!-- [ navigation menu ] end -->
 	<!-- [ Header ] start -->
-	<header	class="navbar pcoded-header navbar-expand-lg navbar-light header-dark">
+	<header	class="navbar pcoded-header navbar-expand-lg navbar-light header-dark" style="position: fixed;">
 		<div class="m-header">
 			<a href="#!" class="b-brand"> <!-- ========   change your logo hear   ============ -->
 				<img src="assets/images/logo.png" alt="" class="logo">
@@ -189,10 +149,10 @@
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" style="padding-left: 20px;">
-			<h4>홍길동님 환영합니다&nbsp;<span class="pcoded-micon"><i class="fa-regular fa-face-smile"></i></span></h4>
+			<h4 style="width: 500px;">홍길동님 환영합니다&nbsp;<span class="pcoded-micon"><i class="fa-regular fa-face-smile"></i></span></h4>
 		</div>
-		<div class="collapse navbar-collapse" style="padding-left: 900px;">
-			<h6>2023년 7월 21일 금요일</h6>
+		<div class="collapse navbar-collapse" style="padding-left: 200px;">
+			<h6 style="width: 700px;" align="right">2023년 7월 21일 금요일</h6>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-auto">
@@ -310,5 +270,46 @@
 	<script src="assets/js/plugins/bootstrap.min.js"></script>
 	<script src="assets/js/pcoded.min.js"></script>
 
+	<!-- Modal -->
+	<!-- <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true"> -->
+	<div class="modal" id="Modal" tabindex="-1" aria-labelledby="ModalLabel" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="ModalLabel">새 프로젝트 생성</h1>
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<form action="#" method="post">
+					<div class="modal-body">
+						<table class="table">
+							<tr>
+								<td>프로젝트 이름</td>
+								<td colspan="2"><input type="text" class="form-control" id="projectTitle"></td>
+							</tr>
+							<tr>
+								<td>프로젝트 기간</td>
+								<td>
+									<div class="input-group">
+										<input type="text" class="form-control datepicker" name="projectStartDate" id="projectStartDate" placeholder="시작일">
+										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
+									</div>								
+									<!-- <input type="text" class="form-control" id="projectStartDate" name="projectStartDate" placeholder="시작일"> -->
+								</td>
+								<td><input type="text" class="form-control" id="projectEndDate" name="projectEndDate" placeholder="종료일"></td>
+							</tr>
+							<tr>
+								<td>프로젝트 설명</td>
+								<td colspan="2"><textarea class="form-control" name="projectContent" id="projectContent" rows="5"></textarea></td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-primary" id="btnCreateProject" value="프로젝트 생성">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

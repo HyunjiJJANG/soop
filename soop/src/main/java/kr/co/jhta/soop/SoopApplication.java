@@ -1,6 +1,5 @@
 package kr.co.jhta.soop;
 
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,8 +13,10 @@ public class SoopApplication {
 		SpringApplication.run(SoopApplication.class, args);
 	}
 
+
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 }

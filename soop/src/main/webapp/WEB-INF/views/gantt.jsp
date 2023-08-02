@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
@@ -9,7 +8,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>gantt chart</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<!--     
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+-->
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <style>
       * {
         margin: 0;
@@ -48,94 +51,203 @@
     
     <!-- 프로젝트 상태표시 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 	
   </head>
   
   <body>
   
-  	<h2>${list }</h2>  
-  
     <div class="chartMenu">
-      <p>SOOP<span id="chartVersion"></span></p>
+      <p><span id="chartVersion"></span></p>
     </div>
     
     <div class="chartCard">
       <div class="chartBox">
         <canvas id="myChart"></canvas>
+        <input type="month" onchange="chartFilter(this)" />
+        <button onclick="hrefLink()">칸반보드 이동</button> 
       </div>
     </div>
     
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+   	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+   
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
         
     <script>    
-   
-    //var result = '${list}';
     
-  	var gproject_info; 
+  	var gproject_info;  // 프로젝트 정보
+  	var gproject_task;	// 프로젝트에서 간단하게 업무생성된거 보기
+  	
+  	var glist = []; 
+  	var tasklist = [];  
+  	
+  	function hrefLink() { /* 칸반보드로 이동하기 => 칸반 완성 후 수정하기*/
+  		location.href = "/kanban?member_no=1";
+  	}
   	
     function projectinfo() {
+    	
 	    $.ajax({
-	        url: "<c:url value="/data" />",
+	        url: "<c:url value="/data" />",	        
 	        type: "get",
+	        data: {
+	        	"member_no":${no}
+	        },
 	        //data: JSON.stringify(obj),
 	        dataType: "json",
 	        contentType: "application/json",
 	        success: function(project_info) {
 	        	
-	        	console.log(project_info);
+	        	console.log("project_info : " + project_info);
 	        	
 	        	gproject_info = project_info;	// 전역변수로 선언하기 위한 대입
-	        	
-/*	
+
 	            for(var i=0; i<=project_info.length-1; i++ ){
-
-	   	 	        console.log("프로젝트 번호: " + project_info[i].project_no);
-		            console.log("프로젝트 제목: " + project_info[i].project_title);
-		            console.log("프로젝트 시작일: " + project_info[i].project_start_date);
-		            console.log("프로젝트 마감일: " + project_info[i].project_end_Date);
-		            console.log("프로젝트 내용: " + project_info[i].project_description);
-		            console.log("프로젝트 상태: " + project_info[i].project_status);
-		            console.log("프로젝트 색: " +project_info[i].color);
-		            console.log("-----"); 
-
-					console.log(
-							project_info[i].project_no, 
-							project_info[i].project_title, 
-							project_info[i].project_start_date,
-							project_info[i].project_end_Date,
-							project_info[i].project_description,
-							project_info[i].project_status,
-							project_info[i].color);
-	            		                  		            
-	            } 
-*/
-	            
+		            
+					var p = {
+				    		"project_no": gproject_info[i].project_no, 
+				    		"project_title": gproject_info[i].project_title, 
+				    		"project_start_date": gproject_info[i].project_start_date, 
+				    		"project_end_Date": gproject_info[i].project_end_Date,
+				    		"project_description": gproject_info[i].project_description,
+				    		"project_status": gproject_info[i].project_status,
+				    		"color": gproject_info[i].color,
+				    		"name": gproject_info[i].name
+			    	};
+					
+		            console.log(
+		            		p.project_no  + " : " + 
+		            		p.project_title + " : " + 
+		            		p.project_start_date + " : " + 
+		            		p.project_end_Date + " : " + 
+		            		p.project_description + " : " + 
+		            		p.project_status + " : " + 
+		            		p.color + " : " +
+		            		p.name)
+					
+		             glist.push(p); 		             
+		             		        
+	            } // for end
+	        	       		        		      	            		                  		               
+	        }, // function(project_info) end
+	        
+	        error: function(errorThrown) {
+	            alert(errorThrown.statusText);
+	        }, // error end
+	        async: false
+	    }); // ajax end
+    	
+	} // projectinfo() end
+  
+    projectinfo(); //  projectinfo() 실행해 
+      
+    console.log("projectinfo : " + glist);    
+        
+    // ajax으로 데이터 가져옴 => 함수명 : projecttask / 전역함수 : gproject_task => for문으로 task라는 변수에 담음  
+    // => tasklist 리스트 생성 후 tasklist에 push
+    
+    function projecttask(){
+    	
+    	$.ajax({
+	        url: "<c:url value="/taskdata" />",	        
+	        type: "get",
+	        data: {
+	        	"member_no":${no}	        	
+	        },
+	        dataType: "json",
+	        contentType: "application/json",
+	        success: function(project_task){
+	        	
+	        	gproject_task = project_task;
+	        	
+	        	for(var i=0; i<=project_task.length-1; i++){
+	        		var task = {
+	        				"task_title":gproject_task[i].task_title,
+	        				"task_content":gproject_task[i].task_content
+	        		};
+	        		
+	        		console.log("task_title : " + task.task_title + " , task_content : " + task.task_content)
+	        		
+	        		tasklist.push(task);
+	        		
+	        	}
+	        		        	
 	        },
 	        error: function(errorThrown) {
 	            alert(errorThrown.statusText);
-	        }
-	    });            
+	        }, // error end
+	        async: false		
+    	}); // ajax end	
+   	
+    } // projecttask() end 
+    
+    projecttask();
+    
+    console.log("projecttask : " + tasklist); 
+        
+    // json형식 예시    
+//	[
+	//x : 시작일 / 종료일, y : 프로젝트 이름 / 업무이름, name : 이름 / 다수 이름일 경우 [] 에 작성
+   	// Completed : 2 / pending : 1 / Delayed : 0   	
+   	//{x:[p.x, p.y], y: 'task1', name: 'James', status: 2 },
+   	
+//	]
+   
+	var project_no;
+	var project_title;
+	var project_start_date;
+	var project_end_Date;
+	var project_description;
+	var	project_status; 
+	var color;
+	var name;
+	
+	var mglist = [];
+	
+	for(var ele in glist){
+		
+		console.log("프로젝트 번호 : " + glist[ele].project_no);
+		console.log("프로젝트 제목 : " + glist[ele].project_title);
+		console.log("프로젝트 시작일 : " + glist[ele].project_start_date);
+		console.log("프로젝트 마감일 : " + glist[ele].project_end_Date);
+		console.log("프로젝트 내용 : " + glist[ele].project_description);
+		console.log("프로젝트 상태 : " + glist[ele].project_status);
+		console.log("프로젝트 색깔 : " + glist[ele].color);
+		console.log("이름 : " + glist[ele].name);
+		
+		console.log("-----------");
+				
+		var t = {x:[glist[ele].project_start_date, glist[ele].project_end_Date], y:glist[ele].project_title, name:glist[ele].name, status:glist[ele].project_status};
+		
+		mglist.push(t);
+		
 	}
-    
-    projectinfo();  
-    
-   	console.log(gproject_info);
-         
+	console.log("mglist check : " + mglist);
+	
+	var task_title;
+	var task_content;
+
+	var mtasklist = [];
+	
+	for(var ele in tasklist){
+		console.log("업무 제목 : " + tasklist[ele].task_title);
+		console.log("업무 내용 : " + tasklist[ele].task_content);
+		
+		console.log("-----------");
+		
+		var tl = {x:tasklist[ele].task_title , y:tasklist[ele].task_content};
+		mtasklist.push(tl);
+		
+	}
+	console.log("mtasklist check : " + mtasklist);
+  
     // setup  
     const data = {
       //labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       datasets: [{
-        label: 'Weekly Sales',
-        data: [
-        	// x : 시작일 / 종료일, y : 프로젝트 이름 / 업무이름, name : 이름 / 다수 이름일 경우 [] 에 작성
-        	// Completed : 2 / pending : 1 / Delayed : 0
-        	{x:['2022-10-03', '2022-10-06'], y: 'project_name', name: 'James', status: 2 },
-        	{x:['2022-10-06', '2022-10-12'], y: 'task1', name: ['Luna' , ' two'], status: 2 },  
-        	{x:['2022-10-09', '2022-10-12'], y: 'task2', name: 'David', status: 2 }, 
-        	{x:['2022-10-12', '2022-10-21'], y: 'task3', name: 'Lily', status: 2 }, 
-        	{x:['2022-10-15', '2022-10-24'], y: 'task4', name: 'Santino', status: 0 }, 
-        	{x:['2022-10-18', '2022-10-30'], y: 'task5', name: 'Bob', status: 1 } 
-        ],
+        label: 'hello gantt chart',
+        
+        data: mglist,
+        
         backgroundColor: [
           'rgba(255, 26, 104, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -167,9 +279,12 @@
       afterDatasetsDraw(chart, args, pluginOptions){
         const {ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y} } = chart;
         
-        // 아이콘
-        const icons=['\uf00d','\uf110','\uf00c'];
-        const colors=['rgba(255, 26, 104, 1)','rgba(255, 159, 64, 1)','rgba(75, 192, 192, 1)'];
+      	/*  const colors=['rgba(255, 26, 104, 1) - 빨강','rgba(255, 159, 64, 1) - 보류색','rgba(75, 192, 192, 1) - 완료색']; */
+        // 아이콘 "진행중 - \uf110 / 완료 - \uf087"
+        // 프로젝트상태 - 0 : 진행 / - 1 : 완료
+	  	const icons=['\uf110','\uf14a','\uf14a','\uf14a'];
+      	const colors=['rgba(255, 159, 64, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)'];
+      
         const angle = Math.PI / 180;
         
         ctx.save();
@@ -206,7 +321,6 @@
         data.datasets[0].data.forEach((datapoint, index) => {
           ctx.fillText(datapoint.name, 10, y.getPixelForValue(index)); // 차트 좌측 이름표시
         })
-
       }
     }
  
@@ -233,26 +347,43 @@
             		day: 'd'
             	}
             },           
-            min: '2022-10-01',	// x축 : 차트 처음 시작일
-            max: '2022-10-31'	// x축 : 차트 끝 종료일
+            min: '2023-07-01',	// x축 : 차트 처음 시작일
+            max: '2023-07-31'	// x축 : 차트 끝 종료일
           }                  
         },
         plugins:{ 
-        	// 그래프에 마우스를 올려놓을 경우 보여지는 정보
+        	
         	tooltip: {
+        		
+        		
+        		/* 그래프에 마우스 올려놓을 때 보이는 color 제거*/
+        		displayColors: false,
+        		yAlign : 'bottom',
+        		
         		callbacks: {
+        			
+        			/* 그래프에 마우스 올려놓을 때 보이는 label 제거*/
+        			label:(ctx) => {
+        				//console.dir(ctx[0].label);
+        				/* return  mtasklist; */ /* => 일단 보류<칸반보드 진행후>(간략한 업무생성된거 보이게하기) */
+        				return '';
+        			},
+        			
         			title: (ctx) => {
-        				
-        				console.log(ctx[0].raw.x[0])
+        				//console.dir(ctx);
+        				//console.log(ctx[0].raw.x[0])
         				
         				const startDate = new Date(ctx[0].raw.x[0])
         				const endDate = new Date(ctx[0].raw.x[1])
+        				
+        				//console.log(startDate)
+        				//console.log(endDate)
         				
         				const formattedStartDate = startDate.toLocaleString([], {
         					year:'numeric',
         					month:'short',
         					day:'numeric',       					
-        				});
+        				});        				        			
         				
         				const formattedEndDate = endDate.toLocaleString([], {
         					year:'numeric',
@@ -261,6 +392,7 @@
         				});      			
         				
         				return [ctx[0].raw.name, "기간 : " + formattedStartDate + " ~ " + formattedEndDate];
+        			
         			}
         		}
         	}
@@ -274,7 +406,28 @@
       document.getElementById('myChart'),
       config
     );
-
+    
+    function chartFilter(date){
+    	const year = date.value.substring(0,4);
+    	const month = date.value.substring(5,7);
+    	const lastDay = (y,m) => {
+	    	return new Date(y,m,0).getDate();    		
+    	}
+    	console.log(year)
+    	console.log(month)
+    	console.log(lastDay(year,month))
+    	
+    	const startDate = year + "-" + month + "-" + "01";
+    	console.log(startDate)
+    	const endDate = year + "-" + month + "-" + lastDay(year,month);
+    	console.log(endDate)
+    	
+    	myChart.config.options.scales.x.min = startDate;
+    	myChart.config.options.scales.x.max = endDate;
+    	myChart.update();
+    	
+    }
+       
     // Instantly assign Chart.js version
     const chartVersion = document.getElementById('chartVersion');
     chartVersion.innerText = Chart.version;
