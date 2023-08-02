@@ -3,10 +3,10 @@ package kr.co.jhta.soop.control;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.http.HttpRequest;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -14,32 +14,30 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.multipart.MaxUploadSizeExceededException;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import jdk.internal.org.jline.utils.Log;
+import org.springframework.web.multipart.MultipartFile;
+
+
+
 import kr.co.jhta.soop.dto.AttachedFileDTO;
-import kr.co.jhta.soop.dto.MemberDTO;
-import kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO;
+
 import kr.co.jhta.soop.dto.TaskDTO;
 import kr.co.jhta.soop.service.AttachedFileService;
 import kr.co.jhta.soop.service.MemberProjectProjectmemberService;
 import kr.co.jhta.soop.service.MemberService;
-import kr.co.jhta.soop.service.ProjectService;
+
 import kr.co.jhta.soop.service.TaskAttachedFileService;
 import kr.co.jhta.soop.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
