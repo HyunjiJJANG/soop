@@ -4,17 +4,17 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="kr.co.jhta.soop.dao.ProjectInvitationDAO">
  	<select id="selectOne" parameterType="int" resultType="ProjectInvitationDTO">
- 		SELECT invitation_no, invitation_email, invitation_code, invitation_validTime, invitation_success
+ 		SELECT invitation_no, member_no, project_no, invitation_email, invitation_code, invitation_validTime, invitation_success
  		FROM project_invitation
  		WHERE invitation_no = #{invitation_no}
  	</select>
 	<insert id="insertOne" parameterType="ProjectInvitationDTO">
 		INSERT INTO project_invitation
-		VALUES( #{invitation_no},#{invitation_email},#{invitation_code},#{invitation_validTime},#{invitation_success} )
+		VALUES( #{invitation_no}, #{member_no}, #{project_no}, #{invitation_email},#{invitation_code},#{invitation_validTime}, 1 )
 	</insert>
 	<update id="updateOne" parameterType="ProjectInvitationDTO">
 		UPDATE project_invitation
-		SET invitation_success = #{invitation_success}
+		SET invitation_success = 0
 		WHERE invitation_no = #{invitation_no}
 	</update>
  </mapper>
