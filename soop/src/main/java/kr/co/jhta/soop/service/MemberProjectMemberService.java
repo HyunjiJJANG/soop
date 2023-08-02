@@ -16,7 +16,6 @@ public void insertOne(MemberProjectMemberDTO dto);
 
 public void updateOne(MemberProjectMemberDTO dto);
 
-
 public void deleteOne(int member_no);
 
 public List<Integer> selectAllProjectByEmail(String email);

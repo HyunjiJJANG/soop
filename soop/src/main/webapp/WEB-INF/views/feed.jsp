@@ -81,27 +81,34 @@
 				});
 
 	
-	// 인증메일 비동기화 방식으로 보내기
+	// 파트너 초대 메일 비동기화 방식으로 보내기
 		$("#btnInvitation").on("click", function() {// 메일 입력 유효성 검사
 			var email = $("#email").val(); //사용자의 이메일 입력값
-
+			
+			// 초대내용 엔터 반영되게
+			var inviteMessage = $("#inviteMessage").val(); 
+			inviteMessage = inviteMessage.replace(/(?:\r\n|\r|\n)/g, '<br>');
+			
 			if (email == "") {
 				alert("메일 주소가 입력되지 않았습니다.");
 			} else {
 				$.ajax({
-					type : 'GET',
-					url : '/invite',
+					type : "GET",
+					url : "/invite",
 					data : {
 						"email" : $("#email").val().trim(),
-						"name" : "홍길동",
-						"inviteMessage" : $("#inviteMessage").val().trim()
+						"name" : $("#name").val().trim(),
+						"inviteMessage" : inviteMessage
 					},
-					dataType : 'text',
-
+					dataType : 'text'
+					
 				});
 				alert("초대링크가 전송되었습니다.")
 				isCertification = false; //추후 인증 여부를 알기위한 값
-
+				
+				// 파트너 초대하기 버튼클릭후 초대이메일/초대내용 빈 내용으로 초기화
+				$("#email").val("");
+				$("#inviteMessage").val("");
 			}
 		});
 		
@@ -109,6 +116,7 @@
 </script>
 </head>
 <body class="modal-open" style="overflow: hidden; padding-right: 0px;">
+	
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
 	<div class="pcoded-main-container">
@@ -156,7 +164,7 @@
 		        </div>
 		    </nav>
 			<br /><br /><br /><br /><br /><br />
-			
+			<input type="hidden" id="name" name="member_name" value="${name }"/>
 			<!-- 업무 피드 card -->
 			<div class="col-xl-6 col-md-12">
 				<div class="card table-card">
