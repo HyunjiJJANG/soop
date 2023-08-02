@@ -54,6 +54,12 @@ public class MemberProjectMemberMysalService implements MemberProjectMemberServi
 		dao.deleteOne(member_no);
 	}
 
+	@Override
+	public List<MemberProjectMemberDTO> getSearchList(MemberProjectMemberDTO dto) {
+		
+		return dao.selectSearchList(dto);
+	}
+
 	
 
 }

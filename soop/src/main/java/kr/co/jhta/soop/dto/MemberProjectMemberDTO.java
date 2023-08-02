@@ -25,5 +25,9 @@ public class MemberProjectMemberDTO {
 	private int enabled;
 	private int project_no;
 	private int member_position;
+	
+	
+	//검색 필터
+	private String search_name;
 
 }
