@@ -256,7 +256,7 @@ $(function(){
 									</a>
 								</li>
 								<li>
-									<a href="auth-signin.html" class="dropdown-item">
+									<a href="/clogout" class="dropdown-item">
 										<i class="feather icon-log-out" style="color: #707272;"></i>로그아웃
 									</a>
 								</li>

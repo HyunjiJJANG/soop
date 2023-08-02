@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.jhta.soop.service.ProjectInvitationService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,46 +24,64 @@ public class InvitationController {
 	@Autowired
 	JavaMailSender javaMailSender;
 	
+	@Autowired
+	ProjectInvitationService projectInvitationService;
+	
 	// 해당 프로젝트에 파트너 초대하기를 클릭했을때 이메일 초대링크 보내기
-		@GetMapping("/invite")
-		@ResponseBody
-		public void SendMail(@RequestParam("email") String email,
-							   @RequestParam("name") String name,
-							   @RequestParam("inviteMessage") String inviteMessage,
-							   HttpSession session) {
-			log.info("초대 모달에서 초대버튼 누르면 가져올 email : " + email);
+	@GetMapping("/invite")
+	@ResponseBody
+	public void sendMail(@RequestParam("email") String email, @RequestParam("name") String name,
+			@RequestParam("inviteMessage") String inviteMessage, HttpSession session) {
+		log.info("초대 모달에서 초대버튼 누르면 가져올 email : " + email);
 
-			MimeMessage message = javaMailSender.createMimeMessage();
-			
-			String htmlStr="";
-			StringBuffer sb = new StringBuffer("");
-			
-			try {
-				// 메일제목
-				message.setSubject("[SOOP] " + name + "님이 SOOP으로 초대했습니다.");
-				
-				// 메일내용
-				sb.append("<br><br><a href='http://localhost:8081/feed?project_no=1&member_no=1' >"
-						+ "<button style='background-color:#1abc9c; border-radius:20px; "
-						+ "border:none; width:150px; height:50px; color:#ffffff; "
-						+ "font-size:15px; cursor:pointer;' >"
-						+ "초대 수락하기</button></a>"
-						+ "<br><br>"+inviteMessage);
-						
-				htmlStr = sb.toString();
-				
-				// 내용설정
-				message.setText(htmlStr, "UTF-8", "html"); 
-				
-				// To 설정
-				message.addRecipient(RecipientType.TO, new InternetAddress(email,"UTF-8"));
-				javaMailSender.send(message);
-			} catch (MessagingException e) {
-				e.printStackTrace();
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-			
-			
+		MimeMessage message = javaMailSender.createMimeMessage();
+
+		String htmlStr = "";
+		StringBuffer sb = new StringBuffer("");
+
+		try {
+			// 메일제목
+			message.setSubject("[SOOP] " + name + "님이 SOOP으로 초대했습니다.");
+
+			// 메일내용
+			sb.append("<br><br><a href='http://localhost:8081/invitation' >"
+					+ "<button style='background-color:#1abc9c; border-radius:20px; "
+					+ "border:none; width:150px; height:50px; color:#ffffff; " + "font-size:15px; cursor:pointer;' >"
+					+ "초대 수락하기</button></a>" + "<br><br>" + inviteMessage);
+
+			htmlStr = sb.toString();
+
+			// 내용설정
+			message.setText(htmlStr, "UTF-8", "html");
+
+			// To 설정
+			message.addRecipient(RecipientType.TO, new InternetAddress(email, "UTF-8"));
+			javaMailSender.send(message);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
 		}
-}
+
+	} // sendMail() end
+		
+	// 메일 초대 수락하기 버튼 클릭하면 localhost:8081/xxxxxx?project_no=1&invitation_code=#####
+	@GetMapping("/invitation")
+	public String agreeInvitation(@RequestParam("project_no") int project_no,
+						HttpSession session) {
+		
+		log.info("session.email : " + session.getAttribute("email"));
+		
+		if (session.getAttribute("email") == null) {
+			// 3. 사이트에 로그인 안 되어있는 경우(구글 연동 회원은 브라우저에도 로그인 되어있지 않음)
+			// 4. 비회원인 경우
+			return "login";
+		} else {
+			// 2. 사이트에 로그인 되어있는 경우
+			return "feed";
+		}
+		
+	} // agreeInvitation() end
+	
+		
+} // class end

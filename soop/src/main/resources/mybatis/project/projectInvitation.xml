@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="kr.co.jhta.soop.dao.ProjectInvitationDAO">
+ 	<select id="selectOne" parameterType="int" resultType="ProjectInvitationDTO">
+ 		SELECT invitation_no, invitation_email, invitation_code, invitation_validTime, invitation_success
+ 		FROM project_invitation
+ 		WHERE invitation_no = #{invitation_no}
+ 	</select>
+	<insert id="insertOne" parameterType="ProjectInvitationDTO">
+		INSERT INTO project_invitation
+		VALUES( #{invitation_no},#{invitation_email},#{invitation_code},#{invitation_validTime},#{invitation_success} )
+	</insert>
+	<update id="updateOne" parameterType="ProjectInvitationDTO">
+		UPDATE project_invitation
+		SET invitation_success = #{invitation_success}
+		WHERE invitation_no = #{invitation_no}
+	</update>
+ </mapper>
