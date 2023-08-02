@@ -96,7 +96,7 @@ public class MyPageController {
 	public String mypageOauth2Ok(@RequestParam("email")String email, @RequestParam("member_no")int member_no, Model model){
 	
 		MemberDTO memberDto = memberService.selectMemberByEmail(email);
-		model.addAttribute("memberDto",memberDto);
+		model.addAttribute("memberOauth2Dto",memberDto);
 		
 		
 		

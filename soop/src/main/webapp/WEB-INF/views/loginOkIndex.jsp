@@ -27,7 +27,7 @@
 	</h1>
 	<h1>
 		<a
-			href="/contact?member_no=${memberDto.member_no }&email=${memberDto.email}">/주소록</a>
+			href="/contact?member_no=${memberDto.member_no }&email=${memberDto.email}&project_no=1">/주소록</a>
 	</h1>
 	</c:if>
 	<c:if test="${not empty memberOauth2Dto}">
@@ -40,7 +40,7 @@
 	</h1>
 	<h1>
 		<a
-			href="/contact?member_no=${memberOauth2Dto.member_no }&email=${memberOauth2Dto.email}">/주소록</a>
+			href="/contact?member_no=${memberOauth2Dto.member_no }&email=${memberOauth2Dto.email}&project_no=1">/주소록</a>
 	</h1>
 	</c:if>
 

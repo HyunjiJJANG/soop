@@ -226,11 +226,66 @@ form {
 }
 </style>
 
+<script type="text/javascript">
+$(function() {
+	  $("#searchInput").on("keyup", function() {
+	    /* test를 위한 console.log */
+	    console.log("searchName keyup 이벤트 발생중");
 
+	    var searchName = $(this).val().trim();
+	    var member_no = parseInt($("#member_no").val());
+	    var project_no = parseInt($("#project_no").val());
+	    getSearchList(searchName, member_no, project_no); // Pass member_no and project_no as arguments
+	  });
+	});
 
+	function getSearchList(searchName, member_no, project_no) {
+	  console.log("searchName getSearchList 이벤트 발생중");
+	  $.ajax({
+	    url: "/getSearchList",
+	    method: "GET",
+	    data: {
+	      searchName: searchName,
+	      member_no: member_no,
+	      project_no: project_no
+	    },
+	    dataType: "json", // Use "json" instead of "text" to parse the response as JSON
+	    success: function(result) {
+	      // Clear previous search results
+	      $('#searchResultList').empty();
+
+	      if (result && result.length >= 1) {
+	        // Create a container to hold the search results
+	        var searchResultsContainer = $('<div></div>');
+
+	        result.forEach(function(item) {
+	          var str = '<div class="card">';
+	          str += '<img src="' + item.profile_path + '" class="card-img-top" alt="프로필 이미지" id="profileImage">';
+	          str += '<div class="card-body">';
+	          str += '<h5 class="card-title" style="margin-top: 10px;">' + item.name + '</h5>';
+	          str += '<p class="card-text">' + item.email + '</p>';
+	          str += '</div>';
+	          str += '</div>';
+
+	          // Append each search result item to the container
+	          searchResultsContainer.append(str);
+	        });
+
+	        // Append the container to the search result list div
+	        $('#searchResultList').append(searchResultsContainer);
+	      }
+	    },
+	    error: function(xhr, textStatus, errorThrown) {
+	      console.log("Error occurred:", errorThrown);
+	    }
+	  });
+	}
+
+</script>
 
 
 <!-- script -->
+<!-- 
 <script type="text/javascript">
 	$(function() {
 		$("#searchInput").on("keyup", function() {
@@ -238,6 +293,8 @@ form {
 			console.log("searchName keyup 이벤트 발생중");
 			
 			var searchName = $(this).val().trim();
+		    var member_no = parseInt($("#member_no").val());
+		    var project_no = parseInt($("#project_no").val());
 			getSearchList(searchName); // 서버에서 멤버 데이터 가져오는 함수 호출
 		});
 	});
@@ -250,11 +307,37 @@ form {
 			method : "GET",
 			data : {
 				searchName : searchName,
-				"member_no" : $("#member_no")
-				
+				member_no : member_no,
+				project_no : project_no
 			},
 			dataType : "text",
-			success : function(result){
+			success: function (result) {
+			    // Clear previous search results
+			    $('#searchResultList').empty();
+
+			    if (result.length >= 1) {
+			        // Create a container to hold the search results
+			        var searchResultsContainer = $('<div></div>');
+
+			        result.forEach(function (item) {
+			            var str = '<div class="card">';
+			            str += '<img src="' + item.profile_path + '" class="card-img-top" alt="프로필 이미지" id="profileImage">';
+			            str += '<div class="card-body">';
+			            str += '<h5 class="card-title" style="margin-top: 10px;">' + item.name + '</h5>';
+			            str += '<p class="card-text">' + item.email + '</p>';
+			            str += '</div>';
+			            str += '</div>';
+
+			            // Append each search result item to the container
+			            searchResultsContainer.append(str);
+			        });
+
+			        // Append the container to the search result list div
+			        $('#searchResultList').append(searchResultsContainer);
+			    }
+			}
+			
+/* 			success : function(result){
 				//테이블 초기화
 				$('#searchResultList').empty();
 				if(result.length>=1){
@@ -269,19 +352,23 @@ form {
 						$('#searchResultList').append(str);
 	        		})				 
 				}
-			}
+			} */
 		})
 	}
 
 	
 </script>
+-->
 </head>
 
 <body class="d-flex flex-column h-100">
 <h2>email : ${email }</h2>
 <h2>member_no : ${member_no }</h2>
-<input type="hidden" value="${email }" name="email" />
-<input type="hidden" value="${member_no }" name="member_no" />
+<h2>project_no : ${project_no }</h2>
+<input type="text" value="${email }" name="email" />
+<input type="text" value="${member_no }" name="member_no" id="member_no" />
+<input type="text" value="${project_no }" name="project_no" id="project_no" />
+
 	<div class="global-container">
 		<div class="card mypage-form">
 			<div class="card-body">

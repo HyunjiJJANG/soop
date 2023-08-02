@@ -23,12 +23,16 @@ public class MemberProjectMember {
 	MemberProjectMemberService memberProjectMemberService;
 
 	@GetMapping("/contact")
-	public String myContactList(@RequestParam("email")String email, @RequestParam("member_no")int member_no, Model model) {
+	public String myContactList(@RequestParam("email")String email, @RequestParam("member_no")int member_no, @RequestParam("project_no")int project_no, Model model) {
 		
 		MemberProjectMemberDTO memberProjectMemberdto =  memberProjectMemberService.selectOne(member_no);
 		memberProjectMemberdto.setMember_no(member_no);
+		memberProjectMemberdto.setProject_no(1);
+		 
 		model.addAttribute("list", memberProjectMemberService.selectAll(memberProjectMemberdto));
+		log.info(""+memberProjectMemberService.selectAll(memberProjectMemberdto));
 		model.addAttribute("member_no", member_no);
+		model.addAttribute("project_no", 1);
 		model.addAttribute("email", email);
 		
 		return "contact";
@@ -36,14 +40,15 @@ public class MemberProjectMember {
 	
 	@GetMapping("/getSearchList")
 	@ResponseBody
-	public List<MemberProjectMemberDTO> getSearchList(@RequestParam("searchName")String searchName,@RequestParam("member_no")int member_no, Model model){
+	public List<MemberProjectMemberDTO> getSearchList(@RequestParam("searchName")String search_name,@RequestParam("member_no")int member_no,@RequestParam("project_no")int project_no, Model model){
 	log.info("서치네임 키업 이벤트 발생 후 컨트롤러 찾아옴");
 	log.info("member_no : "+ member_no);
 	
 	MemberProjectMemberDTO memberProjectMemberdto = new MemberProjectMemberDTO();
 	
-	memberProjectMemberdto.setSearch_name(searchName);
+	memberProjectMemberdto.setSearch_name(search_name);
 	memberProjectMemberdto.setMember_no(member_no);
+	memberProjectMemberdto.setProject_no(1);
 	return memberProjectMemberService.getSearchList(memberProjectMemberdto);
 	  
 	}
