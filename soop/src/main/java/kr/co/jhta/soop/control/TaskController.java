@@ -6,7 +6,7 @@ import java.io.UnsupportedEncodingException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +32,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import kr.co.jhta.soop.dto.AttachedFileDTO;
+
+
+import kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO;
+
 
 import kr.co.jhta.soop.dto.TaskDTO;
 import kr.co.jhta.soop.service.AttachedFileService;
@@ -67,17 +71,28 @@ public class TaskController {
 	@Autowired
 	MemberProjectProjectmemberService memberProjectProjectmemberService;
 	
-	@GetMapping("/task")
-	public String register(Model model) {
+	@RequestMapping("/task")
+	public String register(Model model
+//			, 
+//			@RequestParam("project_no") int project_no
+			) // 결재라인에서 프로젝트 넘버로 결재자 리스트(member) 띄우기 위해) 
+			{ 
 		// model.addAttribute("list", taskService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌
 		
 		// JOIN한 service로 교체 
 		model.addAttribute("list", taskAttachedFileService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌 
+		
+		int project_no = 1;
+		
+		// 생성 모달에 값을 넘기기 위한
+		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no);
+		model.addAttribute("members", members);
+		
 		return "task";
 	}
 	
 
-	@PostMapping("/insert")
+	@RequestMapping("/insert")
 	public String insert(@ModelAttribute TaskDTO Taskdto, 
 			@RequestParam(name = "file", required = false) MultipartFile file, // file이라는 이름의 파라미터값을 가져와서 MultipartFile 형식의 file로 받기
 																			   // required = false :: 필수가 아님 (없어도 데이터 들어가게)
@@ -86,7 +101,8 @@ public class TaskController {
 			@ModelAttribute UploadFile uploadfile, // task.jsp의 업무 생성 모달 폼에서 uploadfile 받아오기
 			BindingResult result, // 유효성 검사를 위한
 			HttpServletRequest req,  // 파일 경로를 위한 
-			@RequestParam("project_no") int project_no) // 결재라인에서 프로젝트 넘버로 결재자 리스트(member) 띄우기 위해
+			@RequestParam("project_no") int project_no, // 결재라인에서 프로젝트 넘버로 결재자 리스트(member) 띄우기 위해
+			@ModelAttribute MemberProjectProjectmemberDTO mppmdto) // 결재 라인을 위한 dto 넘기기
 			throws UnsupportedEncodingException {
 		
 		// ** task 생성(insert) **
@@ -94,13 +110,20 @@ public class TaskController {
 		taskService.insertOne(Taskdto);
 		
 		
-		// ** 결재라인 **
-//		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no); // => memberService가 아니라 memberProject를 join한 service가 필요!
-//		model.addAttribute("members", members);
-//		log.info("members : {}", members.get(project_no));
-//		model.addAttribute("list", taskAttachedFileService.selectAll()); 
 		
+		
+		// ** 결재라인 **	==> 모달에 직접 담아야함!!!
+//		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no);
+//		
+//		model.addAttribute("members", members);
+////		 List<MemberDTO> members = memberService.selectAll();
+////	     model.addAttribute("members", members);
+//
+//		// 로그를 통해 프로젝트 멤버를 확인 (이 코드가 정확한 결과를 가져올 수 있도록 project_no에 해당하는 값을 지정해야 합니다.)
+//		log.info("members : {}", members);
 
+		
+		
 		// ** 파일 첨부 **
 		
 		// 파일은 어디에 저장  /data <== (현재 임시 파일은 properties에 c:\\temp\\data 로 지정됨)
