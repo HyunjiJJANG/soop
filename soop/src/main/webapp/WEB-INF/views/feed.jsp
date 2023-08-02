@@ -99,6 +99,7 @@
 						"email" : $("#email").val().trim(),
 						"name" : $("#name").val().trim(),
 						"inviteMessage" : inviteMessage
+						"project_no": $("#project_no").val().trim()
 					},
 					dataType : 'text'
 					
@@ -165,6 +166,7 @@
 		    </nav>
 			<br /><br /><br /><br /><br /><br />
 			<input type="hidden" id="name" name="member_name" value="${name }"/>
+			<input type="hidden" id="project_no" name="project_no" value="${project_no }"/>
 			<!-- 업무 피드 card -->
 			<div class="col-xl-6 col-md-12">
 				<div class="card table-card">

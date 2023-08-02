@@ -13,7 +13,7 @@
 		FROM member
 		WHERE email = #{email}
 	</select>
-
+	
 	<!-- 회원가입 -->
 	<insert id="insertOne" parameterType="MemberDTO">
 		INSERT INTO member (email, password, name, profile_name, profile_path, enabled )
@@ -51,5 +51,10 @@
 	WHERE email = #{email}
 	</update>
 	
-	<!-- 마이페이지에서 비밀번호 변경 -->
+	<select id="selectOne" parameterType="int" resultType="MemberDTO">
+	SELECT name
+	FROM member
+	WHERE member_no = #{member_no}
+	</select>
+	
 </mapper>
