@@ -14,7 +14,7 @@ public class MemberMysqlService implements MemberService{
 	
 	@Autowired
 	MemberDAO dao;
-	
+
 	@Override
 	public List<MemberDTO> selectAll() {
 		return dao.selectAll();
@@ -38,7 +38,6 @@ public class MemberMysqlService implements MemberService{
 		return result;
 		
 	}
-	
 
 	@Override
 	public MemberDTO selectOne(int member_no) {
@@ -75,10 +74,19 @@ public class MemberMysqlService implements MemberService{
 		dao.insertRole(email);	
 	}
 
+
 	@Override
 	public void updateOneName(MemberDTO dto) {
 		dao.updateOneName(dto);
 		
 	}
 
+
+	@Override
+	public void updateOneName(MemberDTO dto) {
+		dao.updateOneName(dto);
+		
+	}
+
+	
 }

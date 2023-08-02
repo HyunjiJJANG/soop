@@ -11,7 +11,6 @@ import kr.co.jhta.soop.dto.MemberDTO;
 @Mapper
 public interface MemberDAO {
 	
-
 public List<MemberDTO> selectAll();
 
 public  MemberDTO selectOne(int member_no);

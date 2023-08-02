@@ -13,10 +13,10 @@ public class SoopApplication {
 		SpringApplication.run(SoopApplication.class, args);
 	}
 
-
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
+
 
 }
