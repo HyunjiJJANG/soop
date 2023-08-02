@@ -22,6 +22,8 @@ public void updateOne(MemberProjectMemberDTO dto);
 
 public void deleteOne(int member_no);
 
+public List<MemberProjectMemberDTO> getSearchList(MemberProjectMemberDTO dto);
+
 
 
 

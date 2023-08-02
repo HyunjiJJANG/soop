@@ -92,6 +92,19 @@ public class MyPageController {
 		return "mypagePasswordCheckOk";
 	}
 	
+	@RequestMapping("/mypageOauth2")
+	public String mypageOauth2Ok(@RequestParam("email")String email, @RequestParam("member_no")int member_no, Model model){
+	
+		MemberDTO memberDto = memberService.selectMemberByEmail(email);
+		model.addAttribute("memberDto",memberDto);
+		
+		
+		
+		
+		return "mypagePasswordCheckOk";
+	}
+	
+	
 	
 	@GetMapping("/nameChange")
 	@ResponseBody
@@ -110,9 +123,7 @@ public class MyPageController {
 			return result;
 			
 		}
-		
-		
-		
+
 	}
 	
 
@@ -140,6 +151,7 @@ public class MyPageController {
 		
 		
 	}
+
 	
 	
 

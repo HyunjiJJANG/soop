@@ -11,28 +11,49 @@
 	<select id="selectAll" resultType="MemberProjectMemberDTO"
 		parameterType="int">
 
-		SELECT m.name, m.email, m.profile_path, m.member_no
-		FROM member m
-		JOIN project_member
-		pm ON pm.member_no = m.member_no
-		WHERE pm.project_no IN (
-		SELECT
-		project_no
+		SELECT DISTINCT m.name, m.email, m.profile_path
+		FROM
+		member m
+		JOIN
+		project_member pm ON pm.member_no = m.member_no
+		WHERE
+		pm.project_no IN
+		(
+		SELECT project_no
 		FROM project_member
-		WHERE member_no = #{member_no}
-		) AND
-		m.member_no != #{member_no};
+		WHERE member_no =
+		#{member_no}
+		)
+		AND m.member_no !=#{member_no}
+		ORDER BY m.name;
 
+	</select>
+
+	<select id="selectOne" resultType="MemberProjectMemberDTO"
+		parameterType="int">
+
+		SELECT *
+		FROM member
+		where member_no = #{member_no}
 
 
 	</select>
 
-	<select id="selectOne" resultType="MemberProjectMemberDTO" parameterType="int">
-
-		SELECT * 
-		FROM member
-		where member_no = #{member_no}
-
+	<select id="selectSearchList"
+		parameterType="MemberProjectMemberDTO"
+		resultType="MemberProjectMemberDTO">
+		SELECT DISTINCT m.name, m.email, m.profile_path
+		FROM member m
+		JOIN project_member pm ON pm.member_no = m.member_no
+		WHERE pm.project_no IN
+		(
+		SELECT project_no
+		FROM project_member
+		WHERE member_no = #{member_no}
+		)
+		AND m.member_no != #{member_no}
+		AND m.name LIKE '%#{search_name}%'
+		ORDER BY m.name;
 
 	</select>
 
