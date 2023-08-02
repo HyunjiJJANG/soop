@@ -42,6 +42,13 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script type="text/javascript">
+	/* 프로젝트 상태 버튼 db 값대로 checked */
+
+</script>
+
+
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
@@ -93,15 +100,15 @@
 			<br /><br /><br /><br /><br /><br /><br />
 			
 			<!-- 업무 피드 card -->
-			<c:forEach var="taskDTO" items="${taskDTO}">
+			<c:forEach var="feedTaskDTO" items="${feedTaskDTO}">
 			<div class="col-xl-6 col-md-12">
 				<div class="card table-card">
 					<div class="card-header">
 						<div class="d-inline-block align-middle">
 							<img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
 							<div class="d-inline-block" style="position: absolute; top: 35%;">
-								<span style="font-size: 15px; font-weight: bold;">${taskDTO.member_no}로 member에서 name가져오기</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;								
-								<span style="font-size: 15px;"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;${taskDTO.task_register_date}</span>
+								<span style="font-size: 15px; font-weight: bold;">${feedTaskDTO.name}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;								
+								<span style="font-size: 15px;"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_register_date}</span>
                              </div>
                         </div>
                         <div class="card-header-right">
@@ -124,7 +131,10 @@
                                 <thead style="border-color: transparent;">
                                     <tr>
                                         <td>
-                                        	<div class="row m-b-0"><h4>${taskDTO.task_title}</h4></div>
+                                        	<div class="row m-b-0">
+                                        		<input type="hidden" name="task_no" value="${feedTaskDTO.task_no}"/>
+                                        		<h4>${feedTaskDTO.task_title}</h4>
+                                        	</div>
                                         </td>
                                     </tr>
                                 </thead>
@@ -134,40 +144,43 @@
                                 			<i class="fa-solid fa-chart-simple"></i>
                                 			&nbsp;&nbsp;
 											<div class="btn-group btn-group-toggle" data-toggle="buttons">
-												<label class="btn btn-outline-info btn-sm active" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option1" checked>발의</label>
+												<input type="hidden" name="task_status" value=${feedDTO.task_status} />
+												<label class="btn btn-outline-info btn-sm" style="border-radius: 10px;">
+												<input type="radio" name="options" id="0">발의</label>
 												&nbsp;&nbsp;&nbsp;
 												<label class="btn btn-outline-success btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option2">진행</label>
+												<input type="radio" name="options" id="1">진행</label>
 												&nbsp;&nbsp;&nbsp;
 												<label class="btn btn-outline-warning btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option3">검토</label>
+												<input type="radio" name="options" id="2">검토</label>
 												&nbsp;&nbsp;&nbsp;
 												<label class="btn btn-outline-secondary btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option4">완료</label>
+												<input type="radio" name="options" id="3">완료</label>
 												&nbsp;&nbsp;&nbsp;
 												<label class="btn btn-outline-danger btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option5">보류</label>
+												<input type="radio" name="options" id="4">보류</label>
 											</div>
 											&nbsp;&nbsp;
 											<i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;결재현황
                                 		</td>
                                 	</tr>
                                     <tr>
-                                    	<td><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;${taskDTO.task_start_date}부터&nbsp;&nbsp;&nbsp;${taskDTO.task_end_date}까지</td>
+                                    	<td><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_start_date}부터&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_end_date}까지</td>
                                     </tr>
                                     <tr>
                                     	<td>
                                     		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
                                     		<!-- 해당 업무 첨부파일 보이는 곳 -->
-											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">첨부파일1.pdf</a>
-											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">첨부파일2.xml</a>
-
+                                    		<c:if test="${feedTaskDTO.task_no == '${feedTaskDTO.task_no}'}">
+	                                    		<c:forEach var="feedTaskDTO" items="${feedTaskDTO}">
+													<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a>
+												</c:forEach>
+											</c:if>
                                     	</td>
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">
                                     	<td>
-                                    		${taskDTO.task_content}
+                                    		${feedTaskDTO.task_content}
                                     	</td>
                                     </tr>
                                 </tbody>

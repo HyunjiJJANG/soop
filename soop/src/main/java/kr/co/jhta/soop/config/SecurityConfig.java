@@ -16,7 +16,6 @@ import kr.co.jhta.soop.service.CustomerOAuth2UserDetailService;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
 	@Autowired
 	DataSource datasource;
 

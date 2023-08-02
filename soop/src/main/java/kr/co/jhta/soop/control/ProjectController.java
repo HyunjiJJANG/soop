@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.soop.dto.ProjectDTO;
 import kr.co.jhta.soop.dto.ProjectMemberDTO;
-import kr.co.jhta.soop.service.FeedService;
+import kr.co.jhta.soop.service.FeedTaskService;
 import kr.co.jhta.soop.service.ProjectMemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
@@ -28,11 +28,6 @@ public class ProjectController {
 	@Autowired
 	ProjectProjectMemberMemberService projectProjectMemberMemberService;
 	
-	@Autowired
-	FeedService feedService;
-	
-	@Autowired
-	TaskService taskService;
 //	
 //	// home화면 들어가면 side nav에 프로젝트 목록 띄워주기
 //	@GetMapping("/home")
@@ -67,13 +62,6 @@ public class ProjectController {
 		return "feed"; // 생성 완료하면 해당 프로젝트의 피드로 이동
 	}
 	
-	// side nav의 프로젝트 이름 클릭시 해당 프로젝트 피드 화면으로 이동
-	@GetMapping("/selectProject")
-	public String showFeed(@RequestParam("project_no")int project_no,
-			 			   @RequestParam("member_no")int member_no,
-			 			   Model model) {
-		model.addAttribute("taskDTO", taskService.selectAll(project_no));
-		return "projectDetail";
-	}
+
 	
 }

@@ -5,12 +5,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import kr.co.jhta.soop.dto.FeedDTO;
+import kr.co.jhta.soop.dto.FeedFileDTO;
 
 @Repository
 @Mapper
-public interface FeedDAO {
+public interface FeedFileDAO {
 
-	List<FeedDTO> selectAllProjectDetail(int project_no, int member_no);
-
+	List<FeedFileDTO> selectAllFeedFileByPno(int project_no);
+	
 }
