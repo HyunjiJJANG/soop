@@ -69,19 +69,22 @@ public class TaskController {
 	MemberProjectProjectmemberService memberProjectProjectmemberService;
 	
 	@RequestMapping("/task")
-	public String register(Model model)
+	public String register(Model model
 //			, 
-//			@RequestParam("project_no") int project_no) // 결재라인에서 프로젝트 넘버로 결재자 리스트(member) 띄우기 위해) 
+//			@RequestParam("project_no") int project_no
+			) // 결재라인에서 프로젝트 넘버로 결재자 리스트(member) 띄우기 위해) 
 			{ 
 		// model.addAttribute("list", taskService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌
 		
 		// JOIN한 service로 교체 
 		model.addAttribute("list", taskAttachedFileService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌 
 		
-//		// 생성 모달에 값을 넘기기 위한
-//		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no);
-//		model.addAttribute("members", members);
-//		
+		int project_no = 1;
+		
+		// 생성 모달에 값을 넘기기 위한
+		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no);
+		model.addAttribute("members", members);
+		
 		return "task";
 	}
 	
