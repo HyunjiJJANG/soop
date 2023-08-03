@@ -137,12 +137,20 @@
 		        // 다른 요청 데이터가 필요한 경우 추가
 		      },
 		      success: function(list) {
-		        console.log(list);
 
-		        // <select> 요소를 가져옵니다.
+		          for (var i = 0; i < list.length; i++) {
+		            var member = list[i];
+		            console.log(member);
+		            console.log(member.member_no); // 멤버 번호 출력
+		            console.log(member.name); // 멤버 이름 출력
+		            // 다른 멤버 정보에 대해 필요한 작업 수행
+		          }
+		          
+		          console.log(list.member_no); // 멤버 번호 출력
+		          console.log(list.name); // 멤버 이름 출력
+		        
 		        var selectElement = $("#selectMembersCreate");
 
-		        // 기존의 옵션을 삭제합니다.
 		        selectElement.empty();
 
 		        // 기본 옵션을 추가합니다.
