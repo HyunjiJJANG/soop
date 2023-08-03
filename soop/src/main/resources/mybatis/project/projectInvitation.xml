@@ -10,7 +10,7 @@
  	</select>
 	<insert id="insertOne" parameterType="ProjectInvitationDTO">
 		INSERT INTO project_invitation
-		VALUES( #{invitation_no}, #{member_no}, #{project_no}, #{invitation_email},#{invitation_code},#{invitation_validTime}, 1 )
+		VALUES( 1, #{member_no}, #{project_no}, #{invitation_email},#{invitation_code},'20230803110310', 1 )
 	</insert>
 	<update id="updateOne" parameterType="ProjectInvitationDTO">
 		UPDATE project_invitation
