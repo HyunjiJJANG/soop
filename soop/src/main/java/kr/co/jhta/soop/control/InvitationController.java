@@ -54,7 +54,6 @@ public class InvitationController {
 		// 메일에서 링크 클릭하면 프로젝트 멤버 insert
 		
 		
-		
 		MimeMessage message = javaMailSender.createMimeMessage();
 		
 		String htmlStr = "";

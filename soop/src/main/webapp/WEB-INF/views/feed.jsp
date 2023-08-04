@@ -79,7 +79,6 @@
 						}
 					});
 				});
-
 	
 	// 파트너 초대 메일 비동기화 방식으로 보내기
 		$("#btnInvitation").on("click", function() {// 메일 입력 유효성 검사
@@ -98,7 +97,7 @@
 					data : {
 						"email" : $("#email").val().trim(),
 						"name" : $("#name").val().trim(),
-						"inviteMessage" : inviteMessage
+						"inviteMessage" : inviteMessage,
 						"project_no": $("#project_no").val().trim()
 					},
 					dataType : 'text'
