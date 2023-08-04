@@ -21,7 +21,6 @@
 <!-- <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script> -->
-
 <!-- bootstrap -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -43,6 +42,13 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+<script type="text/javascript">
+	/* 프로젝트 상태 버튼 db 값대로 checked */
+
+</script>
+
+
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
@@ -50,58 +56,59 @@
 	<div class="pcoded-main-container">
 		<div class="pcoded-content">
 			<!-- [ Feed navigation menu ] start -->
-		    <nav class="pcoded-navbar theme-horizontal menu-light" style="position: fixed;">
+		    <nav class="pcoded-navbar theme-horizontal menu-light" style="position: fixed; height:100px;">
 		        <div class="navbar-wrapper container" style="text-align: left;">
 		            <div class="navbar-content sidenav-horizontal" id="layout-sidenav">
-		                <ul class="nav pcoded-inner-navbar sidenav-inner">		                    
-		                    <li class="nav-item">
-		                        <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
-		                    </li>
-		                    <li class="nav-item pcoded-menu-caption">
-		                        <label>Forms &amp; table</label>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-text"></i></span><span class="pcoded-mtext">Forms</span></a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-align-justify"></i></span><span class="pcoded-mtext">Bootstrap table</span></a>
-		                    </li>
-		                    <li class="nav-item pcoded-menu-caption">
-		                    	<label>Chart & Maps</label>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="chart-apex.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-map"></i></span><span class="pcoded-mtext">Maps</span></a>
-		                    </li>
-		                    <li class="nav-item pcoded-menu-caption">
-		                    	<label>Pages</label>
-		                    </li>
-		                    <li class="nav-item pcoded-hasmenu">
-		                        <a href="#!" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span class="pcoded-mtext">Authentication</span></a>
-		                        <ul class="pcoded-submenu">
-		                            <li><a href="auth-signup.html" target="_blank">Sign up</a></li>
-		                            <li><a href="auth-signin.html" target="_blank">Sign in</a></li>
-		                        </ul>
-		                    </li>
-		                    <li class="nav-item"><a href="sample-page.html" class="nav-link "><span class="pcoded-micon"><i class="feather icon-sidebar"></i></span><span class="pcoded-mtext">Sample page</span></a></li>
-		
-		                </ul>
+		                <table>
+                         <tr>
+                             <td> 
+                             <ul class="nav pcoded-inner-navbar sidenav-inner">
+                             <li class="nav-item">
+                             <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">프로젝트명</span></a>
+                           </li>
+                           </ul>
+                           </td>
+                        </tr>
+                     <tr>
+                      <td>
+                     <ul class="nav pcoded-inner-navbar sidenav-inner">
+                    
+                          <li class="nav-item">
+                              <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span><span class="pcoded-mtext">일정</span></a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="chart-apex.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-address-book"></i></span><span class="pcoded-mtext">주소록</span></a>
+                          </li>
+                          <li class="nav-item">
+                              <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-file-arrow-down"></i></span><span class="pcoded-mtext">첨부파일</span></a>
+                          </li>
+
+                      </ul>
+                  </td>
+                      
+                      </tr>
+                      </table>
 		            </div>
 		        </div>
 		    </nav>
-			<br /><br /><br /><br /><br /><br />
+			<br /><br /><br /><br /><br /><br /><br />
 			
 			<!-- 업무 피드 card -->
+			<c:forEach var="feedTaskDTO" items="${feedTaskDTO}">
 			<div class="col-xl-6 col-md-12">
 				<div class="card table-card">
 					<div class="card-header">
 						<div class="d-inline-block align-middle">
 							<img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
 							<div class="d-inline-block" style="position: absolute; top: 35%;">
-								<span style="font-size: 15px; font-weight: bold;">작성자</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;								
-								<span style="font-size: 15px;"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;2023-07-19 15:10</span>
+								<span style="font-size: 15px; font-weight: bold;">${feedTaskDTO.name}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;								
+								<span style="font-size: 15px;"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_register_date}</span>
                              </div>
                         </div>
                         <div class="card-header-right">
@@ -124,7 +131,10 @@
                                 <thead style="border-color: transparent;">
                                     <tr>
                                         <td>
-                                        	<div class="row m-b-0"><h4>업무 이름</h4></div>
+                                        	<div class="row m-b-0">
+                                        		<input type="hidden" name="task_no" value="${feedTaskDTO.task_no}"/>
+                                        		<h4>${feedTaskDTO.task_title}</h4>
+                                        	</div>
                                         </td>
                                     </tr>
                                 </thead>
@@ -134,38 +144,43 @@
                                 			<i class="fa-solid fa-chart-simple"></i>
                                 			&nbsp;&nbsp;
 											<div class="btn-group btn-group-toggle" data-toggle="buttons">
-												<label class="btn btn-outline-info btn-sm active" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option1" checked>발의</label>
+												<input type="hidden" name="task_status" value=${feedDTO.task_status} />
+												<label class="btn btn-outline-info btn-sm" style="border-radius: 10px;">
+												<input type="radio" name="options" id="0">발의</label>
 												&nbsp;&nbsp;&nbsp;
 												<label class="btn btn-outline-success btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option2">진행</label>
+												<input type="radio" name="options" id="1">진행</label>
 												&nbsp;&nbsp;&nbsp;
 												<label class="btn btn-outline-warning btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option3">검토</label>
+												<input type="radio" name="options" id="2">검토</label>
 												&nbsp;&nbsp;&nbsp;
 												<label class="btn btn-outline-secondary btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option4">완료</label>
+												<input type="radio" name="options" id="3">완료</label>
 												&nbsp;&nbsp;&nbsp;
 												<label class="btn btn-outline-danger btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option5">보류</label>
+												<input type="radio" name="options" id="4">보류</label>
 											</div>
+											&nbsp;&nbsp;
+											<i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;결재현황
                                 		</td>
                                 	</tr>
                                     <tr>
-                                    	<td><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;0000/00/00부터&nbsp;&nbsp;&nbsp;0000/00/00까지</td>
+                                    	<td><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_start_date}부터&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_end_date}까지</td>
+                                    </tr>
+                                    <tr>
+                                    	<td>
+                                    		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
+                                    		<!-- 해당 업무 첨부파일 보이는 곳 -->
+                                    		<c:if test="${feedTaskDTO.task_no == '${feedTaskDTO.task_no}'}">
+	                                    		<c:forEach var="feedTaskDTO" items="${feedTaskDTO}">
+													<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a>
+												</c:forEach>
+											</c:if>
+                                    	</td>
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">
                                     	<td>
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
+                                    		${feedTaskDTO.task_content}
                                     	</td>
                                     </tr>
                                 </tbody>
@@ -217,7 +232,7 @@
                     </div>
                 </div>
             </div>
-
+		</c:forEach>
 
 		<!-- buttons -->            
 		<div class="col-xl-2 col-md-12" style="position: fixed; top: 150px; right: 508px;">
@@ -287,7 +302,7 @@
 
 
 		<!-- chatting -->
-		<div class="col-lg-3 col-md-30" style="position: fixed; top: 150px; right: 20px;">
+<!-- 		<div class="col-lg-3 col-md-30" style="position: fixed; top: 150px; right: 20px;">
                 <div class="card chat-card">
                     <div class="card-header">
                         <h5>대화</h5>
@@ -350,10 +365,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
 		
 		
-		</div>
+		</div> -->
 
 	</div>
 	</div>

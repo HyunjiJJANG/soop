@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.jhta.soop.dao.FeedFileDAO">
+
+	<!-- 해당 업무의 첨부파일 불러오기 -->
+	<select id="selectAllFeedFileByPno" parameterType="int" resultType="kr.co.jhta.soop.dto.FeedFileDTO">
+		SELECT f.file_no, f.file_type, f.file_name, f.file_path
+		FROM attached_file f
+		INNER JOIN task t ON f.task_no = t.task_no
+		INNER JOIN project p ON t.project_no = p.project_no
+		WHERE p.project_no = #{project_no}
+	</select>
+</mapper>
