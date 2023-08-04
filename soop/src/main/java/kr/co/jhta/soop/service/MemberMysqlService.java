@@ -82,6 +82,7 @@ public class MemberMysqlService implements MemberService{
 		
 	}
 
+
 	@Override
 	public String selectOneByName(int member_no) {
 		return dao.selectOneByName(member_no);
@@ -92,5 +93,5 @@ public class MemberMysqlService implements MemberService{
 		return dao.selectMemberByMemberNo(email);
 	}
 
-	
+
 }

@@ -13,11 +13,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import kr.co.jhta.soop.service.CustomerOAuth2UserDetailService;
 
 
+
 //인가를 위한 어노테이션
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
 	@Autowired
 	DataSource datasource;
 
@@ -85,11 +85,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.oauth2Login()
 				.loginPage("/clogin")
 				// OAuth2 로그인 성공 후 사용자 정보를 가져오는 설정을 담당
-				.defaultSuccessUrl("/loginOauth2OkIndex")
-				// 로그인 실패하면 /clogin?error=true
-				.failureUrl("/clogin?error=true")
 				.userInfoEndpoint()
-				.userService(userDetailService);
+				.userService(userDetailService); 
+
 						// 소셜 로그인 성공시 진행할 OAuth2UserService 인터페이스를구현한 객체를 등록 //즉 사용자가 정보를 가져온
 						// 상태에서 추가 진행하고자 하는 기능을 구현
 

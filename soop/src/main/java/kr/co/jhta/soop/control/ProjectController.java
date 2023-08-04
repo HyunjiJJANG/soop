@@ -11,11 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.soop.dto.ProjectDTO;
 import kr.co.jhta.soop.dto.ProjectMemberDTO;
-import kr.co.jhta.soop.service.FeedService;
+
 import kr.co.jhta.soop.service.MemberService;
+
+import kr.co.jhta.soop.service.FeedTaskService;
+
 import kr.co.jhta.soop.service.ProjectMemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
+import kr.co.jhta.soop.service.TaskService;
 
 @Controller
 public class ProjectController {
@@ -30,9 +34,6 @@ public class ProjectController {
 	
 	@Autowired
 	ProjectProjectMemberMemberService projectProjectMemberMemberService;
-	
-	@Autowired
-	FeedService feedService;
 	
 //	
 //	// home화면 들어가면 side nav에 프로젝트 목록 띄워주기
@@ -50,7 +51,7 @@ public class ProjectController {
 						 	 @RequestParam("project_description")String project_description,
 						 	 @RequestParam("project_start_date")String project_start_date,
 						 	 @RequestParam("project_end_date")String project_end_date,
-						 	 @RequestParam(value="member_no")int member_no) {
+						 	 @RequestParam("member_no")int member_no) {
 		
 		ProjectDTO projectDto = new ProjectDTO();
 		projectDto.setProject_no(project_no);
@@ -68,18 +69,20 @@ public class ProjectController {
 		return "feed"; // 생성 완료하면 해당 프로젝트의 피드로 이동
 	}
 	
+
 	// side nav의 프로젝트 이름 클릭시 해당 프로젝트 피드 화면으로 이동
-	@GetMapping("/feed")
-	public String goFeed(@RequestParam("project_no")int project_no,
-						 @RequestParam("member_no")int member_no,
-						 Model model) {
-		
-		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
-		model.addAttribute("project_no", project_no);
-		model.addAttribute("name", memberService.selectOneByName(member_no));
-//		model.addAttribute("projectDetailDto", feedService.selectAllProjectDetail(project_no, member_no));
-		return "feed";
-	}
+//	@GetMapping("/feed")
+//	public String goFeed(@RequestParam("project_no")int project_no,
+//						 @RequestParam("member_no")int member_no,
+//						 Model model) {
+//		
+//		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+//		model.addAttribute("project_no", project_no);
+//		model.addAttribute("name", memberService.selectOneByName(member_no));
+////		model.addAttribute("projectDetailDto", feedService.selectAllProjectDetail(project_no, member_no));
+//		return "feed";
+//	}
+
 	
 	
 	

@@ -20,7 +20,8 @@
 	<c:if test="${not empty memberDto}">
 	memberDto 이거 맞나요
 	${memberDto}
-		
+	
+		<h1><a href="home?member_no=${memberDto.member_no}">home</a></h1>	
 	<h1>
 		<a
 			href="/mypage?member_no=${memberDto.member_no }&email=${memberDto.email}">mypage</a>
@@ -54,3 +55,4 @@
 
 </body>
 </html>
+
