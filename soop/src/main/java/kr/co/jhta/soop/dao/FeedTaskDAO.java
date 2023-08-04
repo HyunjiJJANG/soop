@@ -13,6 +13,4 @@ public interface FeedTaskDAO {
 
 	List<FeedTaskDTO> selectAllFeedTaskByPno(int project_no);
 
-	List<FeedTaskDTO> selectAllTaskNoByPno(int project_no);
-
 }

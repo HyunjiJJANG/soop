@@ -171,11 +171,7 @@
                                     	<td>
                                     		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
                                     		<!-- 해당 업무 첨부파일 보이는 곳 -->
-                                    		<c:if test="${feedTaskDTO.task_no == '${feedTaskDTO.task_no}'}">
-	                                    		<c:forEach var="feedTaskDTO" items="${feedTaskDTO}">
-													<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a>
-												</c:forEach>
-											</c:if>
+											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a>
                                     	</td>
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">

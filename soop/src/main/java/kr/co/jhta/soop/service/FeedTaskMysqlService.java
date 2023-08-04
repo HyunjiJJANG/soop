@@ -18,8 +18,4 @@ public class FeedTaskMysqlService implements FeedTaskService {
 		return dao.selectAllFeedTaskByPno(project_no);
 	}
 
-	@Override
-	public List<FeedTaskDTO> selectAllTaskNoByPno(int project_no) {
-		return dao.selectAllTaskNoByPno(project_no);
-	}
 }

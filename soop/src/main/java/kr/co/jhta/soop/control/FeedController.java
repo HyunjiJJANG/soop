@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.co.jhta.soop.service.FeedFileService;
 import kr.co.jhta.soop.service.FeedTaskService;
 
 @Controller
@@ -22,8 +21,7 @@ public class FeedController {
 	public String goFeed(@RequestParam("project_no")int project_no,
 						 Model model) {
 		model.addAttribute("feedTaskDTO", feedTaskService.selectAllFeedTaskByPno(project_no));
-//		model.addAttribute("feedTaskNo", feedTaskService.selectAllTaskNoByPno(project_no));
-//		model.addAttribute("feedFileDTO", feedFileService.selectAllFeedFileByPno(project_no));
+
 		return "feed";
 	}
 }
