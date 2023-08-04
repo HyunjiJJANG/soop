@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import kr.co.jhta.soop.service.CustomerOAuth2UserDetailService;
 
+
 //인가를 위한 어노테이션
 @EnableWebSecurity
 @Configuration
