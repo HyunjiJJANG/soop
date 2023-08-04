@@ -1,6 +1,7 @@
 package kr.co.jhta.soop.control;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Random;
 
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
@@ -11,12 +12,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.jhta.soop.dto.ProjectInvitationDTO;
 import kr.co.jhta.soop.service.ProjectInvitationService;
 import kr.co.jhta.soop.service.ProjectMemberService;
+import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -29,6 +33,9 @@ public class InvitationController {
 	ProjectInvitationService projectInvitationService;
 	
 	@Autowired
+	ProjectProjectMemberMemberService projectProjectMemberMemberService;
+	
+	@Autowired
 	ProjectMemberService projectMemberService;
 	
 	// 해당 프로젝트에 파트너 초대하기를 클릭했을때 이메일 초대링크 보내기
@@ -37,22 +44,27 @@ public class InvitationController {
 	public void sendMail(@RequestParam("email") String email,
 			@RequestParam("name") String name,
 			@RequestParam("project_no") int project_no,
-			@RequestParam("inviteMessage") String inviteMessage, HttpSession session) {
+			@RequestParam("inviteMessage") String inviteMessage,
+			HttpSession session,
+			Model model) {
 		
 		log.info("초대 모달에서 초대버튼 누르면 가져올 email : " + email);
-		log.info("project_no : " + project_no);
-		// db에 초대받은 멤버가 초대 insert
-		// 초대코드 테이블에 인서트 
+		log.info("project_no : " + project_no + ", name : " + name);
 		
+		// 초대코드 키
+		Random random = new Random();
+		int key = 0;
 		
-		//  프로젝트번호 이름   초대자   랜덤키      상태 
-		//                 aaa   sfes23ds          1  (미확인) 
+		int numIndex = random.nextInt(9000) + 1000; // 4자리 정수를 생성(1000~9999)
+		key += numIndex;
 		
+		// 파트너 초대하기 버튼 클릭시 초대코드 테이블에 insert
+		ProjectInvitationDTO projectInvitationDTO = new ProjectInvitationDTO();
+		projectInvitationDTO.setProject_no(project_no);
+		projectInvitationDTO.setInvitation_email(email);
+		projectInvitationDTO.setInvitation_code(key);
 		
-		// 링크      /invite?key=sfes23ds 
-		// /inviteOk?key=XXXXXX 
-		// 메일에서 링크 클릭하면 프로젝트 멤버 insert
-		
+		projectInvitationService.insertOne(projectInvitationDTO);
 		
 		MimeMessage message = javaMailSender.createMimeMessage();
 		
@@ -87,8 +99,14 @@ public class InvitationController {
 
 //	@GetMapping("/inviteOk")  // inviteOk?key=q232342&no=321
 //	public String checkMember(@RequestParam("key") String key, @RequestParam("no")int no) {
-//		
-//		
+	
+	//  프로젝트번호 이름   초대자   랜덤키      상태 
+	//                 aaa   sfes23ds          1  (미확인) 
+	
+	
+	// 링크      /invite?key=sfes23ds 
+	// /inviteOk?key=XXXXXX 
+	// 메일에서 링크 클릭하면 프로젝트 멤버 insert	
 //		MemberDTO m = dao.findByKey(key);
 //		int projetno = dao.findNoByKey(key);
 //		

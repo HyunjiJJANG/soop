@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kr.co.jhta.soop.dto.ProjectDTO;
 import kr.co.jhta.soop.dto.ProjectMemberDTO;
 import kr.co.jhta.soop.service.FeedService;
+import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectMemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
 
 @Controller
 public class ProjectController {
+	@Autowired
+	MemberService memberService;
+	
 	@Autowired
 	ProjectService projectService;
 
@@ -69,7 +73,10 @@ public class ProjectController {
 	public String goFeed(@RequestParam("project_no")int project_no,
 						 @RequestParam("member_no")int member_no,
 						 Model model) {
+		
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+		model.addAttribute("project_no", project_no);
+		model.addAttribute("name", memberService.selectOneByName(member_no));
 //		model.addAttribute("projectDetailDto", feedService.selectAllProjectDetail(project_no, member_no));
 		return "feed";
 	}

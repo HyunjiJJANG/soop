@@ -3,6 +3,7 @@ package kr.co.jhta.soop.service;
 import java.util.List;
 
 import kr.co.jhta.soop.dto.MemberDTO;
+import kr.co.jhta.soop.dto.ProjectMemberDTO;
 
 public interface MemberService {
 
@@ -23,5 +24,7 @@ public interface MemberService {
 	public void deleteOne(int member_no);
 	
 	public void insertRole(String email);
+
+	public String selectOneByName(int member_no);
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.jhta.soop.dao.MemberDAO;
 import kr.co.jhta.soop.dto.MemberDTO;
+import kr.co.jhta.soop.dto.ProjectMemberDTO;
 
 @Service
 public class MemberMysqlService implements MemberService{
@@ -79,6 +80,11 @@ public class MemberMysqlService implements MemberService{
 	public void updateOneName(MemberDTO dto) {
 		dao.updateOneName(dto);
 		
+	}
+
+	@Override
+	public String selectOneByName(int member_no) {
+		return dao.selectOneByName(member_no);
 	}
 
 	
