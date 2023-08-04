@@ -13,8 +13,7 @@
 		ON m.member_no = pm.member_no
 		JOIN project p
 		ON pm.project_no = p.project_no
-		WHERE m.member_no = #{m.member_no}
-		
+		WHERE m.member_no = #{m.member_no}		
 		<!-- test 후 변경! 3 -->
 		<!-- WHERE m.member_no=#{m.member_no} -->	
 		<!-- test 확인경로 => http://localhost:8081/gantt?member_no=1 -->

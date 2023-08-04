@@ -16,6 +16,7 @@
 	  	FROM project  	
   	</select>
   	
+  	
   	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.soop.dto.ProjectDTO">
   		SELECT *
   		FROM project

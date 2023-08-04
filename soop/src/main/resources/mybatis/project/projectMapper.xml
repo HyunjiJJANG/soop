@@ -13,4 +13,5 @@
 		ON m.member_no = pm.member_no
 		WHERE m.member_no = #{member_no}
 	</select>
+	
 </mapper>
