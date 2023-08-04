@@ -50,4 +50,11 @@ public class HomeController {
 		return "home";
 	}
 	
+	// 고객센터
+	@GetMapping("/faq")
+	public String faq() {
+		return "faq";
+	}
+	
+	
 }

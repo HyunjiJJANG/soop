@@ -8,6 +8,18 @@
  		FROM project_invitation
  		WHERE invitation_no = #{invitation_no}
  	</select>
+ 	<!-- 파트너 수락하기 버튼클릭시 링크에 있는 KEY과 동일한 KEY값 가져오기 -->
+	<select id="findByKey" parameterType="String" resultType="String">
+		SELECT invitation_code
+		FROM project_invitation
+		WHERE invitation_code = #{invitation_code}
+	</select>
+	 	<!-- 프로젝트 번호 가져오기 -->
+	<select id="findByProjectNo" parameterType="String" resultType="int">
+		SELECT project_no
+		FROM project_invitation
+		WHERE invitation_code = #{invitation_code}
+	</select>
 	<insert id="insertOne" parameterType="ProjectInvitationDTO">
 		INSERT INTO project_invitation (project_no, invitation_email, invitation_code, invitation_success)
 		VALUES(#{project_no},#{invitation_email},#{invitation_code}, 1)
@@ -16,5 +28,11 @@
 		UPDATE project_invitation
 		SET invitation_success = #{invitation_success}
 		WHERE invitation_no = #{invitation_no}
+	</update>
+	<!-- 초대코드 인증 후 성공상태로 변경 -->
+	<update id="updateSuccess" parameterType="String">
+		UPDATE project_invitation
+		SET invitation_success = 0
+		WHERE invitation_code = #{invitation_code}
 	</update>
  </mapper>

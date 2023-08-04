@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>login</title>
+<title>초대코드인증</title>
 <!-- 폰트 적용 -->
 <link rel="stylesheet" type="text/css" href="/css/hhj.css">
 
@@ -147,77 +147,36 @@ form {
 </style>
 </head>
 <body class="d-flex flex-column h-100">
-
 	<div class="global-container">
 		<div class="card login-form">
 			<div class="card-body">
-				<h3 class="card-title text-center">LOGIN</h3>
+				<h3 class="card-title text-center">초대코드 인증</h3>
 				<div class="card-text">
-					<form action="/login" method="post" name="frm" id="frm">
-
+					<form action="/inviteMailcheckOk" method="get" name="frm" id="frm">
 						<div class="row g-3 align-items-center" style="width: 800px;">
 							<div class="col-md-6 position-relative">
 								<div class="col-6">
-									<span class="join-label-title">이메일</span>
+									<span class="join-label-title">초대코드</span>
 									<div class="form-floating">
 										<div class="form-floating mb-3">
-											<input type="email" class="form-control" name="username"
-												id="username" placeholder="account@example.com"
+											<input type="text" class="form-control" name="invitation_code"
+												id="invitation_code" placeholder="account@example.com"
 												aria-labelledby="emailCheck" class="form-control"
-												id="validationTooltipUsername"
-												aria-describedby="validationTooltipUsernamePrepend" required value="test1@naver.com">
-											<label for="email">이메일</label>
+												aria-describedby="validationTooltipUsernamePrepend" required>
+											<label for="email">초대코드를 입력해주세요.</label>
 										</div>
 									</div>
 								</div>
 							</div>
 
 						</div>
-						<div class="row g-3 align-items-center" style="width: 800px;">
-							<div class="col-md-6 position-relative">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">비밀번호</span>
-									<div class="form-floating">
-										<div class="form-floating">
-											<input type="password" class="form-control" name="password"
-												id="password" placeholder="Password" class="form-control"
-												id="validationTooltipUsername"
-												aria-describedby="validationTooltipUsernamePrepend" required value="11111111">
-											<label for="password">비밀번호</label> <input type="hidden"
-												name="${_csrf.parameterName }" value="${_csrf.token }" />
-										</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-
+						<div style="color:red">${error }</div>
 						<div class="d-grid gap-2 col-12"
 							style="width: 276px; height: 36px;">
-							<input type="submit" class="btn btn-success" value="로그인"
+							<input type="submit" class="btn btn-success" value="확인"
 								style="margin-top: 20px; width: 450px; height: 50px; " />
 						</div>
 					</form>
-					<div class="link">
-						<a href="/searchPassword" style="margin-left: 90px; color: black;  text-decoration-line: none;">비밀번호 찾기</a> <a
-							href="/register" style="margin-left: 100px; color: black;  text-decoration-line: none;">회원가입</a>
-
-					</div>
-
-					<div class="line" style="margin-top: 70px; padding-right: 20px; margin-bottom: 35px;">SNS
-						계정 로그인</div>
-
-					<div class="loginButton">
-						<a href="oauth2/authorization/kakao"><img alt="kakaoLogin"
-							src="/images/kakao_login_medium_narrow.png"
-							style="width: 150px; height: 40px; margin-left: 45px;"></a> <a
-							href="oauth2/authorization/google"><img alt="googleLogin"
-							src="/images/btn_google_signin_light_normal_web.png"
-							style="margin-left: 10px; width: 150px; height: 43px; margin-left: 50px;"></a>
-					</div>
-
 				</div>
 			</div>
 		</div>
