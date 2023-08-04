@@ -31,5 +31,4 @@ public void insertRole(String email);
 
 public String selectOneByName(int member_no);
 
-
 }

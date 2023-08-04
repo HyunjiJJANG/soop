@@ -2,6 +2,7 @@ package kr.co.jhta.soop.control;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
@@ -44,19 +45,15 @@ public class InvitationController {
 	public void sendMail(@RequestParam("email") String email,
 			@RequestParam("name") String name,
 			@RequestParam("project_no") int project_no,
-			@RequestParam("inviteMessage") String inviteMessage,
-			HttpSession session,
-			Model model) {
-		
+			@RequestParam("inviteMessage") String inviteMessage) {
+
 		log.info("초대 모달에서 초대버튼 누르면 가져올 email : " + email);
 		log.info("project_no : " + project_no + ", name : " + name);
-		
+
 		// 초대코드 키
-		Random random = new Random();
-		int key = 0;
-		
-		int numIndex = random.nextInt(9000) + 1000; // 4자리 정수를 생성(1000~9999)
-		key += numIndex;
+		UUID  uuidKey =   UUID.randomUUID(); // 유니크한 키값 받아오기
+		String key = uuidKey.toString(); // 문자열로 변환
+		log.info("key : " + key);
 		
 		// 파트너 초대하기 버튼 클릭시 초대코드 테이블에 insert
 		ProjectInvitationDTO projectInvitationDTO = new ProjectInvitationDTO();
@@ -75,8 +72,8 @@ public class InvitationController {
 			// 메일제목
 			message.setSubject("[SOOP] " + name + "님이 SOOP으로 초대했습니다.");
 
-			// 메일내용(초대수락하기 버튼 클릭시 로그인 화면으로 이동되게)
-			sb.append("<br><br><a href='http://localhost:8081/inviteOk?key=q232342&no=321' >"
+			// 메일내용(링크 : inviteOk?key=232342)
+			sb.append("<br><br><a href='http://localhost:8081/inviteOk?key='"+key+" >"
 					+ "<button style='background-color:#1abc9c; border-radius:20px; "
 					+ "border:none; width:150px; height:50px; color:#ffffff; " + "font-size:15px; cursor:pointer;' >"
 					+ "초대 수락하기</button></a>" + "<br><br>" + inviteMessage);
@@ -93,37 +90,27 @@ public class InvitationController {
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
 
 	} // sendMail() end
 
-//	@GetMapping("/inviteOk")  // inviteOk?key=q232342&no=321
-//	public String checkMember(@RequestParam("key") String key, @RequestParam("no")int no) {
-	
-	//  프로젝트번호 이름   초대자   랜덤키      상태 
-	//                 aaa   sfes23ds          1  (미확인) 
-	
-	
-	// 링크      /invite?key=sfes23ds 
-	// /inviteOk?key=XXXXXX 
-	// 메일에서 링크 클릭하면 프로젝트 멤버 insert	
+	// 초대수락하기 버튼 클릭시 key와 초대코드 일치하면 프로젝트멤버 테이블에 추가하고 로그인 화면으로 이동
+	@GetMapping("/inviteOk")
+	public String checkMember(@RequestParam("key")String key) {
+//    
+//	ProjectInvitationDTO projectInvitationDTO = dao.findByKey(key);
+//	// 링크 /invite?key=2134 키값과 db에 있는 key 값이 일치하면 상태여부 값을 변경할수있게
+//	// 메일에서 링크 클릭하면 (key가 일치하면) 프로젝트 멤버 insert	
+//
+//	if(key == equ)
 //		MemberDTO m = dao.findByKey(key);
 //		int projetno = dao.findNoByKey(key);
 //		
-//		if(m != null ) {
+//		if(m != null ) { // 조인???
 //			mdao.insert(m.getId, 이름, ); 
 //		}
-//		return "rediect://invitok?no="+no;
-//		
-//	}
-	
-	// 초대수락하기 버튼 클릭후 로그인 페이지에서 로그인 하면 
-	// 로그인 페이지로 이동시 프로젝트멤버 테이블에 insert??? 초대받은 멤버번호와 프로젝트번호 담아야됨
-	@GetMapping("/inviteLogin")
-	public String inviteLogin(){
+		// return "rediect://feed?project_no="+project_no+"&member_no="+member_no;
+		return null;
 		
-		// projectMemberService.insertOne(dto);
-		return "login";
-	}
+	} // checkMember() end
 	
 } // class end
