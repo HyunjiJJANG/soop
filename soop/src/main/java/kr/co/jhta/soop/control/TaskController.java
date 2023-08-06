@@ -22,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,12 +34,12 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.jhta.soop.dto.AttachedFileDTO;
 
 import kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO;
-
+import kr.co.jhta.soop.dto.SignDTO;
 import kr.co.jhta.soop.dto.TaskDTO;
 import kr.co.jhta.soop.service.AttachedFileService;
 import kr.co.jhta.soop.service.MemberProjectProjectmemberService;
 import kr.co.jhta.soop.service.MemberService;
-
+import kr.co.jhta.soop.service.SignService;
 import kr.co.jhta.soop.service.TaskAttachedFileService;
 import kr.co.jhta.soop.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
@@ -68,6 +69,9 @@ public class TaskController {
 	@Autowired
 	MemberProjectProjectmemberService memberProjectProjectmemberService;
 	
+	@Autowired
+	SignService signservice;
+	
 	@RequestMapping("/task")
 	public String register(Model model
 //			, 
@@ -84,7 +88,6 @@ public class TaskController {
 		// 생성 모달에 값을 넘기기 위한
 		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no);
 		model.addAttribute("members", members);
-		
 		return "task";
 	}
 	
@@ -98,8 +101,12 @@ public class TaskController {
 			@ModelAttribute UploadFile uploadfile, // task.jsp의 업무 생성 모달 폼에서 uploadfile 받아오기
 			BindingResult result, // 유효성 검사를 위한
 			HttpServletRequest req,  // 파일 경로를 위한 
-			@RequestParam("project_no") int project_no, // 결재라인에서 프로젝트 넘버로 결재자 리스트(member) 띄우기 위해
-			@ModelAttribute MemberProjectProjectmemberDTO mppmdto) // 결재 라인을 위한 dto 넘기기
+//			@RequestBody SignDTO signdto
+			@ModelAttribute SignDTO signdto
+//			@RequestParam("member_no") int member_no,
+//			@RequestParam( name = "sign_approver", required=true) String sign_approver, // required=true 반드시 요청에 포함되도록
+//			@RequestParam("sign_step") int sign_step
+			)
 			throws UnsupportedEncodingException {
 		
 		// ** task 생성(insert) **
@@ -108,17 +115,18 @@ public class TaskController {
 		
 		
 		
+		// ** 결재 라인 **
+		log.info("결재자 memberno : " + signdto.getMember_no()); // 현재 1로 기본 설정해놔서 잘 받는 것 같음
+		log.info("결재자 sign_approver : " + signdto.getSign_approver()); // 여기부터 안받아짐..
+		log.info("결재자 sign_step : " + signdto.getSign_step());
 		
-		// ** 결재라인 **	==> 모달에 직접 담아야함!!!
-//		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService.selectAllbyprojectno(project_no);
+//		signdto.setMember_no(member_no);
+//		signdto.setSign_approver(sign_approver);
+//		signdto.setSign_step(sign_step);
 //		
-//		model.addAttribute("members", members);
-////		 List<MemberDTO> members = memberService.selectAll();
-////	     model.addAttribute("members", members);
-//
-//		// 로그를 통해 프로젝트 멤버를 확인 (이 코드가 정확한 결과를 가져올 수 있도록 project_no에 해당하는 값을 지정해야 합니다.)
-//		log.info("members : {}", members);
-
+//		signdto.setSign_status(0);// 값 임의로 주기
+		
+//		signservice.insertOne(signdto); // 데이터 넣기
 		
 		
 		// ** 파일 첨부 **

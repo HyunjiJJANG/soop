@@ -116,74 +116,8 @@
 
 <!-- 생성/수정 모달에 데이터 값 넘기기 -->
 <script>
-/* 	//1. 페이지 로딩 시에 서버에서 리스트 데이터를 가져오기 위한 AJAX 호출
-	var membersData; // 리스트 데이터를 저장할 변수
-	 */
+
 $(document).ready(function(){
-		
-	/* 	 $("#cmodal_btn").click(function(){ // cmodal_btn 버튼을 클릭하면 아래(updateModal) 실행
-	    $("#updateModal").modal(); 
-	  });
-
-
-	  $(function() {
-		  $("#member").on("keyup", function() {
-		    $.ajax({
-		      type: "GET",
-		      url: '/task',
-		      data: {
-		        "member": $("#member").val().trim(),
-		        project_no: 1, // 실제 프로젝트 번호로 교체
-		        // 다른 요청 데이터가 필요한 경우 추가
-		      },
-		      success: function(list) {
-
-		          for (var i = 0; i < list.length; i++) {
-		            var member = list[i];
-		            console.log(member);
-		            console.log(member.member_no); // 멤버 번호 출력
-		            console.log(member.name); // 멤버 이름 출력
-		            // 다른 멤버 정보에 대해 필요한 작업 수행
-		          }
-		          
-		          console.log(list.member_no); // 멤버 번호 출력
-		          console.log(list.name); // 멤버 이름 출력
-		        
-		        var selectElement = $("#selectMembersCreate");
-
-		        selectElement.empty();
-
-		        // 기본 옵션을 추가합니다.
-		        selectElement.append('<option value="">------결재자 선택-----</option>');
-
-		        // 서버로부터 받아온 members 데이터를 순회하며 옵션을 동적으로 추가합니다.
-		        for (var i = 0; i < list.length; i++) {
-		          var memberNo = list[i].member_no;
-		          // option 요소를 생성하여 select 요소에 추가합니다.
-		          selectElement.append('<option value="' + memberNo + '">' + memberNo + '</option>');
-		        }
-		      },
-		      error: function(error) {
-		        // 에러 처리
-		      }
-		    });
-		  });
-		}); */
-
-		// 생성 모달에 값 넘기기
-		/*  		$("#insertModal").on('show.bs.modal', function(e) {
-		 var members = $(e.relatedTarget).data().members; // 클릭된 요소의 데이터에서 members 리스트 추출
-		 console.log(members);
-
-		 // members 리스트를 순회하면서 각 member 값을 가져와서 Modal 필드에 설정
-		 members.forEach(function(member) {
-		 var memberNo = member.member_no;
-		 var memberName = member.name;
-		 // 이제 각 member 값에 대해 원하는 작업을 수행할 수 있습니다.
-		 // 예를 들어, 가져온 값을 필드에 설정하거나 콘솔에 출력하거나 다른 처리를 수행할 수 있습니다.
-		 console.log(memberNo, memberName);
-		 });
-		 });  */
 
 		// 수정 모달에 값 넘기기
 		$("#updateModal").on('show.bs.modal', function(e) { // #updateModal 실행해서 모달 창 보이면 function(e)실행
@@ -215,18 +149,39 @@ $(document).ready(function(){
 <!-- 결재라인 : 선택된 결재자 정보 띄우기 -->
 <script>
     $(document).ready(function () {
-        $("#selectMembersCreate").change(function () {
-            var selectedMemberNo = $(this).val(); // 선택된 결재자의 member_no 값
-            var selectedMemberName = $("#selectMembersCreate option:selected").data("membername"); // 선택된 결재자의 이름
-            var selectedProjectNo = $("#selectMembersCreate option:selected").data("projectno"); // 선택된 결재자의 프로젝트 넘버
+        // $("#selectMembersCreate1").change(function () {
+        	$("#insert_btn").click(function () { // 업무 생성 버튼 누르면 아래 실행
+        	
+            var selectedMemberNo = $("#selectMembersCreate1").val();
+            var selectedMemberName = $("#selectMembersCreate1 option:selected").data("membername");
+            var selectedStep = $("#selectMembersCreate1 option:selected").data("step"); // 선택된 결재자의 단계
 
-            // 나중에 여기서 결재 테이블에 넣으면 되지 않을까?
-            console.log("선택된 결재자의 member_no:", selectedMemberNo);
+            // 확인용으로 콘솔에 출력 => 안찍힘
+            console.log("선택된 결재자의 번호:", selectedMemberNo);
             console.log("선택된 결재자의 이름:", selectedMemberName);
-            console.log("선택된 결재자의 project_no:", selectedProjectNo);
-            console.log("------------------------");
-            
-            
+            console.log("선택된 결재자의 단계:", selectedStep);
+         
+            // AJAX를 사용해 데이터를 서버로 전송
+            $.ajax({
+                type: "POST",
+                url: "/insert", // => 컨트롤러의 업무 생성 부분의 url
+                data:  JSON.stringify( {
+                    member_no: selectedMemberNo, // member_no 값을 서버로 보냄 
+                    sign_approver: selectedMemberName, // 결재자(sign_approver)
+                    sign_step: selectedStep // 결재단계(sign_step)
+                }) ,
+                contentType: "application/json", // JSON 데이터임을 명시
+                dataType: "json", // 서버로부터 받을 데이터 타입을 명시 (응답으로 JSON을 받을 경우)
+                success: function (response) {
+                    // 필요하다면 서버 응답을 처리
+                    console.log("데이터가 성공적으로 서버로 전송되었습니다!");
+                },
+                error: function (xhr, status, error) {
+                    // 오류가 발생했을 경우 처리
+                    console.error("데이터를 서버로 전송하는데 오류가 발생했습니다:", error);
+                }
+            }); 
+            console.log("JSON 데이터 : " + JSON.stringify(data));
             
         });
     });
@@ -282,7 +237,7 @@ $(document).ready(function(){
 	<h2>list</h2>
 	<br /><br />
 	<!-- 업무 생성 모달 버튼 -->
-	<button type="button" id="insert_btn" class="btn btn-primary" data-no="${dto.task_no}" <%-- data-member="${members}"  --%>data-bs-toggle="modal" data-bs-target="#insertModal">업무 생성</button>
+	<button type="button" id="insert_modal" class="btn btn-primary" data-no="${dto.task_no}" <%-- data-member="${members}"  --%>data-bs-toggle="modal" data-bs-target="#insertModal">업무 생성</button>
 <!-- 	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">
 	  업무 생성
 	</button> -->
@@ -337,7 +292,7 @@ $(document).ready(function(){
 
 <!-- 업무 생성 모달 -->
 <!-- 일단 업무 생성 구현 용으로 project_no와 member_no을 임의로 지정 -->
-<form action="insert?project_no=1&member_no=1" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
+<form action="insert?project_no=1&member_no=1" id="insertForm" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
 <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -361,7 +316,8 @@ $(document).ready(function(){
 							<option value="2">일시중지</option>
 							<option value="3">완료</option>
 						</td>
-			</td></tr>
+			</td>
+			</tr>
 			<tr>
 
 				<table class="table" id="tb" >
@@ -374,29 +330,29 @@ $(document).ready(function(){
 					<tr>
 					<tr> 
 						<td>
-				            <select name="sign_approval" id="selectMembersCreate" class="form-select" aria-label="Default select example">
+				            <select name="sign_approval" id="selectMembersCreate1" class="form-select" aria-label="Default select example">
 				              <option value="">------결재자 선택-----</option>
 				              <c:forEach var="member" items="${members}">
-				                <option value="${member.member_no}" data-membername="${member.name}" data-projectno="${member.project_no}" >${member.name}</option>
+				                <option value="${member.member_no}" data-membername="${member.name}" data-projectno="${member.project_no}" data-step="1">${member.name}</option>
+				              </c:forEach>
+				            </select>
+						</td>
+<%-- 						<td>
+				            <select name="sign_approval" id="selectMembersCreate2" class="form-select" aria-label="Default select example">
+				              <option value="">------결재자 선택-----</option>
+				              <c:forEach var="member" items="${members}">
+				                <option value="${member.member_no}" data-membername="${member.name}" data-step="2">${member.name}</option>
 				              </c:forEach>
 				            </select>
 						</td>
 						<td>
-				            <select name="sign_approval" id="selectMembersCreate" class="form-select" aria-label="Default select example">
+				            <select name="sign_approval" id="selectMembersCreate3" class="form-select" aria-label="Default select example">
 				              <option value="">------결재자 선택-----</option>
 				              <c:forEach var="member" items="${members}">
-				                <option value="${member.member_no}" data-membername="${member.name}" >${member.name}</option>
+				                <option value="${member.member_no}" data-membername="${member.name}" data-step="3" >${member.name}</option>
 				              </c:forEach>
 				            </select>
-						</td>
-						<td>
-				            <select name="sign_approval" id="selectMembersCreate" class="form-select" aria-label="Default select example">
-				              <option value="">------결재자 선택-----</option>
-				              <c:forEach var="member" items="${members}">
-				                <option value="${member.member_no}" data-membername="${member.name}" >${member.name}</option>
-				              </c:forEach>
-				            </select>
-						</td>
+						</td> --%>
 					</tr>
 				</table>
 				<br />
@@ -432,7 +388,7 @@ $(document).ready(function(){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="submit" class="btn btn-primary">업무 생성</button>
+        <button type="submit" id="insert_btn" class="btn btn-primary">업무 생성</button>
       </div>
     </div>
   </div>
