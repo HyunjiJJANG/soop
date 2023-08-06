@@ -162,8 +162,10 @@ form {
 #profileCard {
 	text-align: left;
 	align-items: center;
+	 height: 500px; 
+  overflow-y: auto; 
+  
 }
-
 /* 검색창  */
 #searchDiv {
 	position: relative;
@@ -227,147 +229,71 @@ form {
 </style>
 
 <script type="text/javascript">
-$(function() {
-	  $("#searchInput").on("keyup", function() {
-	    /* test를 위한 console.log */
-	    console.log("searchName keyup 이벤트 발생중");
-
-	    var searchName = $(this).val().trim();
-	    var member_no = parseInt($("#member_no").val());
-	    var project_no = parseInt($("#project_no").val());
-	    getSearchList(searchName, member_no, project_no); // Pass member_no and project_no as arguments
-	  });
+	$(function() {
+		$("#searchInput").on("keyup", function() {
+			var searchName = $(this).val().trim();
+			var member_no = parseInt($("#member_no").val());
+			var project_no = parseInt($("#project_no").val());
+			getSearchList(searchName, member_no, project_no);
+		});
 	});
 
 	function getSearchList(searchName, member_no, project_no) {
-	  console.log("searchName getSearchList 이벤트 발생중");
-	  $.ajax({
-	    url: "/getSearchList",
-	    method: "GET",
-	    data: {
-	      searchName: searchName,
-	      member_no: member_no,
-	      project_no: project_no
-	    },
-	    dataType: "json", // Use "json" instead of "text" to parse the response as JSON
-	    success: function(result) {
-	      // Clear previous search results
-	      $('#searchResultList').empty();
+		console.log("searchName getSearchList 이벤트 발생중");
 
-	      if (result && result.length >= 1) {
-	        // Create a container to hold the search results
-	        var searchResultsContainer = $('<div></div>');
+		$
+				.ajax({
+					url : "/getSearchList",
+					method : "GET",
+					data : {
+						searchName : searchName,
+						member_no : member_no,
+						project_no : project_no
+					},
+					dataType : "json",
+					success : function(result) {
+						if (result && result.length >= 1) {
+							var searchResultList = [];
 
-	        result.forEach(function(item) {
-	          var str = '<div class="card">';
-	          str += '<img src="' + item.profile_path + '" class="card-img-top" alt="프로필 이미지" id="profileImage">';
-	          str += '<div class="card-body">';
-	          str += '<h5 class="card-title" style="margin-top: 10px;">' + item.name + '</h5>';
-	          str += '<p class="card-text">' + item.email + '</p>';
-	          str += '</div>';
-	          str += '</div>';
+							result
+									.forEach(function(item) {
+										var str = '<div class="col" id="searchResultList">';
+										str += '<div class="card">';
+										str += '<img src="' + item.profile_path + '" class="card-img-top" alt="프로필 이미지" id="profileImage">';
+										str += '<div class="card-body">';
+										str += '<h5 class="card-title" style="margin-top: 10px;">'
+												+ item.name + '</h5>';
+										str += '<p class="card-text">'
+												+ item.email + '</p>';
+										str += '</div>';
+										str += '</div>';
+										str += '</div>';
 
-	          // Append each search result item to the container
-	          searchResultsContainer.append(str);
-	        });
+										searchResultList.push(str); 
+									});
 
-	        // Append the container to the search result list div
-	        $('#searchResultList').append(searchResultsContainer);
-	      }
-	    },
-	    error: function(xhr, textStatus, errorThrown) {
-	      console.log("Error occurred:", errorThrown);
-	    }
-	  });
+							
+							$('#profileCard').empty().append(
+									searchResultList.join(''));
+						} else {
+							
+							$('#profileCard').empty();
+						}
+					},
+					error : function(xhr, textStatus, errorThrown) {
+						console.log("Error occurred:", errorThrown);
+					}
+				});
 	}
-
 </script>
-
-
-<!-- script -->
-<!-- 
-<script type="text/javascript">
-	$(function() {
-		$("#searchInput").on("keyup", function() {
-			/* test를 위한 console.log */
-			console.log("searchName keyup 이벤트 발생중");
-			
-			var searchName = $(this).val().trim();
-		    var member_no = parseInt($("#member_no").val());
-		    var project_no = parseInt($("#project_no").val());
-			getSearchList(searchName); // 서버에서 멤버 데이터 가져오는 함수 호출
-		});
-	});
-	
-	function getSearchList(searchName){
-			console.log("searchName getSearchList 이벤트 발생중");
-		$.ajax({
-			
-			url : "/getSearchList",
-			method : "GET",
-			data : {
-				searchName : searchName,
-				member_no : member_no,
-				project_no : project_no
-			},
-			dataType : "text",
-			success: function (result) {
-			    // Clear previous search results
-			    $('#searchResultList').empty();
-
-			    if (result.length >= 1) {
-			        // Create a container to hold the search results
-			        var searchResultsContainer = $('<div></div>');
-
-			        result.forEach(function (item) {
-			            var str = '<div class="card">';
-			            str += '<img src="' + item.profile_path + '" class="card-img-top" alt="프로필 이미지" id="profileImage">';
-			            str += '<div class="card-body">';
-			            str += '<h5 class="card-title" style="margin-top: 10px;">' + item.name + '</h5>';
-			            str += '<p class="card-text">' + item.email + '</p>';
-			            str += '</div>';
-			            str += '</div>';
-
-			            // Append each search result item to the container
-			            searchResultsContainer.append(str);
-			        });
-
-			        // Append the container to the search result list div
-			        $('#searchResultList').append(searchResultsContainer);
-			    }
-			}
-			
-/* 			success : function(result){
-				//테이블 초기화
-				$('#searchResultList').empty();
-				if(result.length>=1){
-					result.forEach(function(item){
-						str='<div class="card">';
-							str += "<img src='+item.profile_path+' class='card-img-top' alt='프로필 이미지' id='profileImage'>";
-							str+="<div class='card-body'>";
-							str+="<h5 class='card-title' style='margin-top: 10px;'>+item.name+</h5>";
-							str+="<p class='card-text'>+item.email+</p>";
-							str+="</div>";
-							str+="</div>"
-						$('#searchResultList').append(str);
-	        		})				 
-				}
-			} */
-		})
-	}
-
-	
-</script>
--->
 </head>
 
 <body class="d-flex flex-column h-100">
-<h2>email : ${email }</h2>
-<h2>member_no : ${member_no }</h2>
-<h2>project_no : ${project_no }</h2>
-<input type="text" value="${email }" name="email" />
-<input type="text" value="${member_no }" name="member_no" id="member_no" />
-<input type="text" value="${project_no }" name="project_no" id="project_no" />
+	<input type="hidden" value="${email }" name="email" />
+	<input type="hidden" value="${member_no }" name="member_no"
+		id="member_no" />
+	<input type="hidden" value="${project_no }" name="project_no"
+		id="project_no" />
 
 	<div class="global-container">
 		<div class="card mypage-form">
@@ -381,23 +307,23 @@ $(function() {
 				<div class="card-text">
 
 					<div class="card-title text-left" id="MypageH6"></div>
-					<div class="row row-cols-1 row-cols-md-3 g-4" id="profileCard">
-						<c:forEach var="memberProjectMemberdto" items="${list}">
-							<div class="col" id="searchResultList">
-								<div class="card">
-									<img src="${memberProjectMemberdto.profile_path }"
-										class="card-img-top" alt="프로필 이미지" id="profileImage">
+					  <div class="search-result-container">
+						<div class="row row-cols-1 row-cols-md-3 g-4" id="profileCard">
+							<c:forEach var="memberProjectMemberdto" items="${list}">
+								<div class="col" id="searchResultList">
+									<div class="card">
+										<img src="${memberProjectMemberdto.profile_path }"
+											class="card-img-top" alt="프로필 이미지" id="profileImage">
 
-									<div class="card-body">
-										<h5 class="card-title" style="margin-top: 10px;">${memberProjectMemberdto.name }</h5>
-										<p class="card-text">${memberProjectMemberdto.email }</p>
+										<div class="card-body">
+											<h5 class="card-title" style="margin-top: 10px;">${memberProjectMemberdto.name }</h5>
+											<p class="card-text">${memberProjectMemberdto.email }</p>
+										</div>
 									</div>
 								</div>
-							</div>
-						</c:forEach>
+							</c:forEach>
+						</div>
 					</div>
-
-
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,15 +128,24 @@ form {
 	width: 100%;
 }
 
+/* 이미지 수정 아이콘 스타일 */
 #profileImageModifyButton {
-	position: fixed;
-	top: 308px; /* 화면 위쪽에서 20px 떨어진 위치에 고정됩니다. */
-	left: 314px; /* 화면 오른쪽에서 20px 떨어진 위치에 고정됩니다. */
-	width: 50px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	left: 90px;
+	width: 30px;
+	height: 30px;
 	background-color: #bdbdbd;
-	padding: 10px;
-	border-radius: 50%; /* 반지름 값이 너비와 높이의 절반 크기가 되도록 설정 */
-	object-fit: cover; /* 이미지가 요소에 꽉 차도록 설정 */
+	border-radius: 50%;
+	object-fit: cover;
+	z-index: 1; /* 이미지를 다른 요소들 위에 겹치도록 설정 */
+}
+
+/* 프로필 이미지 스타일 수정 */
+img.rounded {
+	position: relative;
+	z-index: 0; /* 프로필 이미지의 z-index 값을 낮추어 다른 요소 위에 나오도록 설정 */
 }
 </style>
 <!--
@@ -226,6 +235,11 @@ form {
 				isPasswordCheckOk = true;
 			}
 		})
+		
+		
+		
+		
+	
 
 		//이름 변경 확인 버튼을 누르면
 		$("#nameChangeOk")
@@ -336,447 +350,474 @@ form {
 				});
 
 	})
+	
+
+	
+	/* 프로필 사진 변경 코드  */
+
+	$(document).ready(function() {
+    $("#profileImageInput").on("change", function() {
+        const file = this.files[0];
+        const formData = new FormData();
+        formData.append("profileImage", file);
+        formData.append("email", $("#email").val());
+       
+
+        $.ajax({
+            type: "POST",
+            url: "/uploadProfileImage",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                // 성공적으로 업로드된 경우 처리 로직
+                alert("프로필 사진이 성공적으로 업로드되었습니다!");
+                location.reload();
+            },
+            error: function(error) {
+                // 업로드 오류 처리 로직
+                alert("프로필 사진 업로드에 오류가 발생했습니다.");
+            }
+        });
+    });
+});
 </script>
 
 
 </head>
 <c:if test="${not empty memberDto}">
-<body class="d-flex flex-column h-100">
-	<div class="global-container">
-		<div class="card mypage-form">
-			<div class="card-body">
-				<h2 class="card-title text-left" id="MypageH2">마이페이지</h2>
-				<hr class="pill" />
-				<div class="card-text">
-					<form name="frm" id="frm">
-						<div class="card-title text-left" id="MypageH6">
-							<h5>회원정보</h5>
-						</div>
-						<!--회원 프로필 사진  -->
-						<div class="text-left"
-							style="margin-top: 50px; margin-bottom: 50px;">
-							<img src="${memberDto.profile_path }" class="rounded"
-								alt="profile_image"> 
-								<a href="#" id="profileImageModify"><img src="/images/iconmodify.png"
-								 alt="profile_image"
-								id="profileImageModifyButton"></a>
-								
-
-						</div>
-
-
-
-
-						<!-- 이메일 -->
-						<div class="row g-3 align-items-center" style="width: 800px;">
-							<div class="col-md-6 position-relative">
-								<div class="col-6">
-									<span class="join-label-title">이메일(아이디)</span>
-									<div class="form-floating">
-										<div class="form-floating mb-3">
-											<input type="email" class="form-control" name="emailView"
-												id="emailView" value="${memberDto.email }"
-												style="--bs-border-color: #ffffff; padding-top: 0px;"
-												readonly /> <input type="hidden" id="email" name="email"
-												value="${memberDto.email }" />
-
-										</div>
-									</div>
-								</div>
+	<body class="d-flex flex-column h-100">
+		<div class="global-container">
+			<div class="card mypage-form">
+				<div class="card-body">
+					<h2 class="card-title text-left" id="MypageH2">마이페이지</h2>
+					<hr class="pill" />
+					<div class="card-text">
+						<!-- <form name="frm" id="frm"> -->
+							<div class="card-title text-left" id="MypageH6">
+								<h5>회원정보</h5>
 							</div>
-						</div>
+							<!-- 회원 프로필 사진 -->
+							<div class="text-left"
+								style="margin-top: 50px; margin-bottom: 50px; position: relative;">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-						<div style="margin-top: 30px; margin-bottom: 40px;">
-							<hr />
-						</div>
-						<div class="card-title text-left" id="MypageH6">
-							<h5>회원정보 수정</h5>
-						</div>
-						<div style="margin-top: 30px; margin-bottom: 40px;">
-							<hr />
-						</div>
-						<div style="margin-bottom: 30px;">
-							<span>로그인 정보</span>
-						</div>
-						<!-- hidden -->
-
-
-
-
-						<!-- 닉네임 -->
-						<div class="row g-3 align-items-center" style="width: 800px;"
-							id="nameDiv">
-							<div class="col-md-6 position-relative" style="width: 150px;">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
-									<div class="form-floating">
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control" name="nameView"
-												id="nameView" value="${memberDto.name }"
-												style="--bs-border-color: #ffffff; padding-top: 0px; width: 100px; margin-bottom: 45px;"
-												readonly />
-										</div>
-
-									</div>
-								</div>
+								<img src="/data/${memberDto.profile_name}" class="rounded"
+									alt="profile_image">
+	
+								<!-- 버튼을 누르면 회원 프로필 사진이 변경되게하는 a태그 -->
+								<form id="profileImageForm" enctype="multipart/form-data" modelAttribute="uploadFile" method="POST">
+									<a href="#" id="profileImageModify">  <img
+										src="/images/iconmodify.png" alt="profile_image"
+										id="profileImageModifyButton">
+									</a>
+									<input type="file"
+										id="profileImageInput"/>
+								</form>
+								<!-- <a href="#" id="profileImageModify"> <input type="file"
+									id="profileImageInput" style="display: none;"> <img
+									src="/images/iconmodify.png" alt="profile_image"
+									id="profileImageModifyButton">
+								</a> -->
 							</div>
 
-							<div class="col-1">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="변경" id="nameChange"
-									style="height: 45px; margin-top: 15px; margin-left: 60px;" />
-							</div>
 
-						</div>
+							<!-- 이메일 -->
+							<div class="row g-3 align-items-center" style="width: 800px;">
+								<div class="col-md-6 position-relative">
+									<div class="col-6">
+										<span class="join-label-title">이메일(아이디)</span>
+										<div class="form-floating">
+											<div class="form-floating mb-3">
+												<input type="email" class="form-control" name="emailView"
+													id="emailView" value="${memberDto.email }"
+													style="--bs-border-color: #ffffff; padding-top: 0px;"
+													readonly /> <input type="hidden" id="email" name="email"
+													value="${memberDto.email }" />
 
-						<!-- 닉네임 변경 후 보일 div -->
-						<div class="row g-3 align-items-center"
-							style="width: 800px; display: none;" id="nameChangOkDiv">
-							<div class="col-md-6 position-relative" style="width: 150px;">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
-									<div class="form-floating">
-										<div class="form-floating mb-3">
-											<div class="col-6">
-												<span id="nameCkView" class="form-text"></span>
 											</div>
 										</div>
-
 									</div>
 								</div>
 							</div>
 
-							<div class="col-1">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="변경" id="nameChange"
-									style="height: 45px; margin-top: 15px; margin-left: 60px;" />
+
+
+							<div style="margin-top: 30px; margin-bottom: 40px;">
+								<hr />
 							</div>
-
-						</div>
-
-
-						<!-- 새로 받을 닉네임 -->
-						<div class="row g-3 align-items-center" id="newChangeNameDiv"
-							style="width: 800px; display: none;">
-							<div class="col-md-6 position-relative" style="width: 150px;">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
-									<div class="form-floating">
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control" name="name" id="name"
-												style="padding-top: 0px; width: 250px; margin-bottom: 45px;"
-												id="validationTooltipUsername"
-												aria-describedby="validationTooltipUsernamePrepend" required />
-											<div class="invalid-feedback"
-												style="width: 300px; margin-bottom: 30px; margin-top: -20px;">닉네임은
-												2글자 이상 작성해주세야합니다.</div>
-										</div>
-
-									</div>
-								</div>
+							<div class="card-title text-left" id="MypageH6">
+								<h5>회원정보 수정</h5>
 							</div>
-
-							<div class="col-1" style="margin-top: 10px;">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="변경" id="nameChangeOk"
-									style="height: 45px; margin-top: 15px; margin-left: 150px;" />
+							<div style="margin-top: 30px; margin-bottom: 40px;">
+								<hr />
 							</div>
-							<div class="col-1" style="margin-top: 10px;">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="입력 취소" id="nameChangeCancel"
-									style="height: 45px; margin-top: 15px; margin-left: 190px;" />
+							<div style="margin-bottom: 30px;">
+								<span>로그인 정보</span>
 							</div>
+							<!-- hidden -->
 
-						</div>
 
 
-						<!-- 비밀번호 -->
-						<div class="row g-3 align-items-center" style="width: 800px;"
-							id="passwordDiv">
-							<div class="col-md-6 position-relative" style="width: 150px;">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">비밀번호</span>
-									<div class="form-floating">
+
+							<!-- 닉네임 -->
+							<div class="row g-3 align-items-center" style="width: 800px;"
+								id="nameDiv">
+								<div class="col-md-6 position-relative" style="width: 150px;">
+									<div class="col-6">
+										<span class="join-label-title"
+											style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
 										<div class="form-floating">
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" name="nameView"
+													id="nameView" value="${memberDto.name }"
+													style="--bs-border-color: #ffffff; padding-top: 0px; width: 100px; margin-bottom: 45px;"
+													readonly />
+											</div>
 
-
-											<input type="password" class="form-control" name="pwView"
-												id="pwView" class="form-control" value="password"
-												style="--bs-border-color: #ffffff; width: 100px; margin-bottom: 45px;"
-												readonly /> <input type="hidden" class="form-control"
-												name="passwordView" id="passwordView" class="form-control"
-												value="${memberDto.password }" /> <label for="password"></label>
 										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-1">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="변경" id="passwordChange"
-									style="height: 45px; margin-top: 15px; margin-left: 60px;" />
+
+								<div class="col-1">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="변경" id="nameChange"
+										style="height: 45px; margin-top: 15px; margin-left: 60px;" />
+								</div>
 
 							</div>
-						</div>
 
-						<!-- 변경 할 비밀번호 -->
-						<div class="row g-3 align-items-center"
-							style="width: 800px; display: none;" id="newChangePasswordDiv">
-							<div class="col-md-6 position-relative" style="width: 150px;">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">비밀번호</span>
-									<div class="form-floating">
+							<!-- 닉네임 변경 후 보일 div -->
+							<div class="row g-3 align-items-center"
+								style="width: 800px; display: none;" id="nameChangOkDiv">
+								<div class="col-md-6 position-relative" style="width: 150px;">
+									<div class="col-6">
+										<span class="join-label-title"
+											style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
 										<div class="form-floating">
-											<input type="password" class="form-control" name="password"
-												id="password" class="form-control"
-												style="width: 250px; margin-bottom: 45px;"
-												id="validationTooltipUsername"
-												aria-describedby="validationTooltipUsernamePrepend" required />
-											<label for="password"></label>
-											<div class="invalid-feedback"
-												style="width: 300px; margin-bottom: 30px; margin-top: -20px;">8~30자
-												영문 대소문자, 숫자만 입력하세요.</div>
+											<div class="form-floating mb-3">
+												<div class="col-6">
+													<span id="nameCkView" class="form-text"></span>
+												</div>
+											</div>
+
 										</div>
 									</div>
 								</div>
+
+								<div class="col-1">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="변경" id="nameChange"
+										style="height: 45px; margin-top: 15px; margin-left: 60px;" />
+								</div>
+
 							</div>
-						</div>
-						<!-- 변경 할 비밀번호 확인 -->
-						<div class="row g-3 align-items-center"
-							style="width: 800px; display: none; margin-top: -50px;"
-							id="newChangePasswordCheckDiv">
-							<div class="col-md-6 position-relative" style="width: 150px;">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">비밀번호 확인</span>
-									<div class="form-floating">
+
+
+							<!-- 새로 받을 닉네임 -->
+							<div class="row g-3 align-items-center" id="newChangeNameDiv"
+								style="width: 800px; display: none;">
+								<div class="col-md-6 position-relative" style="width: 150px;">
+									<div class="col-6">
+										<span class="join-label-title"
+											style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
 										<div class="form-floating">
-											<input type="password" class="form-control" name="repeatPw"
-												id="repeatPw" class="form-control"
-												style="width: 250px; margin-bottom: 45px;"
-												id="validationTooltipUsername"
-												aria-describedby="validationTooltipUsernamePrepend" required />
-											<label for="password"></label>
-											<div class="invalid-feedback"
-												style="width: 300px; margin-bottom: 30px; margin-top: -20px;">비밀번호와
-												동일하지 않습니다.</div>
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" name="name"
+													id="name"
+													style="padding-top: 0px; width: 250px; margin-bottom: 45px;"
+													id="validationTooltipUsername"
+													aria-describedby="validationTooltipUsernamePrepend"
+													required />
+												<div class="invalid-feedback"
+													style="width: 300px; margin-bottom: 30px; margin-top: -20px;">닉네임은
+													2글자 이상 작성해주세야합니다.</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="col-1" style="margin-top: 10px;">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="변경" id="nameChangeOk"
+										style="height: 45px; margin-top: 15px; margin-left: 150px;" />
+								</div>
+								<div class="col-1" style="margin-top: 10px;">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="입력 취소" id="nameChangeCancel"
+										style="height: 45px; margin-top: 15px; margin-left: 190px;" />
+								</div>
+
+							</div>
+
+
+							<!-- 비밀번호 -->
+							<div class="row g-3 align-items-center" style="width: 800px;"
+								id="passwordDiv">
+								<div class="col-md-6 position-relative" style="width: 150px;">
+									<div class="col-6">
+										<span class="join-label-title"
+											style="width: 200px; margin-top: 20px;">비밀번호</span>
+										<div class="form-floating">
+											<div class="form-floating">
+
+
+												<input type="password" class="form-control" name="pwView"
+													id="pwView" class="form-control" value="password"
+													style="--bs-border-color: #ffffff; width: 100px; margin-bottom: 45px;"
+													readonly /> <input type="hidden" class="form-control"
+													name="passwordView" id="passwordView" class="form-control"
+													value="${memberDto.password }" /> <label for="password"></label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-1">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="변경" id="passwordChange"
+										style="height: 45px; margin-top: 15px; margin-left: 60px;" />
+
+								</div>
+							</div>
+
+							<!-- 변경 할 비밀번호 -->
+							<div class="row g-3 align-items-center"
+								style="width: 800px; display: none;" id="newChangePasswordDiv">
+								<div class="col-md-6 position-relative" style="width: 150px;">
+									<div class="col-6">
+										<span class="join-label-title"
+											style="width: 200px; margin-top: 20px;">비밀번호</span>
+										<div class="form-floating">
+											<div class="form-floating">
+												<input type="password" class="form-control" name="password"
+													id="password" class="form-control"
+													style="width: 250px; margin-bottom: 45px;"
+													id="validationTooltipUsername"
+													aria-describedby="validationTooltipUsernamePrepend"
+													required /> <label for="password"></label>
+												<div class="invalid-feedback"
+													style="width: 300px; margin-bottom: 30px; margin-top: -20px;">8~30자
+													영문 대소문자, 숫자만 입력하세요.</div>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="col-1">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="변경" id="passwordChangeOk"
-									style="height: 45px; margin-top: 15px; margin-left: 150px;" />
+							<!-- 변경 할 비밀번호 확인 -->
+							<div class="row g-3 align-items-center"
+								style="width: 800px; display: none; margin-top: -50px;"
+								id="newChangePasswordCheckDiv">
+								<div class="col-md-6 position-relative" style="width: 150px;">
+									<div class="col-6">
+										<span class="join-label-title"
+											style="width: 200px; margin-top: 20px;">비밀번호 확인</span>
+										<div class="form-floating">
+											<div class="form-floating">
+												<input type="password" class="form-control" name="repeatPw"
+													id="repeatPw" class="form-control"
+													style="width: 250px; margin-bottom: 45px;"
+													id="validationTooltipUsername"
+													aria-describedby="validationTooltipUsernamePrepend"
+													required /> <label for="password"></label>
+												<div class="invalid-feedback"
+													style="width: 300px; margin-bottom: 30px; margin-top: -20px;">비밀번호와
+													동일하지 않습니다.</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-1">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="변경" id="passwordChangeOk"
+										style="height: 45px; margin-top: 15px; margin-left: 150px;" />
+								</div>
+								<div class="col-1">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="입력 취소" id="passwordChangeCancel"
+										style="height: 45px; margin-top: 15px; margin-left: 190px;" />
+								</div>
+
 							</div>
-							<div class="col-1">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="입력 취소" id="passwordChangeCancel"
-									style="height: 45px; margin-top: 15px; margin-left: 190px;" />
-							</div>
 
-						</div>
+							<hr />
 
-						<hr />
+					<!-- 	</form> -->
 
-					</form>
-
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</body>
-	</c:if>
-	
-	
-	
-	<c:if test="${not empty memberOauth2Dto}">
-<body class="d-flex flex-column h-100">
-	<div class="global-container">
-		<div class="card mypage-form">
-			<div class="card-body">
-				<h2 class="card-title text-left" id="MypageH2">마이페이지</h2>
-				<hr class="pill" />
-				<div class="card-text">
-					<form name="frm" id="frm">
-						<div class="card-title text-left" id="MypageH6">
-							<h5>회원정보</h5>
-						</div>
-						<!--회원 프로필 사진  -->
-						<div class="text-left"
-							style="margin-top: 50px; margin-bottom: 50px;">
-							<img src="${memberOauth2Dto.profile_path }" class="rounded"
-								alt="profile_image"> 
-								<a href="#" id="profileImageModify"><img src="/images/iconmodify.png"
-								 alt="profile_image"
-								id="profileImageModifyButton"></a>
-								
-
-						</div>
+	</body>
+</c:if>
 
 
 
-
-						<!-- 이메일 -->
-						<div class="row g-3 align-items-center" style="width: 800px;">
-							<div class="col-md-6 position-relative">
-								<div class="col-6">
-									<span class="join-label-title">이메일(아이디)</span>
-									<div class="form-floating">
-										<div class="form-floating mb-3">
-											<input type="email" class="form-control" name="emailView"
-												id="emailView" value="${memberOauth2Dto.email }"
-												style="--bs-border-color: #ffffff; padding-top: 0px;"
-												readonly /> <input type="hidden" id="email" name="email"
-												value="${memberOauth2Dto.email }" />
-
-										</div>
-									</div>
-								</div>
+<c:if test="${not empty memberOauth2Dto}">
+	<body class="d-flex flex-column h-100">
+		<div class="global-container">
+			<div class="card mypage-form">
+				<div class="card-body">
+					<h2 class="card-title text-left" id="MypageH2">마이페이지</h2>
+					<hr class="pill" />
+					<div class="card-text">
+					<!-- 	<form name="frm" id="frm"> -->
+							<div class="card-title text-left" id="MypageH6">
+								<h5>회원정보</h5>
 							</div>
-						</div>
+							<!-- 회원 프로필 사진 -->
+							<div class="text-left"
+								style="margin-top: 50px; margin-bottom: 50px; position: relative;">
+								<img src="${memberDto.profile_path}" class="rounded"
+									alt="profile_image">
 
-
-
-						<div style="margin-top: 30px; margin-bottom: 40px;">
-							<hr />
-						</div>
-						<div class="card-title text-left" id="MypageH6">
-							<h5>회원정보 수정</h5>
-						</div>
-						<div style="margin-top: 30px; margin-bottom: 40px;">
-							<hr />
-						</div>
-						<div style="margin-bottom: 30px;">
-							<span>로그인 정보</span>
-						</div>
-						<!-- hidden -->
-
-
-
-
-						<!-- 닉네임 -->
-						<div class="row g-3 align-items-center" style="width: 800px;"
-							id="nameDiv">
-							<div class="col-md-6 position-relative" style="width: 150px;">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
-									<div class="form-floating">
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control" name="nameView"
-												id="nameView" value="${memberOauth2Dto.name }"
-												style="--bs-border-color: #ffffff; padding-top: 0px; width: 100px; margin-bottom: 45px;"
-												readonly />
-										</div>
-
-									</div>
-								</div>
+								<!-- 버튼을 누르면 회원 프로필 사진이 변경되게하는 a태그 -->
+								<!-- <a href="#" id="profileImageModify"> <input type="file"
+									id="profileImageInput" style="display: none;"> <img
+									src="/images/iconmodify.png" alt="profile_image"
+									id="profileImageModifyButton">
+								</a> -->
 							</div>
 
-							<div class="col-1">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="변경" id="nameChange"
-									style="height: 45px; margin-top: 15px; margin-left: 60px;" />
-							</div>
 
-						</div>
+							<!-- 이메일 -->
+							<div class="row g-3 align-items-center" style="width: 800px;">
+								<div class="col-md-6 position-relative">
+									<div class="col-6">
+										<span class="join-label-title">이메일(아이디)</span>
+										<div class="form-floating">
+											<div class="form-floating mb-3">
+												<input type="email" class="form-control" name="emailView"
+													id="emailView" value="${memberOauth2Dto.email }"
+													style="--bs-border-color: #ffffff; padding-top: 0px;"
+													readonly /> <input type="hidden" id="email" name="email"
+													value="${memberOauth2Dto.email }" />
 
-						<!-- 닉네임 변경 후 보일 div -->
-						<div class="row g-3 align-items-center"
-							style="width: 800px; display: none;" id="nameChangOkDiv">
-							<div class="col-md-6 position-relative" style="width: 150px;">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
-									<div class="form-floating">
-										<div class="form-floating mb-3">
-											<div class="col-6">
-												<span id="nameCkView" class="form-text"></span>
 											</div>
 										</div>
-
 									</div>
 								</div>
 							</div>
 
-							<div class="col-1">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="변경" id="nameChange"
-									style="height: 45px; margin-top: 15px; margin-left: 60px;" />
+
+
+							<div style="margin-top: 30px; margin-bottom: 40px;">
+								<hr />
 							</div>
+							<div class="card-title text-left" id="MypageH6">
+								<h5>회원정보 수정</h5>
+							</div>
+							<div style="margin-top: 30px; margin-bottom: 40px;">
+								<hr />
+							</div>
+							<div style="margin-bottom: 30px;">
+								<span>로그인 정보</span>
+							</div>
+							<!-- hidden -->
 
-						</div>
 
 
-						<!-- 새로 받을 닉네임 -->
-						<div class="row g-3 align-items-center" id="newChangeNameDiv"
-							style="width: 800px; display: none;">
-							<div class="col-md-6 position-relative" style="width: 150px;">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
-									<div class="form-floating">
-										<div class="form-floating mb-3">
-											<input type="text" class="form-control" name="name" id="name"
-												style="padding-top: 0px; width: 250px; margin-bottom: 45px;"
-												id="validationTooltipUsername"
-												aria-describedby="validationTooltipUsernamePrepend" required />
-											<div class="invalid-feedback"
-												style="width: 300px; margin-bottom: 30px; margin-top: -20px;">닉네임은
-												2글자 이상 작성해주세야합니다.</div>
+
+							<!-- 닉네임 -->
+							<div class="row g-3 align-items-center" style="width: 800px;"
+								id="nameDiv">
+								<div class="col-md-6 position-relative" style="width: 150px;">
+									<div class="col-6">
+										<span class="join-label-title"
+											style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
+										<div class="form-floating">
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" name="nameView"
+													id="nameView" value="${memberOauth2Dto.name }"
+													style="--bs-border-color: #ffffff; padding-top: 0px; width: 100px; margin-bottom: 45px;"
+													readonly />
+											</div>
+
 										</div>
-
 									</div>
 								</div>
+
+								<div class="col-1">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="변경" id="nameChange"
+										style="height: 45px; margin-top: 15px; margin-left: 60px;" />
+								</div>
+
 							</div>
 
-							<div class="col-1" style="margin-top: 10px;">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="변경" id="nameChangeOk"
-									style="height: 45px; margin-top: 15px; margin-left: 150px;" />
+							<!-- 닉네임 변경 후 보일 div -->
+							<div class="row g-3 align-items-center"
+								style="width: 800px; display: none;" id="nameChangOkDiv">
+								<div class="col-md-6 position-relative" style="width: 150px;">
+									<div class="col-6">
+										<span class="join-label-title"
+											style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
+										<div class="form-floating">
+											<div class="form-floating mb-3">
+												<div class="col-6">
+													<span id="nameCkView" class="form-text"></span>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="col-1">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="변경" id="nameChange"
+										style="height: 45px; margin-top: 15px; margin-left: 60px;" />
+								</div>
+
 							</div>
-							<div class="col-1" style="margin-top: 10px;">
-								<input type="button" class="btn btn-outline-success btn-sm"
-									value="입력 취소" id="nameChangeCancel"
-									style="height: 45px; margin-top: 15px; margin-left: 190px;" />
+
+
+							<!-- 새로 받을 닉네임 -->
+							<div class="row g-3 align-items-center" id="newChangeNameDiv"
+								style="width: 800px; display: none;">
+								<div class="col-md-6 position-relative" style="width: 150px;">
+									<div class="col-6">
+										<span class="join-label-title"
+											style="width: 200px; margin-top: 20px;">닉네임(이름)</span>
+										<div class="form-floating">
+											<div class="form-floating mb-3">
+												<input type="text" class="form-control" name="name"
+													id="name"
+													style="padding-top: 0px; width: 250px; margin-bottom: 45px;"
+													id="validationTooltipUsername"
+													aria-describedby="validationTooltipUsernamePrepend"
+													required />
+												<div class="invalid-feedback"
+													style="width: 300px; margin-bottom: 30px; margin-top: -20px;">닉네임은
+													2글자 이상 작성해주세야합니다.</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="col-1" style="margin-top: 10px;">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="변경" id="nameChangeOk"
+										style="height: 45px; margin-top: 15px; margin-left: 150px;" />
+								</div>
+								<div class="col-1" style="margin-top: 10px;">
+									<input type="button" class="btn btn-outline-success btn-sm"
+										value="입력 취소" id="nameChangeCancel"
+										style="height: 45px; margin-top: 15px; margin-left: 190px;" />
+								</div>
+
 							</div>
 
-						</div>
 
+							<hr />
 
-						<hr />
-
-					</form>
-
+					<!-- 	</form>
+ -->
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-</body>
-	</c:if>
-	
+	</body>
+</c:if>
+
 </html>

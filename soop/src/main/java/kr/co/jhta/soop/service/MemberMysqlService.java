@@ -84,5 +84,12 @@ public class MemberMysqlService implements MemberService{
 		
 	}
 
+	@Override
+	public void updateOneProfile(MemberDTO dto) {
+		
+		dao.updateOneProfile(dto);
+		
+	}
+
 	
 }

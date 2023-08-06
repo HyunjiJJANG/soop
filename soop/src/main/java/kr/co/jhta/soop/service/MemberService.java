@@ -21,6 +21,7 @@ public interface MemberService {
 	
 	public void updateOneName(MemberDTO dto);
 	
+	public void updateOneProfile(MemberDTO dto);
 
 	public void deleteOne(int member_no);
 	
