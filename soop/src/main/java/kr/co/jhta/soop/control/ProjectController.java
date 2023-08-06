@@ -14,8 +14,10 @@ import kr.co.jhta.soop.dto.ProjectMemberDTO;
 import kr.co.jhta.soop.service.FeedService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectMemberService;
+import kr.co.jhta.soop.service.ProjectProjectMemberMemberMysqlService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 public class ProjectController {
@@ -27,7 +29,7 @@ public class ProjectController {
 
 	@Autowired
 	ProjectMemberService projectMemberService;
-	
+
 	@Autowired
 	ProjectProjectMemberMemberService projectProjectMemberMemberService;
 	
@@ -73,11 +75,12 @@ public class ProjectController {
 	public String goFeed(@RequestParam("project_no")int project_no,
 						 @RequestParam("member_no")int member_no,
 						 Model model) {
-		
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 		model.addAttribute("project_no", project_no);
-		model.addAttribute("name", memberService.selectOneByName(member_no));
-//		model.addAttribute("projectDetailDto", feedService.selectAllProjectDetail(project_no, member_no));
+		model.addAttribute("name", memberService.selectOneByName(member_no)); // 새 멤버초대하기 메일 제목에 name 들어갈 수 있게
+		model.addAttribute("memberDTO", memberService.selectOne(member_no)); // nav에 name 들어갈 수 있게
+		model.addAttribute("memberList", projectProjectMemberMemberService.selectAllProjectMember(project_no));
+		//		model.addAttribute("projectDetailDto", feedService.selectAllProjectDetail(project_no, member_no));
 		return "feed";
 	}
 	

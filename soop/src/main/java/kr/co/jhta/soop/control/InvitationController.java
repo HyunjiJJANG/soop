@@ -94,7 +94,7 @@ public class InvitationController {
 			e.printStackTrace();
 		}
 
-	} // sendMail() end
+	} // 이메일 초대링크 보내기 end
 
 	// 초대수락하기 버튼 클릭시 초대코드 인증하는 페이지로 이동
 	@GetMapping("/inviteMailCheck")
@@ -105,7 +105,7 @@ public class InvitationController {
 		}
 		
 		return "inviteMailCheck";
-	} // checkMember() end
+	} // 초대코드인증 페이지 이동 end
 	
 	// 로그인, 회원가입 완료 후 초대코드 인증 페이지로 이동
 	@GetMapping("/inviteMailcheckOk")
@@ -134,10 +134,14 @@ public class InvitationController {
 			
 			return "redirect:/clogin"; // 메인화면으로 리다이렉트
 			
-		} // if() end
+		} // 로그인,회원가입 완료후 초대코드인증 페이지 이동 end
 		
 		return "redirect:inviteMailCheck?isOk=3"; // 초대코드가 불일치하면 "일치하지 않습니다" 문구
 		
 	} // inviteMailcheckOk() end
+	
+	// 초대멤버 강퇴(삭제)
+	
+	
 	
 } // class end

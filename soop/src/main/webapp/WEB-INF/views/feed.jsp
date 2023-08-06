@@ -113,6 +113,16 @@
 		});
 		
 	})
+	
+	// 멤버 강퇴
+	$(function(){
+		$("#checkMember").on("change", function(){
+			console.log($("#checkMember:checked").val());
+			console.dir($("#checkMember"));
+		});
+		
+	});
+	
 </script>
 </head>
 <body class="modal-open" style="overflow: hidden; padding-right: 0px;">
@@ -313,10 +323,8 @@
                                 <i class="feather icon-more-horizontal"></i>
                             </button>
                             <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                                <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
-                                <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
-                                <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
+                                <li class="dropdown-item"><a href="#!"><i class="feather icon-refresh-cw"></i> 프로젝트 관리자 변경</a></li>
+                                <li class="dropdown-item"><a href="#!"><i class="feather icon-trash"></i> 멤버 강퇴</a></li>
                             </ul>
                         </div>
                     </div>
@@ -325,28 +333,33 @@
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
                             <tbody>
+                           		<!-- 해당 프로젝트 멤버 리스트가 보여지는 곳 -->
+                                <c:forEach var="dto" items="${memberList }">
                                 <tr>
                                     <td>
+										<div class="chk-option">
+											<label class="check-member custom-control custom-radio d-flex justify-content-center done-task">
+												<input type="radio" id="checkMember" value="${dto.member_no}" name="options checkMember" class="custom-control-input">
+												<span class="custom-control-label"></span>
+											</label>
+										</div>
                                         <div class="d-inline-block align-middle">
                                             <img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
                                             <div class="d-inline-block">
-                                                <h6>John Deo</h6>
-                                                <p class="text-muted m-b-0">프로젝트 매니저</p>
+													<h6>${dto.name }</h6>
+												<c:choose>
+												<c:when test="${dto.member_position == 0}">
+                                                	<p class="text-muted m-b-0">프로젝트 관리자</p>
+                                                </c:when>
+                                                <c:otherwise>
+                                                	<p class="text-muted m-b-0">프로젝트 멤버</p>
+                                                </c:otherwise>
+                                                </c:choose>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-inline-block align-middle">
-                                            <img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                            <div class="d-inline-block">
-                                                <h6>John Deo</h6>
-                                                <p class="text-muted m-b-0">프로젝트 멤버</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                </c:forEach>
                             </tbody>
                             <tfoot>
                             	<tr>

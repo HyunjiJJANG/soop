@@ -18,4 +18,9 @@ public class ProjectProjectMemberMemberMysqlService implements ProjectProjectMem
 		return projectProjectMemberMemberDAO.selectAllProjectTitle(member_no);
 	}
 
+	@Override
+	public List<ProjectProjectMemberMemberDTO> selectAllProjectMember(int project_no) {
+		return projectProjectMemberMemberDAO.selectAllProjectMember(project_no);
+	}
+
 }

@@ -12,5 +12,6 @@ import kr.co.jhta.soop.dto.ProjectProjectMemberMemberDTO;
 public interface ProjectProjectMemberMemberDAO {
 
 	List<ProjectProjectMemberMemberDTO> selectAllProjectTitle(int member_no);
+	List<ProjectProjectMemberMemberDTO> selectAllProjectMember(int project_no);
 
 }
