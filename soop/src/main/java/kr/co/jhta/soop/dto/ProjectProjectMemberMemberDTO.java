@@ -22,11 +22,9 @@ public class ProjectProjectMemberMemberDTO {
 	
 	// project member 테이블
 	private int member_no;
-//	private int project_no;
 	private int member_position;
 	
 	// member 테이블
-//	private int member_no;
 	private String email;
 	private String password;
 	private String name;

@@ -13,4 +13,6 @@ public interface ProjectProjectMemberMemberDAO {
 
 	List<ProjectProjectMemberMemberDTO> selectAllProjectTitle(int member_no);
 
+	List<ProjectProjectMemberMemberDTO> selectAllProjectMemberByPno(int project_no);
+
 }

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class FeedTaskDTO {
 	// project 테이블
 	private int project_no;
+	private String project_title;
 	
 	// member 테이블
 	private int member_no;

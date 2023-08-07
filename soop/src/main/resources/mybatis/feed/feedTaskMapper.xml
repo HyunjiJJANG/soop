@@ -8,6 +8,7 @@
 	<!-- 해당 프로젝트의 feed 불러오기 -->
 	<select id="selectAllFeedTaskByPno" parameterType="int" resultType="kr.co.jhta.soop.dto.FeedTaskDTO">
 		SELECT t.task_no, t.task_title, t.task_register_date, t.task_status, t.task_start_date, t.task_end_date, t.task_content,
+			   p.project_title,
          	   m.member_no, m.name, m.profile_name, m.profile_path,
  			   f.file_no, f.file_type, f.file_name, f.file_path        	   
 		FROM task t

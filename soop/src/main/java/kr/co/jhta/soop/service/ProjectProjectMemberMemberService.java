@@ -8,4 +8,6 @@ public interface ProjectProjectMemberMemberService {
 	
 	public List<ProjectProjectMemberMemberDTO> selectAllProjectTitle(int member_no);
 	
+	public List<ProjectProjectMemberMemberDTO> selectAllProjectMemberByPno(int project_no);
+	
 }

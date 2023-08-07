@@ -57,14 +57,14 @@
 		<div class="pcoded-content">
 			<!-- [ Feed navigation menu ] start -->
 		    <nav class="pcoded-navbar theme-horizontal menu-light" style="position: fixed; height:100px;">
-		        <div class="navbar-wrapper container" style="text-align: left;">
+		        <div class="navbar-wrapper container">
 		            <div class="navbar-content sidenav-horizontal" id="layout-sidenav">
 		                <table>
                          <tr>
                              <td> 
                              <ul class="nav pcoded-inner-navbar sidenav-inner">
                              <li class="nav-item">
-                             <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">프로젝트명</span></a>
+                             <span class="pcoded-mtext" style="padding-top: 15px; font-size: 20px;">${projectDTO.project_title}</span>
                            </li>
                            </ul>
                            </td>
@@ -102,7 +102,7 @@
 			<!-- 업무 피드 card -->
 			<c:forEach var="feedTaskDTO" items="${feedTaskDTO}">
 			<div class="col-xl-6 col-md-12">
-				<div class="card table-card">
+				<div class="card table-card" style="left: 200px;">
 					<div class="card-header">
 						<div class="d-inline-block align-middle">
 							<img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
@@ -130,6 +130,23 @@
                             <table class="table mb-0" >
                                 <thead style="border-color: transparent;">
                                     <tr>
+                                    	<td width="10;">
+                                    		<c:if test="${feedTaskDTO.task_status eq '0'}">
+                                       			<label class="badge badge-light-info">발의</label>
+                                       		</c:if>
+                                       		<c:if test="${feedTaskDTO.task_status eq '1'}">
+                                       			<label class="badge badge-light-success">진행</label>
+                                       		</c:if>
+                                       		<c:if test="${feedTaskDTO.task_status eq '2'}">
+                                       			<label class="badge badge-light-warning">검토</label>
+                                       		</c:if>
+                                       		<c:if test="${feedTaskDTO.task_status eq '3'}">
+                                       			<label class="badge badge-light-secondary">완료</label>
+                                       		</c:if>
+                                       		<c:if test="${feedTaskDTO.task_status eq '4'}">
+                                       			<label class="badge badge-light-danger">보류</label>
+                                       		</c:if>
+                                    	</td>
                                         <td>
                                         	<div class="row m-b-0">
                                         		<input type="hidden" name="task_no" value="${feedTaskDTO.task_no}"/>
@@ -140,49 +157,27 @@
                                 </thead>
                                 <tbody style="border-color: transparent;">
                                 	<tr>
-                                		<td>
-                                			<i class="fa-solid fa-chart-simple"></i>
-                                			&nbsp;&nbsp;
-											<div class="btn-group btn-group-toggle" data-toggle="buttons">
-												<input type="hidden" name="task_status" value=${feedDTO.task_status} />
-												<label class="btn btn-outline-info btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="0">발의</label>
-												&nbsp;&nbsp;&nbsp;
-												<label class="btn btn-outline-success btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="1">진행</label>
-												&nbsp;&nbsp;&nbsp;
-												<label class="btn btn-outline-warning btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="2">검토</label>
-												&nbsp;&nbsp;&nbsp;
-												<label class="btn btn-outline-secondary btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="3">완료</label>
-												&nbsp;&nbsp;&nbsp;
-												<label class="btn btn-outline-danger btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="4">보류</label>
-											</div>
-											&nbsp;&nbsp;
-											<i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;결재현황
-                                		</td>
+                                		<td colspan="2"><i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;결재현황</td>
                                 	</tr>
                                     <tr>
-                                    	<td><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_start_date}부터&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_end_date}까지</td>
+                                    	<td colspan="2"><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_start_date}부터&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_end_date}까지</td>
                                     </tr>
                                     <tr>
-                                    	<td>
+                                    	<td colspan="2">
                                     		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
                                     		<!-- 해당 업무 첨부파일 보이는 곳 -->
 											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a>
                                     	</td>
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">
-                                    	<td>
+                                    	<td colspan="2">
                                     		${feedTaskDTO.task_content}
                                     	</td>
                                     </tr>
                                 </tbody>
                                 <tfoot style="border-color: transparent;">
                                 	<tr>
-                                		<td>
+                                		<td colspan="2">
 											<div class="input-group m-t-0">
 												<div class="col-auto p-r-0">
 													<img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
@@ -197,7 +192,7 @@
                                 	</tr>
                                 	<!-- 댓글 입력하면 여기에 append -->
                                 	<tr>
-                                		<td>
+                                		<td colspan="2">
                                 			<div class="row m-b-0">
 												<div class="col-auto p-r-0">
 													<img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
@@ -210,7 +205,7 @@
                                 		</td>
                                 	</tr>
                                 	<tr>
-                                		<td>
+                                		<td colspan="2">
                                 			<div class="row m-b-0">
 												<div class="col-auto p-r-0">
 													<img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40">
@@ -231,14 +226,14 @@
 		</c:forEach>
 
 		<!-- buttons -->            
-		<div class="col-xl-2 col-md-12" style="position: fixed; top: 150px; right: 508px;">
+		<div class="col-xl-2 col-md-12" style="position: fixed; top: 175px; right: 100px;">
 			<button class="btn btn-primary col-md-12" type="button" data-bs-toggle="modal" data-bs-target="#insertModal">
 				<i class="fa-solid fa-pen-to-square" style="color: #fff;"></i>&nbsp;&nbsp;업무 생성
 			</button> <br />
 		</div>
                 
 		<!-- project member start -->
-        <div class="col-xl-2 col-md-12" style="position: fixed; top: 200px; right: 508px;">
+        <div class="col-xl-2 col-md-12" style="position: fixed; top: 225px; right: 100px;">
             <div class="card table-card">
                 <div class="card-header">
                     <h5>참여자</h5>
@@ -248,8 +243,6 @@
                                 <i class="feather icon-more-horizontal"></i>
                             </button>
                             <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                                <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
                                 <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
                                 <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
                             </ul>
@@ -260,28 +253,24 @@
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
                             <tbody>
+                            	<c:forEach var="pjmemberList" items="${pjmemberList}">
                                 <tr>
                                     <td>
                                         <div class="d-inline-block align-middle">
-                                            <img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
+                                            <img src="${pjmemberList.profile_path}" alt="user image" class="img-radius wid-40 align-top m-r-15">
                                             <div class="d-inline-block">
-                                                <h6>John Deo</h6>
-                                                <p class="text-muted m-b-0">프로젝트 매니저</p>
+                                                <h6>${pjmemberList.name}</h6>
+                                                <c:if test="${pjmemberList.member_position eq '0'}">
+	                                                <p class="text-muted m-b-0">프로젝트 관리자</p>                                                
+                                                </c:if>
+                                                <c:if test="${pjmemberList.member_position eq '1'}">
+	                                                <p class="text-muted m-b-0">프로젝트 멤버</p>                                                
+                                                </c:if>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <div class="d-inline-block align-middle">
-                                            <img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                            <div class="d-inline-block">
-                                                <h6>John Deo</h6>
-                                                <p class="text-muted m-b-0">프로젝트 멤버</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                </c:forEach>
                             </tbody>
                             <tfoot>
                             	<tr>
@@ -295,77 +284,7 @@
                 </div>
             </div>
         </div>
-
-
-		<!-- chatting -->
-<!-- 		<div class="col-lg-3 col-md-30" style="position: fixed; top: 150px; right: 20px;">
-                <div class="card chat-card">
-                    <div class="card-header">
-                        <h5>대화</h5>
-                        <div class="card-header-right">
-                            <div class="btn-group card-option">
-                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="feather icon-more-horizontal"></i>
-                                </button>
-                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                    <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
-                                    <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
-                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row m-b-20 received-chat">
-                            <div class="col-auto p-r-0">
-                                <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
-                            </div>
-                            <div class="col">
-                                <div class="msg">
-                                    <p class="m-b-0">Nice to meet you!</p>
-                                </div>
-                                <p class="text-muted m-b-0"><i class="fa fa-clock-o m-r-10"></i>10:20am</p>
-                            </div>
-                        </div>
-                        <div class="row m-b-20 send-chat">
-                            <div class="col">
-                                <div class="msg">
-                                    <p class="m-b-0">Nice to meet you!</p>
-                                </div>
-                                <p class="text-muted m-b-0"><i class="fa fa-clock-o m-r-10"></i>10:20am</p>
-                            </div>
-                            <div class="col-auto p-l-0">
-                                <img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40">
-                            </div>
-                        </div>
-                        <div class="row m-b-20 received-chat">
-                            <div class="col-auto p-r-0">
-                                <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
-                            </div>
-                            <div class="col">
-                                <div class="msg">
-                                    <p class="m-b-0">Nice to meet you!</p>
-                                    <img src="assets/images/widget/dashborad-1.jpg" alt="">
-                                    <img src="assets/images/widget/dashborad-3.jpg" alt="">
-                                </div>
-                                <p class="text-muted m-b-0"><i class="fa fa-clock-o m-r-10"></i>10:20am</p>
-                            </div>
-                        </div>
-                        <div class="input-group m-t-15">
-                            <input type="text" name="task-insert" class="form-control" id="Project" placeholder="Send message">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary">
-                                    <i class="feather icon-message-circle"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-		
-		
-		</div> -->
-
+        
 	</div>
 	</div>
 </body>
