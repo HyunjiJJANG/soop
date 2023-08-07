@@ -102,10 +102,14 @@
 			<!-- 업무 피드 card -->
 			<c:forEach var="feedTaskDTO" items="${feedTaskDTO}">
 			<div class="col-xl-6 col-md-12">
+
 				<div class="card table-card" style="left: 200px;">
+
+				<div class="card table-card" style="left:250px;">
+
 					<div class="card-header">
 						<div class="d-inline-block align-middle">
-							<img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
+							<img src="${feedTaskDTO.profile_path}" alt="user image" class="img-radius wid-40 align-top m-r-15">
 							<div class="d-inline-block" style="position: absolute; top: 35%;">
 								<span style="font-size: 15px; font-weight: bold;">${feedTaskDTO.name}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;								
 								<span style="font-size: 15px;"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_register_date}</span>
@@ -130,6 +134,7 @@
                             <table class="table mb-0" >
                                 <thead style="border-color: transparent;">
                                     <tr>
+
                                     	<td width="10;">
                                     		<c:if test="${feedTaskDTO.task_status eq '0'}">
                                        			<label class="badge badge-light-info">발의</label>
@@ -146,6 +151,24 @@
                                        		<c:if test="${feedTaskDTO.task_status eq '4'}">
                                        			<label class="badge badge-light-danger">보류</label>
                                        		</c:if>
+
+                                    	<td width="10">
+                                    		<c:if test="${feedTaskDTO.task_status eq '0'}">
+	                                    		<label class="badge badge-light-info">발의</label>                                    		
+                                    		</c:if>
+                                    		<c:if test="${feedTaskDTO.task_status eq '1'}">
+	                                    		<label class="badge badge-light-success">진행</label>                                    		
+                                    		</c:if>
+                                    		<c:if test="${feedTaskDTO.task_status eq '2'}">
+	                                    		<label class="badge badge-light-warning">검토</label>                                    		
+                                    		</c:if>
+                                    		<c:if test="${feedTaskDTO.task_status eq '3'}">
+	                                    		<label class="badge badge-light-secondary">완료</label>                                    		
+                                    		</c:if>
+                                    		<c:if test="${feedTaskDTO.task_status eq '4'}">
+	                                    		<label class="badge badge-light-danger">보류</label>                                    		
+                                    		</c:if>
+
                                     	</td>
                                         <td>
                                         	<div class="row m-b-0">
@@ -156,14 +179,45 @@
                                     </tr>
                                 </thead>
                                 <tbody style="border-color: transparent;">
+
                                 	<tr>
                                 		<td colspan="2"><i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;결재현황</td>
                                 	</tr>
+
                                     <tr>
                                     	<td colspan="2"><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_start_date}부터&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_end_date}까지</td>
                                     </tr>
                                     <tr>
                                     	<td colspan="2">
+
+                                    		<div style="float: left;"><i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;&nbsp;</div>
+                                    		<!-- 결재자 목록 보이는 곳 -->                                    		
+                                    		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
+                                    			<img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-30">
+                                    			&nbsp;&nbsp;&nbsp;
+                                    			<span style="padding-top:5px;">홍길동</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    			<span style="padding-top:5px;"><i class="fa-solid fa-user-check"></i></span>
+                                    		</div>
+                                    		
+                                    		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
+                                    			<img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-30">
+                                    			&nbsp;&nbsp;&nbsp;
+                                    			<span style="padding-top:5px;">홍길동</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    			<span style="padding-top:5px;"><i class="fa-solid fa-user-check"></i></span>
+                                    		</div>
+                                    		
+                                    		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
+                                    			<img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-30">
+                                    			&nbsp;&nbsp;&nbsp;
+                                    			<span style="padding-top:5px;">홍길동</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    			<span style="padding-top:5px;"><i class="fa-solid fa-user-check"></i></span>
+                                    		</div>
+                                    		
+                                    	</td>
+                                    </tr>
+                                    <tr>
+                                    	<td colspan="2">
+
                                     		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
                                     		<!-- 해당 업무 첨부파일 보이는 곳 -->
 											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a>
@@ -223,6 +277,7 @@
                     </div>
                 </div>
             </div>
+         </div>
 		</c:forEach>
 
 		<!-- buttons -->            
@@ -271,6 +326,17 @@
                                     </td>
                                 </tr>
                                 </c:forEach>
+	                                <tr>
+	                                    <td>
+	                                        <div class="d-inline-block align-middle">
+	                                            <img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
+	                                            <div class="d-inline-block">
+	                                                <h6>John Deo</h6>
+	                                                <p class="text-muted m-b-0">프로젝트 매니저</p>
+	                                            </div>
+	                                        </div>
+	                                    </td>
+	                                </tr>
                             </tbody>
                             <tfoot>
                             	<tr>
@@ -284,7 +350,6 @@
                 </div>
             </div>
         </div>
-        
 	</div>
 	</div>
 </body>

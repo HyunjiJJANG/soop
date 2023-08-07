@@ -14,7 +14,7 @@
 		FROM task t
 		INNER JOIN project p ON p.project_no = t.project_no
 		INNER JOIN member m ON t.member_no = m.member_no
-		INNER JOIN attached_file f ON t.task_no = f.task_no
+		LEFT JOIN attached_file f ON t.task_no = f.task_no
 		WHERE t.project_no = #{project_no}
 	</select>
 	
