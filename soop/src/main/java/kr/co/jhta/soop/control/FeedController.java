@@ -38,7 +38,7 @@ public class FeedController {
 		
 		// 오른쪽 퀵메뉴에 프로젝트에 참여중인 멤버 리스트 보여주기
 		model.addAttribute("pjmemberList", projectProjectMemberMemberService.selectAllProjectMemberByPno(project_no));
-
+		
 		return "feed";
 	}
 }
