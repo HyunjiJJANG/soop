@@ -46,7 +46,7 @@ public class MemberController {
 	}
 
 	@GetMapping("/loginOkIndex")
-	public String loginOk(Model model, Authentication auth) {
+	public String loginOk(Model model, Authentication auth, HttpSession session) {
 		log.info("auth : " + auth);
 		String email = auth.getName();
 		log.info("auth email : " + email);
@@ -54,6 +54,7 @@ public class MemberController {
 		log.info("memberDto 이메일:" + memberDto.getEmail());
 		log.info("memberDto:이름 " + memberDto.getName());
 		model.addAttribute("memberDto", memberDto);
+		session.setAttribute("member_no", memberDto.getMember_no()); // 멤버탈퇴 기능시 필요
 		return "loginOkIndex";
 	}
 

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import kr.co.jhta.soop.dto.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 @Service
 public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {

@@ -1,5 +1,7 @@
 package kr.co.jhta.soop.control;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import kr.co.jhta.soop.dto.ProjectDTO;
 import kr.co.jhta.soop.dto.ProjectMemberDTO;
+import kr.co.jhta.soop.dto.ProjectMemberNo;
 import kr.co.jhta.soop.service.FeedService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectMemberService;
@@ -75,15 +78,50 @@ public class ProjectController {
 	public String goFeed(@RequestParam("project_no")int project_no,
 						 @RequestParam("member_no")int member_no,
 						 Model model) {
+		
+		ProjectMemberNo pmno = new ProjectMemberNo();
+		pmno.setMember_no(member_no);
+		pmno.setProject_no(project_no);
+		
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 		model.addAttribute("project_no", project_no);
 		model.addAttribute("name", memberService.selectOneByName(member_no)); // 새 멤버초대하기 메일 제목에 name 들어갈 수 있게
 		model.addAttribute("memberDTO", memberService.selectOne(member_no)); // nav에 name 들어갈 수 있게
+		model.addAttribute("projectMemberDTO", projectMemberService.selectOne(pmno));
 		model.addAttribute("memberList", projectProjectMemberMemberService.selectAllProjectMember(project_no));
-		//		model.addAttribute("projectDetailDto", feedService.selectAllProjectDetail(project_no, member_no));
+
 		return "feed";
 	}
 	
+	// 프로젝트에 멤버 강퇴 클릭시 멤버 삭제
+	@GetMapping("/deleteMemberOne")
+	public String deleteMemberOne(@RequestParam("project_no")int project_no,
+			 					  @RequestParam("member_no")int member_no,
+			 					  HttpSession session) {
+		ProjectMemberNo pmno = new ProjectMemberNo();
+		pmno.setMember_no(member_no);
+		pmno.setProject_no(project_no);
+		projectMemberService.deleteOne(pmno);
+		int member_no2 = (int) session.getAttribute("member_no"); // 접속중인 프로젝트 멤버번호
+		
+		return "redirect:feed?project_no="+project_no+"&member_no="+member_no2;
+	}
 	
+	// 프로젝트 관리자 변경 클릭시 관리자 변경
+	@GetMapping("/changeAuthMember")
+	public String changeAuthMember(@RequestParam("project_no") int project_no,
+			@RequestParam("member_no") int member_no,
+			HttpSession session) {
+		
+		ProjectMemberNo pmno = new ProjectMemberNo();
+		pmno.setMember_no(member_no);
+		pmno.setProject_no(project_no);
+		projectMemberService.changeAuth1(project_no); // 전체 멤버 member_position 1로
+		projectMemberService.changeAuth2(pmno); // 선택한 멤버 프로젝트 관리자로
+
+		int member_no2 = (int) session.getAttribute("member_no"); // 프로젝트 관리자 번호
+		
+		return "redirect:feed?project_no=" + project_no + "&member_no=" + member_no2;
+	}
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.jhta.soop.dto.MemberDTO;
 
+
 @Repository
 @Mapper
 public interface MemberDAO {

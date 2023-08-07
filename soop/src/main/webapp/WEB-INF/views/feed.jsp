@@ -114,15 +114,68 @@
 		
 	})
 	
-	// 멤버 강퇴
 	$(function(){
-		$("#checkMember").on("change", function(){
-			console.log($("#checkMember:checked").val());
-			console.dir($("#checkMember"));
+	// 멤버 강퇴
+		$("#deleteMember").on("click", function(){
+			$(".deleteBtn").fadeIn(50);
+			$(".changeBtn").fadeOut(50);
+		});
+	// 관리자 권한 변경
+		$("#changeAuth").on("click", function(){
+			$(".changeBtn").fadeIn(50);
+			$(".deleteBtn").fadeOut(50);
 		});
 		
+	// 새로고침(초기화)
+		$("#refreshBtn").on("click", function(){
+			$(".changeBtn").fadeOut(50);
+			$(".deleteBtn").fadeOut(50);
+		});	
 	});
 	
+	// 멤버 강퇴하기
+	function deleteMember(project_no, member_no){
+		if(confirm("정말 강퇴하시겠습니까?")== true){
+			
+			const urlParams = new URL(location.href).searchParams;
+			const loginMember_no = urlParams.get("member_no");
+			
+			$.ajax({
+				type: "GET",
+				url: "/deleteMemberOne",
+				data: {
+					"project_no" : project_no,
+					"member_no" :  member_no
+				},
+				success: function (data) {
+		            console.log(data); 
+					location.href = "feed?project_no="+project_no+"&member_no="+loginMember_no;
+		        }
+			});
+		}
+	}
+	
+	// 프로젝트 관리자 변경
+	function changeAuth(project_no, member_no){
+		if(confirm("정말 변경하시겠습니까?")== true){
+			const urlParams = new URL(location.href).searchParams;
+			const adminMember_no = urlParams.get("member_no");
+			
+			$.ajax({
+				type: "GET",
+				url: "/changeAuthMember",
+				data: {
+					"project_no" : project_no,
+					"member_no" :  member_no
+				},
+				success: function (data) {
+		            console.log(data); 
+					location.href = "feed?project_no="+project_no+"&member_no="+adminMember_no;
+		        }
+			});
+		}
+	}
+
 </script>
 </head>
 <body class="modal-open" style="overflow: hidden; padding-right: 0px;">
@@ -189,9 +242,9 @@
                         </div>
                         <div class="card-header-right">
 	                        <div class="btn-group card-option">
-	                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                                <i class="feather icon-more-horizontal"></i>
-	                            </button>
+			                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			                        <i class="feather icon-more-horizontal"></i>
+			                    </button>
 	                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
 	                            	<li class="dropdown-item"><a href="#!"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무로 등록</a></li>
 	                            	<li class="dropdown-item"><a href="#!"><i class="fa-solid fa-thumbtack"></i>&nbsp;&nbsp; 상단 고정</a></li>
@@ -317,17 +370,22 @@
             <div class="card table-card">
                 <div class="card-header">
                     <h5>참여자</h5>
-                    <div class="card-header-right">
-                        <div class="btn-group card-option">
-                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="feather icon-more-horizontal"></i>
-                            </button>
-                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-item"><a href="#!"><i class="feather icon-refresh-cw"></i> 프로젝트 관리자 변경</a></li>
-                                <li class="dropdown-item"><a href="#!"><i class="feather icon-trash"></i> 멤버 강퇴</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <c:choose>
+	                	<c:when test="${projectMemberDTO.member_position == 0}"> 
+                        <a href="" id="refreshBtn"><i class="fa-solid fa-rotate-right" style="color: #707272;"></i></a>
+		                    <div class="card-header-right">
+		                        <div class="btn-group card-option">
+		                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                                <i class="feather icon-more-horizontal"></i>
+		                            </button>
+		                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+		                                <li class="dropdown-item"><a id="changeAuth"><i class="feather icon-refresh-cw"></i> 프로젝트 관리자 변경</a></li>
+		                                <li class="dropdown-item"><a id="deleteMember"><i class="feather icon-trash"></i> 멤버 강퇴</a></li>
+		                            </ul>
+		                        </div>
+		                    </div>
+                   		</c:when>
+	               </c:choose>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
@@ -337,14 +395,20 @@
                                 <c:forEach var="dto" items="${memberList }">
                                 <tr>
                                     <td>
-										<div class="chk-option">
-											<label class="check-member custom-control custom-radio d-flex justify-content-center done-task">
-												<input type="radio" id="checkMember" value="${dto.member_no}" name="options checkMember" class="custom-control-input">
-												<span class="custom-control-label"></span>
-											</label>
-										</div>
+                                    	<c:choose>
+												<c:when test="${dto.member_position == 0}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                	<div class="chk-option changeBtn" style="display:none">
+														<a href="" onclick="changeAuth(${dto.project_no }, ${dto.member_no})" ><i class="fa-solid fa-circle-check" style="color: #707272;"></i></a>
+													</div>
+				                                    <div class="chk-option deleteBtn" style="display:none">
+														<a href="" onclick="deleteMember(${dto.project_no }, ${dto.member_no})"><i class="fa-solid fa-circle-minus" style="color: #707272;"></i></a>
+													</div>
+                                                </c:otherwise>
+                                        </c:choose>
                                         <div class="d-inline-block align-middle">
-                                            <img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
+                                            <img src="${dto.profile_path}" alt="user image" class="img-radius wid-40 align-top m-r-15">
                                             <div class="d-inline-block">
 													<h6>${dto.name }</h6>
 												<c:choose>
