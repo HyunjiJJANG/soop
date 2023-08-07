@@ -183,7 +183,7 @@ form {
 											<input type="password" class="form-control" name="password"
 												id="password" placeholder="Password" class="form-control"
 												id="validationTooltipUsername"
-												aria-describedby="validationTooltipUsernamePrepend" required value="11111111">
+												aria-describedby="validationTooltipUsernamePrepend" required value="22222222">
 											<label for="password">비밀번호</label> <input type="hidden"
 												name="${_csrf.parameterName }" value="${_csrf.token }" />
 										</div>

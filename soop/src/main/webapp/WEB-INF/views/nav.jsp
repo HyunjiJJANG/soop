@@ -25,7 +25,7 @@
 <!-- jquery -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
-=======
+
 <!-- font awesome -->
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <!-- datepicker -->
@@ -86,7 +86,7 @@ $(function(){
 				<ul class="nav pcoded-inner-navbar ">
 					<li class="nav-item pcoded-menu-caption"><label>모아보기</label></li>
 					<li class="nav-item">
-						<a href="#" class="nav-link ">
+						<a href="home?member_no=${memberDTO.member_no}" class="nav-link ">
 							<span class="pcoded-micon"><i class="feather icon-home"></i></span>
 							<span class="pcoded-mtext">홈</span>
 						</a>
@@ -141,7 +141,7 @@ $(function(){
 	<!-- [ Header ] start -->
 	<header	class="navbar pcoded-header navbar-expand-lg navbar-light header-dark" style="position: fixed;">
 		<div class="m-header">
-			<a href="home?member_no=1" class="b-brand"> <!-- ========   change your logo hear   ============ -->
+			<a href="home?member_no=${memberDTO.member_no}" class="b-brand"> <!-- ========   change your logo hear   ============ -->
 				<img src="assets/images/logo.png" alt="" class="logo">
 				<img src="assets/images/logo-icon.png" alt="" class="logo-thumb">
 			</a> 
