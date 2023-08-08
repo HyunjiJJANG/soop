@@ -110,7 +110,7 @@ $(function(){
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="faq" class="nav-link ">
+						<a href="faq?member_no=${member_no}" class="nav-link ">
 							<span class="pcoded-micon"><i class="fa-solid fa-phone-volume"></i></span>
 							<span class="pcoded-mtext">고객센터</span>
 						</a>

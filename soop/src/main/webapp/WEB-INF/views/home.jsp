@@ -88,9 +88,9 @@
   	  let status = $("#projectStatusOption").val();
   	  $.ajax({
   		type: "GET",  
-  		url: "/home/selectStatus/1",
+  		url: "/home/selectStatus/"+${member_no},
   		data : {
-  			member_no : 1
+  			"member_no" : ${member_no}
   		},
   		dataType: "text",
   		success: function(data){

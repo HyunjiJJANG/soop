@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.jhta.soop.dto.MemberDTO;
 import kr.co.jhta.soop.dto.MemoDTO;
 import kr.co.jhta.soop.dto.ProjectDTO;
 import kr.co.jhta.soop.dto.ProjectProjectMemberMemberDTO;
@@ -43,10 +44,21 @@ public class HomeController {
 	@PostMapping("/home")
 	public String saveMemo(@RequestParam("member_no")int member_no,
 							@RequestParam("memo_content")String memo_content) {
+		System.out.println(member_no);
+		
+		// 입력한 메모 내용 메모 테이블에 담기
 		MemoDTO dto = new MemoDTO();
 		dto.setMember_no(member_no);
 		dto.setMemo_content(memo_content);
-		memoService.updateOne(dto);
+		
+		// 메모 테이블에 멤버번호로 조회하기
+		MemoDTO dto2 = memoService.selectOne(member_no);
+		
+		if(dto2 == null) { // 메모 테이블에 해당 멤버번호에 데이터가 없으면 insert
+			memoService.insertOne(dto);
+		}else { // 메모 테이블에 해당 멤버번호에 데이터가 있으면 update
+			memoService.updateOne(dto);
+		}
 		
 		return "home";
 	}
