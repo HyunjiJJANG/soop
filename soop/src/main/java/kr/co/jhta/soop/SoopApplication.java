@@ -13,7 +13,7 @@ public class SoopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SoopApplication.class, args);
 	}
-
+//	페스워드 암호화를 위한 
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

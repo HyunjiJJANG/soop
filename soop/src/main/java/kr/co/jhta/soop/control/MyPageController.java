@@ -40,6 +40,7 @@ public class MyPageController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	//마이페이지 리스트
 	@GetMapping("/mypage")
 	public String mypage(@RequestParam("member_no") int member_no, @RequestParam("email") String email, Model model) {
 		String result = "";
@@ -57,7 +58,7 @@ public class MyPageController {
 		}
 
 	}
-
+	// 마이페이지 입장 전 패스워드 체크를 위한 매핑
 	@GetMapping("/mypagePasswordCheck")
 	@ResponseBody
 	public String passwordCheck(@RequestParam("password") String password, @RequestParam("email") String email) {
@@ -88,6 +89,7 @@ public class MyPageController {
 
 	}
 
+	// 비밀번호 확인 후 들어가는 페이지
 	@RequestMapping("/mypagePasswordCheckOk")
 	public String mypageOk(@RequestParam("email") String email, @RequestParam("password") String password,
 			Model model) {
@@ -97,7 +99,9 @@ public class MyPageController {
 
 		return "mypagePasswordCheckOk";
 	}
-
+	
+	
+	//소셜 로그인시 비밀번호 확인 없이 바로 마이페이지로 이동 가능 
 	@RequestMapping("/mypageOauth2")
 	public String mypageOauth2Ok(@RequestParam("email") String email, @RequestParam("member_no") int member_no,
 			Model model) {
@@ -108,6 +112,7 @@ public class MyPageController {
 		return "mypagePasswordCheckOk";
 	}
 
+	//닉네임 변경하기
 	@GetMapping("/nameChange")
 	@ResponseBody
 	public String nameChangeOk(@RequestParam("name") String name, @RequestParam("nameView") String nameView,
@@ -129,6 +134,7 @@ public class MyPageController {
 
 	}
 
+	//비밀번호 변경하기
 	@GetMapping("/passwordChange")
 	@ResponseBody
 	public String passwordChangeOk(@RequestParam("password") String password, @RequestParam("repeatPw") String repeatPw,
@@ -151,9 +157,10 @@ public class MyPageController {
 
 	}
 
+	//프로필 사진 변경
 	@RequestMapping("/uploadProfileImage")
 	public ResponseEntity<String> uploadProfileImage(@RequestParam("profileImage") MultipartFile file, Model model,
-			@ModelAttribute UploadFile uploadfile, HttpServletRequest req, // 파일 경로를 위한 @RequestParam("email") String email
+			@ModelAttribute UploadFile uploadfile, HttpServletRequest req,
 			@RequestParam("email") String email
 			) throws UnsupportedEncodingException {
 		// 파일 업로드 및 데이터베이스 업데이트 로직 수행
@@ -164,7 +171,7 @@ public class MyPageController {
 				ServletContext application = session.getServletContext();
 
 				String filePath = application.getRealPath("/data"); // 디렉토리경로
-				 
+				
 				
 				MemberDTO memberDto = memberService.selectMemberByEmail(email);
 
@@ -172,12 +179,10 @@ public class MyPageController {
 				
 				
 				// 파일명 저장
-				
-				log.info("파일명 : {} ",  file.getOriginalFilename()); // 파일명 받기 (=> 경로는 설정 파일에서 저장)
 				memberDto.setProfile_name(file.getOriginalFilename());
 				
 				File f = new File(filePath + "/" + file.getOriginalFilename()); 
-				// 임시 경로에 보관 중인 파일을 실제 위치에 저장
+				
 				try {
 					file.transferTo(f);
 				} catch (IllegalStateException e) {
@@ -187,14 +192,12 @@ public class MyPageController {
 				}
 				
 				
-				
 	         // 파일 경로 dto에 저장
-	            memberDto.setProfile_path(filePath + "/"+ file.getOriginalFilename());
+	            memberDto.setProfile_path(filePath + "\\" + file.getOriginalFilename());
 
 				// dto에 이메일 저장
 				memberDto.setEmail(email);
-				
-				
+
 				//member테이블 프로필 업로드 후 업데이트
 
 				memberService.updateOneProfile(memberDto);

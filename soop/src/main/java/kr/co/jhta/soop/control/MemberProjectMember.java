@@ -22,6 +22,7 @@ public class MemberProjectMember {
 	@Autowired
 	MemberProjectMemberService memberProjectMemberService;
 
+	//나와 같은 프로젝트 구성원 출력하기
 	@GetMapping("/contact")
 	public String myContactList(@RequestParam("email")String email, @RequestParam("member_no")int member_no, @RequestParam("project_no")int project_no, Model model) {
 		
@@ -38,6 +39,7 @@ public class MemberProjectMember {
 		return "contact";
 	}
 	
+	// 구성원 찾기를 위한 리스트
 	@GetMapping("/getSearchList")
 	@ResponseBody
 	public List<MemberProjectMemberDTO> getSearchList(@RequestParam("searchName")String search_name,@RequestParam("member_no")int member_no,@RequestParam("project_no")int project_no, Model model){

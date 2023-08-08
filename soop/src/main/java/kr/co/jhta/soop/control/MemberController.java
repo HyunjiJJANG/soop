@@ -44,7 +44,7 @@ public class MemberController {
 
 		return "login";
 	}
-
+	//로그인 후 출력되는 index
 	@GetMapping("/loginOkIndex")
 	public String loginOk(Model model, Authentication auth) {
 		log.info("auth : " + auth);
@@ -56,7 +56,7 @@ public class MemberController {
 		model.addAttribute("memberDto", memberDto);
 		return "loginOkIndex";
 	}
-
+	//소셜 로그인 후 출력되는 index mapping
 	@GetMapping("/loginOauth2OkIndex")
 	public String loginOk(Model model, HttpSession httpSession) {
 		String email = (String) httpSession.getAttribute("email");
