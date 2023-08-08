@@ -14,7 +14,6 @@ import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 
 // localhost:8081/home/selectStatus?member_no=1
 
-
 @RestController
 public class ProjectRestController {
 	@Autowired

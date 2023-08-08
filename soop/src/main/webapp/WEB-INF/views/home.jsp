@@ -55,9 +55,9 @@
  	document.addEventListener("DOMContentLoaded", function() {
  		$.ajax({
  			type: "GET", 
- 			url: "/home/selectStatus/1",
+ 			url: "/home/selectStatus/"+${member_no},
  	  		data : {
- 	  			member_no : 1
+ 	  			"member_no" : ${member_no}
  	  		},
  			success: function(data){
  				let e = [];
@@ -201,7 +201,7 @@
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                        <div class="scrollbar" style="overflow-y: auto; height: 300px;">
+                        <div class="scrollbar" style="overflow-x: hidden; overflow-y: auto; height: 300px;">
                             <table class="table table-hover mb-0">
                                 <thead>
                                     <tr>
@@ -262,7 +262,7 @@
                         <button type="button" style="float:right;" class="btn btn-primary btn-sm"><i class="fa-solid fa-download" style="color: #fff;"></i>&nbsp;&nbsp;다운로드</button>
 						</div>
 					<!-- 파일함 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
-					<div class="scrollbar" style="overflow-y: auto; height: 300px;">	
+					<div class="scrollbar" style="overflow-x: hidden; overflow-y: auto; height: 300px;">	
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-hover mb-0">
@@ -416,7 +416,7 @@
                         <div class="card-body p-0">
                         <div class="table-responsive">
                         <!-- 관심업무 리스트가 들어갈곳(리스트가 많아지면 자동 스크롤 생성됨) -->
-                            <div class="scrollbar" style="overflow-y: auto; height: 300px;">
+                            <div class="scrollbar" style="overflow-x: hidden; overflow-y: auto; height: 300px;">
                             <table class="table table-hover mb-0">
                                 <thead>
                                     <tr>

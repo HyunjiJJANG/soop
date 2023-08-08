@@ -2141,7 +2141,7 @@ pre code {
     .table-responsive-sm {
         display: block;
         width: 100%;
-        overflow-x: auto;
+        overflow-x:auto;
         -webkit-overflow-scrolling: touch;
     }
 
@@ -2192,7 +2192,7 @@ pre code {
 .table-responsive {
     display: block;
     width: 100%;
-    overflow-x: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
