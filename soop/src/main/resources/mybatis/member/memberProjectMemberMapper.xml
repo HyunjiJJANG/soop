@@ -24,7 +24,6 @@
 		m.member_no != #{member_no};
 
 
-
 	</select>
 
 	<select id="selectOne" resultType="MemberProjectMemberDTO" parameterType="int">

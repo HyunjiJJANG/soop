@@ -4,9 +4,11 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="kr.co.jhta.soop.dao.SignDAO">
-	<select id="selectAllByTno" parameterType="int" resultType="kr.co.jhta.soop.dto.SignDTO">
+	<select id="selectAllSignByTno" parameterType="int" resultType="kr.co.jhta.soop.dto.SignDTO">
 		SELECT sign_step, sign_approver, sign_status 
 		FROM sign
 		WHERE task_no = #{task_no}
+		ORDER BY sign_step ASC
 	</select>
+	
 </mapper>

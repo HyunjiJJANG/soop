@@ -20,4 +20,5 @@
 		INNER JOIN project p ON p.project_no = pm.project_no
 		WHERE pm.project_no = #{project_no}
 	</select>
+	
 </mapper>

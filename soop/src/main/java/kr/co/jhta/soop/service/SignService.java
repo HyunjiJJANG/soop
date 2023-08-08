@@ -16,6 +16,6 @@ public interface SignService {
 
 	public void deleteOne(int sign_no);
 	
-	public List<SignDTO> selectAllByTno(int task_no);
+	public List<SignDTO> selectAllSignByTno(int task_no);
 
 }

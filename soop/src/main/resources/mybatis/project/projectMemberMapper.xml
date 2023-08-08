@@ -8,4 +8,5 @@
 		INSERT INTO project_member (member_no, project_no, member_position)
 		VALUES (#{member_no}, #{project_no}, 0)
 	</insert>
+	
 </mapper>
