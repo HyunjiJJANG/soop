@@ -61,7 +61,7 @@
 						url : "/emailCheck2",
 						data : {
 							"email" : $("#email").val().trim(),
-							"project_no" : 1
+							"project_no" : $("#project_no").val().trim()
 						},
 						dataType : "json",
 						success : function(list) {

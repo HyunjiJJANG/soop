@@ -19,6 +19,7 @@ import kr.co.jhta.soop.service.ProjectService;
 
 @Controller
 public class HomeController {
+	
 	@Autowired
 	MemberService memberService;
 	
@@ -52,7 +53,11 @@ public class HomeController {
 	
 	// 고객센터
 	@GetMapping("/faq")
-	public String faq() {
+	public String faq(@RequestParam("member_no")int member_no,
+					 Model model) {
+		
+		model.addAttribute("memberDTO", memberService.selectOne(member_no)); // nav에 name 들어갈 수 있게
+		
 		return "faq";
 	}
 	

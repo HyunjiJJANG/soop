@@ -160,10 +160,10 @@
   // 메모 비동기 수정
   $(function(){
 	  $("#memo_content").on("focusout", function(event){
-		  var memo_content = $("#memo_content").val();
-	  	  $.ajax({
+		  const memo_content = $("#memo_content").val();
+		  $.ajax({
 	  		  type: "POST",
-	  		  url: "/home?member_no=1",
+	  		  url: "/home?member_no="+${member_no},
 	  		  data:{
 	  			  "memo_content" : memo_content
 	  		  }
@@ -193,7 +193,6 @@
                     <div class="card-header">
                         <h5>참여 중인 프로젝트</h5>
                             <select id="projectStatusOption" onchange="projectSelect();" style="width:30%;float:right;" class="form-select" aria-label="Default select example">
-								
 								<option value="3">전체</option>
 								<option value="0">진행중</option>
 								<option value="1">완료</option>
