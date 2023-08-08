@@ -43,10 +43,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-<script type="text/javascript">
-
-</script>
-
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
@@ -95,7 +91,7 @@
 		            </div>
 		        </div>
 		    </nav>
-			<br /><br /><br /><br /><br /><br /><br />
+			<br /><br /><br /><br /><br /><br /><br /><br />
 			
 			<!-- 업무 피드 card -->
 			<div class="col-xl-6 col-md-12">
@@ -115,7 +111,6 @@
 	                            </button>
 	                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
 	                            	<li class="dropdown-item"><a href="#!"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무로 등록</a></li>
-	                            	<li class="dropdown-item"><a href="#!"><i class="fa-solid fa-thumbtack"></i>&nbsp;&nbsp; 상단 고정</a></li>
 	                                <li class="dropdown-item"><a href="#!"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;수정</a></li>
 	                                <li class="dropdown-item"><a href="#!"><i class="feather icon-trash"></i>&nbsp;&nbsp;삭제</a></li>
 	                            </ul>
@@ -162,9 +157,10 @@
 												<!-- 결재 라인 보이는 곳 -->
                                     			<c:forEach var="signDTO" items="${signDTO}">
 		                                    		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
-		                                    			<span style="padding-top:5px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-		                                    			<c:if test=""></c:if>
-		                                    			<span style="padding-top:5px;"><i class="fa-solid fa-user-check"></i></span>
+		                                    			<span style="padding-top:5px; padding-left:5px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+		                                    			<c:if test="${signDTO.sign_status eq '1'}">
+		                                    				<span style="padding-top:5px;"><i class="fa-solid fa-user-check"></i></span>
+		                                    			</c:if>
 		                                    		</div>
                                     			</c:forEach>
                                     	</td>
@@ -230,16 +226,9 @@
                     </div>
                 </div>
             </div>
-
-		<!-- buttons -->            
-		<div class="col-xl-2 col-md-12" style="position: fixed; top: 175px; right: 100px;">
-			<button class="btn btn-primary col-md-12" type="button" data-bs-toggle="modal" data-bs-target="#insertModal">
-				<i class="fa-solid fa-pen-to-square" style="color: #fff;"></i>&nbsp;&nbsp;업무 생성
-			</button> <br />
-		</div>
                 
 		<!-- project member start -->
-        <div class="col-xl-2 col-md-12" style="position: fixed; top: 225px; right: 100px;">
+        <div class="col-xl-2 col-md-12" style="position: fixed; top: 200px; right: 100px;">
             <div class="card table-card">
                 <div class="card-header">
                     <h5>참여자</h5>

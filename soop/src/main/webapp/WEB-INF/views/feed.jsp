@@ -93,7 +93,7 @@
 			<br /><br /><br /><br /><br /><br /><br /><br />
 			
 			<!-- 업무 리스트 card -->
-			<div class="col-md-8 ">
+			<div class="col-md-8">
 				<div class="card" style="left: 100px;">	
 					<div class="card-header">
                         <button class="btn btn-primary col-md-12" type="button">
@@ -102,6 +102,7 @@
                     </div>
                     <div class="card-body table-border-style">
                         <div class="table-responsive">
+                        	<div class="scrollbar" style="overflow-x: hidden;">
                             <table class="table table-hover">
                                 <tbody>
                                 	<c:forEach var="feedListDTO" items="${feedListDTO}">
@@ -164,6 +165,7 @@
                                 	</tr>
                                 </tfoot>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
