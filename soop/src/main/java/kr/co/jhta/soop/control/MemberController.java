@@ -44,18 +44,7 @@ public class MemberController {
 
 		return "login";
 	}
-	//로그인 후 출력되는 index
-	@GetMapping("/loginOkIndex")
-	public String loginOk(Model model, Authentication auth) {
-		log.info("auth : " + auth);
-		String email = auth.getName();
-		log.info("auth email : " + email);
-		MemberDTO memberDto = memberService.selectMemberByEmail(email);
-		log.info("memberDto 이메일:" + memberDto.getEmail());
-		log.info("memberDto:이름 " + memberDto.getName());
-		model.addAttribute("memberDto", memberDto);
-		return "loginOkIndex";
-	}
+
 	//소셜 로그인 후 출력되는 index mapping
 	@GetMapping("/loginOauth2OkIndex")
 	public String loginOk(Model model, HttpSession httpSession) {
@@ -64,6 +53,20 @@ public class MemberController {
 		log.info("세션에 담긴 이메일: " + email);
 		MemberDTO memberDto = memberService.selectMemberByEmail(email);
 		model.addAttribute("memberOauth2Dto",memberDto);
+		return "loginOkIndex";
+	}
+
+	//로그인 후 출력되는 index
+	@GetMapping("/loginOkIndex")
+	public String loginOk(Model model, Authentication auth, HttpSession session) {
+		log.info("auth : " + auth);
+		String email = auth.getName();
+		log.info("auth email : " + email);
+		MemberDTO memberDto = memberService.selectMemberByEmail(email);
+		log.info("memberDto 이메일:" + memberDto.getEmail());
+		log.info("memberDto:이름 " + memberDto.getName());
+		model.addAttribute("memberDto", memberDto);
+		session.setAttribute("member_no", memberDto.getMember_no()); // 멤버탈퇴 기능시 필요
 		return "loginOkIndex";
 	}
 

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import kr.co.jhta.soop.dto.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 @Service
 public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {
@@ -111,11 +112,8 @@ public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {
 		// 등록되어 있지 않으면 db에 추가하기
 		if (dto == null) {
 
-			dto = MemberDTO.builder().email(email).password(passwordEncoder.encode(memberpassword)).name(name).build(); // 마지막에
-																														// build
-																														// 해야
-																														// set하게
-																														// 되는거야
+			dto = MemberDTO.builder().email(email).password(passwordEncoder.encode(memberpassword)).name(name).build();
+			// 마지막에 build해야 set하게 되는거야
 
 			service.insertOne(dto);
 

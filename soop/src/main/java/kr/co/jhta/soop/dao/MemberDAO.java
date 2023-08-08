@@ -7,11 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import kr.co.jhta.soop.dto.MemberDTO;
 
+
 @Repository
 @Mapper
 public interface MemberDAO {
 	
-
 public List<MemberDTO> selectAll();
 
 public  MemberDTO selectOne(int member_no);
@@ -31,6 +31,9 @@ public void updateOneProfile(MemberDTO dto);
 public void deleteOne(int member_no);
 
 public void insertRole(String email);
-	
+
+public String selectOneByName(int member_no);
+
+public int selectMemberByMemberNo(String email);
 
 }

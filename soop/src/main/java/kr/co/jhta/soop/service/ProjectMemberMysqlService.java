@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.jhta.soop.dao.ProjectMemberDAO;
 import kr.co.jhta.soop.dto.ProjectMemberDTO;
+import kr.co.jhta.soop.dto.ProjectMemberNo;
 
 
 @Service
@@ -15,6 +16,7 @@ public class ProjectMemberMysqlService implements ProjectMemberService {
 	
 	@Autowired
 	ProjectMemberDAO dao;
+	
 	@Override
 	public List<ProjectMemberDTO> selectAll() {
 
@@ -24,6 +26,11 @@ public class ProjectMemberMysqlService implements ProjectMemberService {
 	@Override
 	public ProjectMemberDTO selectOne(int member_no) {
 		return dao.selectOne(member_no);
+	}
+	
+	@Override
+	public ProjectMemberDTO selectOne(ProjectMemberNo pmno) {
+		return dao.selectOne(pmno);
 	}
 
 	@Override
@@ -43,5 +50,23 @@ public class ProjectMemberMysqlService implements ProjectMemberService {
 		dao.deleteOne(member_no);
 		
 	}
+
+	@Override
+	public void deleteOne(ProjectMemberNo pmno) {
+		dao.deleteOne(pmno);
+	}
+
+	@Override
+	public void changeAuth1(int project_no) {
+		dao.changeAuth1(project_no);
+		
+	}
+	
+	@Override
+	public void changeAuth2(ProjectMemberNo pmno) {
+		dao.changeAuth2(pmno);
+		
+	}
+
 
 }
