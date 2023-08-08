@@ -60,9 +60,8 @@
 	</update>
 	
 	<select id="selectOne" parameterType="int" resultType="MemberDTO">
-	SELECT name
+	SELECT member_no, name
 	FROM member
 	WHERE member_no = #{member_no}
 	</select>
-	
 </mapper>
