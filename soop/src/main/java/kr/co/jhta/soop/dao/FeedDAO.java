@@ -13,4 +13,6 @@ public interface FeedDAO {
 
 	List<FeedDTO> selectAllProjectDetail(int project_no, int member_no);
 
+	List<FeedDTO> selectAllProjectFile(int member_no);
+
 }

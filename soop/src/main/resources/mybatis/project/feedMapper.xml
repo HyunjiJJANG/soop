@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.jhta.soop.dao.FeedDAO">
+	<select id="selectAllProjectFile" parameterType="int" resultType="FeedDTO">
+		SELECT t.project_no, t.task_no, m.member_no, f.file_no, f.file_type, f.file_name, f.file_path, f.file_register_date 
+		FROM task t
+		JOIN member m
+		ON t.member_no = m.member_no
+		JOIN attached_file f
+		ON t.task_no = f.task_no
+		WHERE m.member_no = #{member_no}
+	</select>
+</mapper>
