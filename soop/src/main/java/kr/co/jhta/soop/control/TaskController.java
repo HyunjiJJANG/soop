@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -92,7 +93,7 @@ public class TaskController {
 	}
 	
 
-	@RequestMapping("/insert")
+	@PostMapping("/insert")
 	public String insert(@ModelAttribute TaskDTO Taskdto, 
 			@RequestParam(name = "file", required = false) MultipartFile file, // file이라는 이름의 파라미터값을 가져와서 MultipartFile 형식의 file로 받기
 																			   // required = false :: 필수가 아님 (없어도 데이터 들어가게)
@@ -116,17 +117,22 @@ public class TaskController {
 		
 		
 		// ** 결재 라인 **
+		
+		log.info(""+signdto);
+		
 		log.info("결재자 memberno : " + signdto.getMember_no()); // 현재 1로 기본 설정해놔서 잘 받는 것 같음
 		log.info("결재자 sign_approver : " + signdto.getSign_approver()); // 여기부터 안받아짐..
 		log.info("결재자 sign_step : " + signdto.getSign_step());
 		
-//		signdto.setMember_no(member_no);
-//		signdto.setSign_approver(sign_approver);
-//		signdto.setSign_step(sign_step);
-//		
+//		signdto.setMember_no(99);
+//		signdto.setSign_approver("가나다");
+//		signdto.setSign_step(99);
+		
 //		signdto.setSign_status(0);// 값 임의로 주기
 		
-//		signservice.insertOne(signdto); // 데이터 넣기
+		// **************************************************
+		// signservice.insertOne(signdto); // 데이터 넣기 ===> 이걸 하면 task.jsp에 새로 생성된 업무가 안뜸(업무 생성은 됨) ㅠㅠ
+		// **************************************************
 		
 		
 		// ** 파일 첨부 **

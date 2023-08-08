@@ -20,5 +20,4 @@ public class SignDTO {
 	private String sign_date;
 	
 	
-
 }

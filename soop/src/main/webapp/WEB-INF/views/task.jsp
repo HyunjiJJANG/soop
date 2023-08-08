@@ -164,25 +164,30 @@ $(document).ready(function(){
             // AJAX를 사용해 데이터를 서버로 전송
             $.ajax({
                 type: "POST",
-                url: "/insert", // => 컨트롤러의 업무 생성 부분의 url
-                data:  JSON.stringify( {
+                url: "<c:url value='/insert' />", // => 컨트롤러의 업무 생성 부분의 url
+                data:  {
                     member_no: selectedMemberNo, // member_no 값을 서버로 보냄 
                     sign_approver: selectedMemberName, // 결재자(sign_approver)
                     sign_step: selectedStep // 결재단계(sign_step)
-                }) ,
-                contentType: "application/json", // JSON 데이터임을 명시
-                dataType: "json", // 서버로부터 받을 데이터 타입을 명시 (응답으로 JSON을 받을 경우)
-                success: function (response) {
-                    // 필요하다면 서버 응답을 처리
-                    console.log("데이터가 성공적으로 서버로 전송되었습니다!");
                 },
-                error: function (xhr, status, error) {
-                    // 오류가 발생했을 경우 처리
-                    console.error("데이터를 서버로 전송하는데 오류가 발생했습니다:", error);
-                }
-            }); 
-            console.log("JSON 데이터 : " + JSON.stringify(data));
-            
+                contentType: "application/json;charset=utf-8", // JSON 데이터임을 명시
+                dataType : "json",
+                success: function(data) {                  
+                	 // 필요하다면 서버 응답을 처리
+                    console.log("데이터가 성공적으로 서버로 전송되었습니다!");
+                	 
+                     // 리다이렉트 처리
+                    window.location.href = "<c:url value='/soop/task' />";
+                  },
+                  error: function(data) {
+                	// 오류가 발생했을 경우 처리
+                      console.error("데이터를 서버로 전송하는데 오류가 발생했습니다:", error);
+/*                       console.log('에러'+ data);
+                      console.log('에러'+ JSON.stringify(data));
+                      console.log(JSON.stringify(data)) */
+                  }
+
+            });  
         });
     });
 </script>
@@ -292,7 +297,7 @@ $(document).ready(function(){
 
 <!-- 업무 생성 모달 -->
 <!-- 일단 업무 생성 구현 용으로 project_no와 member_no을 임의로 지정 -->
-<form action="insert?project_no=1&member_no=1" id="insertForm" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
+<form action="insert?project_no=1&member_no=3" id="insertForm" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
 <div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
