@@ -76,7 +76,7 @@ public class InvitationController {
 			
 			// 메일내용
 			sb.append("<br>아래 링크를 들어가셔서 초대코드를 입력해주세요.<br><br>"
-					+ "<div>http://localhost:8081/inviteMailLogin</div>"
+					+ "<div>http://localhost:8081/inviteMailCheck</div>"
 					+ "<br><br><div style='font-size: 18px; font-weight: bold; color: #FF0000;'>초대코드 : "+ key +"</div>"
 					+ "<br><div style='font-size: 18px; font-weight: bold;'>" + inviteMessage + "</div>");
 			
@@ -97,52 +97,65 @@ public class InvitationController {
 	} // 이메일 초대링크 보내기 end
 
 	// 이메일 초대링크 클릭시 로그인 페이지로 이동
-	@GetMapping("/inviteMailLogin")
-	public String inviteMailLogin(HttpSession session, Model model) {
-		String inviteMember = "inviteMember";
-		model.addAttribute("inviteMember", inviteMember);
-		
-		return "redirect:/clogin";
-	}
+//	@GetMapping("/inviteMailLogin")
+//	public String inviteMailLogin(HttpSession session, Model model) {
+//		String inviteMember = "inviteMember";
+//		model.addAttribute("inviteMember", inviteMember);
+//		
+//		return "redirect:/clogin";
+//	}
 	
 	// 초대링크 클릭시 초대코드 인증하는 페이지로 이동
 	@GetMapping("/inviteMailCheck")
 	public String mailcheckOk(@RequestParam(name = "isOk", required = false, defaultValue = "0")int code, 
-			Model model,
-			@ModelAttribute MemberDTO memberDto) {
-
-		model.addAttribute("memberDto", memberDto);
+			Model model) {
 		
 		if(code ==  3) { // 인증코드가 일치하지 않는 경우
 			model.addAttribute("error", "코드가 일치하지 않습니다. 다시 입력해주세요."); 
 		}
 		
 		return "inviteMailCheck"; 
-	} // 초대코드인증 페이지 이동 end
+	}
 	
-	// 로그인, 회원가입 완료 후 초대코드 인증 페이지로 이동
+	// 초대코드 인증 후 초대코드테이블 초대코드성공여부 '성공'으로 변경 및
+	// 초대받은 이메일 멤버테이블에 있으면 프로젝트멤버 테이블에 insert
 	@GetMapping("/inviteMailcheckOk")
-	public String inviteMailcheckOk(@RequestParam("invitation_code")String invitation_code,
-			@RequestParam("member_no")int member_no){
+	public String inviteMailcheckOk(@RequestParam("invitation_code")String invitation_code){
 		
-		// 초대테이블에 담긴 초대코드 String checkKey에 담기
-		String checkKey = projectInvitationService.findByKey(invitation_code);
-		log.info("초대코드 : "+checkKey);
+		ProjectInvitationDTO piDto = projectInvitationService.findByKey(invitation_code);
+		log.info("초대정보 : "+piDto);
 		
-       // 초대테이블에 있는 초대코드가 null이 아니면
-		if(checkKey != null) {
-			// 초대코드 입력후 확인버튼 클릭하면 초대코드 테이블에 있는 상태값을 성공으로 변경
-			 projectInvitationService.updateSuccess(checkKey);
-			 int project_no = projectInvitationService.findByProjectNo(checkKey);
-			 			 
-			// ProjectMemberDTO pmDTO = new ProjectMemberDTO();
-			// pmdto.setMember_no(member_no);
-			// pmdto.setProject_no(project_no);
-			// projectMemberService.insertOne(pmDTO);
-			
-			return "redirect:/home"; // 메인화면으로 리다이렉트
-			
-		} // 로그인,회원가입 완료후 초대코드인증 페이지 이동 end
+		String checkKey ="";
+		int project_no =0;
+		
+		if(piDto != null) {
+			checkKey = piDto.getInvitation_code();
+			project_no = piDto.getProject_no();
+		
+		// 초대테이블 이메일과 일치하는 이메일 멤버테이블에서 꺼내오기
+		MemberDTO mDto = memberService.selectMemberByEmail(piDto.getInvitation_email());
+				
+			// 입력한 초대코드와 프로젝트 초대코드 테이블에 들어있는 초대코드가 일치하면
+			if(invitation_code.equals(piDto.getInvitation_code())){
+		       // 초대테이블에 있는 이메일이 멤버테이블에 있으면 로그인 화면이동
+				if(mDto != null) {
+					// 초대코드 입력후 확인버튼 클릭하면 초대코드 테이블에 있는 상태값을 성공으로 변경
+					projectInvitationService.updateSuccess(checkKey);
+					
+					// 프로젝트 멤버 테이블에 insert			 			 
+					ProjectMemberDTO pmdto = new ProjectMemberDTO();
+					pmdto.setMember_no(mDto.getMember_no());
+					pmdto.setProject_no(project_no);
+					projectMemberService.insertOne(pmdto);
+					
+					return "redirect:/clogin";
+					
+				}
+			}else { //입력한 초대코드와 프로젝트 초대코드 테이블에 들어있는 초대코드가 일치하지않으면 회원가입 페이지로
+				
+				return "redirect:/register";
+			}
+		}
 		
 		return "redirect:inviteMailCheck?isOk=3"; // 초대코드가 불일치하면 "일치하지 않습니다" 문구
 		

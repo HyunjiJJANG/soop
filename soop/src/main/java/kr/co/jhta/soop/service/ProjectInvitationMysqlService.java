@@ -45,7 +45,7 @@ public class ProjectInvitationMysqlService implements ProjectInvitationService {
 	}
 
 	@Override
-	public String findByKey(String key) {
+	public ProjectInvitationDTO findByKey(String key) {
 		return dao.findByKey(key);
 	}
 
@@ -53,11 +53,6 @@ public class ProjectInvitationMysqlService implements ProjectInvitationService {
 	public void updateSuccess(String invitation_code) {
 		dao.updateSuccess(invitation_code);
 		
-	}
-
-	@Override
-	public int findByProjectNo(String key) {
-		return dao.findByProjectNo(key);
 	}
 
 }
