@@ -153,6 +153,7 @@ form {
 				<h3 class="card-title text-center">초대코드 인증</h3>
 				<div class="card-text">
 					<form action="/inviteMailcheckOk" method="get" name="frm" id="frm">
+					<input type="hidden" id="member_no" name="member_no" value="${memberDto.member_no}"/>
 						<div class="row g-3 align-items-center" style="width: 800px;">
 							<div class="col-md-6 position-relative">
 								<div class="col-6">

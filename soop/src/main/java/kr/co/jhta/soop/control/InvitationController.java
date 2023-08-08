@@ -14,6 +14,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -75,8 +76,7 @@ public class InvitationController {
 			
 			// 메일내용
 			sb.append("<br>아래 링크를 들어가셔서 초대코드를 입력해주세요.<br><br>"
-					+ "<div>"
-					+ "http://localhost:8081/inviteMailCheck</div>"
+					+ "<div>http://localhost:8081/inviteMailLogin</div>"
 					+ "<br><br><div style='font-size: 18px; font-weight: bold; color: #FF0000;'>초대코드 : "+ key +"</div>"
 					+ "<br><div style='font-size: 18px; font-weight: bold;'>" + inviteMessage + "</div>");
 			
@@ -96,52 +96,57 @@ public class InvitationController {
 
 	} // 이메일 초대링크 보내기 end
 
-	// 초대수락하기 버튼 클릭시 초대코드 인증하는 페이지로 이동
+	// 이메일 초대링크 클릭시 로그인 페이지로 이동
+	@GetMapping("/inviteMailLogin")
+	public String inviteMailLogin(HttpSession session, Model model) {
+		String inviteMember = "inviteMember";
+		model.addAttribute("inviteMember", inviteMember);
+		
+		return "redirect:/clogin";
+	}
+	
+	// 초대링크 클릭시 초대코드 인증하는 페이지로 이동
 	@GetMapping("/inviteMailCheck")
 	public String mailcheckOk(@RequestParam(name = "isOk", required = false, defaultValue = "0")int code, 
-			Model model) {
-		if(code ==  3) { // 임의로 3 넣어줌
+			Model model,
+			@ModelAttribute MemberDTO memberDto) {
+
+		model.addAttribute("memberDto", memberDto);
+		
+		if(code ==  3) { // 인증코드가 일치하지 않는 경우
 			model.addAttribute("error", "코드가 일치하지 않습니다. 다시 입력해주세요."); 
 		}
 		
-		return "inviteMailCheck";
+		return "inviteMailCheck"; 
 	} // 초대코드인증 페이지 이동 end
 	
 	// 로그인, 회원가입 완료 후 초대코드 인증 페이지로 이동
 	@GetMapping("/inviteMailcheckOk")
 	public String inviteMailcheckOk(@RequestParam("invitation_code")String invitation_code,
-			HttpSession session){
+			@RequestParam("member_no")int member_no){
 		
+		// 초대테이블에 담긴 초대코드 String checkKey에 담기
 		String checkKey = projectInvitationService.findByKey(invitation_code);
 		log.info("초대코드 : "+checkKey);
 		
-       // 세션에서 멤버 no, project no
+       // 초대테이블에 있는 초대코드가 null이 아니면
 		if(checkKey != null) {
 			// 초대코드 입력후 확인버튼 클릭하면 초대코드 테이블에 있는 상태값을 성공으로 변경
 			 projectInvitationService.updateSuccess(checkKey);
-			 int porjectno = projectInvitationService.findByProjectNo(checkKey);
+			 int project_no = projectInvitationService.findByProjectNo(checkKey);
 			 			 
-			 // 로그인 된후에 실행되는 코드 => 현지가 해주면 구현키로
-			 // MemberDTO mdto =  session.getAttribute("member");
-			 
-			 //int memberNo = mdto.getMember_no();
-			 
-			// projectMemberService.insertOne(memberNo, porjectno);
-			// ProjectMemberDTO pmdto = new ProjectMemberDTO();
-			// pmdto.setMember_no(memberNo);
-			// pmdto.setProject_no(porjectno);
-			// projectMemberService.insertOne(pmdto);
+			// ProjectMemberDTO pmDTO = new ProjectMemberDTO();
+			// pmdto.setMember_no(member_no);
+			// pmdto.setProject_no(project_no);
+			// projectMemberService.insertOne(pmDTO);
 			
-			return "redirect:/clogin"; // 메인화면으로 리다이렉트
+			return "redirect:/home"; // 메인화면으로 리다이렉트
 			
 		} // 로그인,회원가입 완료후 초대코드인증 페이지 이동 end
 		
 		return "redirect:inviteMailCheck?isOk=3"; // 초대코드가 불일치하면 "일치하지 않습니다" 문구
 		
 	} // inviteMailcheckOk() end
-	
-	// 초대멤버 강퇴(삭제)
-	
-	
+
 	
 } // class end
