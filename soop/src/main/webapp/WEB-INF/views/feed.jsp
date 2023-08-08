@@ -43,6 +43,15 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
+<script type="text/javascript">
+	// 업무별로 결재 라인 보여주기
+	window.onload = function(){
+		
+	}
+
+
+</script>
+
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
@@ -156,20 +165,11 @@
                                     <tr>
                                     	<td colspan="2">
                                     		<div style="float: left;"><i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;&nbsp;</div>
-                                    		<!-- 결재자 목록 보이는 곳 -->                                    		
-                                    		<div class="input-group" style="width: 100px; background-color: #78C2AD; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
-                                    			<span style="padding-top:2px;">홍길동</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    			<span style="padding-top:3px;"><i class="fa-solid fa-user-check"></i></span>
-                                    		</div>       		
-                                    		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
+											<!-- 결재 라인 보이는 곳 -->
+                                    		<!-- <div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
                                     			<span style="padding-top:5px;">홍길동</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                     			<span style="padding-top:5px;"><i class="fa-solid fa-user-check"></i></span>
-                                    		</div>
-                                    		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
-                                    			<span style="padding-top:5px;">홍길동</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    			<span style="padding-top:5px;"><i class="fa-solid fa-user-check"></i></span>
-                                    		</div>
-                                    		
+                                    		</div> -->                                    		
                                     	</td>
                                     </tr>
                                     <tr>
