@@ -52,6 +52,8 @@ body {
   
   <script>
   $( function() {
+
+
     $( ".column" ).sortable({
       connectWith: ".column",
       handle: ".portlet-header",
@@ -71,14 +73,30 @@ body {
       icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
       
     });
+
+	$("#portlet1").draggable();
+	$("#portlet2").droppable({
+		drop: handleDropEvent
+	});
 	
   } );
+
+
+  function handleDropEvent(event, ui) {
+	  // $(ui.draggable).find("tr").children("td") -> 해당 Jquery을 통해 이동하려는 영역의 데이터를 가져올수 있음
+	  var taskNo = $(ui.draggable).find("tr").children("td")[2].textContent;	// 예시 업무번호의 td의 textContent 값을 가져옴.
+
+	  // ajax을 통한 상태값 업데이트 및 화면 변경 처리
+
+  }
+
+
   </script>
 
 </head>
 <body>
 	<h2>kanban.jsp</h2>
-	<p>${dto  }</p>
+<%--	<p>${dto  }</p>--%>
 
 <%-- 	<table>
 		<c:forEach var="tasklist" items="${dto }">
@@ -108,11 +126,11 @@ body {
 		
 	</table> --%>
   
- 		<div class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
+ 		<div id="portlet1" class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
 		 	<c:forEach var="tasklist" items="${dto }">
 		 		
 	 	 		<c:if test="${tasklist.task_status == 0}">	<!-- 발의 : 0번 -->
-	 			  <div class="portlet">
+	 			  <div id="childPortlet1" class="portlet">
 				    <div class="portlet-header"> Title : ${tasklist.project_title} </div>
 				    <div class="portlet-content">				    
 				    	<table>
@@ -165,10 +183,10 @@ body {
 			</c:forEach>
 		</div>
 		
-		<div class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
+		<div id="portlet2" class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
 		 	<c:forEach var="tasklist" items="${dto }">
 	 	 		<c:if test="${tasklist.task_status == 1}">	<!-- 진행 : 1번 -->
-	 			  <div class="portlet">
+	 			  <div id="childPortlet2" class="portlet">
 				    <div class="portlet-header"> Title : ${tasklist.project_title} </div>
 				    <div class="portlet-content">
 				    	<table>
@@ -221,10 +239,10 @@ body {
 			</c:forEach>
 		</div>
 				
-		<div class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
+		<div id="portlet3" class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
 		 	<c:forEach var="tasklist" items="${dto }">
 	 	 		<c:if test="${tasklist.task_status == 2}">	<!-- 보류 : 2번 -->
-	 			  <div class="portlet">
+	 			  <div  class="portlet">
 				    <div class="portlet-header"> Title : ${tasklist.project_title} </div>
 				    <div class="portlet-content">
 					    	<table>
@@ -277,10 +295,10 @@ body {
 			</c:forEach>
 		</div>
 				
-		<div class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
+		<div id="portlet4" class="column" >	<!-- column : 열 안에 portlet을 가지고 있는 형태 -->
 		 	<c:forEach var="tasklist" items="${dto }">
 	 	 		<c:if test="${tasklist.task_status == 3}">	<!-- 완료 : 3번 -->
-	 			  <div class="portlet">
+	 			  <div  class="portlet">
 				    <div class="portlet-header"> Title : ${tasklist.project_title} </div>
 				    <div class="portlet-content">
 				    	<table>
