@@ -157,9 +157,9 @@
                                     	<td colspan="2">
                                     		<div style="float: left;"><i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;&nbsp;</div>
                                     		<!-- 결재자 목록 보이는 곳 -->                                    		
-                                    		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
-                                    			<span style="padding-top:5px;">홍길동</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                    			<span style="padding-top:5px;"><i class="fa-solid fa-user-check"></i></span>
+                                    		<div class="input-group" style="width: 100px; background-color: #78C2AD; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
+                                    			<span style="padding-top:2px;">홍길동</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    			<span style="padding-top:3px;"><i class="fa-solid fa-user-check"></i></span>
                                     		</div>       		
                                     		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
                                     			<span style="padding-top:5px;">홍길동</span>&nbsp;&nbsp;&nbsp;&nbsp;
