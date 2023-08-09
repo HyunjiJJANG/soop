@@ -203,7 +203,25 @@ form {
 											<input type="password" class="form-control" name="password"
 												id="password" placeholder="Password" class="form-control"
 												id="validationTooltipUsername"
-												aria-describedby="validationTooltipUsernamePrepend" required>
+												aria-describedby="validationTooltipUsernamePrepend" required value="test1@naver.com">
+											<label for="email">이메일</label>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="row g-3 align-items-center" style="width: 800px;">
+							<div class="col-md-6 position-relative">
+								<div class="col-6">
+									<span class="join-label-title"
+										style="width: 200px; margin-top: 20px;">비밀번호</span>
+									<div class="form-floating">
+										<div class="form-floating">
+											<input type="password" class="form-control" name="password"
+												id="password" placeholder="Password" class="form-control"
+												id="validationTooltipUsername"
+												aria-describedby="validationTooltipUsernamePrepend" required value="22222222">
 											<label for="password">비밀번호</label> <input type="hidden"
 												name="${_csrf.parameterName }" value="${_csrf.token }" />
 

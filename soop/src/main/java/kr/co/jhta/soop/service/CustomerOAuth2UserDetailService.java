@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import kr.co.jhta.soop.dto.MemberDTO;
 import lombok.extern.slf4j.Slf4j;
 
+
 @Slf4j
 @Service
 public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {
@@ -112,12 +113,20 @@ public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {
 
 		// 등록되어 있지 않으면 db에 추가하기
 		if (dto == null) {
+
 			int enabled = 2;
 			dto = MemberDTO.builder().email(email).password(passwordEncoder.encode(memberpassword)).name(name)
 					.enabled(enabled)
 					.build(); // 마지막에
 			
 			service.oAuth2UserinsertOne(dto);
+
+
+			dto = MemberDTO.builder().email(email).password(passwordEncoder.encode(memberpassword)).name(name).build();
+			// 마지막에 build해야 set하게 되는거야
+
+			service.insertOne(dto);
+
 
 			// -----------------------> 기존에 가입되어있지 않은 사람이라면 member 테이블에 데이터를 저장해
 			// member_role에는 데이터가 저장되지 않음 그래서 해당 아이디와 비밀번호로 로그인 시도시 로그인이 안 됨

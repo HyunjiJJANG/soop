@@ -66,6 +66,7 @@ public class MemberController {
 		return "login";
 	}
 
+
 	// 로그인 후 출력되는 index
 	@GetMapping("/loginOkIndex")
 	public String loginOk(Model model, Authentication auth) {
@@ -80,6 +81,7 @@ public class MemberController {
 	}
 
 	// 소셜 로그인 후 출력되는 index mapping
+
 	@GetMapping("/loginOauth2OkIndex")
 	public String loginOk(Model model, HttpSession httpSession, RedirectAttributes redirectAttributes) {
 		String email = (String) httpSession.getAttribute("email");
@@ -91,6 +93,20 @@ public class MemberController {
 		//log.info("message : " + message );
 		// model.addAttribute("message", message); 
 		//redirectAttributes.addFlashAttribute("message", message);  // 리다이렉트 전에 안내 문구를 전달
+		return "loginOkIndex";
+	}
+
+	//로그인 후 출력되는 index
+	@GetMapping("/loginOkIndex")
+	public String loginOk(Model model, Authentication auth, HttpSession session) {
+		log.info("auth : " + auth);
+		String email = auth.getName();
+		log.info("auth email : " + email);
+		MemberDTO memberDto = memberService.selectMemberByEmail(email);
+		log.info("memberDto 이메일:" + memberDto.getEmail());
+		log.info("memberDto:이름 " + memberDto.getName());
+		model.addAttribute("memberDto", memberDto);
+		session.setAttribute("member_no", memberDto.getMember_no()); // 멤버탈퇴 기능시 필요
 		return "loginOkIndex";
 	}
 

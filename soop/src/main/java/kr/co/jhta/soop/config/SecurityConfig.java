@@ -20,7 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource datasource;
 
-	
 	@Autowired
 	CustomerOAuth2UserDetailService userDetailService;
 	
@@ -35,8 +34,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		String usernameQuery = "SELECT email as username , password as password, enabled from member where email = ? ";
 
-		
-	
 		StringBuffer authQuery = new StringBuffer();
 		authQuery.append("SELECT a.email as username, b.role as authority ");
 		authQuery.append("from member a, member_role b ");

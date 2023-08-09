@@ -58,6 +58,7 @@
 	${memberDto}
 		
 	<h1>
+
 			<a
 				href="/mypage?member_no=${memberDto.member_no }&email=${memberDto.email}">mypage</a>
 		</h1>
@@ -69,13 +70,16 @@
 			<a
 				href="/historyList?member_no=${memberDto.member_no }&email=${memberDto.email}">히스토리</a>
 		</h1>
-
+				<h1>
+		<a href="/home?member_no=${memberOauth2Dto.member_no }">home</a>
+		</h1>
 	</c:if>
 	<c:if test="${not empty memberOauth2Dto}">
 	memberOauth2Dto 이거 맞나요
 	${memberOauth2Dto}
 		
 	<h1>
+
 			<a
 				href="/mypageOauth2?member_no=${memberOauth2Dto.member_no }&email=${memberOauth2Dto.email}">mypage</a>
 		</h1>
@@ -88,7 +92,17 @@
 				href="/historyList?member_no=${memberOauth2Dto.member_no }&email=${memberOauth2Dto.email}">/히스토리</a>
 		</h1>
 
-	</c:if>
 
+		<a	href="/mypageOauth2?member_no=${memberOauth2Dto.member_no }&email=${memberOauth2Dto.email}">mypage</a>
+	</h1>
+	<h1>
+		<a	href="/contact?member_no=${memberOauth2Dto.member_no }&email=${memberOauth2Dto.email}&project_no=1">/주소록</a>
+	</h1>
+		<h1>
+		<a href="/home?member_no=${memberOauth2Dto.member_no }">home</a>
+		</h1>
+	
+	</c:if>
+	
 </body>
 </html>
