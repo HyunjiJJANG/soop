@@ -45,8 +45,9 @@
 
 <script>
 	var task_no = ${tno}; //게시글 번호
-	$('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
+	$('#commentInsertBtn').click(function(){ //댓글 등록 버튼 클릭시 
 	    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
+	    console.log(insertData);
 	    commentInsert(insertData); //Insert 함수호출(아래)
 	});
 	
@@ -59,12 +60,6 @@
 	        success : function(data){
 	            var a =''; 
 	            $.each(data, function(key, value){ 
-	                /* a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-	                a += '<div class="commentInfo'+value.comment_no+'">'+'댓글번호 : '+value.comment_no+' / 작성자 : '+value.name;
-	                a += '<a onclick="commentUpdate('+value.comment_no+',\''+value.comment_content+'\');"> 수정 </a>';
-	                a += '<a onclick="commentDelete('+value.comment_no+');"> 삭제 </a> </div>';
-	                a += '<div class="commentContent'+value.comment_no+'"> <p> 내용 : '+value.comment_content +'</p>';
-	                a += '</div></div>'; https://private.tistory.com/65*/
 	            	a += '<div class="row m-b-0"><div class="col-auto p-r-0">';
 	            	a += '<img src="'+value.profile_path+'" alt="user image" class="img-radius wid-40"></div>';
 	            	a += '<div class="col"><p class="text-muted m-b-0">'+value.name+'&nbsp;&nbsp;&nbsp; <i class="fa fa-clock-o m-r-10"></i>'+value.comment_register_date+'&nbsp;&nbsp;&nbsp;';
@@ -74,6 +69,21 @@
 	            });
 	            
 	            $(".commentList").html(a);
+	        }
+	    });
+	}
+	
+	//댓글 등록
+	function commentInsert(insertData){
+	    $.ajax({
+	        url : '/comment/insert',
+	        type : 'post',
+	        data : insertData,
+	        success : function(data){
+	           
+	                commentList(); //댓글 작성 후 댓글 목록 reload
+	                $('[name=comment_content]').val('');
+	            
 	        }
 	    });
 	}
@@ -219,12 +229,13 @@
                                 		<td colspan="2">
 			                                <form name="commentInsertForm">
 												<div class="input-group m-t-0">
-				                                		<input type="hidden" name="task_no" value="${tno}" />
-				                                		<input type="hidden" name="member_no" value="${mno}"/>
-														<input type="text" name="comment_content" class="form-control" id="comment_content" placeholder="댓글을 입력하세요.">
-														<div class="input-group-append">
-															<button type="button" class="btn btn-primary" name="commentInsertBtn"><i class="fa-regular fa-paper-plane"></i></button>
-														</div>
+													<input type="hidden" name="project_no" value="${pno}" />
+			                                		<input type="hidden" name="task_no" value="${tno}" />
+			                                		<input type="hidden" name="member_no" value="${mno}"/>
+													<input type="text" name="comment_content" class="form-control" id="comment_content" placeholder="댓글을 입력하세요.">
+													<div class="input-group-append">
+														<button class="btn btn-primary" id="commentInsertBtn"><i class="fa-regular fa-paper-plane"></i></button>
+													</div>
 	                       						</div>
 		                                	</form>
                                 		</td>
