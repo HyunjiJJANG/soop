@@ -151,7 +151,7 @@ public class InvitationController {
 					return "redirect:/clogin";
 					
 				}
-			}else { //입력한 초대코드와 프로젝트 초대코드 테이블에 들어있는 초대코드가 일치하지않으면 회원가입 페이지로
+			}else { //입력한 초대코드와 프로젝트 초대코드 테이블에 들어있는 초대코드가 일치하지 않으면 회원가입 페이지로
 				
 				return "redirect:/register";
 			}
