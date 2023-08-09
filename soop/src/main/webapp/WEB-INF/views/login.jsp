@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,16 +145,36 @@ form {
 	align-items: center;
 }
 </style>
-</head>
-<body class="d-flex flex-column h-100">
 
+<!-- 리다이렉트로 넘어온 메세지  -->
+<script>
+	// 리다이렉트된 페이지 로딩 후 실행되는 스크립트
+	window.onload = function() {
+		var message = "${message}";
+		if (message) {
+			alert(message); // 얼럿 창에 메시지 출력
+		}
+	};
+</script>
+
+<script>
+	// URL에서 message 파라미터 값 가져오기
+	var loginMessage = new URLSearchParams(window.location.search).get('loginMessage');
+	if (loginMessage) {
+		alert(loginMessage); // 얼럿 창에 메시지 출력
+	}
+</script>
+</head>
+
+
+
+<body class="d-flex flex-column h-100">
 	<div class="global-container">
 		<div class="card login-form">
 			<div class="card-body">
 				<h3 class="card-title text-center">LOGIN</h3>
 				<div class="card-text">
 					<form action="/login" method="post" name="frm" id="frm">
-
 						<div class="row g-3 align-items-center" style="width: 800px;">
 							<div class="col-md-6 position-relative">
 								<div class="col-6">
@@ -186,6 +206,7 @@ form {
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="password">비밀번호</label> <input type="hidden"
 												name="${_csrf.parameterName }" value="${_csrf.token }" />
+
 										</div>
 									</div>
 								</div>
@@ -197,16 +218,19 @@ form {
 						<div class="d-grid gap-2 col-12"
 							style="width: 276px; height: 36px;">
 							<input type="submit" class="btn btn-success" value="로그인"
-								style="margin-top: 20px; width: 450px; height: 50px; " />
+								style="margin-top: 20px; width: 450px; height: 50px;" />
 						</div>
 					</form>
 					<div class="link">
-						<a href="/searchPassword" style="margin-left: 90px; color: black;  text-decoration-line: none;">비밀번호 찾기</a> <a
-							href="/register" style="margin-left: 100px; color: black;  text-decoration-line: none;">회원가입</a>
+						<a href="/searchPassword"
+							style="margin-left: 90px; color: black; text-decoration-line: none;">비밀번호
+							찾기</a> <a href="/register"
+							style="margin-left: 100px; color: black; text-decoration-line: none;">회원가입</a>
 
 					</div>
 
-					<div class="line" style="margin-top: 70px; padding-right: 20px; margin-bottom: 35px;">SNS
+					<div class="line"
+						style="margin-top: 70px; padding-right: 20px; margin-bottom: 35px;">SNS
 						계정 로그인</div>
 
 					<div class="loginButton">
@@ -223,4 +247,8 @@ form {
 		</div>
 	</div>
 </body>
+
+
+
+
 </html>

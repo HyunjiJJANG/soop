@@ -127,11 +127,11 @@ form {
 								$("#idCheck").html("사용가능한 아이디입니다.").css(
 										"color", "blue");
 								$("#btnMailCheck").show();
-							} else if($("#email").val().trim() == ""){
+							} else if ($("#email").val().trim() == "") {
 								$("#idCheck").hide();
 								$("#btnMailCheck").hide();
-								
-							}else {
+
+							} else {
 								$("#idCheck").html("이미 존재하는 아이디입니다.").css(
 										"color", "red");
 								$("#btnMailCheck").hide();
@@ -139,24 +139,23 @@ form {
 						}
 					});
 				});
-		 
+
 		// 이름 길이가 2보다 작으면 빨간 테두리
-			$("#name").on("keyup", function() {
-				if ($(this).val().trim().length < 0) {
-					$(this).removeClass("form-control");
-					$(this).addClass("form-control is-invalid");
+		$("#name").on("keyup", function() {
+			if ($(this).val().trim().length < 0) {
+				$(this).removeClass("form-control");
+				$(this).addClass("form-control is-invalid");
 
-				} else if ($(this).val().trim().length >= 2) {
-					$(this).removeClass("form-control is-invalid");
-					$(this).addClass("form-control");
+			} else if ($(this).val().trim().length >= 2) {
+				$(this).removeClass("form-control is-invalid");
+				$(this).addClass("form-control");
 
-				}
-			})
-			
-			
+			}
+		})
+
 		// 비밀번호 길이가 8보다 작으면 빨간 테두리
-		$("#password").on("keyup", function() {
-			if ($(this).val().trim().length < 8) {
+		/* $("#password").on("keyup", function() {
+			if ($(this).val().trim().length < 8 || !/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/g.test($(this).val().trim())) {
 				$(this).removeClass("form-control");
 				$(this).addClass("form-control is-invalid");
 
@@ -165,7 +164,26 @@ form {
 				$(this).addClass("form-control");
 
 			}
-		})
+		}) */
+
+		//비밀번호 유효성 검사 테스트 
+		$("#password")
+				.on(
+						"keyup",
+						function() {
+							var password = $(this).val().trim();
+
+							// 최소 8자 이상, 영문 대소문자 및 특수문자 포함 여부 검사
+							var regPassword = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+							if (regPassword.test(password)) {
+								$(this).removeClass("form-control is-invalid");
+								$(this).addClass("form-control");
+							} else {
+								$(this).removeClass("form-control");
+								$(this).addClass("form-control is-invalid");
+							}
+						});
 
 		// 비밀번호 확인이 일치하지 않으면 빨간 테두리
 		$("#repeatPw").on("keyup", function() {
@@ -197,6 +215,7 @@ form {
 
 				});
 				alert("인증번호가 전송되었습니다.")
+				
 				isCertification = false; //추후 인증 여부를 알기위한 값
 				$("#authCodeDiv").show();
 			}
@@ -233,9 +252,8 @@ form {
 	})
 	function validation() {
 
-		
 		//변수에 저장
-		
+
 		var $name = $("#name").val().trim();
 		var $email = $("#email").val().trim();
 		var $authCode = $("#authCode").val().trim();
@@ -247,7 +265,7 @@ form {
 		var regName = /^[가-힣a-zA-Z]{2,15}$/;
 
 		// id, pw
-		var regIdPw = /^[a-zA-Z0-9]{8,30}$/;
+		var regIdPw = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 		// 이메일
 		var regMail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
@@ -283,7 +301,7 @@ form {
 		}
 		//비밀번호 영어 대소문자 확인
 		else if (!regIdPw.test(password.value)) {
-			alert("8~30자 영문 대소문자, 숫자만 입력하세요.")
+			alert("영문 대문자 또는 소문자, 숫자를 포함한 8자 이상으로 입력하세요.")
 			password.focus();
 			return false;
 		}
@@ -321,16 +339,15 @@ form {
 				<h3 class="card-title text-center">SIGN UP</h3>
 				<div class="card-text">
 					<form action="/registerOk" method="post" name="frm" id="frm">
-					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+						<input type="hidden" name="${_csrf.parameterName }"
+							value="${_csrf.token }" />
 						<div class="row g-3 align-items-center " style="width: 800px;">
 							<div class="col-md-6 position-relative">
 								<div class="col-6">
 									<span class="join-label-title">닉네임</span>
 									<div class="form-floating">
 										<input type="text" class="form-control" name="name" id="name"
-											placeholder="Name">
-										
-										<label for="name">닉네임</label>
+											placeholder="Name"> <label for="name">닉네임</label>
 										<div class="invalid-feedback">닉네임은 2글자 이상 작성해주세야합니다.</div>
 									</div>
 								</div>
@@ -375,7 +392,7 @@ form {
 											aria-labelledby="btnAuth" class="form-control"
 											id="validationTooltipUsername"
 											aria-describedby="validationTooltipUsernamePrepend" required>
-											<div class="invalid-feedback">이메일 확인 인증번호를 입력해주세요</div>
+										<div class="invalid-feedback">이메일 확인 인증번호를 입력해주세요</div>
 
 									</div>
 								</div>
@@ -403,7 +420,8 @@ form {
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="password">비밀번호</label>
-											<div class="invalid-feedback">비밀번호는 8자 이상으로 입력해주세요</div>
+											<div class="invalid-feedback" style="width: 400px;">비밀번호는
+												8자 이상으로 영어 대,소문자와 숫자 특수문자를 포함하여 입력해주세요</div>
 										</div>
 									</div>
 								</div>
@@ -424,7 +442,7 @@ form {
 												class="form-control"
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="repeatPw">비밀번호 확인</label>
-											<div class="invalid-feedback">비밀번호와 동일하지 않습니다.</div>
+											<div class="invalid-feedback" style="width: 400px;">비밀번호와 동일하지 않습니다.</div>
 										</div>
 									</div>
 								</div>
@@ -444,7 +462,7 @@ form {
 							<a href="/clogin">이미 계정이 있습니다</a>
 						</div>
 					</form>
-					
+
 				</div>
 			</div>
 		</div>

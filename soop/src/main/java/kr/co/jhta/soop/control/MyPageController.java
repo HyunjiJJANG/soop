@@ -40,7 +40,7 @@ public class MyPageController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	//마이페이지 리스트
+	// 마이페이지 리스트
 	@GetMapping("/mypage")
 	public String mypage(@RequestParam("member_no") int member_no, @RequestParam("email") String email, Model model) {
 		String result = "";
@@ -58,6 +58,7 @@ public class MyPageController {
 		}
 
 	}
+
 	// 마이페이지 입장 전 패스워드 체크를 위한 매핑
 	@GetMapping("/mypagePasswordCheck")
 	@ResponseBody
@@ -99,9 +100,8 @@ public class MyPageController {
 
 		return "mypagePasswordCheckOk";
 	}
-	
-	
-	//소셜 로그인시 비밀번호 확인 없이 바로 마이페이지로 이동 가능 
+
+	// 소셜 로그인시 비밀번호 확인 없이 바로 마이페이지로 이동 가능
 	@RequestMapping("/mypageOauth2")
 	public String mypageOauth2Ok(@RequestParam("email") String email, @RequestParam("member_no") int member_no,
 			Model model) {
@@ -112,7 +112,7 @@ public class MyPageController {
 		return "mypagePasswordCheckOk";
 	}
 
-	//닉네임 변경하기
+	// 닉네임 변경하기
 	@GetMapping("/nameChange")
 	@ResponseBody
 	public String nameChangeOk(@RequestParam("name") String name, @RequestParam("nameView") String nameView,
@@ -134,35 +134,44 @@ public class MyPageController {
 
 	}
 
-	//비밀번호 변경하기
+	// 비밀번호 변경하기
 	@GetMapping("/passwordChange")
 	@ResponseBody
 	public String passwordChangeOk(@RequestParam("password") String password, @RequestParam("repeatPw") String repeatPw,
 			@RequestParam("email") String email) {
+
 		String result = "";
-		if (password == null || repeatPw == null) {
-			result = "passwrod input False";
+		MemberDTO memberDto = memberService.selectMemberByEmail(email);
+		int enabled = memberDto.getEnabled();
+		log.info("비밀번호 변경 시 enabled : " + enabled);
+
+		if (enabled == 2) {
+			result = "소셜 회원가입한 회원입니다. 비밀번호 변경이 불가능합니다.";
 			return result;
 		} else {
+			if (password == null || repeatPw == null) {
+				result = "passwrod input False";
+				return result;
+			} else {
 
-			MemberDTO memberDto = memberService.selectMemberByEmail(email);
-			int member_no = memberDto.getMember_no();
-			memberDto.setPassword(passwordEncoder.encode(password));
-			memberDto.setMember_no(member_no);
-			memberService.updateOne(memberDto);
-			result = "OK";
-			return result;
+				memberDto = memberService.selectMemberByEmail(email);
+				int member_no = memberDto.getMember_no();
+				memberDto.setPassword(passwordEncoder.encode(password));
+				memberDto.setMember_no(member_no);
+				memberService.updateOne(memberDto);
+				result = "OK";
+				return result;
 
+			}
 		}
 
 	}
 
-	//프로필 사진 변경
+	// 프로필 사진 변경
 	@RequestMapping("/uploadProfileImage")
 	public ResponseEntity<String> uploadProfileImage(@RequestParam("profileImage") MultipartFile file, Model model,
-			@ModelAttribute UploadFile uploadfile, HttpServletRequest req,
-			@RequestParam("email") String email
-			) throws UnsupportedEncodingException {
+			@ModelAttribute UploadFile uploadfile, HttpServletRequest req, @RequestParam("email") String email)
+			throws UnsupportedEncodingException {
 		// 파일 업로드 및 데이터베이스 업데이트 로직 수행
 		if (!file.isEmpty()) {
 			try {
@@ -171,18 +180,14 @@ public class MyPageController {
 				ServletContext application = session.getServletContext();
 
 				String filePath = application.getRealPath("/data"); // 디렉토리경로
-				
-				
+
 				MemberDTO memberDto = memberService.selectMemberByEmail(email);
 
-				
-				
-				
 				// 파일명 저장
 				memberDto.setProfile_name(file.getOriginalFilename());
-				
-				File f = new File(filePath + "/" + file.getOriginalFilename()); 
-				
+
+				File f = new File(filePath + "/" + file.getOriginalFilename());
+
 				try {
 					file.transferTo(f);
 				} catch (IllegalStateException e) {
@@ -190,15 +195,14 @@ public class MyPageController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
-				
-	         // 파일 경로 dto에 저장
-	            memberDto.setProfile_path(filePath + "\\" + file.getOriginalFilename());
+
+				// 파일 경로 dto에 저장
+				memberDto.setProfile_path(filePath + "\\" + file.getOriginalFilename());
 
 				// dto에 이메일 저장
 				memberDto.setEmail(email);
 
-				//member테이블 프로필 업로드 후 업데이트
+				// member테이블 프로필 업로드 후 업데이트
 
 				memberService.updateOneProfile(memberDto);
 				return ResponseEntity.ok("프로필 사진이 성공적으로 업로드되었습니다!");
@@ -212,6 +216,5 @@ public class MyPageController {
 			return ResponseEntity.badRequest().body("업로드할 파일을 선택해주세요.");
 		}
 	}
-	
-	
+
 }

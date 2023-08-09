@@ -707,21 +707,30 @@ img.rounded {
 						<div class="card-title text-left" id="MypageH6">
 							<h5>회원정보</h5>
 						</div>
+						
 						<!-- 회원 프로필 사진 -->
 						<div class="text-left"
 							style="margin-top: 50px; margin-bottom: 50px; position: relative;">
-							<img src="${memberDto.profile_path}" class="rounded"
-								alt="profile_image">
+							<!-- 최신 브라우저들은 보안상의 이유로 웹 페이지에서 
+							로컬 파일 시스템의 리소스를 직접 접근하는 것을 금지하고 있습니다.
+							 따라서 로컬 파일 시스템의 경로를 직접 불러올 수 없도록 막고 있습니다. 그래서 정적 리소스 경로 사용하여 이미지 보여줌 -->
+							<img src="/data/${memberOauth2Dto.profile_name}" class="rounded"
+								alt="profile_image" style="width: 100px; height: 100px;">
 
 							<!-- 버튼을 누르면 회원 프로필 사진이 변경되게하는 a태그 -->
-							<!-- <a href="#" id="profileImageModify"> <input type="file"
-									id="profileImageInput" style="display: none;"> <img
-									src="/images/iconmodify.png" alt="profile_image"
-									id="profileImageModifyButton">
-								</a> -->
+							<form id="profileImageForm" enctype="multipart/form-data"
+								modelAttribute="uploadFile" method="POST">
+								<label for="profileImageInput" id="fileInputLabel"> <a
+									href="#" id="profileImageModify"> <img
+										src="/images/iconmodify.png" alt="profile_image"
+										id="profileImageModifyButton" style="top: 70px; left: 70px;">
+								</a>
+								</label> <input type="file" name="profileImage" id="profileImageInput"
+									style="display: none;" /> <input type="hidden" name="email"
+									id="email" value="${memberOauth2Dto.email }">
+							</form>
+						
 						</div>
-
-
 						<!-- 이메일 -->
 						<div class="row g-3 align-items-center" style="width: 800px;">
 							<div class="col-md-6 position-relative">

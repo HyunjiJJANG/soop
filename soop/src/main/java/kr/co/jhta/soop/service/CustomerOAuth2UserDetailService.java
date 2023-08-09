@@ -72,7 +72,7 @@ public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {
 			// 이메일과 이름을 가져왔음
 			email = oAuth2User.getAttribute("email");
 			name = oAuth2User.getAttribute("name");
-
+			
 			// ClientName이 카카오일때
 		} else if (ClientName.equals("Kakao")) {
 
@@ -97,6 +97,8 @@ public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {
 		MemberDTO dto = service.selectMemberByEmail(email);
 		 // 세션에 이메일 값 담기
         httpSession.setAttribute("email", email);
+        //httpSession.setAttribute("signupMessage", "로그인이 성공적으로 완료되었습니다.");
+       
 		return super.loadUser(userRequest);
 	}
 
@@ -110,14 +112,12 @@ public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {
 
 		// 등록되어 있지 않으면 db에 추가하기
 		if (dto == null) {
-
-			dto = MemberDTO.builder().email(email).password(passwordEncoder.encode(memberpassword)).name(name).build(); // 마지막에
-																														// build
-																														// 해야
-																														// set하게
-																														// 되는거야
-
-			service.insertOne(dto);
+			int enabled = 2;
+			dto = MemberDTO.builder().email(email).password(passwordEncoder.encode(memberpassword)).name(name)
+					.enabled(enabled)
+					.build(); // 마지막에
+			
+			service.oAuth2UserinsertOne(dto);
 
 			// -----------------------> 기존에 가입되어있지 않은 사람이라면 member 테이블에 데이터를 저장해
 			// member_role에는 데이터가 저장되지 않음 그래서 해당 아이디와 비밀번호로 로그인 시도시 로그인이 안 됨

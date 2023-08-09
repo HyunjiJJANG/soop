@@ -77,7 +77,7 @@ table {
 	overflow: hidden;
 }
 
-th {
+/* th {
 	text-align: center;
 }
 
@@ -85,6 +85,25 @@ thead {
 	font-weight: bold;
 	color: #fff;
 	background: #00480c;
+} */
+thead {
+	font-weight: bold;
+	color: #fff;
+	background: #00480c;
+	position: sticky; /* 테이블 헤더 고정 */
+	top: 0; /* 상단에 고정 */
+	z-index: 2; /* 다른 내용 위에 표시되도록 z-index 설정 */
+}
+
+th {
+	padding: 1em .5em;
+	vertical-align: middle;
+	text-align: center;
+	background-color: #00480c; /* 배경색 지정 */
+	position: sticky; /* 열 고정 */
+	top: 0; /* 상단에 고정 */
+	z-index: 1; /* 테이블 헤더 위에 표시되도록 z-index 설정 */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
 }
 
 td, th {
@@ -97,6 +116,20 @@ td {
 	border-bottom: 1px solid rgba(0, 0, 0, .1);
 	background: #fff;
 	text-align: center;
+}
+
+td {
+	/* ... */
+	position: sticky; /* 열 고정 */
+	top: 0; /* 상단에 고정 */
+	z-index: 1; /* 테이블 헤더 위에 표시되도록 z-index 설정 */
+}
+
+td {
+	max-width: 200px; /* 최대 너비 설정 */
+	overflow: hidden; /* 넘치는 부분 감춤 */
+	white-space: nowrap; /* 텍스트가 줄 바꿈 없이 표시 */
+	text-overflow: ellipsis; /* 넘치는 텍스트는 ...으로 표시 */
 }
 
 a {
@@ -198,19 +231,32 @@ ul {
 																						+ '</td>';
 																				str += '<td>';
 
-																				// 날짜 변환
-																				var date = new Date(
+																				var formattedDate = new Date(
 																						item.history_register_date);
-																				var formattedDate = date
-																						.toLocaleDateString(
-																								"en-US",
-																								{
-																									year : "numeric",
-																									month : "2-digit",
-																									day : "2-digit"
-																								});
+																				var year = formattedDate
+																						.getFullYear();
+																				var month = (formattedDate
+																						.getMonth() + 1)
+																						.toString()
+																						.padStart(
+																								2,
+																								'0');
+																				var day = formattedDate
+																						.getDate()
+																						.toString()
+																						.padStart(
+																								2,
+																								'0');
+																				var formattedDateString = year
+																						+ '-'
+																						+ month
+																						+ '-'
+																						+ day;
 
-																				str += formattedDate;
+																				// ...
+
+																				str += formattedDateString; // 원하는 날짜 형식으로 출력
+
 																				str += '</td>';
 																				str += '</tr>';
 																				searchResultList
@@ -226,10 +272,12 @@ ul {
 																							.join(''));
 
 																} else {
-
 																	$(
 																			'#historyListDiv')
-																			.empty();
+																			.empty()
+																			.html(
+																					'<tr><td colspan="5">선텍하신 프로젝트의 히스토리가 없습니다.</td></tr>');
+
 																}
 															},
 															error : function(
@@ -280,15 +328,16 @@ ul {
 							aria-label="Default select example" name="projectList"
 							id="projectList">
 								<option selected>프로젝트 선택</option>
+								<option value="0">전체보기</option>
 								<c:forEach var="project" items="${projectList}">
 									<option value="${project.project_no}">${project.project_title}</option>
 								</c:forEach>
+
 						</select></td>
 
 					</tr>
-
-					<tbody id="historyListDiv">
-			<c:forEach var="historydto" items="${list }">
+				<tbody id="historyListDiv">
+					<c:forEach var="historydto" items="${list }">
 						<h2>멤버 번호 ${historydto.member_no }</h2>
 						<h2>프로젝트 번호 ${historydto.project_no }</h2>
 
@@ -309,7 +358,10 @@ ul {
 
 
 					</c:forEach>
+
 				</tbody>
+
+
 
 				<tr>
 					<td colspan="5">
@@ -333,7 +385,8 @@ ul {
 
 					</td>
 				</tr>
-				</tbody></table>
+				</tbody>
+			</table>
 
 		</div>
 	</div>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 
+
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -21,6 +22,14 @@
 		VALUES
 		(#{email},#{password},#{name},'profile','https://cdn-icons-png.flaticon.com/128/1077/1077063.png',1
 		)
+	</insert>
+	
+	<!-- 소셜 회원가입 -->
+	
+	<insert id="oAuth2UserinsertOne" parameterType="MemberDTO">
+		INSERT INTO member (email, password, name, profile_name, profile_path, enabled )
+		VALUES
+		(#{email},#{password},#{name},'profile','https://cdn-icons-png.flaticon.com/128/1077/1077063.png',#{enabled})
 	</insert>
 
 	<!-- 소셜 로그인시 중복 확인 후 가입을 위한 memper -->

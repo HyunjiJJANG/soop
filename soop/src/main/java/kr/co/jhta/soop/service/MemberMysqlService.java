@@ -91,5 +91,12 @@ public class MemberMysqlService implements MemberService{
 		
 	}
 
+	@Override
+	public void oAuth2UserinsertOne(MemberDTO dto) {
+		
+		dao.oAuth2UserinsertOne(dto);
+		
+	}
+
 	
 }

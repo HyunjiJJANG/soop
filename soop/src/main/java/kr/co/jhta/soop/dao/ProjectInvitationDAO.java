@@ -12,7 +12,7 @@ import kr.co.jhta.soop.dto.ProjectInvitationDTO;
 public interface ProjectInvitationDAO {
 	
 	public List<ProjectInvitationDTO> selectAll();
-
+	
 	public ProjectInvitationDTO selectOne(int invitation_no);
 
 	public void insertOne(ProjectInvitationDTO dto);
@@ -20,6 +20,8 @@ public interface ProjectInvitationDAO {
 	public void updateOne(ProjectInvitationDTO dto);
 
 	public void deleteOne(int invitation_no);
+
+	public ProjectInvitationDTO selectOneByEmail(String invitation_email);
 
 
 }

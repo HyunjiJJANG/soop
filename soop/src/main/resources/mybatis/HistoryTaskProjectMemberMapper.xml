@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -67,6 +68,31 @@
 		parameterType="HistoryTaskProjectMemberDTO"
 		resultType="HistoryTaskProjectMemberDTO">
 
+		SELECT h.history_content, h.task_no,
+		h.history_register_date,
+		p.project_title,
+		pm.member_no, p.project_no,
+		t.task_title, m.name as name
+		FROM history h
+		INNER JOIN task t ON
+		h.task_no = t.task_no
+		INNER JOIN project_member pm ON t.project_no =
+		pm.project_no
+		INNER JOIN project p ON t.project_no = p.project_no
+		INNER
+		JOIN member m ON t.member_no = m.member_no
+		WHERE pm.member_no =
+		#{member_no}
+		AND p.project_no = #{project_no}
+		ORDER BY h.history_no
+		DESC;
+
+	</select>
+
+	<!-- 히스토리 리스트중 프로젝트 전체보기 선택시 보여줄 히스토리 목록 -->
+
+	<select id="getSearchTotalList" parameterType="HistoryTaskProjectMemberDTO"
+		resultType="HistoryTaskProjectMemberDTO">
 		SELECT h.history_content, h.task_no, h.history_register_date,
 		p.project_title,
 		pm.member_no, p.project_no, t.task_title, m.name as name
@@ -76,10 +102,7 @@
 		INNER JOIN project p ON t.project_no = p.project_no
 		INNER JOIN member m ON t.member_no = m.member_no
 		WHERE pm.member_no = #{member_no}
-		AND p.project_no = #{project_no}
-		ORDER BY h.history_no DESC;
-
+		ORDER BY h.history_no DESC
 
 	</select>
-
 </mapper>

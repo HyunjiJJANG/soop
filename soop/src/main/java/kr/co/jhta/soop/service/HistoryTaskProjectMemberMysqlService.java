@@ -36,6 +36,11 @@ public class HistoryTaskProjectMemberMysqlService implements HistoryTaskProjectM
 		
 		return dao.getSearchList(dto);
 	}
+
+	public List<HistoryTaskProjectMemberDTO> getSearchTotalList(HistoryTaskProjectMemberDTO dto) {
+	
+		return dao.getSearchTotalList(dto);
+	}
 	
 	
 }

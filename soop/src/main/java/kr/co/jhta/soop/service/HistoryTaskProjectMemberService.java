@@ -14,4 +14,6 @@ public interface HistoryTaskProjectMemberService {
 	
 	public List<HistoryTaskProjectMemberDTO> getSearchList(HistoryTaskProjectMemberDTO dto);
 	
+	public List<HistoryTaskProjectMemberDTO> getSearchTotalList(HistoryTaskProjectMemberDTO dto);
+	
 }

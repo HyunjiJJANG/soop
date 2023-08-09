@@ -16,6 +16,11 @@ public interface MemberService {
 	
 	
 	public void insertOne(MemberDTO dto);
+	
+	
+	public void oAuth2UserinsertOne(MemberDTO dto);
+	
+	
 
 	public void updateOne(MemberDTO dto);
 	

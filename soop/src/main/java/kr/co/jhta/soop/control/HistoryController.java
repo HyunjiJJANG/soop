@@ -30,15 +30,13 @@ public class HistoryController {
 		// 프로젝트 별 찾기를 위한 코드
 		List<HistoryTaskProjectMemberDTO> projectList = historyService.selectAllbyMemberNo(member_no);
 		model.addAttribute("projectList", projectList);
-		
-		
 
 		// 페이징 처리하기
 		// 총 게시물 수
 		HistoryTaskProjectMemberDTO dtoGetTotal = new HistoryTaskProjectMemberDTO();
 		// 조건에 맞는 리스트의 값을 출력하기 위해 member_no set
 		dtoGetTotal.setMember_no(member_no);
-		
+
 		// getTotal로 총 게시물 수 구해오기
 		int totalNumber = historyService.getToal(dtoGetTotal);
 		// 페이지당 게시물 수
@@ -50,13 +48,12 @@ public class HistoryController {
 		Map<String, Object> map = PageUtil.getPageData(totalNumber, recordPerPage, currentPage);
 
 		int getstartNo = (int) map.get("startNo");
-		//int endNo = (int) map.get("endNo");
+		// int endNo = (int) map.get("endNo");
 
 		int startNo = getstartNo - 1;
 		// 히스토리 출력
 		HistoryTaskProjectMemberDTO dto = new HistoryTaskProjectMemberDTO();
 		dto.setMember_no(member_no);
-		
 
 		dto.setStartNo(startNo);
 		dto.setEndNo(recordPerPage);
@@ -65,7 +62,7 @@ public class HistoryController {
 
 		log.info("" + historyService.selectAll(dto));
 		model.addAttribute("member_no", member_no);
-		
+
 		model.addAttribute("map", map);
 
 		return "history";
@@ -77,24 +74,25 @@ public class HistoryController {
 
 		return "list";
 	}
-	
-	
-	
-	
-	//히스토리 리스트 중 선택한 프로젝트 히스토리 리스트 
+
+	// 히스토리 리스트 중 선택한 프로젝트 히스토리 리스트
 	@GetMapping("/getSelectProjectHistoryList")
 	@ResponseBody
-	public List<HistoryTaskProjectMemberDTO> getSearchList(@RequestParam("project_no")int project_no,
-			@RequestParam("member_no")int member_no, Model model
-			){
+	public List<HistoryTaskProjectMemberDTO> getSearchList(@RequestParam("project_no") int project_no,
+			@RequestParam("member_no") int member_no, Model model) {
 		log.info("히스토리 중 프로젝트 이름 선택하면 프로젝트별 히스토리 보게 하기 위한 컨트롤러 실행 ");
-		log.info("member_no : "+ member_no);
-		log.info("project_no : "+ project_no);
-		
+		log.info("member_no : " + member_no);
+		log.info("project_no : " + project_no);
+		if (project_no == 0) {
+			HistoryTaskProjectMemberDTO dto = new HistoryTaskProjectMemberDTO();
+			dto.setMember_no(member_no);
+			return historyService.getSearchTotalList(dto);
+			
+		}
 		HistoryTaskProjectMemberDTO historyTaskProjectMemberdto = new HistoryTaskProjectMemberDTO();
 		historyTaskProjectMemberdto.setMember_no(member_no);
 		historyTaskProjectMemberdto.setProject_no(project_no);
-		
+
 		return historyService.getSearchList(historyTaskProjectMemberdto);
 	}
 

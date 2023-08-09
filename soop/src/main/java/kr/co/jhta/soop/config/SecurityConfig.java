@@ -27,8 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
+//	@Autowired
+//	private  CustomHandler customHandler;
 	
-
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -55,6 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeHttpRequests()
 				// http.authorizeHttpRequests() 
 				//member 주소는 role_user 권한이 있어야 접근 할 수 있다
+				//.antMatchers("/inviteMember/**").authenticated()
 				.antMatchers("/member/**").hasRole("USER") 
 				// admin 주소는 ADMIN 권한이 있어야 접근 할 수있다
 				.antMatchers("/admin/**").hasRole("ADMIN") 
@@ -69,11 +71,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.passwordParameter("password")
 				// 로그인 처리할 url 
 				.loginProcessingUrl("/login")
-				
 				// 로그인성공하면 "/"로 이동
+				
 				.defaultSuccessUrl("/loginOkIndex")
 				// 로그인 실패하면 /clogin?error=true
-				.failureUrl("/clogin?error=true")
+				.failureUrl("/clogin?loginMessage=비밀번호 또는 이메일이 일치하지 않습니다. 다시한번 확인해주세요")
 				.and()
 					.logout()
 					// logout 요청이 오면 clogout url로 가고
@@ -85,6 +87,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginPage("/clogin")
 				// OAuth2 로그인 성공 후 사용자 정보를 가져오는 설정을 담당
 				.defaultSuccessUrl("/loginOauth2OkIndex")
+				//.successHandler(customHandler)
 				// 로그인 실패하면 /clogin?error=true
 				.failureUrl("/clogin?error=true")
 				.userInfoEndpoint()

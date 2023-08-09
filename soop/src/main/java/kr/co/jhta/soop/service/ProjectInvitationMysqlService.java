@@ -43,5 +43,11 @@ public class ProjectInvitationMysqlService implements ProjectInvitationService {
 		dao.deleteOne(invitation_no);
 
 	}
+	
+	@Override
+	public ProjectInvitationDTO selectOneByEmail(String invitation_email) {
+		
+		return dao.selectOneByEmail(invitation_email);
+	}
 
 }
