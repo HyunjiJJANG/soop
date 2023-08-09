@@ -12,26 +12,26 @@ import kr.co.jhta.soop.dto.MemberDTO;
 @Mapper
 public interface MemberDAO {
 	
-public List<MemberDTO> selectAll();
-
-public  MemberDTO selectOne(int member_no);
-
-public String selectOneByEmail(String email);
-
-public MemberDTO selectMemberByEmail(String email);
-
-public void insertOne(MemberDTO dto);
-
-public void updateOne(MemberDTO dto);
-
-public void updateOneName(MemberDTO dto);
-
-public void deleteOne(int member_no);
-
-public void insertRole(String email);
-
-public String selectOneByName(int member_no);
-
-public int selectMemberByMemberNo(String email);
+	public List<MemberDTO> selectAll();
+	
+	public  MemberDTO selectOne(int member_no);
+	
+	public String selectOneByEmail(String email);
+	
+	public MemberDTO selectMemberByEmail(String email);
+	
+	public void insertOne(MemberDTO dto);
+	
+	public void updateOne(MemberDTO dto);
+	
+	public void updateOneName(MemberDTO dto);
+	
+	public void deleteOne(int member_no);
+	
+	public void insertRole(String email);
+	
+	public String selectOneByName(int member_no);
+	
+	public int selectMemberByMemberNo(String email);
 
 }

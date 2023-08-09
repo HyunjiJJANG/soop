@@ -14,7 +14,7 @@ public interface MemberService {
 	public String selectOneByEmail(String email);
 	
 	public MemberDTO selectMemberByEmail(String email);
-		
+
 	public void insertOne(MemberDTO dto);
 
 	public void updateOne(MemberDTO dto);

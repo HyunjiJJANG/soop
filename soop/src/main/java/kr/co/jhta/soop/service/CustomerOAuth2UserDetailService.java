@@ -128,5 +128,4 @@ public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {
 		}
 
 	}
-
 }

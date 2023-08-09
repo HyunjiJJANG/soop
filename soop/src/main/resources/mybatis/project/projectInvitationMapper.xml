@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="kr.co.jhta.soop.dao.ProjectInvitationDAO">
+  	
   	<select id="selectOne" parameterType="int" resultType="ProjectInvitationDTO">
  		SELECT invitation_no, project_no, invitation_email, invitation_code, invitation_success
  		FROM project_invitation

@@ -17,9 +17,9 @@ public class TaskMysqlService implements TaskService{
 	TaskDAO dao;
 	
 	@Override
-	public List<TaskDTO> selectAll() {
+	public List<TaskDTO> selectAll(int project_no) {
 
-		return dao.selectAll();
+		return dao.selectAll(project_no);
 	}
 
 	@Override
