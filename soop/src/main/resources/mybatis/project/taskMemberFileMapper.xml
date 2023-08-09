@@ -5,6 +5,7 @@
 
 <mapper namespace="kr.co.jhta.soop.dao.TaskMemberFileDAO">
 
+
 	<select id="selectAllProjectFile" parameterType="int" resultType="kr.co.jhta.soop.dto.TaskMemberFileDTO">
 		SELECT p.project_no, pm.member_no, t.task_title, a.task_no, a.file_type, a.file_name, a.file_path, a.file_register_date
 		FROM project p

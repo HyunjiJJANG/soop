@@ -5,6 +5,7 @@
   
 <mapper namespace="kr.co.jhta.soop.dao.ScheduleDAO">
 
+
 	<select id="selectAll" parameterType="int" resultType="kr.co.jhta.soop.dto.ScheduleDTO">
 		SELECT schedule_no, member_no, schedule_title, schedule_start_date, schedule_end_date
 		FROM schedule
