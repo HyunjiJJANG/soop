@@ -13,7 +13,6 @@
 			</selectKey> 
 	</insert>
 	
-
 	<select id="selectOne" resultType="kr.co.jhta.soop.dto.AttachedFileDTO" parameterType="int">
 		SELECT task_no, file_type, file_name, file_path, file_register_date
 		FROM attached_file
