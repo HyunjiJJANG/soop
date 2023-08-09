@@ -85,7 +85,8 @@ body {
   function handleDropEvent(event, ui) {
 	  // $(ui.draggable).find("tr").children("td") -> 해당 Jquery을 통해 이동하려는 영역의 데이터를 가져올수 있음
 	  var taskNo = $(ui.draggable).find("tr").children("td")[2].textContent;	// 예시 업무번호의 td의 textContent 값을 가져옴.
-
+		
+	  
 	  // ajax을 통한 상태값 업데이트 및 화면 변경 처리
 
   }
