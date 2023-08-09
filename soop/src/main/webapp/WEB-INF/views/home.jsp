@@ -122,7 +122,7 @@
   	 }    
  
 	// 파일함 비동기 선택옵션
-	/* function projectFileSelect(){
+	function projectFileSelect(){
 		let projectNo = $("#projectFileSelect").val();
 	  	  $.ajax({
 	  		type: "GET",  
@@ -132,20 +132,47 @@
 	  		},
 	  		dataType: "text",
 	  		success: function(data){
-	  			console.log("성공");
 	  			var obj = JSON.parse(data);
-	  			var text = "";
+	  			var text = ""
+	  			var count = 0;
+	  			
 	  			for(var i=0; i<obj.length; i++){
-	   				var txt = "<tr><td colspan='8'><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
-	  						+ obj[i].project_title + 
-	  						"</h6></div></div></td><td>"
-	  						+ obj[i].project_start_date
-	  						+ " ~ " + obj[i].project_end_date + "</td>";
+	  				count += (projectNo == obj[i].project_no);
 	  			}
+	  			
+	  			if(count == 0){
+	  				if(projectNo == "프로젝트 선택"){ // 프로젝트 선택 옵션은 전체 리스트가 나오게
+	  					for(var i=0; i<obj.length; i++){
+			  				text += "<tr><td><div class='chk-option'><label class='check-task custom-control custom-radio d-flex justify-content-center done-task'>"
+				   			+"<input  type='radio' name='options' class='custom-control-input'><span class='custom-control-label'></span>"
+		                    +"</label></div><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+		                    +obj[i].file_name+"</h6><span class='text-muted m-b-0'>업로드한 날짜 : "+obj[i].file_register_date
+		                    +"</span></div></div></td></tr>"
+	  					}
+	  				}else {
+	  					text +="<tr><td><div class='chk-option'>첨부파일 비어있음</div></td></tr>"
+		  			}
+	  			}else if(count != 0){
+				  	for(var i=0; i<obj.length; i++){
+	  					if(projectNo == obj[i].project_no){
+							text += "<tr><td><div class='chk-option'><label class='check-task custom-control custom-radio d-flex justify-content-center done-task'>"
+							+"<input  type='radio' name='options' class='custom-control-input'><span class='custom-control-label'></span>"
+					        +"</label></div><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+					        +obj[i].file_name+"</h6><span class='text-muted m-b-0'>업로드한 날짜 : "+obj[i].file_register_date
+					        +"</span></div></div></td></tr>"
+				  		}
+		  			}
+	  			}
+	  			
 	  			$("#fileList").html(text);
 	  		}
 	  	  })
-	} */
+	}
+	
+	// 비동기 첨부파일 다운로드
+	function fileDownload(){
+		
+	}
 	
   /* Range Calender */
   $( function() {
@@ -281,7 +308,7 @@
 									<option value="${dto.project_no}">${dto.project_title}</option>								
 								</c:forEach>
 							</select>
-                        <button type="button" style="float:right;" class="btn btn-primary btn-sm"><i class="fa-solid fa-download" style="color: #fff;"></i>&nbsp;&nbsp;다운로드</button>
+                        <button type="button" id="fileDownload" onclick="fileDownload" style="float:right;" class="btn btn-primary btn-sm"><i class="fa-solid fa-download" style="color: #fff;"></i>&nbsp;&nbsp;다운로드</button>
 						</div>
 					<!-- 파일함 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
 					<div class="scrollbar" style="overflow-x: hidden; overflow-y: auto; height: 300px;">	
@@ -292,22 +319,18 @@
                                   <c:forEach var="fdto" items="${fileList}">
                                     <tr>
                                         <td>
+                                        
                                             <div class="chk-option">
                                                 <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
-                                                    <input  type="radio" name="options" class="custom-control-input">
+                                                    <input type="radio" name="options" class="custom-control-input">
                                                     <span class="custom-control-label"></span>
                                                 </label>
                                             </div>
                                             <div class="d-inline-block align-middle">
-<%--                                                 <div class="d-inline-block">
-                                                <c:if test="${fdto.file_name != null}">                       
+                                                <div class="d-inline-block">
                                                     <h6>${fdto.file_name}</h6>
-                                        		</c:if>
-                                        		<c:if test="${fdto.file_name == null}">                       
-                                                    <h6>제목없음</h6>
-                                        		</c:if>
                                                     <span class="text-muted m-b-0">업로드한 날짜 : ${fdto.file_register_date }</span>
-                                                </div> --%>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

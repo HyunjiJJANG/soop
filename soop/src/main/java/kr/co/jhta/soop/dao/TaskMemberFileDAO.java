@@ -6,12 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import kr.co.jhta.soop.dto.FeedDTO;
+import kr.co.jhta.soop.dto.TaskMemberFileDTO;
 
 @Repository
 @Mapper
-public interface FeedDAO {
+public interface TaskMemberFileDAO {
 
-	List<FeedDTO> selectAllProjectDetail(int project_no, int member_no);
-
+	List<TaskMemberFileDTO> selectAllProjectFile(int member_no);
 
 }
