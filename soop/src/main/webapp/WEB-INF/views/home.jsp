@@ -169,10 +169,22 @@
 	  	  })
 	}
 	
-	// 비동기 첨부파일 다운로드
-	function fileDownload(){
-		
-	}
+	// 첨부파일 다운로드 버튼 클릭시 파일 다운로드 하기
+	$(function() {
+	    $("#fileDownload").click(function(){
+	        const fileName = $("input:radio[id='fileName']:checked").val();
+	        if (fileName) {
+	            console.log("선택한 파일이름: " + fileName);
+	            $.ajax({
+	            	type : "GET",
+	            	url : "/download?fileName="+fileName
+	            });
+	            alert("다운로드가 완료되었습니다.");
+	        } else {
+	            alert("다운로드할 첨부파일을 선택해주세요.");
+	        }
+	    });
+	});
 	
   /* Range Calender */
   $( function() {
@@ -308,7 +320,7 @@
 									<option value="${dto.project_no}">${dto.project_title}</option>								
 								</c:forEach>
 							</select>
-                        <button type="button" id="fileDownload" onclick="fileDownload" style="float:right;" class="btn btn-primary btn-sm"><i class="fa-solid fa-download" style="color: #fff;"></i>&nbsp;&nbsp;다운로드</button>
+                        <button type="button" id="fileDownload" style="float:right;" class="btn btn-primary btn-sm"><i class="fa-solid fa-download" style="color: #fff;"></i>&nbsp;&nbsp;다운로드</button>
 						</div>
 					<!-- 파일함 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
 					<div class="scrollbar" style="overflow-x: hidden; overflow-y: auto; height: 300px;">	
@@ -322,7 +334,7 @@
                                         
                                             <div class="chk-option">
                                                 <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
-                                                    <input type="radio" name="options" class="custom-control-input">
+                                                    <input type="radio" id="fileName" name="options" class="custom-control-input" value="${fdto.file_name}">
                                                     <span class="custom-control-label"></span>
                                                 </label>
                                             </div>

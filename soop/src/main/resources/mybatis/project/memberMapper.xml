@@ -9,6 +9,7 @@
 		FROM member
 		WHERE member_no = #{member_no}
 	</select>
+	
 	<select id="selectMemberByMemberNo" parameterType="int" resultType="String">
 		SELECT member_no
 		FROM member

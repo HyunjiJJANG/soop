@@ -8,4 +8,5 @@
 		INSERT INTO project (project_no, project_title, project_description, project_start_date, project_end_Date, project_status, color)
 		VALUES (#{project_no}, #{project_title}, #{project_description}, #{project_start_date}, #{project_end_Date}, 0, "#1ABC9C")
 	</insert>
+	
 </mapper>

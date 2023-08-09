@@ -9,6 +9,7 @@
  		FROM project_invitation
  		WHERE invitation_no = #{invitation_no}
  	</select>
+ 	
  	<!-- 초대코드링크 인증완료되면 링크에 있는 KEY와 동일한 KEY값으로 초대정보 가져오기 -->
 	<select id="findByKey" parameterType="String" resultType="ProjectInvitationDTO">
 		SELECT invitation_code, invitation_email, project_no
