@@ -43,6 +43,42 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
+<script>
+	var task_no = ${tno}; //게시글 번호
+	$('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
+	    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
+	    commentInsert(insertData); //Insert 함수호출(아래)
+	});
+	
+	//댓글 목록 
+	window.onload = function commentList(){
+	    $.ajax({
+	        url : '/comment/list',
+	        type : 'get',
+	        data : {'task_no':${tno}},
+	        success : function(data){
+	            var a =''; 
+	            $.each(data, function(key, value){ 
+	                /* a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
+	                a += '<div class="commentInfo'+value.comment_no+'">'+'댓글번호 : '+value.comment_no+' / 작성자 : '+value.name;
+	                a += '<a onclick="commentUpdate('+value.comment_no+',\''+value.comment_content+'\');"> 수정 </a>';
+	                a += '<a onclick="commentDelete('+value.comment_no+');"> 삭제 </a> </div>';
+	                a += '<div class="commentContent'+value.comment_no+'"> <p> 내용 : '+value.comment_content +'</p>';
+	                a += '</div></div>'; https://private.tistory.com/65*/
+	            	a += '<div class="row m-b-0"><div class="col-auto p-r-0">';
+	            	a += '<img src="'+value.profile_path+'" alt="user image" class="img-radius wid-40"></div>';
+	            	a += '<div class="col"><p class="text-muted m-b-0">'+value.name+'&nbsp;&nbsp;&nbsp; <i class="fa fa-clock-o m-r-10"></i>'+value.comment_register_date+'&nbsp;&nbsp;&nbsp;';
+	            	a += '<a href="" onclick="commentUpdate('+value.comment_no+',\''+value.comment_content+'\');"> 수정 </a>';
+	            	a += '<a href="" onclick="commentDelete('+value.comment_no+');"> 삭제 </a></p>';
+	            	a += '<p class="m-b-0">'+value.comment_content+'</p></div></div>';
+	            });
+	            
+	            $(".commentList").html(a);
+	        }
+	    });
+	}
+</script>
+
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
@@ -181,45 +217,40 @@
                                 <tfoot style="border-color: transparent;">
                                 	<tr>
                                 		<td colspan="2">
-											<div class="input-group m-t-0">
-												<div class="col-auto p-r-0">
-													<img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
-												</div>
-												&nbsp;&nbsp;&nbsp;
-												<input type="text" name="" class="form-control" id="comment" placeholder="댓글을 입력하세요.">
-												<div class="input-group-append">
-													<button class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i></button>
-												</div>
-                       						</div>
+			                                <form name="commentInsertForm">
+												<div class="input-group m-t-0">
+				                                		<input type="hidden" name="task_no" value="${tno}" />
+				                                		<input type="hidden" name="member_no" value="${mno}"/>
+														<input type="text" name="comment_content" class="form-control" id="comment_content" placeholder="댓글을 입력하세요.">
+														<div class="input-group-append">
+															<button type="button" class="btn btn-primary" name="commentInsertBtn"><i class="fa-regular fa-paper-plane"></i></button>
+														</div>
+	                       						</div>
+		                                	</form>
                                 		</td>
                                 	</tr>
                                 	<!-- 댓글 입력하면 여기에 append -->
                                 	<tr>
                                 		<td colspan="2">
-                                			<div class="row m-b-0">
-												<div class="col-auto p-r-0">
-													<img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
-												</div>
-												<div class="col">
-													<p class="text-muted m-b-0">작성자&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o m-r-10"></i>작성시간</p>
-													<p class="m-b-0">Nice to meet you!</p>
-												</div>
-                       						</div>
+		        							<div class="commentList"></div>
                                 		</td>
                                 	</tr>
-                                	<tr>
-                                		<td colspan="2">
-                                			<div class="row m-b-0">
-												<div class="col-auto p-r-0">
-													<img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40">
-												</div>
-												<div class="col">
-													<p class="text-muted m-b-0">작성자&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o m-r-10"></i>작성시간</p>
-													<p class="m-b-0">Nice to meet you too!</p>
-												</div>
-                       						</div>
-                                		</td>
-                                	</tr>
+
+<%--                                 	<c:forEach var="commentDTO" items="${commentDTO}">
+	                                	<tr>
+	                                		<td colspan="2">
+	                                			<div class="row m-b-0">
+													<div class="col-auto p-r-0">
+														<img src="${commentDTO.profile_path}" alt="user image" class="img-radius wid-40">
+													</div>
+													<div class="col">
+														<p class="text-muted m-b-0">${commentDTO.name}&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o m-r-10"></i>${commentDTO.comment_register_date}</p>
+														<p class="m-b-0">${commentDTO.comment_content}</p>
+													</div>
+	                       						</div>
+	                                		</td>
+	                                	</tr>
+                                	</c:forEach> --%>
                                 </tfoot>
                             </table>
                         </div>
