@@ -5,6 +5,7 @@
 
 <mapper namespace="kr.co.jhta.soop.dao.FeedTaskDAO">
 
+
 	<!-- task 리스트 불러오기 -->
 	<select id="selectAllTaskListByPno" resultType="kr.co.jhta.soop.dto.FeedTaskDTO" parameterType="kr.co.jhta.soop.util.Criteria">
 			SELECT t.task_no, t.task_title, t.task_register_date, t.task_status, m.name, m.profile_path

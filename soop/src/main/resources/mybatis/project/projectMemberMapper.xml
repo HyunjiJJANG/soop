@@ -5,6 +5,7 @@
 
 <mapper namespace="kr.co.jhta.soop.dao.ProjectMemberDAO">
 	
+	
 	<select id="selectOne" parameterType="ProjectMemberNo" resultType="ProjectMemberDTO">
 		SELECT member_no, project_no, member_position
 		FROM project_member
