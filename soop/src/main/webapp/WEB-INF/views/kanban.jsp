@@ -143,40 +143,40 @@ $(function() {
 			<li class="ui-state-default">								
 				<table>					
 				    <tr>				    	
-				    	<th>프로젝트 번호 : </th>
-				    	<td>${tasklist.project_no }</td>
+				    	<th style=" display: none;" >프로젝트 번호 : </th>
+				    	<td style=" display: none;">${tasklist.project_no }</td>
 				    </tr>
 					<tr>
-				    	<th>프로젝트 제목 : </th>
-				    	<td>${tasklist.project_title }</td>
+				    	<th style=" display: none;">프로젝트 제목 : </th>
+				    	<td style=" display: none;">${tasklist.project_title }</td>
 				    </tr>
 				    <tr>
-				    	<th>업무 번호 : </th>
-				    	<td>${tasklist.task_no }</td>
+				    	<th style=" display: none;">업무 번호 : </th>
+				    	<td style=" display: none;">${tasklist.task_no }</td>
 				    </tr>
 				    <tr>
 				    	<th>업무 제목 : </th>
 				    	<td>${tasklist.task_title }</td>
 				    </tr>
 				    <tr>
-				    	<th>업무생성자번호 : </th>
-				    	<td>${tasklist.member_no }</td>
+				    	<th style=" display: none;">업무생성자번호 : </th>
+				    	<td style=" display: none;">${tasklist.member_no }</td>
 				    </tr>
 				    <tr>
-				    	<th>업무생성자이름 : </th>
-				    	<td>${tasklist.name }</td>
+				    	<th style=" display: none;">업무생성자이름 : </th>
+				    	<td style=" display: none;">${tasklist.name }</td>
 				    </tr>
 				    <tr>
-				    	<th>업무등록일 : </th>
-				    	<td>${tasklist.task_register_date }</td>
+				    	<th style=" display: none;">업무등록일 : </th>
+				    	<td style=" display: none;">${tasklist.task_register_date }</td>
 				    </tr>
 				    <tr>
-				    	<th>업무시작일 : </th>
-				    	<td>${tasklist.task_start_date }</td>
+				    	<th style=" display: none;">업무시작일 : </th>
+				    	<td style=" display: none;">${tasklist.task_start_date }</td>
 				    </tr>
 				    <tr>
-				    	<th>업무종료일 : </th>
-				    	<td>${tasklist.task_end_date }</td>
+				    	<th style=" display: none;">업무종료일 : </th>
+				    	<td style=" display: none;">${tasklist.task_end_date }</td>
 				    </tr>
 					<tr>
 						<th>업무 상태 :</th>
