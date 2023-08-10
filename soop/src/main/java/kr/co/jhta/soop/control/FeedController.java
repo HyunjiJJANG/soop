@@ -10,6 +10,7 @@ import kr.co.jhta.soop.service.CommentService;
 import kr.co.jhta.soop.service.FeedTaskService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
+import kr.co.jhta.soop.service.SignMemberService;
 import kr.co.jhta.soop.service.SignService;
 import kr.co.jhta.soop.util.Criteria;
 import kr.co.jhta.soop.util.Pagenation;
@@ -27,7 +28,10 @@ public class FeedController {
 	FeedTaskService feedTaskService;
 	
 	@Autowired
-	SignService signService;
+	SignMemberService signMemberService;
+	
+	@Autowired
+	CommentService commentService;
 	
 	// side nav에 프로젝트명 클릭하면 해당 프로젝트 업무 리스트가 있는 피드로 이동
     @GetMapping("/feed")
@@ -75,7 +79,8 @@ public class FeedController {
 		
     	// 메인 화면에 해당 업무 상세 보여주기
     	model.addAttribute("feedTaskDTO", feedTaskService.selectOneTaskDetailByTno(task_no));
-    	model.addAttribute("signDTO", signService.selectAllSignByTno(task_no));
+    	model.addAttribute("signDTO", signMemberService.selectAllSignByTno(task_no));
+    	model.addAttribute("commentDTO", commentService.selectAllCommentByTno(task_no));
         model.addAttribute("pno", project_no);
         model.addAttribute("mno", member_no);
         model.addAttribute("tno", task_no);

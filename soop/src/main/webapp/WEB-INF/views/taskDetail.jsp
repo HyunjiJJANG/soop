@@ -43,56 +43,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
-<script>
-	var task_no = ${tno}; //게시글 번호
-/* 	$('#commentInsertBtn').click(function(){ //댓글 등록 버튼 클릭시 
-	    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
-	    console.log(insertData);
-	    commentInsert(insertData); //Insert 함수호출(아래)
-	}); */
-	
-	//댓글 목록 
-	function commentList(){
-	    $.ajax({
-	        url : '/comment/list',
-	        type : 'get',
-	        data : {'task_no':${tno}},
-	        success : function(data){
-	            var a =''; 
-	            $.each(data, function(key, value){ 
-	            	a += '<div class="row m-b-0"><div class="col-auto p-r-0">';
-	            	a += '<img src="'+value.profile_path+'" alt="user image" class="img-radius wid-40"></div>';
-	            	a += '<div class="col"><p class="text-muted m-b-0">'+value.name+'&nbsp;&nbsp;&nbsp; <i class="fa fa-clock-o m-r-10"></i>'+value.comment_register_date+'&nbsp;&nbsp;&nbsp;';
-	            	a += '<a href="" onclick="commentUpdate('+value.comment_no+',\''+value.comment_content+'\');"> 수정 </a>';
-	            	a += '<a href="" onclick="commentDelete('+value.comment_no+');"> 삭제 </a></p>';
-	            	a += '<p class="m-b-0">'+value.comment_content+'</p></div></div>';
-	            });
-	            
-	            $(".commentList").html(a);
-	        }
-	    });
-	}
-	
-	//댓글 등록
-/* 	function commentInsert(insertData){
-	    $.ajax({
-	        url : '/comment/insert',
-	        type : 'post',
-	        data : insertData,
-	        success : function(data){
-	           if(data == 1){
-	                commentList(); //댓글 작성 후 댓글 목록 reload
-	                $('[name=comment_content]').val('');
-	           }
-	        }
-	    });
-	} */
-	
-	$(document).ready(function(){
-	    commentList(); //페이지 로딩시 댓글 목록 출력 
-	});
-</script>
-
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
@@ -204,15 +154,16 @@
                                     <tr>
                                     	<td colspan="2">
                                     		<div style="float: left;"><i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;&nbsp;</div>
-												<!-- 결재 라인 보이는 곳 -->
-                                    			<c:forEach var="signDTO" items="${signDTO}">
-		                                    		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
-		                                    			<span style="padding-top:5px; padding-left:5px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-		                                    			<c:if test="${signDTO.sign_status eq '1'}">
-		                                    				<span style="padding-top:5px;"><i class="fa-solid fa-user-check"></i></span>
-		                                    			</c:if>
-		                                    		</div>
-                                    			</c:forEach>
+											<!-- 결재 라인 보이는 곳 -->
+                                   			<c:forEach var="signDTO" items="${signDTO}">
+	                                    		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
+	                                    			<img src="${signDTO.profile_path}" alt="user image" class="img-radius wid-30">
+	                                    			<span style="padding-top:3px; padding-left:10px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+	                                    			<c:if test="${signDTO.sign_status eq '1'}">
+	                                    				<span style="padding-top:3px;"><i class="fa-solid fa-user-check"></i></span>
+	                                    			</c:if>
+	                                    		</div>
+                                   			</c:forEach>
                                     	</td>
                                     </tr>
                                     <tr>
@@ -247,7 +198,29 @@
                                 	<!-- 댓글 입력하면 여기에 append -->
                                 	<tr>
                                 		<td colspan="2">
-		        							<div class="commentList"></div>
+		        							<c:forEach var="commentDTO" items="${commentDTO}">
+			                                	<tr>
+			                                		<td colspan="2">
+			                                			<div class="row m-b-0">
+															<div class="col-auto p-r-0">
+																<img src="${commentDTO.profile_path}" alt="user image" class="img-radius wid-40">
+															</div>
+															<div class="col">
+																<c:choose>
+																	<c:when test="${commentDTO.member_no eq mno}">
+																		<p class="text-muted m-b-0">${commentDTO.name}&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o m-r-10"></i>${commentDTO.comment_register_date}
+																		<a href="comment/delete?project_no=${pno}&member_no=${mno}&task_no=${tno}&comment_no=${commentDTO.comment_no}"> 삭제 </a></p>
+																	</c:when>
+																	<c:otherwise>
+																		<p class="text-muted m-b-0">${commentDTO.name}&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o m-r-10"></i>${commentDTO.comment_register_date}</p>
+																	</c:otherwise>
+																</c:choose>
+																<p class="m-b-0">${commentDTO.comment_content}</p>
+															</div>
+			                       						</div>
+			                                		</td>
+			                                	</tr>
+			                               	</c:forEach>
                                 		</td>
                                 	</tr>
                                 </tfoot>

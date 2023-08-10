@@ -25,11 +25,11 @@ public class CommentController {
 	@Autowired
 	CmtService cmtService;
 	
-	@GetMapping("/comment/list") //댓글 리스트
-	@ResponseBody
-	public List<CommentDTO> list(@RequestParam("task_no")int task_no, Model model) throws Exception{
-		return commentService.commentList(task_no);
-	}
+//	@GetMapping("/comment/list") //댓글 리스트
+//	@ResponseBody
+//	public List<CommentDTO> list(@RequestParam("task_no")int task_no, Model model) throws Exception{
+//		return commentService.commentList(task_no);
+//	}
 	    
 	@PostMapping("/comment/insert") //댓글 작성 
 	public String insert(@RequestParam("project_no")int project_no,
@@ -56,11 +56,15 @@ public class CommentController {
 //	        return mCommentService.commentUpdateService(comment);
 //	    }
 //	    
-//	    @RequestMapping("/delete/{cno}") //댓글 삭제  
-//	    @ResponseBody
-//	    private int mCommentServiceDelete(@PathVariable int cno) throws Exception{
-//	        
-//	        return mCommentService.commentDeleteService(cno);
-//	    }
+	    @GetMapping("/comment/delete") //댓글 삭제  
+	    private String delete(@RequestParam("project_no")int project_no,
+			  	 			  @RequestParam("task_no")int task_no,
+			  	 			  @RequestParam("member_no")int member_no,
+			  	 			  @RequestParam("comment_no")int comment_no) throws Exception{
+	        
+	    	cmtService.commentDelete(comment_no);
+	    	
+	        return "redirect:/taskDetail?project_no="+project_no+"&member_no="+member_no+"&task_no="+task_no;
+	    }
 	
 }
