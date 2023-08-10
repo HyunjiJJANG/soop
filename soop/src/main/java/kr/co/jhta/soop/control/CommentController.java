@@ -32,18 +32,17 @@ public class CommentController {
 	}
 	    
 	@PostMapping("/comment/insert") //댓글 작성 
-	@ResponseBody
-	public int insert(@RequestParam("project_no")int project_no,
-					@RequestParam("task_no")int task_no,
-					  @RequestParam("member_no")int member_no,
-					  @RequestParam("comment_content")String comment_content) throws Exception{
-
+	public String insert(@RequestParam("project_no")int project_no,
+					  	 @RequestParam("task_no")int task_no,
+					  	 @RequestParam("member_no")int member_no,
+					  	 @RequestParam("comment_content")String comment_content) throws Exception{
 	    CmtDTO dto = new CmtDTO();
 	    dto.setTask_no(task_no);
 	    dto.setMember_no(member_no);
 	    dto.setComment_content(comment_content);
-	    
-	    return cmtService.commentInsert(dto);
+
+	    cmtService.commentInsert(dto);
+	    return "redirect:/taskDetail?project_no="+project_no+"&member_no="+member_no+"&task_no="+task_no;
     }
 	    
 //	    @RequestMapping("/update") //댓글 수정  

@@ -2,11 +2,13 @@ package kr.co.jhta.soop.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.jhta.soop.dao.CmtDAO;
 import kr.co.jhta.soop.dto.CmtDTO;
 
 @Service
+@Transactional
 public class CmtMysqlService implements CmtService {
 	@Autowired
 	CmtDAO dao;

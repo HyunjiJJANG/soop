@@ -45,14 +45,14 @@
 
 <script>
 	var task_no = ${tno}; //게시글 번호
-	$('#commentInsertBtn').click(function(){ //댓글 등록 버튼 클릭시 
+/* 	$('#commentInsertBtn').click(function(){ //댓글 등록 버튼 클릭시 
 	    var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
 	    console.log(insertData);
 	    commentInsert(insertData); //Insert 함수호출(아래)
-	});
+	}); */
 	
 	//댓글 목록 
-	window.onload = function commentList(){
+	function commentList(){
 	    $.ajax({
 	        url : '/comment/list',
 	        type : 'get',
@@ -74,19 +74,23 @@
 	}
 	
 	//댓글 등록
-	function commentInsert(insertData){
+/* 	function commentInsert(insertData){
 	    $.ajax({
 	        url : '/comment/insert',
 	        type : 'post',
 	        data : insertData,
 	        success : function(data){
-	           
+	           if(data == 1){
 	                commentList(); //댓글 작성 후 댓글 목록 reload
 	                $('[name=comment_content]').val('');
-	            
+	           }
 	        }
 	    });
-	}
+	} */
+	
+	$(document).ready(function(){
+	    commentList(); //페이지 로딩시 댓글 목록 출력 
+	});
 </script>
 
 </head>
@@ -227,7 +231,7 @@
                                 <tfoot style="border-color: transparent;">
                                 	<tr>
                                 		<td colspan="2">
-			                                <form name="commentInsertForm">
+			                                <form action="/comment/insert" name="commentInsertForm" method="post">
 												<div class="input-group m-t-0">
 													<input type="hidden" name="project_no" value="${pno}" />
 			                                		<input type="hidden" name="task_no" value="${tno}" />
@@ -246,22 +250,6 @@
 		        							<div class="commentList"></div>
                                 		</td>
                                 	</tr>
-
-<%--                                 	<c:forEach var="commentDTO" items="${commentDTO}">
-	                                	<tr>
-	                                		<td colspan="2">
-	                                			<div class="row m-b-0">
-													<div class="col-auto p-r-0">
-														<img src="${commentDTO.profile_path}" alt="user image" class="img-radius wid-40">
-													</div>
-													<div class="col">
-														<p class="text-muted m-b-0">${commentDTO.name}&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o m-r-10"></i>${commentDTO.comment_register_date}</p>
-														<p class="m-b-0">${commentDTO.comment_content}</p>
-													</div>
-	                       						</div>
-	                                		</td>
-	                                	</tr>
-                                	</c:forEach> --%>
                                 </tfoot>
                             </table>
                         </div>
