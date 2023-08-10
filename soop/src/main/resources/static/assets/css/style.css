@@ -1,3 +1,5 @@
+
+
 /**======================================================================
 =========================================================================
 Template Name: Able pro Bootstrap Admin Template
@@ -8,6 +10,7 @@ File: style.css
 =================================================================================== **/
 /* cyrillic-ext */
 @import url(plugins/animate.min.css);
+
 
 @font-face {
     font-family: 'Open Sans';
@@ -553,6 +556,16 @@ button {
 button:focus {
     outline: 1px dotted;
     outline: 5px auto -webkit-focus-ring-color;
+}
+
+/* 읽음 처리 버튼(투명하게) */
+.read-button {
+	border: none;
+	background-color: rgba(0,0,0,0);
+	color: #707272;
+}
+.read-button:focus {
+    outline: none;
 }
 
 input,
@@ -3708,7 +3721,7 @@ input[type="button"].btn-block {
 
 .btn-group-toggle > .btn,
 .btn-group-toggle > .btn-group > .btn {
-    margin-bottom: 0;
+    margin-bottom: 0px;
 }
 
 .btn-group-toggle > .btn input[type="radio"],
@@ -5048,7 +5061,7 @@ input[type="button"].btn-block {
     }
 }
 
-.accordion > .card {
+/*.accordion > .card {
     overflow: hidden;
 }
 
@@ -5074,6 +5087,53 @@ input[type="button"].btn-block {
 
 .accordion > .card .card-header {
     margin-bottom: 0px;
+}*/
+
+.accordion-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: var(--bs-accordion-btn-padding-y) var(--bs-accordion-btn-padding-x);
+    font-size: 1rem;
+    color: #707272;
+    text-align: left;
+    background-color: #D5F5E3;
+    border: 0;
+    border-radius: 0;
+    overflow-anchor: none;
+    transition: var(--bs-accordion-transition);
+}
+
+.collapse:not(.show) {
+    display: none;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #ffffff;
+    background-color: #78C2AD;
+    box-shadow: inset 0 calc(-1 * var(--bs-accordion-border-width)) 0 var(--bs-accordion-border-color);
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: var(--bs-accordion-btn-active-icon);
+    transform: var(--bs-accordion-btn-icon-transform);
+}
+
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+.accordion-button::after {
+    flex-shrink: 0;
+    width: var(--bs-accordion-btn-icon-width);
+    height: var(--bs-accordion-btn-icon-width);
+    margin-left: auto;
+    content: "";
+    background-image: var(--bs-accordion-btn-icon);
+    background-repeat: no-repeat;
+    background-size: var(--bs-accordion-btn-icon-width);
+    transition: var(--bs-accordion-btn-icon-transition);
 }
 
 .breadcrumb {
@@ -26252,6 +26312,7 @@ body.box-layout .pcoded-navbar.theme-horizontal ~ .pcoded-header {
     border: 1px solid rgba(0, 0, 0, 0.15);
     box-shadow: 0 0 25px rgba(26, 188, 156, 0.15);
     background-color: #fff;
+    z-index: 3000;
 }
 
 .daterangepicker .calendar-table {

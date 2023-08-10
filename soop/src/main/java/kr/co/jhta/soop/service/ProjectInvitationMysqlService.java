@@ -43,5 +43,27 @@ public class ProjectInvitationMysqlService implements ProjectInvitationService {
 		dao.deleteOne(invitation_no);
 
 	}
+	
+	@Override
+	public ProjectInvitationDTO selectOneByEmail(String invitation_email) {
+		
+		return dao.selectOneByEmail(invitation_email);
+	}
+
+	@Override
+	public String findByKey(String key) {
+		return dao.findByKey(key);
+	}
+
+	@Override
+	public void updateSuccess(String invitation_code) {
+		dao.updateSuccess(invitation_code);
+		
+	}
+
+	@Override
+	public int findByProjectNo(String key) {
+		return dao.findByProjectNo(key);
+	}
 
 }

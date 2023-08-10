@@ -4,10 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>비밀번호 찾기</title>
 <!-- 폰트 적용 -->
-<link rel="stylesheet" type="text/css" href="/css/hhj.css">
-
 <link rel="stylesheet" type="text/css" href="/css/hhj.css">
 <!-- AJAX -->
 <script
@@ -58,17 +56,15 @@ form {
 	font-weight: 300;
 }
 
+.card-text {
+	
+}
+
 .form-floating {
 	margin-top: 10px;
 }
 
-#btnRegister {
-	font-size: 14px;
-	margin-top: 20px;
-	width: 450px;
-}
-
-.register-form {
+.login-form {
 	width: 500px;
 	margin: 20px;
 }
@@ -76,6 +72,7 @@ form {
 .sign-in {
 	text-align: center;
 	padding: 20px 0 0;
+	border-top: #333 1px;
 }
 
 .card {
@@ -105,66 +102,68 @@ form {
 .row g-3 align-items-center {
 	width: 800px;
 }
+
+#searchPasswordH2 {
+	font-weight: bold;
+}
+
+#searchPasswordH6 {
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+
+#email {
+	width: 350px;
+}
+#authCode{
+	width: 350px;
+}
+
+$
+hr-height: 2px ; $hr-line-color: currentColor ; $hr-content-color: currentColor 
+	 ; hr {
+	height: $hr-height;
+	overflow: visible;
+	color: #999;
+	position: relative;
+	margin: 2em auto; &:: before { content : '';
+	background: linear-gradient(to right, transparent, $ hr-line-color, transparent);
+	height: $hr-height;
+	width: 100%;
+	position: absolute;
+	left: 0;
+}
+
+&
+[data-content] {
+	text-align: center;
+	&::
+	before
+	{
+}
+
+&
+::after {
+	content: attr(data-content);
+	position: relative;
+	background: #eee;
+	padding: 0 1.5rem;
+	top: -0.475em;
+	font-size: 3em;
+	line-height: 1;
+	font-family: serif;
+	font-style: italic;
+	color: $hr-content-color;
+}
+}
+}
 </style>
+
+
+<!--  javascript -->
 
 <script type="text/javascript">
 	$(function() {
-
-		/* var $email = $("#mid");
-		 */
-		$("#email").on(
-				"keyup",
-				function() {
-					$.ajax({
-						type : "GET",
-						url : "/emailCheck",
-						data : {
-							"email" : $("#email").val().trim()
-						},
-						dataType : "text",
-						success : function(result) {
-							var resp = result.trim();
-							if (resp == "OK") {
-								$("#idCheck").html("사용가능한 아이디입니다.").css(
-										"color", "blue");
-								$("#btnMailCheck").show();
-							} else if($("#email").val().trim() == ""){
-								$("#idCheck").hide();
-								$("#btnMailCheck").hide();
-								
-							}else {
-								$("#idCheck").html("이미 존재하는 아이디입니다.").css(
-										"color", "red");
-								$("#btnMailCheck").hide();
-							}
-						}
-					});
-				});
-		// 비밀번호 길이가 8보다 작으면 빨간 테두리
-		$("#password").on("keyup", function() {
-			if ($(this).val().trim().length < 8) {
-				$(this).removeClass("form-control");
-				$(this).addClass("form-control is-invalid");
-
-			} else if ($(this).val().trim().length >= 8) {
-				$(this).removeClass("form-control is-invalid");
-				$(this).addClass("form-control");
-
-			}
-		})
-
-		// 비밀번호 확인이 일치하지 않으면 빨간 테두리
-		$("#repeatPw").on("keyup", function() {
-			if ($(this).val().trim() != $("#password").val().trim()) {
-				$(this).removeClass("form-control");
-				$(this).addClass("form-control is-invalid");
-				isPasswordCheckOk = false;
-			} else if ($(this).val().trim() == $("#password").val().trim()) {
-				$(this).removeClass("form-control is-invalid");
-				$(this).addClass("form-control");
-				isPasswordCheckOk = true;
-			}
-		})
 		// 인증메일 비동기화 방식으로 보내기
 		$("#btnMailCheck").on("click", function() {// 메일 입력 유효성 검사
 			var email = $("#email").val(); //사용자의 이메일 입력값. 
@@ -205,6 +204,7 @@ form {
 								$("#authCodeCheck").html("이메일 인증이 완료되었습니다.")
 										.css("color", "blue");
 								isCertification = true; //인증 성공여부 check
+
 							} else {
 								$("#authCodeCheck").html("인증번호가 불일치합니다.").css(
 										"color", "red");
@@ -212,42 +212,15 @@ form {
 							}
 						}
 					});
+
 				});
-
-		// 회원가입 유효성 검사
-
 	})
+	//유효성 검사 후 비밀번호 찾기 폼으로 이동하게 
 	function validation() {
-
-		console.log("왜 안되나요");
-		//변수에 저장
-		
-		var $name = $("#name").val().trim();
+		//변수 저장
 		var $email = $("#email").val().trim();
-		var $authCode = $("#authCode").val().trim();
-		var $password = $("#password").val().trim();
-		var $repeatPw = $("#repeatPw").val().trim();
-
-		// 정규식
-		// 이름
-		var regName = /^[가-힣a-zA-Z]{2,15}$/;
-
-		// id, pw
-		var regIdPw = /^[a-zA-Z0-9]{8,30}$/;
-
 		// 이메일
 		var regMail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;
-
-		//이름 확인 = 한글과 영어만 가능하도록
-		if (name.value == "") {
-			alert("이름을 입력하세요.")
-			name.focus();
-			return false;
-		} else if (!regName.test(name.value)) {
-			alert("최소 2글자 이상, 한글과 영어만 입력하세요.")
-			name.focus();
-			return false;
-		}
 
 		//메일주소 확인
 		if (email.value == "") {
@@ -261,67 +234,38 @@ form {
 			email.focus();
 			return false;
 		}
-		//비밀번호 확인
-		if (password.value == "") {
-			alert("비밀번호를 입력하세요.")
-			password.focus();
-			return false;
-		}
-		//비밀번호 영어 대소문자 확인
-		else if (!regIdPw.test(password.value)) {
-			alert("8~30자 영문 대소문자, 숫자만 입력하세요.")
-			password.focus();
-			return false;
-		}
-		//비밀번호와 아이디 비교
-		else if (password.value == email.value) {
-			alert("이메일과 동일한 비밀번호를 사용할 수 없습니다.")
-			pw.focus();
-			return false;
-		}
-
-		//비밀번호 확인
-		if (password.value !== repeatPw.value) {
-			alert("비밀번호와 비밀번호 확인이 동일하지 않습니다.")
-			repeatPw.focus();
-			return false;
-		}
 		if (isCertification == false) {
 			alert("이메일 인증이 완료되지 않았습니다.")
 			return false;
 		}
 
 		// 유효성 문제 없을 시 폼에 submit
-		$("#frm").attr("action", "/registerOk").submit();
+
+		$("#frm").attr("action", "/searchPasswordOk").submit();
 
 	}
 </script>
-
-
-
 </head>
 <body class="d-flex flex-column h-100">
 	<div class="global-container">
-		<div class="card register-form">
+		<div class="card login-form">
 			<div class="card-body">
-				<h3 class="card-title text-center">SIGN UP</h3>
+				<h2 class="card-title text-center" id="searchPasswordH2">비밀번호
+					찾기</h2>
 				<div class="card-text">
-					<form action="/registerOk" method="post" name="frm" id="frm">
-						<div class="row g-3 align-items-center " style="width: 800px;">
-							<div class="col-md-6 position-relative">
-								<div class="col-6">
-									<span class="join-label-title">닉네임</span>
-									<div class="form-floating">
-										<input type="text" class="form-control" name="name" id="name"
-											placeholder="Name">
-										
-										<label for="name">닉네임</label>
-									</div>
-								</div>
-							</div>
+					<form action="searchPasswordOk" method="post" name="frm" id="frm">
+
+						<hr />
+						<div class="card-title text-center" id="searchPasswordH6">
+							<h6>가입한 아이디(이메일)를 입력해주세요</h6>
+							<h6>이메일 본인인증을 통해</h6>
+							<h6>비밀번호를 변경합니다.</h6>
+
 						</div>
+
 						<div class="row g-3 align-items-center" style="width: 800px;">
-							<div class="col-md-6 position-relative">
+							<div class="col-md-6 position-relative"
+								style="padding-right: 0px; width: 378px;">
 								<div class="col-6">
 									<span class="join-label-title">이메일</span>
 									<div class="form-floating">
@@ -332,6 +276,7 @@ form {
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="email">이메일</label>
+											<div class="invalid-feedback">이메일을 입력해주세요</div>
 										</div>
 									</div>
 								</div>
@@ -343,7 +288,7 @@ form {
 							<div class="col-1">
 								<input type="button" class="btn btn-outline-success btn-sm"
 									value="인증번호 받기" id="btnMailCheck"
-									style="display: none; height: 45px; margin-top: 15px; margin-left: 60px;" />
+									style="height: 45px; margin-top: 15px;" />
 							</div>
 						</div>
 						<div class="row g-3 align-items-center" id="authCodeDiv"
@@ -358,13 +303,14 @@ form {
 											aria-labelledby="btnAuth" class="form-control"
 											id="validationTooltipUsername"
 											aria-describedby="validationTooltipUsernamePrepend" required>
+										<div class="invalid-feedback">이메일 확인 인증번호를 입력해주세요</div>
 
 									</div>
 								</div>
 							</div>
 							<div class="col-6">
 								<input type="button"
-									style="height: 45px; margin-top: 60px; margin-left: 220px;"
+									style="height: 45px; margin-top: 57px; margin-left: 139px; width: 85px;"
 									class="btn btn-outline-success btn-sm" value="인증" id="btnAuth" />
 								&nbsp;&nbsp;&nbsp;
 							</div>
@@ -373,62 +319,19 @@ form {
 							</div>
 						</div>
 
-						<div class="row g-3 align-items-center" style="width: 800px;">
-							<div class="col-md-6 position-relative">
-								<div class="col-6">
-									<span class="join-label-title"
-										style="width: 200px; margin-top: 20px;">비밀번호</span>
-									<div class="form-floating">
-										<div class="form-floating">
-											<input type="password" class="form-control" name="password"
-												id="password" placeholder="Password" class="form-control"
-												id="validationTooltipUsername"
-												aria-describedby="validationTooltipUsernamePrepend" required>
-											<label for="password">비밀번호</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-6">
-								<span id="pwCheck" class="form-text"></span>
-							</div>
-						</div>
-
-						<div class="row g-3 align-items-center" style="width: 800px;">
-							<div class="col-md-6 position-relative">
-								<div class="col-6">
-									<span class="join-label-title">비밀번호 확인</span>
-									<div class="form-floating">
-										<div class="form-floating">
-											<input type="password" class="form-control"
-												name="passwordCheck" id="repeatPw" placeholder="Password"
-												class="form-control"
-												aria-describedby="validationTooltipUsernamePrepend" required>
-											<label for="repeatPw">비밀번호 확인</label>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-6">
-								<span id="repeatPwCheck" class="form-text"></span>
-							</div>
-						</div>
-
-
-						<div class="d-grid gap-2 col-12" style="height: 65px;">
-							<button type="button" class="btn btn-success" value="가입하기"
-								onclick="validation()">가입하기</button>
-
-						</div>
-						<div class="sign-in">
-							<a href="/clogin">이미 계정이 있습니다</a>
+						<div class="d-grid gap-2 col-12" id="serachButtonDiv"
+							style="width: 276px; height: 36px; margin-top: 40px;">
+							<input type="button" id="serachButton" class="btn btn-success"
+								value="비밀번호 찾기"
+								style="margin-top: 20px; width: 450px; height: 50px;"
+								onclick="validation()" />
 						</div>
 					</form>
+
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 </body>
 </html>
