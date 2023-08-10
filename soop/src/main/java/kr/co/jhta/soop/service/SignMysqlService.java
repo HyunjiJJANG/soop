@@ -44,4 +44,9 @@ public class SignMysqlService implements SignService {
 		
 	}
 
+	@Override
+	public List<SignDTO> selectAllSignByTno(int task_no) {
+		return dao.selectAllSignByTno(task_no);
+	}
+
 }

@@ -89,6 +89,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.failureUrl("/clogin?error=true")
 				.userInfoEndpoint()
 				.userService(userDetailService);
+
+
 						// 소셜 로그인 성공시 진행할 OAuth2UserService 인터페이스를구현한 객체를 등록 //즉 사용자가 정보를 가져온
 						// 상태에서 추가 진행하고자 하는 기능을 구현
 

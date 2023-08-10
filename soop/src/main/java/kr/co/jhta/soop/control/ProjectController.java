@@ -16,11 +16,13 @@ import kr.co.jhta.soop.dto.ProjectMemberDTO;
 import kr.co.jhta.soop.dto.ProjectMemberNo;
 import kr.co.jhta.soop.service.FeedService;
 import kr.co.jhta.soop.service.MemberService;
+import kr.co.jhta.soop.service.FeedTaskService;
 import kr.co.jhta.soop.service.ProjectMemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberMysqlService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
 import lombok.extern.slf4j.Slf4j;
+import kr.co.jhta.soop.service.TaskService;
 
 @Controller
 public class ProjectController {
@@ -35,9 +37,6 @@ public class ProjectController {
 
 	@Autowired
 	ProjectProjectMemberMemberService projectProjectMemberMemberService;
-	
-	@Autowired
-	FeedService feedService;
 	
 //	
 //	// home화면 들어가면 side nav에 프로젝트 목록 띄워주기
@@ -55,7 +54,7 @@ public class ProjectController {
 						 	 @RequestParam("project_description")String project_description,
 						 	 @RequestParam("project_start_date")String project_start_date,
 						 	 @RequestParam("project_end_date")String project_end_date,
-						 	 @RequestParam(value="member_no")int member_no) {
+						 	 @RequestParam("member_no")int member_no) {
 		
 		ProjectDTO projectDto = new ProjectDTO();
 		projectDto.setProject_no(project_no);
@@ -71,26 +70,6 @@ public class ProjectController {
 		projectMemberService.insertOne(projectMemberDto);
 		
 		return "feed"; // 생성 완료하면 해당 프로젝트의 피드로 이동
-	}
-	
-	// side nav의 프로젝트 이름 클릭시 해당 프로젝트 피드 화면으로 이동
-	@GetMapping("/feed")
-	public String goFeed(@RequestParam("project_no")int project_no,
-						 @RequestParam("member_no")int member_no,
-						 Model model) {
-		
-		ProjectMemberNo pmno = new ProjectMemberNo();
-		pmno.setMember_no(member_no);
-		pmno.setProject_no(project_no);
-		
-		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
-		model.addAttribute("project_no", project_no);
-		model.addAttribute("name", memberService.selectOneByName(member_no)); // 새 멤버초대하기 메일 제목에 name 들어갈 수 있게
-		model.addAttribute("memberDTO", memberService.selectOne(member_no)); // nav에 name 들어갈 수 있게
-		model.addAttribute("projectMemberDTO", projectMemberService.selectOne(pmno));
-		model.addAttribute("memberList", projectProjectMemberMemberService.selectAllProjectMember(project_no));
-
-		return "feed";
 	}
 	
 	// 프로젝트에 멤버 강퇴 클릭시 멤버 삭제

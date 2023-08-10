@@ -66,6 +66,8 @@ public class MemberController {
 	}
 
 	// 로그인 후 출력되는 index
+
+	// 이메일 인증 코드 일치 여부 확인
 	@GetMapping("/loginOkIndex")
 	public String loginOk(Model model, Authentication auth, RedirectAttributes redirectAttributes) {
 		log.info("auth : " + auth);
@@ -316,7 +318,7 @@ public class MemberController {
 		return key;
 	}
 
-	// 이메일 인증 코드 일치 여부 확인
+	//이메일 인증 코드 일치 여부 확인
 	@GetMapping("/emailCheckOk")
 	@ResponseBody
 	public String emailCheckOk(@RequestParam("authCode") String authCode, HttpSession session) {

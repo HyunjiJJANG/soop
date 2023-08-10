@@ -21,4 +21,6 @@ public interface SignDAO {
 
 	public void deleteOne(int sign_no);
 
+	public List<SignDTO> selectAllSignByTno(int task_no);
+
 }

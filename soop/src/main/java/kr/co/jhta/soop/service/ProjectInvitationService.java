@@ -18,9 +18,7 @@ public interface ProjectInvitationService {
 
 	public void deleteOne(int invitation_no);
 	
-	public String findByKey(String key);
-	
-	public int findByProjectNo(String key);
+	public ProjectInvitationDTO findByKey(String key);
 
 	public void updateSuccess(String invitation_code);
 

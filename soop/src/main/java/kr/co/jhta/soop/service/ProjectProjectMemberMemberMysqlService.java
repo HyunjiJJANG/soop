@@ -11,16 +11,21 @@ import kr.co.jhta.soop.dto.ProjectProjectMemberMemberDTO;
 @Service
 public class ProjectProjectMemberMemberMysqlService implements ProjectProjectMemberMemberService {
 	@Autowired
-	ProjectProjectMemberMemberDAO projectProjectMemberMemberDAO;
+	ProjectProjectMemberMemberDAO dao;
 	
 	@Override
 	public List<ProjectProjectMemberMemberDTO> selectAllProjectTitle(int member_no) {
-		return projectProjectMemberMemberDAO.selectAllProjectTitle(member_no);
+		return dao.selectAllProjectTitle(member_no);
+	}
+
+	@Override
+	public List<ProjectProjectMemberMemberDTO> selectAllProjectMemberByPno(int project_no) {
+		return dao.selectAllProjectMemberByPno(project_no);
 	}
 
 	@Override
 	public List<ProjectProjectMemberMemberDTO> selectAllProjectMember(int project_no) {
-		return projectProjectMemberMemberDAO.selectAllProjectMember(project_no);
+		return dao.selectAllProjectMember(project_no);
 	}
 
 }

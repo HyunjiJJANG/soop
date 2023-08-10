@@ -44,4 +44,31 @@ public class CommentMysqlService implements CommentService {
 
 	}
 
+	@Override
+	public List<CommentDTO> selectAllCommentByTno(int task_no) {
+		return dao.selectAllCommentByTno(task_no);
+	}
+
+
+
+	@Override
+	public List<CommentDTO> commentList(int task_no) throws Exception {
+		return dao.commentList(task_no);
+	}
+
+	@Override
+	public int commentInsert(CommentDTO dto) throws Exception {
+		return dao.commentInsert(dto);
+	}
+
+	@Override
+	public int commentUpdate(CommentDTO dto) throws Exception {
+		return dao.commentUpdate(dto);
+	}
+
+	@Override
+	public int commentDelete(int comment_no) throws Exception {
+		return dao.commentDelete(comment_no);
+	}
+
 }

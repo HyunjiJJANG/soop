@@ -18,4 +18,5 @@ public class FeedMysqlService implements FeedService {
 	public List<FeedDTO> selectAllProjectDetail(int project_no, int member_no) {
 		return dao.selectAllProjectDetail(project_no, member_no);
 	}
+
 }

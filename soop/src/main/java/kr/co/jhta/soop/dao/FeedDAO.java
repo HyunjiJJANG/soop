@@ -13,4 +13,5 @@ public interface FeedDAO {
 
 	List<FeedDTO> selectAllProjectDetail(int project_no, int member_no);
 
+
 }

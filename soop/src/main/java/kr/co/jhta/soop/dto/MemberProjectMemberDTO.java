@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class MemberProjectMemberDTO {
-
 	private int member_no;
 	private String email;
 	private String password;
