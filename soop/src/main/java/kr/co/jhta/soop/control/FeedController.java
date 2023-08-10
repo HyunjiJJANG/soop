@@ -6,8 +6,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import kr.co.jhta.soop.dto.ProjectMemberNo;
 import kr.co.jhta.soop.service.CommentService;
 import kr.co.jhta.soop.service.FeedTaskService;
+import kr.co.jhta.soop.service.MemberService;
+import kr.co.jhta.soop.service.ProjectMemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
 import kr.co.jhta.soop.service.SignMemberService;
@@ -17,6 +20,11 @@ import kr.co.jhta.soop.util.Pagenation;
 
 @Controller
 public class FeedController {
+	@Autowired
+	MemberService memberService;
+	
+	@Autowired
+	ProjectMemberService projectMemberService;
 	
 	@Autowired
 	ProjectProjectMemberMemberService projectProjectMemberMemberService;
@@ -40,6 +48,16 @@ public class FeedController {
 			 	 	   @RequestParam(name="page",defaultValue="1")int page,
 			 	 	   Model model, Criteria criteria) {
         
+    	ProjectMemberNo pmno = new ProjectMemberNo();
+		pmno.setMember_no(member_no);
+		pmno.setProject_no(project_no);
+		
+		model.addAttribute("project_no", project_no);
+		model.addAttribute("name", memberService.selectOneByName(member_no)); // 새 멤버초대하기 메일 제목에 name 들어갈 수 있게
+		model.addAttribute("memberDTO", memberService.selectOne(member_no)); // nav에 name 들어갈 수 있게
+		model.addAttribute("projectMemberDTO", projectMemberService.selectOne(pmno));
+		model.addAttribute("memberList", projectProjectMemberMemberService.selectAllProjectMember(project_no));
+    	
 		// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 		

@@ -39,10 +39,6 @@ public class MemberMysqlService implements MemberService{
 		
 	}
 	
-	
-	
-	
-
 	@Override
 	public MemberDTO selectOne(int member_no) {
 		return dao.selectOne(member_no);
@@ -82,6 +78,16 @@ public class MemberMysqlService implements MemberService{
 	public void updateOneName(MemberDTO dto) {
 		dao.updateOneName(dto);
 		
+	}
+	
+	@Override
+	public String selectOneByName(int member_no) {
+		return dao.selectOneByName(member_no);
+	}
+
+	@Override
+	public int selectMemberByMemberNo(String email) {
+		return dao.selectMemberByMemberNo(email);
 	}
 
 	

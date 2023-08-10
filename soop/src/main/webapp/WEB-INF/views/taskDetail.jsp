@@ -43,8 +43,153 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
+<script type="text/javascript">
+	const exampleModal = document.getElementById("exampleModal")
+	if (exampleModal) {
+	  exampleModal.addEventListener("show.bs.modal", event => {
+	    // Button that triggered the modal
+	    const button = event.relatedTarget
+	    // Extract info from data-bs-* attributes
+	    const recipient = button.getAttribute("data-bs-whatever")
+	    // If necessary, you could initiate an Ajax request here
+	    // and then do the updating in a callback.
+	
+	    // Update the modal's content.
+	    const modalTitle = exampleModal.querySelector(".modal-title")
+	    const modalBodyInput = exampleModal.querySelector(".modal-body input")
+	
+	    modalTitle.textContent = `New message to ${recipient}`
+	    modalBodyInput.value = recipient
+	  })
+	}
+	
+	$(function() {
+		$("#email").on(
+				"keyup",
+				function() {
+					$.ajax({
+						type : "GET",
+						url : "/emailCheck2",
+						data : {
+							"email" : $("#email").val().trim(),
+							"project_no" : $("#project_no").val().trim()
+						},
+						dataType : "json",
+						success : function(list) {
+							console.log(list);	
+							$("#btnInvitation").attr("disabled", false);
+							$("#idCheck").html("");
+							for(i=0; i<list.length; i++){
+								if( list[i] == 1) { // 이미 초대되었으면
+									console.log("이미 초대 성공");
+									$("#idCheck").html("<span class='form-text' style='color: red;'>이미 초대된 파트너입니다.</span>");
+									$("#btnInvitation").attr("disabled", true);
+									break;
+								}
+							}
+						}
+					});
+				});
+	
+	// 파트너 초대 메일 비동기화 방식으로 보내기
+		$("#btnInvitation").on("click", function() {// 메일 입력 유효성 검사
+			var email = $("#email").val(); //사용자의 이메일 입력값
+			
+			// 초대내용 엔터 반영되게
+			var inviteMessage = $("#inviteMessage").val(); 
+			inviteMessage = inviteMessage.replace(/(?:\r\n|\r|\n)/g, '<br>');
+			
+			if (email == "") {
+				alert("메일 주소가 입력되지 않았습니다.");
+			} else {
+				$.ajax({
+					type : "GET",
+					url : "/invite",
+					data : {
+						"email" : $("#email").val().trim(),
+						"name" : $("#name").val().trim(),
+						"inviteMessage" : inviteMessage,
+						"project_no": $("#project_no").val().trim()
+					},
+					dataType : 'text'
+					
+				});
+				alert("초대링크가 전송되었습니다.")
+				isCertification = false; //추후 인증 여부를 알기위한 값
+				
+				// 파트너 초대하기 버튼클릭후 초대이메일/초대내용 빈 내용으로 초기화
+				$("#email").val("");
+				$("#inviteMessage").val("");
+			}
+		});
+		
+	})
+	
+	$(function(){
+	// 멤버 강퇴
+		$("#deleteMember").on("click", function(){
+			$(".deleteBtn").fadeIn(50);
+			$(".changeBtn").fadeOut(50);
+		});
+	// 관리자 권한 변경
+		$("#changeAuth").on("click", function(){
+			$(".changeBtn").fadeIn(50);
+			$(".deleteBtn").fadeOut(50);
+		});
+		
+	// 새로고침(초기화)
+		$("#refreshBtn").on("click", function(){
+			$(".changeBtn").fadeOut(50);
+			$(".deleteBtn").fadeOut(50);
+		});	
+	});
+	
+	// 멤버 강퇴하기
+	function deleteMember(project_no, member_no){
+		if(confirm("정말 강퇴하시겠습니까?")== true){
+			
+			const urlParams = new URL(location.href).searchParams;
+			const loginMember_no = urlParams.get("member_no");
+			
+			$.ajax({
+				type: "GET",
+				url: "/deleteMemberOne",
+				data: {
+					"project_no" : project_no,
+					"member_no" :  member_no
+				},
+				success: function (data) {
+		            console.log(data); 
+					location.href = "feed?project_no="+project_no+"&member_no="+loginMember_no;
+		        }
+			});
+		}
+	}
+	
+	// 프로젝트 관리자 변경
+	function changeAuth(project_no, member_no){
+		if(confirm("정말 변경하시겠습니까?")== true){
+			const urlParams = new URL(location.href).searchParams;
+			const adminMember_no = urlParams.get("member_no");
+			
+			$.ajax({
+				type: "GET",
+				url: "/changeAuthMember",
+				data: {
+					"project_no" : project_no,
+					"member_no" :  member_no
+				},
+				success: function (data) {
+		            console.log(data); 
+					location.href = "feed?project_no="+project_no+"&member_no="+adminMember_no;
+		        }
+			});
+		}
+	}
+</script>
+
 </head>
-<body>
+<body class="modal-open" style="overflow: hidden; padding-right: 0px;">
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
 	<div class="pcoded-main-container">
@@ -231,39 +376,59 @@
             </div>
                 
 		<!-- project member start -->
-        <div class="col-xl-2 col-md-12" style="position: fixed; top: 200px; right: 100px;">
+ 		<div class="col-xl-2 col-md-12" style="position: fixed; top: 230px; right: 300px;">
             <div class="card table-card">
                 <div class="card-header">
                     <h5>참여자</h5>
-                    <div class="card-header-right">
-                        <div class="btn-group card-option">
-                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="feather icon-more-horizontal"></i>
-                            </button>
-                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
-                                <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <c:choose>
+	                	<c:when test="${projectMemberDTO.member_position == 0}"> 
+                        <a href="" id="refreshBtn"><i class="fa-solid fa-rotate-right" style="color: #707272;"></i></a>
+		                    <div class="card-header-right">
+		                        <div class="btn-group card-option">
+		                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		                                <i class="feather icon-more-horizontal"></i>
+		                            </button>
+		                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
+		                                <li class="dropdown-item"><a id="changeAuth"><i class="feather icon-refresh-cw"></i> 프로젝트 관리자 변경</a></li>
+		                                <li class="dropdown-item"><a id="deleteMember"><i class="feather icon-trash"></i> 멤버 강퇴</a></li>
+		                            </ul>
+		                        </div>
+		                    </div>
+                   		</c:when>
+	               </c:choose>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover mb-0">
                             <tbody>
-                            	<c:forEach var="pjmemberList" items="${pjmemberList}">
+                           		<!-- 해당 프로젝트 멤버 리스트가 보여지는 곳 -->
+                                <c:forEach var="dto" items="${memberList }">
                                 <tr>
                                     <td>
+                                    	<c:choose>
+												<c:when test="${dto.member_position == 0}">
+                                                </c:when>
+                                                <c:otherwise>
+                                                	<div class="chk-option changeBtn" style="display:none">
+														<a href="" onclick="changeAuth(${dto.project_no }, ${dto.member_no})" ><i class="fa-solid fa-circle-check" style="color: #707272;"></i></a>
+													</div>
+				                                    <div class="chk-option deleteBtn" style="display:none">
+														<a href="" onclick="deleteMember(${dto.project_no }, ${dto.member_no})"><i class="fa-solid fa-circle-minus" style="color: #707272;"></i></a>
+													</div>
+                                                </c:otherwise>
+                                        </c:choose>
                                         <div class="d-inline-block align-middle">
-                                            <img src="${pjmemberList.profile_path}" alt="user image" class="img-radius wid-40 align-top m-r-15">
+                                            <img src="${dto.profile_path}" alt="user image" class="img-radius wid-40 align-top m-r-15">
                                             <div class="d-inline-block">
-                                                <h6>${pjmemberList.name}</h6>
-                                                <c:if test="${pjmemberList.member_position eq '0'}">
-	                                                <p class="text-muted m-b-0">프로젝트 관리자</p>                                                
-                                                </c:if>
-                                                <c:if test="${pjmemberList.member_position eq '1'}">
-	                                                <p class="text-muted m-b-0">프로젝트 멤버</p>                                                
-                                                </c:if>
+													<h6>${dto.name }</h6>
+												<c:choose>
+												<c:when test="${dto.member_position == 0}">
+                                                	<p class="text-muted m-b-0">프로젝트 관리자</p>
+                                                </c:when>
+                                                <c:otherwise>
+                                                	<p class="text-muted m-b-0">프로젝트 멤버</p>
+                                                </c:otherwise>
+                                                </c:choose>
                                             </div>
                                         </div>
                                     </td>
@@ -273,7 +438,7 @@
                             <tfoot>
                             	<tr>
                             		<td style="text-align: center;">
-                                       <a href="#"><i class="fa-solid fa-user-plus" style="color: #1abc9c;"></i>&nbsp;&nbsp;새 멤버 초대</a>
+                            			<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa-solid fa-user-plus" style="color:#78C2AD"></i>&nbsp;&nbsp;새 멤버 초대</a>
                             		</td>
                             	</tr>
                             </tfoot>
@@ -281,8 +446,38 @@
                     </div>
                 </div>
             </div>
-        </div>
 	</div>
 	</div>
+	
+		<!-- 새 멤버 추가 modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">파트너 초대하기</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="email" class="col-form-label">초대할 이메일</label>
+            <input type="text" class="form-control" id="email"  placeholder="example@soop.team">
+          </div>
+		<div class="col-6" id="idCheck">
+			
+		</div>
+		  <div class="mb-3">
+            <label for="message" class="col-form-label">초대내용 입력</label>
+            <textarea class="form-control" id="inviteMessage"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="btnInvitation" >파트너 초대하기</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>

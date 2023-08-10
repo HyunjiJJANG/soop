@@ -30,5 +30,7 @@ public void deleteOne(int member_no);
 
 public void insertRole(String email);
 	
+public String selectOneByName(int member_no);
 
+public int selectMemberByMemberNo(String email);
 }
