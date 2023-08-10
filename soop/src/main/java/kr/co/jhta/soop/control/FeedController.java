@@ -14,7 +14,6 @@ import kr.co.jhta.soop.service.ProjectMemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
 import kr.co.jhta.soop.service.SignMemberService;
-import kr.co.jhta.soop.service.SignService;
 import kr.co.jhta.soop.util.Criteria;
 import kr.co.jhta.soop.util.Pagenation;
 
@@ -57,7 +56,7 @@ public class FeedController {
 		model.addAttribute("memberDTO", memberService.selectOne(member_no)); // nav에 name 들어갈 수 있게
 		model.addAttribute("projectMemberDTO", projectMemberService.selectOne(pmno));
 		model.addAttribute("memberList", projectProjectMemberMemberService.selectAllProjectMember(project_no));
-    	
+
 		// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 		

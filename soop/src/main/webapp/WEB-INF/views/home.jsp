@@ -6,11 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>HOME : SOOP</title>
+
 <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 <link rel="stylesheet" type="text/css" href="assets/css/memo.css">
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
+
+<!-- Full Calendar -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
-<title>::: SOOP :::</title>
+
 <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 11]>
@@ -30,55 +33,62 @@
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
 
+<link href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script>
 <!-- jquery -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	// 대시보드 일정(캘린더)
+ 	document.addEventListener("DOMContentLoaded", function() {
+ 		$.ajax({
+ 			type: "GET", 
+ 			url: "/home/selectStatus/"+${member_no},
+ 	  		data : {
+ 	  			"member_no" : ${member_no}
+ 	  		},
+ 			success: function(data){
+ 				let e = [];
+ 	  			for(var i=0; i<data.length; i++){
+ 	  				e.push(
+ 						{
+     						title: data[i].project_title,
+     						start: data[i].project_start_date,
+     		                end: data[i].project_end_date
+ 						}
+ 					);
+ 				}
+ 	  			
+ 	  			var calendarEl = document.getElementById("calendar");
+ 		        var calendar = new FullCalendar.Calendar(calendarEl, {
+ 			          	initialView: "dayGridMonth",
+ 			          	events: e
+ 			     });
+ 		       
+ 		        calendar.render(); // 달력을 띄워 주는 메뉴
 
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+ 			}// success
+ 		}); // ajax		
+    });
 
-	<!-- 대시보드 일정(캘린더) -->
-    <script>
-
-      document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-        	// aspectRatio: 1.35, // 가로 세로 비율(창크기 바뀔때 비율유지됨)
-          	initialView: 'dayGridMonth',
-          	events: [
-                {
-                  title: '프로젝트1',
-                  start: '2023-07-01',
-                  end: '2023-07-05',
-                },
-                {
-                  title: '프로젝트2',
-                  start: '2023-07-17',
-                  end: '2023-07-20',   
-            }],
-        });
-        calendar.render(); // 달력을 띄워 주는 메뉴
-      });
-
-    </script>
-    
-    <script type="text/javascript">
-    function projectSelect(){
+	// 참여 중인 프로젝트 비동기 선택옵션
+    function projectStatusSelect(){
   	  let status = $("#projectStatusOption").val();
   	  $.ajax({
   		type: "GET",  
-  		url: "/home/selectStatus/1",
+  		url: "/home/selectStatus/"+${member_no},
   		data : {
-  			member_no : 1
+  			"member_no" : ${member_no}
   		},
   		dataType: "text",
   		success: function(data){
   			var obj = JSON.parse(data);
-  			console.dir(obj);
-  			console.log("status : " + status);
-  			console.log(" data : " + data);
   			var text = "";
   			for(var i=0; i<obj.length; i++){
    				var txt = "<tr><td colspan='8'><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
@@ -103,21 +113,77 @@
   	  					text += txt + "<td><label class='badge badge-light-danger'>보류</label></td></tr>"; 
   					}
   				}
-		
-  				
   			}
-
-  				$("#projectList").html(text);
-  			
-  			console.log(text);
+  			$("#projectList").html(text);
   		}
   	  })
   	 }    
-    </script>
-    
-    
-    
-  <script>
+ 
+	// 파일함 비동기 선택옵션
+	function projectFileSelect(){
+		let projectNo = $("#projectFileSelect").val();
+	  	  $.ajax({
+	  		type: "GET",  
+	  		url: "/home/selectFile/"+${member_no},
+	  		data : {
+	  			"member_no" : ${member_no}
+	  		},
+	  		dataType: "text",
+	  		success: function(data){
+	  			var obj = JSON.parse(data);
+	  			var text = ""
+	  			var count = 0;
+	  			
+	  			for(var i=0; i<obj.length; i++){
+	  				count += (projectNo == obj[i].project_no);
+	  			}
+	  			
+	  			if(count == 0){
+	  				if(projectNo == "프로젝트 선택"){ // 프로젝트 선택 옵션은 전체 리스트가 나오게
+	  					for(var i=0; i<obj.length; i++){
+			  				text += "<tr><td><div class='chk-option'><label class='check-task custom-control custom-radio d-flex justify-content-center done-task'>"
+				   			+"<input  type='radio' name='options' class='custom-control-input'><span class='custom-control-label'></span>"
+		                    +"</label></div><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+		                    +obj[i].file_name+"</h6><span class='text-muted m-b-0'>업로드한 날짜 : "+obj[i].file_register_date
+		                    +"</span></div></div></td></tr>"
+	  					}
+	  				}else {
+	  					text +="<tr><td><div class='chk-option'>첨부파일 비어있음</div></td></tr>"
+		  			}
+	  			}else if(count != 0){
+				  	for(var i=0; i<obj.length; i++){
+	  					if(projectNo == obj[i].project_no){
+							text += "<tr><td><div class='chk-option'><label class='check-task custom-control custom-radio d-flex justify-content-center done-task'>"
+							+"<input  type='radio' name='options' class='custom-control-input'><span class='custom-control-label'></span>"
+					        +"</label></div><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+					        +obj[i].file_name+"</h6><span class='text-muted m-b-0'>업로드한 날짜 : "+obj[i].file_register_date
+					        +"</span></div></div></td></tr>"
+				  		}
+		  			}
+	  			}
+	  			
+	  			$("#fileList").html(text);
+	  		}
+	  	  })
+	}
+	
+	// 첨부파일 다운로드 버튼 클릭시 파일 다운로드 하기
+	$(function() {
+	    $("#fileDownload").click(function(){
+	        const fileName = $("input:radio[id='fileName']:checked").val();
+	        if (fileName) {
+	            console.log("선택한 파일이름: " + fileName);
+	            $.ajax({
+	            	type : "GET",
+	            	url : "/download?fileName="+fileName
+	            });
+	            alert("다운로드가 완료되었습니다.");
+	        } else {
+	            alert("다운로드할 첨부파일을 선택해주세요.");
+	        }
+	    });
+	});
+	
   /* Range Calender */
   $( function() {
 	  	/* dateFormat mm/dd/yy에서 수정함 */
@@ -147,31 +213,35 @@
 	      return date;
 	    }
 
-	  } );
+	  } ); 
 
-  // 참여 중인 프로젝트 비동기 선택옵션
-  // (value=0,1,2 선택시 진행중,완료,보류에 해당하는 옵션 리스트만 나오게)
- 
   
   // 메모 비동기 수정
   $(function(){
 	  $("#memo_content").on("focusout", function(event){
-		  var memo_content = $("#memo_content").val();
-	  	  $.ajax({
+		  const memo_content = $("#memo_content").val();
+		  $.ajax({
 	  		  type: "POST",
-	  		  url: "/home?member_no=1",
+	  		  url: "/home?member_no="+${member_no},
 	  		  data:{
 	  			  "memo_content" : memo_content
 	  		  }
 	  	  })
 	  })
   })
-  </script>
+  
+  // 일정추가 버튼 클릭하면 캘린더에 나의 일정 추가
+/*   $(function(){
+	  $("#scheduleAdd").on("click", function(){
+		  
+	  })
+  }) */
+  
+</script>
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
-	<!-- 왼쪽 네비바(삭제금지) -->
 	<br /><br />
 	<div class="pcoded-main-container">
 		<div class="pcoded-content">
@@ -181,8 +251,7 @@
                 <div class="card table-card"  style="height:370px;">
                     <div class="card-header">
                         <h5>참여 중인 프로젝트</h5>
-                            <select id="projectStatusOption" onchange="projectSelect();" style="width:30%;float:right;" class="form-select" aria-label="Default select example">
-								
+                            <select id="projectStatusOption" onchange="projectStatusSelect();" style="width:30%;float:right;" class="form-select" aria-label="Default select example">
 								<option value="3">전체</option>
 								<option value="0">진행중</option>
 								<option value="1">완료</option>
@@ -191,7 +260,7 @@
                     </div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                        <div class="scrollbar" style="overflow-y: auto; height: 300px;">
+                        <div class="scrollbar" style="overflow-x: hidden; overflow-y: auto; height: 300px;">
                             <table class="table table-hover mb-0">
                                 <thead>
                                     <tr>
@@ -243,111 +312,39 @@
                 <div class="card table-card">
                     <div class="card-header">
                         <h5>파일함</h5>
-							<select style="width:30%;" class="form-select" aria-label="Default select example">
+							<select id="projectFileSelect" onchange="projectFileSelect();" style="width:30%;" class="form-select" aria-label="Default select example">
 								<option selected>프로젝트 선택</option>
 								<c:forEach var="dto" items="${projectList}">
 									<option value="${dto.project_no}">${dto.project_title}</option>								
 								</c:forEach>
 							</select>
-                        <button type="button" style="float:right;" class="btn btn-primary btn-sm"><i class="fa-solid fa-download" style="color: #fff;"></i>&nbsp;&nbsp;다운로드</button>
+                        <button type="button" id="fileDownload" style="float:right;" class="btn btn-primary btn-sm"><i class="fa-solid fa-download" style="color: #fff;"></i>&nbsp;&nbsp;다운로드</button>
 						</div>
 					<!-- 파일함 리스트가 들어갈 곳(리스트가 많아지면 자동 스크롤 생성됨)-->
-					<div class="scrollbar" style="overflow-y: auto; height: 300px;">	
+					<div class="scrollbar" style="overflow-x: hidden; overflow-y: auto; height: 300px;">	
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table table-hover mb-0">
-                                  <tbody>
+                                  <tbody id="fileList">
+                                  <c:forEach var="fdto" items="${fileList}">
                                     <tr>
                                         <td>
+                                        
                                             <div class="chk-option">
                                                 <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
-                                                    <input  type="radio" name="options" class="custom-control-input">
+                                                    <input type="radio" id="fileName" name="options" class="custom-control-input" value="${fdto.file_name}">
                                                     <span class="custom-control-label"></span>
                                                 </label>
                                             </div>
                                             <div class="d-inline-block align-middle">
-                                                <img src="assets/images/user/avatar-4.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
                                                 <div class="d-inline-block">
-                                                    <h6>파일명</h6>
-                                                    <span class="text-muted m-b-0">파일크기 : 000KB</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <span class="text-muted m-b-0">업로드한 날짜 : 2023/07/24</span>
+                                                    <h6>${fdto.file_name}</h6>
+                                                    <span class="text-muted m-b-0">업로드한 날짜 : ${fdto.file_register_date }</span>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="chk-option">
-                                                <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
-                                                    <input type="radio" name="options" class="custom-control-input">
-                                                    <span class="custom-control-label"></span>
-                                                </label>
-                                            </div>
-                                            <div class="d-inline-block align-middle">
-                                                <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                                <div class="d-inline-block">
-                                                    <h6>파일명2</h6>
-                                                    <span class="text-muted m-b-0">파일크기 : 000KB</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <span class="text-muted m-b-0">업로드한 날짜 : 2023/07/24</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="chk-option">
-                                                <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
-                                                    <input  type="radio" name="options" class="custom-control-input">
-                                                    <span class="custom-control-label"></span>
-                                                </label>
-                                            </div>
-                                            <div class="d-inline-block align-middle">
-                                                <img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                                <div class="d-inline-block">
-                                                    <h6>파일명3</h6>
-                                                    <span class="text-muted m-b-0">파일크기 : 000KB</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <span class="text-muted m-b-0">업로드한 날짜 : 2023/07/24</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="chk-option">
-                                                <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
-                                                    <input type="radio" name="options" class="custom-control-input">
-                                                    <span class="custom-control-label"></span>
-                                                </label>
-                                            </div>
-                                            <div class="d-inline-block align-middle">
-                                                <img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                                  <div class="d-inline-block">
-                                                    <h6>파일명4</h6>
-                                                    <span class="text-muted m-b-0">파일크기 : 000KB</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <span class="text-muted m-b-0">업로드한 날짜 : 2023/07/24</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                      <tr>
-                                        <td>
-                                            <div class="chk-option">
-                                                <label class="check-task custom-control custom-radio d-flex justify-content-center done-task">
-                                                    <input  type="radio" name="options" class="custom-control-input">
-                                                    <span class="custom-control-label"></span>
-                                                </label>
-                                            </div>
-                                            <div class="d-inline-block align-middle">
-                                                <img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40 align-top m-r-15">
-                                                 <div class="d-inline-block">
-                                                    <h6>파일명6</h6>
-                                                    <span class="text-muted m-b-0">파일크기 : 000KB</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <span class="text-muted m-b-0">업로드한 날짜 : 2023/07/24</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
+                                  </c:forEach> 
                                 </tbody>
                             </table>
                         </div>
@@ -379,7 +376,9 @@
                     <div class="card-header">
                         <h5>캘린더</h5>
 							<div class="card-header-right">
-								<button type="button" class="btn btn-primary btn-sm"><i class="fa-regular fa-pen-to-square" style="color: #fff; "></i>&nbsp;&nbsp;일정추가</button>
+							<a href="insertProject" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+								<button type="button" class="btn btn-primary btn-sm scheduleAdd" ><i class="fa-regular fa-pen-to-square" style="color: #fff; "></i>&nbsp;&nbsp;일정추가</button>
+							</a>
 							</div>
 						</div>
                     <div id="calendar" style="float:left; padding-left: 10px; padding-right: 10px;"></div>
@@ -404,7 +403,7 @@
                         <div class="card-body p-0">
                         <div class="table-responsive">
                         <!-- 관심업무 리스트가 들어갈곳(리스트가 많아지면 자동 스크롤 생성됨) -->
-                            <div class="scrollbar" style="overflow-y: auto; height: 300px;">
+                            <div class="scrollbar" style="overflow-x: hidden; overflow-y: auto; height: 300px;">
                             <table class="table table-hover mb-0">
                                 <thead>
                                     <tr>
@@ -418,7 +417,7 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -440,7 +439,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -462,7 +461,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -484,7 +483,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -506,7 +505,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -528,7 +527,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #1ABC9C;"></i>
+                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
@@ -561,6 +560,45 @@
 	</div> 
 </div>
 <!-- [ Main Content ] end -->
-
+<!-- Modal -->
+	<div class="modal" id="scheduleModal" tabindex="-1" aria-labelledby="ModalLabel" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="ModalLabel">일정생성</h1>
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+				<form action="#" method="post">
+					<div class="modal-body">
+						<table class="table">
+							<tr>
+								<td>제목</td>
+								<td colspan="2"><input type="text" class="form-control" id="projectTitle"></td>
+							</tr>
+							<tr>
+								<td>기간</td>
+								<td>
+									<div class="input-group">
+										<input type="text" class="form-control datepicker" name="projectStartDate" id="projectStartDate" placeholder="시작일">
+										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
+									</div>								
+								</td>
+								<td>
+									<div class="input-group">
+										<input type="text" class="form-control" id="projectEndDate" name="projectEndDate" placeholder="종료일">
+										<label for="projectStartDate" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
+									</div>	
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<input type="submit" class="btn btn-primary" id="btnCreateProject" value="일정추가">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

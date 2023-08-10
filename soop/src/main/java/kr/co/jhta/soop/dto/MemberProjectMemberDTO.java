@@ -5,17 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
-
-
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class MemberProjectMemberDTO {
-	
-	
-	
 	private int member_no;
 	private String email;
 	private String password;

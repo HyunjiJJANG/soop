@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,12 @@
 <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 <!-- vendor css -->
 <link rel="stylesheet" href="assets/css/style.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script>
+<!-- jquery -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 
 <!-- font awesome -->
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
@@ -30,14 +37,45 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script>
+/* Range Calender */
+  $( function() {
+	  	/* dateFormat mm/dd/yy에서 수정함 */
+	    var dateFormat = "yy/mm/dd",
+	      from = $( "#projectStartDate" ).datepicker({
+	          changeMonth: true,
+	          numberOfMonths: 1
+	      })
+	        .on( "change", function() {
+	          to.datepicker( "option", "minDate", getDate( this ) );
+	        }),
+	      to = $( "#projectEndDate" ).datepicker({
+	        changeMonth: true,
+	        numberOfMonths: 1
+	      })
+	      .on( "change", function() {
+	        from.datepicker( "option", "maxDate", getDate( this ) );
+	      });
+	 
+	    function getDate( element ) {
+	      var date;
+	      try {
+	        date = $.datepicker.parseDate( dateFormat, element.value );
+	      } catch( error ) {
+	        date = null;
+	      }	 
+	      return date;
+	    }
+	  } );
 
-<script type="text/javascript">
-	$(function() {
-		$("#daterangepicker").daterangepicker();
-	})
+/* 읽음 처리 버튼 클릭시 알림숫자 사라지게 */
+$(function(){
+	$(".read-button").on("click", function(){
+		$(".alarm-number").fadeOut(50);
+	});
+})
+
 </script>
-
-
 </head>
 <body>
 	<!-- [ navigation menu ] start -->
@@ -47,7 +85,7 @@
 				<ul class="nav pcoded-inner-navbar ">
 					<li class="nav-item pcoded-menu-caption"><label>모아보기</label></li>
 					<li class="nav-item">
-						<a href="#" class="nav-link ">
+						<a href="home?member_no=${memberDTO.member_no}" class="nav-link ">
 							<span class="pcoded-micon"><i class="feather icon-home"></i></span>
 							<span class="pcoded-mtext">홈</span>
 						</a>
@@ -71,7 +109,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="faq" class="nav-link ">
+						<a href="faq?member_no=${member_no}" class="nav-link ">
 							<span class="pcoded-micon"><i class="fa-solid fa-phone-volume"></i></span>
 							<span class="pcoded-mtext">고객센터</span>
 						</a>
@@ -102,7 +140,7 @@
 	<!-- [ Header ] start -->
 	<header	class="navbar pcoded-header navbar-expand-lg navbar-light header-dark" style="position: fixed;">
 		<div class="m-header">
-			<a href="#!" class="b-brand"> <!-- ========   change your logo hear   ============ -->
+			<a href="home?member_no=${memberDTO.member_no}" class="b-brand"> <!-- ========   change your logo hear   ============ -->
 				<img src="assets/images/logo.png" alt="" class="logo">
 				<img src="assets/images/logo-icon.png" alt="" class="logo-thumb">
 			</a> 
@@ -111,10 +149,13 @@
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" style="padding-left: 20px;">
-			<h4 style="width: 500px;">홍길동님 환영합니다&nbsp;<span class="pcoded-micon"><i class="fa-regular fa-face-smile"></i></span></h4>
+			<h4 style="width: 500px;"> ${memberDTO.name} 님 환영합니다&nbsp;<span class="pcoded-micon"><i class="fa-regular fa-face-smile"></i></span></h4>
 		</div>
 		<div class="collapse navbar-collapse" style="padding-left: 200px;">
-			<h6 style="width: 700px;" align="right">2023년 7월 21일 금요일</h6>
+			<h6 style="width: 700px;" align="right">
+				<c:set var="ymd" value="<%=new java.util.Date() %>" />
+				<fmt:formatDate value="${ymd}" pattern="yyyy년 MM월 dd일 E요일" />
+			</h6>
 		</div>
 		<div class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-auto">
@@ -122,13 +163,13 @@
 					<div class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 							<i class="icon feather icon-bell"></i>
-							<span class="badge badge-pill badge-danger">5</span>
+							<span class="badge badge-pill badge-danger alarm-number">5</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right notification">
 							<div class="noti-head">
 								<h6 class="d-inline-block m-b-0">알림</h6>
 								<div class="float-right">
-									<a href="#!">읽음 처리</a>
+									<button class="read-button">읽음 처리</button>
 								</div>
 							</div>
 							<ul class="noti-body">
@@ -214,7 +255,7 @@
 									</a>
 								</li>
 								<li>
-									<a href="auth-signin.html" class="dropdown-item">
+									<a href="/clogout" class="dropdown-item">
 										<i class="feather icon-log-out" style="color: #707272;"></i>로그아웃
 									</a>
 								</li>

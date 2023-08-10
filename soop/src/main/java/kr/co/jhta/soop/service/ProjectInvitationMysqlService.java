@@ -44,4 +44,15 @@ public class ProjectInvitationMysqlService implements ProjectInvitationService {
 
 	}
 
+	@Override
+	public ProjectInvitationDTO findByKey(String key) {
+		return dao.findByKey(key);
+	}
+
+	@Override
+	public void updateSuccess(String invitation_code) {
+		dao.updateSuccess(invitation_code);
+		
+	}
+
 }

@@ -12,7 +12,9 @@ import kr.co.jhta.soop.dto.ProjectProjectMemberMemberDTO;
 public interface ProjectProjectMemberMemberDAO {
 
 	List<ProjectProjectMemberMemberDTO> selectAllProjectTitle(int member_no);
+	List<ProjectProjectMemberMemberDTO> selectAllProjectMember(int project_no);
 
 	List<ProjectProjectMemberMemberDTO> selectAllProjectMemberByPno(int project_no);
-
+	
+	public int selectRecentProjectByMno(int member_no);
 }

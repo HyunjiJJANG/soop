@@ -11,7 +11,6 @@ import kr.co.jhta.soop.dto.MemberProjectMemberDTO;
 @Service
 public class MemberProjectMemberMysqlService implements MemberProjectMemberService{
 
-	
 	@Autowired
 	MemberProjectMemberDAO dao;
 	
@@ -46,14 +45,16 @@ public class MemberProjectMemberMysqlService implements MemberProjectMemberServi
 		dao.updateOne(dto);
 	}
 
-	
-
 	@Override
 	public void deleteOne(int member_no) {
 		
 		dao.deleteOne(member_no);
 	}
 
-	
+	@Override
+	public List<Integer> selectAllProjectByEmail(String email) {
+		
+		return dao.selectAllProjectByEmail(email);
+	}
 
 }

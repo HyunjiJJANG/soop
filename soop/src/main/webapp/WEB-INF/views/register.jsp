@@ -1,14 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입</title>
 <!-- 폰트 적용 -->
 <link rel="stylesheet" type="text/css" href="/css/hhj.css">
 
-<link rel="stylesheet" type="text/css" href="/css/hhj.css">
 <!-- AJAX -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -140,6 +138,21 @@ form {
 						}
 					});
 				});
+		 
+		// 이름 길이가 2보다 작으면 빨간 테두리
+			$("#name").on("keyup", function() {
+				if ($(this).val().trim().length < 0) {
+					$(this).removeClass("form-control");
+					$(this).addClass("form-control is-invalid");
+
+				} else if ($(this).val().trim().length >= 2) {
+					$(this).removeClass("form-control is-invalid");
+					$(this).addClass("form-control");
+
+				}
+			})
+			
+			
 		// 비밀번호 길이가 8보다 작으면 빨간 테두리
 		$("#password").on("keyup", function() {
 			if ($(this).val().trim().length < 8) {
@@ -219,7 +232,7 @@ form {
 	})
 	function validation() {
 
-		console.log("왜 안되나요");
+		
 		//변수에 저장
 		
 		var $name = $("#name").val().trim();
@@ -276,7 +289,7 @@ form {
 		//비밀번호와 아이디 비교
 		else if (password.value == email.value) {
 			alert("이메일과 동일한 비밀번호를 사용할 수 없습니다.")
-			pw.focus();
+			password.focus();
 			return false;
 		}
 
@@ -307,6 +320,7 @@ form {
 				<h3 class="card-title text-center">SIGN UP</h3>
 				<div class="card-text">
 					<form action="/registerOk" method="post" name="frm" id="frm">
+					<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 						<div class="row g-3 align-items-center " style="width: 800px;">
 							<div class="col-md-6 position-relative">
 								<div class="col-6">
@@ -316,6 +330,7 @@ form {
 											placeholder="Name">
 										
 										<label for="name">닉네임</label>
+										<div class="invalid-feedback">닉네임은 2글자 이상 작성해주세야합니다.</div>
 									</div>
 								</div>
 							</div>
@@ -332,6 +347,7 @@ form {
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="email">이메일</label>
+											<div class="invalid-feedback">이메일을 입력해주세요</div>
 										</div>
 									</div>
 								</div>
@@ -358,6 +374,7 @@ form {
 											aria-labelledby="btnAuth" class="form-control"
 											id="validationTooltipUsername"
 											aria-describedby="validationTooltipUsernamePrepend" required>
+											<div class="invalid-feedback">이메일 확인 인증번호를 입력해주세요</div>
 
 									</div>
 								</div>
@@ -385,6 +402,7 @@ form {
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="password">비밀번호</label>
+											<div class="invalid-feedback">비밀번호는 8자 이상으로 입력해주세요</div>
 										</div>
 									</div>
 								</div>
@@ -405,6 +423,7 @@ form {
 												class="form-control"
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="repeatPw">비밀번호 확인</label>
+											<div class="invalid-feedback">비밀번호와 동일하지 않습니다.</div>
 										</div>
 									</div>
 								</div>
