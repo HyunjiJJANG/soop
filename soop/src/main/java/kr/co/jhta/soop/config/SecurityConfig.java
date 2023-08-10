@@ -72,7 +72,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				
 				.defaultSuccessUrl("/loginOkIndex")
 				// 로그인 실패하면 /clogin?error=true
-				.failureUrl("/clogin?loginMessage=비밀번호 또는 이메일이 일치하지 않습니다. 다시한번 확인해주세요")
+				.failureUrl("/clogin?loginMessage=error")
 				.and()
 					.logout()
 					// logout 요청이 오면 clogout url로 가고

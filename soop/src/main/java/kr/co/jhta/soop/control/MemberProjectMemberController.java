@@ -28,14 +28,58 @@ public class MemberProjectMemberController {
 	@Autowired
 	MemberProjectMemberService memberProjectMemberService;
 
-	@GetMapping("/contact")
-	public String myContactList(@RequestParam("email")String email, @RequestParam("member_no")int member_no, Model model) {
+//	@GetMapping("/contact")
+//	public String myContactList(@RequestParam("email")String email, @RequestParam("member_no")int member_no, Model model) {
+//		
+//		MemberProjectMemberDTO memberProjectMemberdto =  memberProjectMemberService.selectOne(member_no);
+//		memberProjectMemberdto.setMember_no(member_no);
+//		model.addAttribute("list", memberProjectMemberService.selectAll(memberProjectMemberdto));
+//		return "contact";
+//	}
+	
+	
+	//나와 같은 프로젝트 구성원 출력하기
+		@GetMapping("/contact")
+		public String myContactList(@RequestParam("email")String email, @RequestParam("member_no")int member_no, @RequestParam("project_no")int project_no, Model model) {
+			
+			MemberProjectMemberDTO memberProjectMemberdto =  memberProjectMemberService.selectOne(member_no);
+			memberProjectMemberdto.setMember_no(member_no);
+			memberProjectMemberdto.setProject_no(1);
+			 
+			model.addAttribute("list", memberProjectMemberService.selectAll(memberProjectMemberdto));
+			log.info(""+memberProjectMemberService.selectAll(memberProjectMemberdto));
+			model.addAttribute("member_no", member_no);
+			model.addAttribute("project_no", 1);
+			model.addAttribute("email", email);
+			
+			return "contact";
+		}
 		
-		MemberProjectMemberDTO memberProjectMemberdto =  memberProjectMemberService.selectOne(member_no);
+		
+	// 구성원 찾기를 위한 리스트
+		@GetMapping("/getSearchList")
+		@ResponseBody
+		public List<MemberProjectMemberDTO> getSearchList(@RequestParam("searchName")String search_name,@RequestParam("member_no")int member_no,@RequestParam("project_no")int project_no, Model model){
+		log.info("서치네임 키업 이벤트 발생 후 컨트롤러 찾아옴");
+		log.info("member_no : "+ member_no);
+		
+		MemberProjectMemberDTO memberProjectMemberdto = new MemberProjectMemberDTO();
+		
+		memberProjectMemberdto.setSearch_name(search_name);
 		memberProjectMemberdto.setMember_no(member_no);
-		model.addAttribute("list", memberProjectMemberService.selectAll(memberProjectMemberdto));
-		return "contact";
-	}
+		memberProjectMemberdto.setProject_no(1);
+		return memberProjectMemberService.getSearchList(memberProjectMemberdto);
+		  
+		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	// 프로젝트에 새 멤버 추가시 중복멤버인지 체크
 	@GetMapping("/emailCheck2")

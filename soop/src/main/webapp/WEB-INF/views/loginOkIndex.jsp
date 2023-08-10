@@ -71,7 +71,7 @@
 				href="/historyList?member_no=${memberDto.member_no }&email=${memberDto.email}">히스토리</a>
 		</h1>
 				<h1>
-		<a href="/home?member_no=${memberOauth2Dto.member_no }">home</a>
+		<a href="/home?member_no=${memberDto.member_no }">home</a>
 		</h1>
 	</c:if>
 	<c:if test="${not empty memberOauth2Dto}">
