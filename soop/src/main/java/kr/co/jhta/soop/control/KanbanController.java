@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectTaskMemberService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +22,9 @@ public class KanbanController {
 	@Autowired
 	ProjectTaskMemberService kanban_PTMservice;
 
+	@Autowired
+	MemberService memberService;
+	
 	@GetMapping("/kanban")
 	public String myKanban(
 			Model model,
@@ -36,7 +40,7 @@ public class KanbanController {
 //				kanban_PTMservice.myproject_Select_task(map));
 		
 		model.addAttribute("dto", kanban_PTMservice.myproject_Select_task(member_no));
-		
+		model.addAttribute("memberDTO", memberService.selectOne(member_no));
 		
 		return "kanban";
 	}

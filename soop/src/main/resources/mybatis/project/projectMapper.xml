@@ -6,9 +6,9 @@
 <mapper namespace="kr.co.jhta.soop.dao.ProjectDAO">
 
 	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.soop.dto.ProjectDTO">
-		SELECT project_title
-		FROM project
-		WHERE project_no = #{project_no}
+		SELECT *
+  		FROM project
+  		WHERE project_no = #{project_no}
 	</select>
 
 	<insert id="insertOne" parameterType="kr.co.jhta.soop.dto.ProjectDTO">
@@ -16,4 +16,15 @@
 		VALUES (#{project_title}, #{project_description}, #{project_start_date}, #{project_end_Date}, 0, "#1ABC9C")
 	</insert>
 
+<select id="selectAll" resultType="kr.co.jhta.soop.dto.ProjectDTO">
+	  	SELECT 	project_no,
+	  		 	project_title,  		 	
+	  		 	project_description,
+	  		 	project_start_date,
+	  		 	project_end_date,
+	  		 	project_status,
+	  		 	color 	
+	  	FROM project  	
+  	</select>
+  	
 </mapper>

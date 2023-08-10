@@ -33,4 +33,14 @@
 		SET invitation_success = 0
 		WHERE invitation_code = #{invitation_code}
 	</update>
+	
+	
+  <!-- 회원가입시 초대 테이블에 초대받은 이메일이 있으면 프로젝트 멤버 테이블에 데이터를 넣기 위한   -->
+  <select id="selectOneByEmail" resultType="ProjectInvitationDTO" parameterType="String">
+  
+  SELECT * 
+  FROM project_invitation
+  WHERE invitation_email = #{invitation_email}
+  
+  </select>
  </mapper>

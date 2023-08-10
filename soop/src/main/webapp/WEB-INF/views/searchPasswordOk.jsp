@@ -158,17 +158,23 @@ hr-height: 2px ; $hr-line-color: currentColor ; $hr-content-color: currentColor
 
 $(function() {
 // 비밀번호 길이가 8보다 작으면 빨간 테두리
-		$("#password").on("keyup", function() {
-			if ($(this).val().trim().length < 8) {
-				$(this).removeClass("form-control");
-				$(this).addClass("form-control is-invalid");
+		$("#password")
+				.on(
+						"keyup",
+						function() {
+							var password = $(this).val().trim();
 
-			} else if ($(this).val().trim().length >= 8) {
-				$(this).removeClass("form-control is-invalid");
-				$(this).addClass("form-control");
+							// 최소 8자 이상, 영문 대소문자 및 특수문자 포함 여부 검사
+							var regPassword = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-			}
-		})
+							if (regPassword.test(password)) {
+								$(this).removeClass("form-control is-invalid");
+								$(this).addClass("form-control");
+							} else {
+								$(this).removeClass("form-control");
+								$(this).addClass("form-control is-invalid");
+							}
+						});
 
 		// 비밀번호 확인이 일치하지 않으면 빨간 테두리
 		$("#repeatPw").on("keyup", function() {
@@ -193,8 +199,8 @@ function validation() {
 	var $repeatPw = $("#repeatPw").val().trim();
 	
 	// pw
-	var regIdPw = /^[a-zA-Z0-9]{8,30}$/;
-	
+	var regIdPw = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
 	//비밀번호 확인
 	if (password.value == "") {
 		alert("비밀번호를 입력하세요.")
@@ -252,7 +258,8 @@ function validation() {
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="password">비밀번호</label>
-											<div class="invalid-feedback">비밀번호는 8자 이상으로 입력해주세요</div>
+											<div class="invalid-feedback">비밀번호는
+												8자 이상으로 영어 대,소문자와 숫자 특수문자를 포함하여 입력해주세요</div>
 										</div>
 									</div>
 								</div>

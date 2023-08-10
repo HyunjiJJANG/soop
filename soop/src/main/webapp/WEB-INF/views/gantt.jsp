@@ -1,87 +1,127 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>gantt chart</title>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gantt chart</title>
 <!--     
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 -->
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-      }
-      .chartMenu {
-        width: 100vw;
-        height: 40px;
-        background: #1A1A1A;
-       /*  color: rgba(54, 162, 235, 1); */
-       	color: white;
-       
-      }
-      .chartMenu p {
-        padding: 10px;
-        font-size: 20px;
-      }
-      .chartCard {
-        width: 100vw;
-        height: calc(100vh - 40px);
-        /* background: rgba(54, 162, 235, 0.2); */
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .chartBox {
-        width: 1000px;	/* 차트 박스 크기 조절 / 차트 크기로 인해 날짜가 간격 차이 남 */
-        padding: 20px;
-        border-radius: 20px;
-        border: solid 3px rgba(54, 162, 235, 1);
-        background: white;
-      }
-    </style>
-    
-    <!-- 프로젝트 상태표시 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
- 	
-  </head>
-  
-  <body>
-  
-    <div class="chartMenu">
-      <p><span id="chartVersion"></span></p>
-    </div>
-    
-    <div class="chartCard">
-      <div class="chartBox">
-        <canvas id="myChart"></canvas>
-        <input type="month" onchange="chartFilter(this)" />
-        <button onclick="hrefLink()">칸반보드 이동</button> 
-      </div>
-    </div>
-    
-   	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
-   
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-        
-    <script>    
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<style>
+* {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+
+.chartMenu {
+	width: 100vw;
+	height: 40px;
+	background: #1A1A1A;
+	/*  color: rgba(54, 162, 235, 1); */
+	color: white;
+}
+
+.chartMenu p {
+	padding: 10px;
+	font-size: 20px;
+}
+
+.chartCard {
+	margin: auto;
+	width: 1200px;
+	/*  width: 100vw; */
+	height: calc(100vh - 40px);
+	/* background: rgba(54, 162, 235, 0.2); */
+	/* background: white; */
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.chartBox {
+	width: 1200px; /* 차트 박스 크기 조절 / 차트 크기로 인해 날짜가 간격 차이 남 */
+	height: 750px padding: 20px;
+	border-radius: 20px;
+	border: solid 3px #8CDDCD;
+	background: white;
+}
+
+#kanbandiv {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 880px;
+	height: 60px;
+}
+
+#kanbanTable {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-right: 100px;
+	height: 60px;
+	float: right;
+}
+</style>
+
+<!-- 프로젝트 상태표시 -->
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
+	integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+	<jsp:include page="nav.jsp" />
+
+	<div class="chartMenu">
+		<p>
+			<span id="chartVersion"></span>
+		</p>
+	</div>
+
+	<div class="chartCard">
+		<div class="chartBox">
+			<canvas id="myChart"></canvas>
+			<!-- <div id="kanbandiv"> -->
+			<table id="kanbanTable">
+				<tr>
+					<td><input type="month" onchange="chartFilter(this)"
+						style="margin-right: 20px; width: 123.63636px; height: 30.63636px;" /></td>
+					<td><button type="button" onclick="hrefLink()"
+							class="btn btn-primary btn-sm scheduleAdd">
+							<i class="fa-regular fa-pen-to-square" style="color: #fff;"></i>&nbsp;&nbsp;칸반보드
+							이동
+						</button></td>
+				</tr>
+			</table>
+			<!-- </div> -->
+		</div>
+	</div>
+
+	<script type="text/javascript"
+		src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+	<script>    
     
   	var gproject_info;  // 프로젝트 정보
   	var gproject_task;	// 프로젝트에서 간단하게 업무생성된거 보기
   	
   	var glist = []; 
   	var tasklist = [];  
-  	
+  	var member_no = ${memberDTO.member_no};
   	function hrefLink() { /* 칸반보드로 이동하기 => 칸반 완성 후 수정하기*/
-  		location.href = "/kanban?member_no=1";
+  		console.log(member_no);
+  		location.href = "/kanban?member_no="+member_no;
   	}
   	
     function projectinfo() {
@@ -308,7 +348,7 @@
     }
    
     // assignedTasks plugin block => 이름 표시
-    const assignedTasks = {
+     const assignedTasks = {
       id : 'assignedTasks',
       afterDatasetsDraw(chart, args, pluginOptions){
         const {ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y} } = chart;
@@ -318,11 +358,11 @@
         ctx.textBaseline = 'middle';
        	//ctx.textAlign = 'left'; // => ctx.restore() 로 인해 해당 라인을 주석 처리해도 글자 일부가 왼쪽으로 이동해서 가려지는 현상을 없애준다
 								  
-        data.datasets[0].data.forEach((datapoint, index) => {
-          ctx.fillText(datapoint.name, 10, y.getPixelForValue(index)); // 차트 좌측 이름표시
-        })
+/*         data.datasets[0].data.forEach((datapoint, index) => {
+          ctx.fillText(datapoint.name, 10, y.getPixelForValue(index)); // 차트 좌측 이름표시 
+        }) */
       }
-    }
+    } 
  
     // config 
     const config = {
@@ -433,5 +473,5 @@
     chartVersion.innerText = Chart.version;
     </script>
 
-  </body>
+</body>
 </html>

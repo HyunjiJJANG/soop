@@ -25,9 +25,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import kr.co.jhta.soop.dto.MemberDTO;
 import kr.co.jhta.soop.dto.ProjectInvitationDTO;
 import kr.co.jhta.soop.dto.ProjectMemberDTO;
+import kr.co.jhta.soop.service.FeedService;
 import kr.co.jhta.soop.service.MemberService;
+import kr.co.jhta.soop.service.MemoService;
 import kr.co.jhta.soop.service.ProjectInvitationService;
 import kr.co.jhta.soop.service.ProjectMemberService;
+import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
+import kr.co.jhta.soop.service.TaskMemberFileService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -45,6 +49,20 @@ public class MemberController {
 
 	@Autowired
 	JavaMailSender javaMailSender;
+	
+	
+	@Autowired
+	MemoService memoService;
+
+	@Autowired
+	ProjectProjectMemberMemberService projectProjectMemberMemberService;
+	
+	@Autowired
+	FeedService feedService;
+	
+	@Autowired
+	TaskMemberFileService taskMemberFileService;
+	
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -59,26 +77,38 @@ public class MemberController {
 	}
 
 	// 커스텀 로그인
-	@GetMapping("/clogin")
+	@GetMapping("/")
 	public String login() {
 
 		return "login";
 	}
 
-	// 로그인 후 출력되는 index
-
 	// 이메일 인증 코드 일치 여부 확인
-	@GetMapping("/loginOkIndex")
+
+	// 로그인 후 출력되는 index
+	@GetMapping("/home")
 	public String loginOk(Model model, Authentication auth, RedirectAttributes redirectAttributes) {
 		log.info("auth : " + auth);
 		String email = auth.getName();
-		log.info("auth email : " + email);
 		MemberDTO memberDto = memberService.selectMemberByEmail(email);
+		int member_no = memberDto.getMember_no();
+		log.info("auth email : " + email);
 		log.info("memberDto 이메일:" + memberDto.getEmail());
 		log.info("memberDto:이름 " + memberDto.getName());
-
-		model.addAttribute("memberDto", memberDto);
-		return "loginOkIndex";
+		
+		
+		model.addAttribute("member_no", memberDto.getMember_no());
+		
+		log.info("member_no" + memberDto.getMember_no());
+		
+		
+		model.addAttribute("memberDTO", memberService.selectOne(member_no));
+		
+		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+		model.addAttribute("memoDTO", memoService.selectOne(member_no));
+		model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));
+		return "home";
+		
 
 	}
 
@@ -90,13 +120,13 @@ public class MemberController {
 		// 이메일 값 사용
 		log.info("세션에 담긴 이메일: " + email);
 		MemberDTO memberDto = memberService.selectMemberByEmail(email);
-		model.addAttribute("memberOauth2Dto", memberDto);
+		model.addAttribute("memberDto", memberDto);
 		// String message = (String) httpSession.getAttribute("signupMessage");
 		// log.info("message : " + message );
 		// model.addAttribute("message", message);
 		// redirectAttributes.addFlashAttribute("message", message); // 리다이렉트 전에 안내 문구를
 		// 전달
-		return "loginOkIndex";
+		return "home";
 	}
 
 	// 비밀번호 찾기 폼으로 이동

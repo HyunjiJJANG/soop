@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -15,14 +16,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import jdk.internal.org.jline.utils.Log;
+import kr.co.jhta.soop.dto.MemberDTO;
 import kr.co.jhta.soop.dto.MemoDTO;
 import kr.co.jhta.soop.service.FeedService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.MemoService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.TaskMemberFileService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class HomeController {
 	
@@ -42,19 +48,25 @@ public class HomeController {
 	TaskMemberFileService taskMemberFileService;
 	
 	// 홈화면 처음 들어갈 때 프로젝트,파일함,메모,캘린더,관심업무 보여주기
-	@GetMapping("/home")
-	public String showHome(@RequestParam("member_no")int member_no, Model model) {
-		model.addAttribute("memberDTO", memberService.selectOne(member_no));
-		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
-		model.addAttribute("memoDTO", memoService.selectOne(member_no));
-		model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));
-		return "home";
-	}
-	
+//	@GetMapping("/home")
+//	public String showHome(@RequestParam("member_no")int member_no, Model model,
+//			 Authentication auth, RedirectAttributes redirectAttributes) {
+//		log.info("member_no" + member_no);
+//		
+//		String email = auth.getName();
+//		MemberDTO memberDto = memberService.selectMemberByEmail(email);
+//		//model.addAttribute("memberDTO", memberService.selectOne(member_no));
+//		model.addAttribute("memberDTO", memberDto);
+//		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+//		model.addAttribute("memoDTO", memoService.selectOne(member_no));
+//		model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));
+//		return "home";
+//	}
+//	
 	// 메모 수정
 	@PostMapping("/home")
 	public String saveMemo(@RequestParam("member_no")int member_no,
-							@RequestParam("memo_content")String memo_content) {
+							@RequestParam("memo_content")String memo_content, Model model) {
 		System.out.println(member_no);
 		
 		// 입력한 메모 내용 메모 테이블에 담기
@@ -71,6 +83,7 @@ public class HomeController {
 			memoService.updateOne(dto);
 		}
 		
+		model.addAttribute("member_no", member_no);
 		return "home";
 	} // 메모 수정 end
 	

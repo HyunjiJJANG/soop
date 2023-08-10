@@ -182,7 +182,7 @@ form {
 									<span class="join-label-title">이메일</span>
 									<div class="form-floating">
 										<div class="form-floating mb-3">
-											<input type="email" class="form-control" name="username"
+											<input type="email" value="test1@naver.com" class="form-control" name="username"
 												id="username" placeholder="account@example.com"
 												aria-labelledby="emailCheck" class="form-control"
 												id="validationTooltipUsername"
@@ -201,7 +201,7 @@ form {
 										style="width: 200px; margin-top: 20px;">비밀번호</span>
 									<div class="form-floating">
 										<div class="form-floating">
-											<input type="password" class="form-control" name="password"
+											<input type="password" value="11111111a!" class="form-control" name="password"
 												id="password" placeholder="Password" class="form-control"
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required>

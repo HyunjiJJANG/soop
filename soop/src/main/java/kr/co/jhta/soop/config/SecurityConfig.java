@@ -62,7 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.formLogin()
 				// 인증이 필요한 url의 요청이 오면 이 페이지로 
-					.loginPage("/clogin")
+				//	.loginPage("/clogin")
+					.loginPage("/")
 				//로그인 창에서 입력받는 name의 값을 지정해주는 코드
 				.usernameParameter("username")
 				.passwordParameter("password")
@@ -70,7 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.loginProcessingUrl("/login")
 				// 로그인성공하면 "/"로 이동
 				
-				.defaultSuccessUrl("/loginOkIndex")
+				.defaultSuccessUrl("/home")
+				//.defaultSuccessUrl("/home")
 				// 로그인 실패하면 /clogin?error=true
 				.failureUrl("/clogin?loginMessage=error")
 				.and()
@@ -89,8 +91,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.failureUrl("/clogin?error=true")
 				.userInfoEndpoint()
 				.userService(userDetailService);
-
-
 						// 소셜 로그인 성공시 진행할 OAuth2UserService 인터페이스를구현한 객체를 등록 //즉 사용자가 정보를 가져온
 						// 상태에서 추가 진행하고자 하는 기능을 구현
 

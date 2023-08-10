@@ -47,11 +47,13 @@
 <script type="text/javascript">
 	// 대시보드 일정(캘린더)
  	document.addEventListener("DOMContentLoaded", function() {
+ 		var member_no = $("#member_no").val(); 
+ 		console.log(member_no); // 여기서 member_no 값 확인
  		$.ajax({
  			type: "GET", 
- 			url: "/home/selectStatus/"+${member_no},
+ 			url: "/home/selectStatus/"+member_no,
  	  		data : {
- 	  			"member_no" : ${member_no}
+ 	  			"member_no" : member_no
  	  		},
  			success: function(data){
  				let e = [];
@@ -79,12 +81,13 @@
 
 	// 참여 중인 프로젝트 비동기 선택옵션
     function projectStatusSelect(){
+    	var member_no = $("#member_no").val(); 
   	  let status = $("#projectStatusOption").val();
   	  $.ajax({
   		type: "GET",  
-  		url: "/home/selectStatus/"+${member_no},
+  		url: "/home/selectStatus/"+member_no,
   		data : {
-  			"member_no" : ${member_no}
+  			"member_no" : member_no
   		},
   		dataType: "text",
   		success: function(data){
@@ -121,12 +124,13 @@
  
 	// 파일함 비동기 선택옵션
 	function projectFileSelect(){
+		var member_no = $("#member_no").val(); 
 		let projectNo = $("#projectFileSelect").val();
 	  	  $.ajax({
 	  		type: "GET",  
-	  		url: "/home/selectFile/"+${member_no},
+	  		url: "/home/selectFile/"+member_no,
 	  		data : {
-	  			"member_no" : ${member_no}
+	  			"member_no" : member_no
 	  		},
 	  		dataType: "text",
 	  		success: function(data){
@@ -218,11 +222,12 @@
   
   // 메모 비동기 수정
   $(function(){
+	  var member_no = $("#member_no").val(); 
 	  $("#memo_content").on("focusout", function(event){
 		  const memo_content = $("#memo_content").val();
 		  $.ajax({
 	  		  type: "POST",
-	  		  url: "/home?member_no="+${member_no},
+	  		  url: "/home?member_no="+member_no,
 	  		  data:{
 	  			  "memo_content" : memo_content
 	  		  }
@@ -240,6 +245,8 @@
 </script>
 </head>
 <body>
+<input type="hidden" value="${member_no }" name="member_no" id="member_no" />
+
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
 	<br /><br />

@@ -639,7 +639,7 @@ img.rounded {
 												aria-describedby="validationTooltipUsernamePrepend" required />
 											<label for="password"></label>
 											<div class="invalid-feedback"
-												style="width: 300px; margin-bottom: 30px; margin-top: -20px;">8~30자
+												style="width: 400px; margin-bottom: 30px; margin-top: -20px;">8~30자
 												영문 대소문자, 숫자만 입력하세요.</div>
 										</div>
 									</div>
