@@ -19,6 +19,14 @@
 		WHERE m.member_no = #{m.member_no}
 		<!-- AND p.project_no = #{p.project_no} -->
 		AND t.task_title != '';
-		
   	</select>
+  	
+  	<update id="myprojectUpdateTaskStatus" parameterType="kr.co.jhta.soop.dto.ProjectTaskMemberDTO">
+  		UPDATE task t
+  		JOIN member m
+  		ON t.member_no = m.member_no
+  		SET t.task_status = #{task_status}
+  		WHERE m.member_no = #{member_no}
+  		AND t.task_no = #{task_no}  	
+  	</update>
   </mapper>

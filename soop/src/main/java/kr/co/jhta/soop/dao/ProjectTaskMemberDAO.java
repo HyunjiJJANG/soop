@@ -2,6 +2,7 @@ package kr.co.jhta.soop.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,8 @@ public interface ProjectTaskMemberDAO {
 	
 	public List<ProjectTaskMemberDTO> myproject_Select_task(int member_no);
 	
-	public List<ProjectTaskMemberDTO> myproject_Select_task(HashMap<String, Integer> map);	
+	public List<ProjectTaskMemberDTO> myproject_Select_task(HashMap<String, Integer> map);
+
+	public void myprojectUpdateTaskStatus(HashMap<String, Integer> map);	
 	
 }
