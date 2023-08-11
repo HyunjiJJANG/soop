@@ -74,5 +74,10 @@ public class ProjectMemberMysqlService implements ProjectMemberService {
 		
 	}
 
+	@Override
+	public int countProjectMember(int project_no) {
+		return dao.countProjectMember(project_no);
+	}
+
 
 }

@@ -21,5 +21,5 @@ public interface TaskDAO {
 
 	public void deleteOne(TaskDTO dto);
 
-	
+	public int countTask(int project_no);
 }

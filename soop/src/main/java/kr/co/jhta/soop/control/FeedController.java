@@ -19,6 +19,7 @@ import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
 import kr.co.jhta.soop.service.ProjectTaskService;
 import kr.co.jhta.soop.service.SignMemberService;
+import kr.co.jhta.soop.service.TaskService;
 import kr.co.jhta.soop.util.Criteria;
 import kr.co.jhta.soop.util.Pagenation;
 
@@ -47,6 +48,9 @@ public class FeedController {
 	
 	@Autowired
 	ProjectTaskService projectTaskService;
+	
+	@Autowired
+	TaskService taskService;
 	
 	// side nav에 프로젝트명 클릭하면 해당 프로젝트 업무 리스트가 있는 피드로 이동
     @GetMapping("/feed")
@@ -83,6 +87,10 @@ public class FeedController {
         model.addAttribute("mno", member_no);
         model.addAttribute("feedListDTO", feedTaskService.selectAllTaskListByPno(criteria));
         model.addAttribute("pagenation", pageNation);
+        
+        // 프로젝트 통계
+        model.addAttribute("countProjectMember", projectMemberService.countProjectMember(project_no));
+        model.addAttribute("countTask", taskService.countTask(project_no));
         
         return "feed";
     }

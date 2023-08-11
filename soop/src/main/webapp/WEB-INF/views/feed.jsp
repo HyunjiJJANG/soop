@@ -333,7 +333,7 @@
                                     <i class="fa-regular fa-user" style="color: #31cd73; font-size: 30px;"></i>
                                 </div>
                                 <div class="col-sm-8 text-md-center">
-                                    <h5>5</h5>
+                                    <h5>${countProjectMember}명</h5>
                                     <span>참여 중인 인원</span>
                                 </div>
                             </div>
@@ -357,7 +357,7 @@
                                     <i class="fa-solid fa-briefcase" style="color: #f6cf0f; font-size: 30px;"></i>
                                 </div>
                                 <div class="col-sm-8 text-md-center">
-                                    <h5>120</h5>
+                                    <h5>${countTask}개</h5>
                                     <span>작성된 업무</span>
                                 </div>
                             </div>
