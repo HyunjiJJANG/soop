@@ -87,7 +87,27 @@ public class MemberController {
 
 	// 로그인 후 출력되는 index
 	@GetMapping("/home")
-	public String loginOk(Model model, Authentication auth, RedirectAttributes redirectAttributes) {
+	public String loginOk(Model model, Authentication auth, RedirectAttributes redirectAttributes, HttpSession httpSession) {
+		
+		String Oauth2email = (String) httpSession.getAttribute("email");
+		
+		if(Oauth2email != null) {
+			
+			MemberDTO memberDto = memberService.selectMemberByEmail(Oauth2email);
+			
+			model.addAttribute("memberDTO", memberDto);
+			
+			int member_no = memberDto.getMember_no();
+			
+			model.addAttribute("member_no", memberDto.getMember_no());
+			
+			model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+			model.addAttribute("memoDTO", memoService.selectOne(member_no));
+			model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));
+			return "home";
+			
+			
+		}else {
 		log.info("auth : " + auth);
 		String email = auth.getName();
 		MemberDTO memberDto = memberService.selectMemberByEmail(email);
@@ -108,19 +128,29 @@ public class MemberController {
 		model.addAttribute("memoDTO", memoService.selectOne(member_no));
 		model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));
 		return "home";
+		}
 		
 
 	}
 
 	// 소셜 로그인 후 출력되는 index mapping
 
-	@GetMapping("/loginOauth2OkIndex")
+	@GetMapping("/Oauth2Home")
 	public String loginOk(Model model, HttpSession httpSession, RedirectAttributes redirectAttributes) {
 		String email = (String) httpSession.getAttribute("email");
 		// 이메일 값 사용
 		log.info("세션에 담긴 이메일: " + email);
 		MemberDTO memberDto = memberService.selectMemberByEmail(email);
-		model.addAttribute("memberDto", memberDto);
+		model.addAttribute("memberDTO", memberDto);
+		
+		int member_no = memberDto.getMember_no();
+		
+		model.addAttribute("member_no", memberDto.getMember_no());
+		
+		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+		model.addAttribute("memoDTO", memoService.selectOne(member_no));
+		model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));
+		
 		// String message = (String) httpSession.getAttribute("signupMessage");
 		// log.info("message : " + message );
 		// model.addAttribute("message", message);

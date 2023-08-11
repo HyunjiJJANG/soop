@@ -85,7 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.oauth2Login()
 				.loginPage("/clogin")
 				// OAuth2 로그인 성공 후 사용자 정보를 가져오는 설정을 담당
-				.defaultSuccessUrl("/loginOauth2OkIndex")
+				.defaultSuccessUrl("/Oauth2Home")
 				//.successHandler(customHandler)
 				// 로그인 실패하면 /clogin?error=true
 				.failureUrl("/clogin?error=true")

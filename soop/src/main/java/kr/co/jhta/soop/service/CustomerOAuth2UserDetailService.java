@@ -125,7 +125,7 @@ public class CustomerOAuth2UserDetailService extends DefaultOAuth2UserService {
 			dto = MemberDTO.builder().email(email).password(passwordEncoder.encode(memberpassword)).name(name).build();
 			// 마지막에 build해야 set하게 되는거야
 
-			service.insertOne(dto);
+			//service.insertOne(dto);
 
 
 			// -----------------------> 기존에 가입되어있지 않은 사람이라면 member 테이블에 데이터를 저장해
