@@ -7,48 +7,46 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지</title>
-<!-- 폰트 적용 -->
-<link rel="stylesheet" type="text/css" href="/css/hhj.css">
+<script src="https://kit.fontawesome.com/a613319909.js"
+	crossorigin="anonymous"></script>
+	
+	
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<meta name="author" content="Phoenixcoded" />
+<!-- Favicon icon -->
+<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
 
-<!-- AJAX -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<!-- vendor css -->
+<link rel="stylesheet" href="assets/css/style.css">
+	
+<link href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- 부트스트랩 cdn -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
-	crossorigin="anonymous"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"	crossorigin="anonymous"></script>
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"	crossorigin="anonymous"></script>
+<!-- jquery -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+
+
+
+
+
 
 <!-- css -->
 
 <style>
-html, body {
-	height: 100%;
-}
-
-.global-container {
-	margin-top: 100px;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #ffffff;
-}
 
 form {
 	padding-top: 10px;
@@ -56,33 +54,18 @@ form {
 	margin-top: 20px;
 }
 
-.card-title {
-	font-weight: 300;
-}
 
 .form-floating {
 	margin-top: 10px;
 }
 
-.mypage-form {
-	width: 900px;
-	margin: 20px;
-}
+
 
 .sign-in {
 	text-align: center;
 	padding: 20px 0 0;
 }
 
-.card {
-	--bs-card-border-color: rgb(0 0 0/ 0%);
-}
-
-.card-body {
-	flex: 1 1 auto;
-	padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
-	color: var(--bs-card-color);
-}
 
 .join-label-title {
 	display: inline-block;
@@ -93,23 +76,12 @@ form {
 	text-align: left;
 }
 
-.form-control {
-	margin-bottom: 20px;
-	width: 450px;
-}
+
 
 .row g-3 align-items-center {
 	width: 800px;
 }
 
-#MypageH2 {
-	font-weight: bold;
-}
-
-#MypageH6 {
-	margin-top: 40px;
-	margin-bottom: 20px;
-}
 
 #btnNext {
 	margin-top: 50px;
@@ -118,13 +90,6 @@ form {
 	margin-left: 330px;
 }
 
-.pill {
-	height: 0px;
-	border-radius: 2px;
-	color: #009e2a;
-	border: 2px solid currentColor;
-	width: 100%;
-}
 </style>
 
 
@@ -213,78 +178,92 @@ form {
 	
 } 
 
-
 </script>
+	<jsp:include page="nav.jsp" />
 </head>
-<body class="d-flex flex-column h-100">
-		<div class="global-container">
-			<div class="card mypage-form">
-				<div class="card-body">
-					<h2 class="card-title text-left" id="MypageH2">마이페이지</h2>
-					<hr class="pill"/>
-					<div class="card-text">
-						<form action="/mypagePasswordCheckOk" method="post" name="frm" id="frm">
-							<div class="card-title text-left" id="MypageH6">
-								<h5>비밀번호 재확인</h5>
-							</div>
-							<div>
-								<span>회원님의 소중한 정보보호를 위해 비밀번호를 재확인하고 있습니다.</span>
-							</div>
-							<div style="margin-top: 30px; margin-bottom: 40px;">
-								<hr />
-							</div>
-							<div class="row g-3 align-items-center" style="width: 800px;">
-								<div class="col-md-6 position-relative">
-									<div class="col-6">
-										<span class="join-label-title">이메일</span>
-										<div class="form-floating">
-											<div class="form-floating mb-3">
-												<input type="email" class="form-control" name="emailView"
-													id="emailView" value="${memberDto.email }"
-													style="--bs-border-color: #ffffff;" readonly />
-													<input type="hidden" id="email" name="email" value="${memberDto.email }"/>
+<body>
+<div class="pcoded-main-container">
+		<div class="pcoded-content">
+		<div class="row">
+		<!--  -->
+				<div class="col-xl-12 col-md-12" style="margin-top: 40px; height: 2000px;" >
+					<div class="card table-card">
+						<div class="card-header" style="padding-bottom: 0px;">
+							<h3>마이페이지 - 비밀번호 확인</h3>
+						</div>
+						
+							
+								<div class="card-body p-0 " >
+                      			  <div class="table-responsive" style="height: 550px">
+									<div class="card-text">
+										<form action="/mypagePasswordCheckOk" method="post" name="frm"
+											id="frm">
+											
+											<div>
+												<span>회원님의 소중한 정보보호를 위해 비밀번호를 재확인하고 있습니다.</span>
+											</div>
+											
+											<div class="row g-3 align-items-center" style="width: 800px;">
+												<div class="col-md-6 position-relative">
+													<div class="col-6">
+														<span class="join-label-title">이메일</span>
+														<div class="form-floating">
+															<div class="form-floating mb-3">
+																<input type="email" class="form-control"
+																	name="emailView" id="emailView"
+																	value="${memberDto.email }"
+																	style="--bs-border-color: #ffffff;" readonly /> <input
+																	type="hidden" id="email" name="email"
+																	value="${memberDto.email }" />
+
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+											<div class="row g-3 align-items-center" style="width: 800px;">
+												<div class="col-md-6 position-relative">
+													<div class="col-6">
+														<span class="join-label-title"
+															style="width: 200px; margin-top: 20px;">비밀번호</span>
+														<div class="form-floating">
+															<div class="form-floating">
+																<input type="password" class="form-control"
+																	name="password" id="password" placeholder="Password"
+																	class="form-control" id="validationTooltipUsername"
+																	aria-describedby="validationTooltipUsernamePrepend"
+																	required /> <label for="password">비밀번호</label> <input
+																	type="hidden" id="passwordCheckTest"
+																	name="passwordCheckTeset"
+																	value="${memberDto.password }" />
+
+
+															</div>
+														</div>
+													</div>
+												</div>
 
 											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+											<hr />
+											<div class="d-grid gap-2 col-12" style="height: 65px;">
+												<button type="button" class="btn btn-success" id="btnNext"
+													value="다음" onclick="validation()">다음</button>
 
-
-							<div class="row g-3 align-items-center" style="width: 800px;">
-								<div class="col-md-6 position-relative">
-									<div class="col-6">
-										<span class="join-label-title"
-											style="width: 200px; margin-top: 20px;">비밀번호</span>
-										<div class="form-floating">
-											<div class="form-floating">
-												<input type="password" class="form-control" name="password"
-													id="password" placeholder="Password" class="form-control"
-													id="validationTooltipUsername"
-													aria-describedby="validationTooltipUsernamePrepend"
-													required /> <label for="password">비밀번호</label> <input
-													type="hidden" id="passwordCheckTest" name="passwordCheckTeset"
-													value="${memberDto.password }" /> 
-													
-													
 											</div>
-										</div>
+
+										</form>
+
 									</div>
 								</div>
-
+								</div>
 							</div>
-							<hr />
-							<div class="d-grid gap-2 col-12" style="height: 65px;">
-								<button type="button" class="btn btn-success" id="btnNext"
-									value="다음" onclick="validation()">다음</button>
-
-							</div>
-
-						</form>
-
+						
 					</div>
 				</div>
 			</div>
-		</div>
+			</div>
+		
 </body>
 </html>
