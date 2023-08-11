@@ -319,6 +319,62 @@
                     </div>
                 </div>
             </div>
+            
+          <!-- 프로젝트 통계 -->  
+             <div class="col-md-3 col-xl-3" style="position: fixed; top: 640px; right: 360px;">
+                <div class="card flat-card">
+                <div class="card-header">
+                        <h5>프로젝트 통계</h5>
+                    </div>
+                    <div class="row-table">
+                        <div class="col-sm-6 card-body br">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="fa-regular fa-user" style="color: #31cd73; font-size: 30px;"></i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>5</h5>
+                                    <span>참여 중인 인원</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 card-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="fa-regular fa-calendar" style="color: #e74c3c; font-size: 30px;"></i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>5</h5>
+                                    <span>D-Day</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-table">
+                        <div class="col-sm-6 card-body br">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="fa-solid fa-briefcase" style="color: #f6cf0f; font-size: 30px;"></i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>120</h5>
+                                    <span>작성된 업무</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 card-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="icon feather icon-file-text text-c-blue mb-1 d-block"></i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>110</h5>
+                                    <span>업로드된 파일</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 	                
 		<!-- project member start -->
         <div class="col-xl-2 col-md-12" style="position: fixed; top: 193px; right: 30px;">
