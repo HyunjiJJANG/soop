@@ -16,5 +16,4 @@ public interface TaskService {
 
 	public void deleteOne(TaskDTO dto);
 
-	
 }

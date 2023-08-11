@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
@@ -36,11 +37,14 @@ import kr.co.jhta.soop.dto.AttachedFileDTO;
 
 import kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO;
 import kr.co.jhta.soop.dto.SignDTO;
+import kr.co.jhta.soop.dto.SignTaskAttachedFileDTO;
+import kr.co.jhta.soop.dto.TaskAttachedFileDTO;
 import kr.co.jhta.soop.dto.TaskDTO;
 import kr.co.jhta.soop.service.AttachedFileService;
 import kr.co.jhta.soop.service.MemberProjectProjectmemberService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.SignService;
+import kr.co.jhta.soop.service.SignTaskAttachedFileService;
 import kr.co.jhta.soop.service.TaskAttachedFileService;
 import kr.co.jhta.soop.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
@@ -50,7 +54,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/soop")
 public class TaskController {
 
-	
 //	@Autowired
 //	FileValidator fileValidator;
 
@@ -63,6 +66,8 @@ public class TaskController {
 	@Autowired
 	TaskAttachedFileService taskAttachedFileService;
 	
+	@Autowired
+	SignTaskAttachedFileService signTaskAttachedFileService;
 	
 	@Autowired
 	MemberService memberService;
@@ -74,16 +79,17 @@ public class TaskController {
 	SignService signservice;
 	
 	@RequestMapping("/task")
-	public String register(Model model
-//			, 
-//			@RequestParam("project_no") int project_no
-			) // 결재라인에서 프로젝트 넘버로 결재자 리스트(member) 띄우기 위해) 
-			{ 
+	public String register(Model model) { 
+		
 		// model.addAttribute("list", taskService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌
 		
 		// JOIN한 service로 교체 
-		model.addAttribute("list", taskAttachedFileService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌 
+		model.addAttribute("list",  taskAttachedFileService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌 
 		
+		// 이제 SIGN까지 조인한 SERVICE로 교체
+		// model.addAttribute("list",  signTaskAttachedFileService.selectAll());
+		
+		// 임의로 project_no 1로 설정하기 => 로그인 후에 수정
 		int project_no = 1;
 		
 		// 생성 모달에 값을 넘기기 위한
@@ -92,94 +98,152 @@ public class TaskController {
 		return "task";
 	}
 	
-
-	@PostMapping("/insert")
-	public String insert(@ModelAttribute TaskDTO Taskdto, 
+//	@PostMapping("/selectOk")
+//	public String selectOk(
+//			Model model,
+//			@RequestParam("member_no")int member_no,
+//			@RequestParam("sign_approver")String sign_approver,
+//			@RequestParam("sign_step")int sign_step) {
+//		
+//		log.info("teskController selectOk 실행 됨 ---------------" );
+//		log.info("member_no : " + member_no);
+//		log.info("sign_approver : " + sign_approver);
+//		log.info("sign_step : " + sign_step);
+//		
+//		
+//		return "";
+//	}
+	
+	@Transactional
+	@RequestMapping("/insert")
+	public String insert(
+			@ModelAttribute TaskDTO Taskdto, 
+			// projectno, memberno를 숫자로 전달하기 위해.. (링크로 주니까 자꾸 문자로 받음)
+//		    @RequestParam("project_no") String project_no,
+//		    @RequestParam("member_no") String member_no,
 			@RequestParam(name = "file", required = false) MultipartFile file, // file이라는 이름의 파라미터값을 가져와서 MultipartFile 형식의 file로 받기
 																			   // required = false :: 필수가 아님 (없어도 데이터 들어가게)
-			@RequestParam("task_status") int task_status, Model model,
+			Model model,
 			@ModelAttribute AttachedFileDTO Filedto,
 			@ModelAttribute UploadFile uploadfile, // task.jsp의 업무 생성 모달 폼에서 uploadfile 받아오기
 			BindingResult result, // 유효성 검사를 위한
 			HttpServletRequest req,  // 파일 경로를 위한 
-//			@RequestBody SignDTO signdto
-			@ModelAttribute SignDTO signdto
-//			@RequestParam("member_no") int member_no,
-//			@RequestParam( name = "sign_approver", required=true) String sign_approver, // required=true 반드시 요청에 포함되도록
-//			@RequestParam("sign_step") int sign_step
+			@RequestParam( name = "sign_member_no")String sign_member_no,
+			@RequestParam( name = "sign_approver", required=true) String sign_approver, // required=true 반드시 요청에 포함되도록
+			@RequestParam("sign_step")int sign_step
 			)
 			throws UnsupportedEncodingException {
 		
 		// ** task 생성(insert) **
-		Taskdto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+//		Taskdto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 		taskService.insertOne(Taskdto);
-		
 		
 		
 		// ** 결재 라인 **
 		
-		log.info(""+signdto);
-		
-		log.info("결재자 memberno : " + signdto.getMember_no()); // 현재 1로 기본 설정해놔서 잘 받는 것 같음
-		log.info("결재자 sign_approver : " + signdto.getSign_approver()); // 여기부터 안받아짐..
-		log.info("결재자 sign_step : " + signdto.getSign_step());
-		
-//		signdto.setMember_no(99);
-//		signdto.setSign_approver("가나다");
-//		signdto.setSign_step(99);
-		
-//		signdto.setSign_status(0);// 값 임의로 주기
-		
-		// **************************************************
-		// signservice.insertOne(signdto); // 데이터 넣기 ===> 이걸 하면 task.jsp에 새로 생성된 업무가 안뜸(업무 생성은 됨) ㅠㅠ
-		// **************************************************
-		
-		
-		// ** 파일 첨부 **
-		
-		// 파일은 어디에 저장  /data <== (현재 임시 파일은 properties에 c:\\temp\\data 로 지정됨)
-		// 서버에 저장할 실제 디렉토리 경로 구하기
-		HttpSession session = req.getSession(); // http 객체 얻어오기
-		ServletContext application = session.getServletContext(); // session으로부터 servlet context 얻어오기
-		
-		String filePath = application.getRealPath("/data"); // 데이터의 실제 경로
-		log.info("파일이 저장될 실제 경로 : {} " + filePath); // 해당 경로로 탐색기에서 테스트 했을 때, data 폴더에 밀어넣은 이미지 나옴
-		
-		// 파일명 받아서 Filedto에 저장
-		log.info("파일명 : {} ",  file.getOriginalFilename()); // 파일명 받기 (=> 경로는 설정 파일에서 저장)
-		Filedto.setFile_name(file.getOriginalFilename());
-		
-		// 파일 객체로 만들기 => 파일 경로에 / 와 파일 이름을 붙여서 객체로 만듦
-		// 저장될 경로 + "/" + 파일명
-		File f = new File(filePath + "/" + file.getOriginalFilename()); 
-		// 임시 경로에 보관 중인 파일을 실제 위치에 저장
-		try {
-			file.transferTo(f);
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		// 파일 타입 받아서 Filedto에 저장
-		log.info("파일 타입 : {} " , file.getContentType());
-		Filedto.setFile_type(file.getContentType());
-		
-		// 오늘 날짜 담아서 Filedto에 저장
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		// 현재날짜를받아옴
-		Date date = new Date();
-		String fileDate = sdf.format(date);
-		log.info("파일 날짜 : {} ", fileDate);
-		Filedto.setFile_register_date(fileDate);
-		
-		// 파일 경로 받아서 Filedto에 저장
-		Filedto.setFile_path(filePath + "\\" + file.getOriginalFilename());
+		log.info(""+sign_member_no);
+		log.info(""+sign_approver);
+		log.info(""+sign_step);
 
-		attachedfileService.insertOne(Filedto);
+	    // 결재 라인에 데이터 넣기
+	    int signMemberNo = Integer.parseInt(sign_member_no);
+	    SignDTO signdto = new SignDTO();
+	    signdto.setSign_member_no(signMemberNo);
+	    signdto.setSign_approver(sign_approver);
+	    signdto.setSign_step(sign_step);
+	    signdto.setSign_status(0); // 일단 0으로 설정
 		
-		return "redirect:/soop/task";
+	    signservice.insertOne(signdto); // => 이걸 살리면 첨부파일이 추가가 안되고..... 이걸 죽이면 그때 첨부파일이 추가됨 왜지?
+
+	    // 확인용
+//	    List<TaskAttachedFileDTO> taskList = taskAttachedFileService.selectAll(); // 데이터 가져오기
+//	    model.addAttribute("list", taskList);
+//	    log.info("Number of tasks in the list: " + taskList.size()); // 로그로 출력
+		
+
+	    	// ** 파일 첨부 **
+		
+	 		// 파일은 어디에 저장  /data <== (현재 임시 파일은 properties에 c:\\temp\\data 로 지정됨)
+	 		// 서버에 저장할 실제 디렉토리 경로 구하기
+	 		HttpSession session = req.getSession(); // http 객체 얻어오기
+	 		ServletContext application = session.getServletContext(); // session으로부터 servlet context 얻어오기
+	 		
+	 		String filePath = application.getRealPath("/data"); // 데이터의 실제 경로
+	 		log.info("파일이 저장될 실제 경로 : {} " + filePath); // 해당 경로로 탐색기에서 테스트 했을 때, data 폴더에 밀어넣은 이미지 나옴
+	 		
+	 		// 파일명 받아서 Filedto에 저장
+	 		log.info("파일명 : {} ",  file.getOriginalFilename()); // 파일명 받기 (=> 경로는 설정 파일에서 저장)
+	 		Filedto.setFile_name(file.getOriginalFilename());
+	 		
+	 		try {
+	 			// 파일 객체로 만들기 => 파일 경로에 / 와 파일 이름을 붙여서 객체로 만듦
+	 			// 저장될 경로 + "/" + 파일명
+	 			File f = new File(filePath + "/" + file.getOriginalFilename()); 
+	 			// 임시 경로에 보관 중인 파일을 실제 위치에 저장
+	 			file.transferTo(f);
+	 		} catch (IllegalStateException e) {
+	 			e.printStackTrace();
+	 		} catch (IOException e) {
+	 			e.printStackTrace();
+	 		}
+	 		
+	 		// 파일 타입 받아서 Filedto에 저장
+	 		log.info("파일 타입 : {} " , file.getContentType());
+	 		Filedto.setFile_type(file.getContentType());
+	 		
+	 		// 오늘 날짜 담아서 Filedto에 저장
+	 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	 		// 현재날짜를받아옴
+	 		Date date = new Date();
+	 		String fileDate = sdf.format(date);
+	 		log.info("파일 날짜 : {} ", fileDate);
+	 		Filedto.setFile_register_date(fileDate);
+	 		
+	 		// 파일 경로 받아서 Filedto에 저장
+	 		Filedto.setFile_path(filePath + "\\" + file.getOriginalFilename());
+
+	 		attachedfileService.insertOne(Filedto);
+	 		
+	    return "redirect:/soop/task"; // 새로고침을 위한 URL로 리다이렉트
 	}
+
+//	@RequestMapping("/refresh")
+//	public String refreshTaskList(Model model) {
+//		
+//		model.addAttribute("list", taskAttachedFileService.selectAll());
+//
+//	    return "redirect:/soop/task"; // task.jsp를 다시 보여주는 뷰 이름
+//	}
+//	
+//	@PostMapping("/insertsign")
+//	@ResponseBody
+//	public String insertsign(
+//			
+//																		   // required = false :: 필수가 아님 (없어도 데이터 들어가게)
+////			@RequestParam("task_status") int task_status, 
+//			Model model,
+//			@ModelAttribute SignDTO signdto
+//			)
+//			throws UnsupportedEncodingException {
+//		
+//		
+//		signservice.insertOne(signdto);	// 추가
+//		// ** 결재 라인 **
+//
+//		log.info(""+signdto);
+//		
+//		log.info("결재자 memberno : " + signdto.getSign_member_no()); // 현재 1로 기본 설정해놔서 잘 받는 것 같음
+////
+////		
+//		log.info("결재자 sign_approver : " + signdto.getSign_approver()); // 여기부터 안받아짐..
+////
+////		
+//		log.info("결재자 sign_step : " + signdto.getSign_step());
+//
+//	
+//		return "";
+//	}
+	
 
 	@GetMapping("/update")
 	public String update(@RequestParam("task_no") int task_no, Model model,

@@ -10,7 +10,6 @@ import kr.co.jhta.soop.dto.TaskDTO;
 @Repository
 @Mapper
 public interface TaskDAO {
-
 	
 	public List<TaskDTO> selectAll();
 
@@ -21,6 +20,5 @@ public interface TaskDAO {
 	public void updateOne(TaskDTO dto);
 
 	public void deleteOne(TaskDTO dto);
-
 	
 }

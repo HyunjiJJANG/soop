@@ -130,6 +130,8 @@ $(document).ready(function(){
 			var end = $(e.relatedTarget).data().end;
 			var filename = $(e.relatedTarget).data().filename;
 			console.log(no);
+			
+			
 
 			$("#tasknovalue").val(no); // #tasknovalue값(수정 모달에서 사용)에 no 밸류 넣기
 			$("#titlevalue").val(title);
@@ -146,51 +148,75 @@ $(document).ready(function(){
 	});
 </script>
 
+
 <!-- 결재라인 : 선택된 결재자 정보 띄우기 -->
+
+
 <script>
-    $(document).ready(function () {
-        // $("#selectMembersCreate1").change(function () {
-        	$("#insert_btn").click(function () { // 업무 생성 버튼 누르면 아래 실행
-        	
-            var selectedMemberNo = $("#selectMembersCreate1").val();
-            var selectedMemberName = $("#selectMembersCreate1 option:selected").data("membername");
-            var selectedStep = $("#selectMembersCreate1 option:selected").data("step"); // 선택된 결재자의 단계
+/* $(document).ready(function () {
+    $("#insert_btn").click(function () { 
+        var selectedMemberNo = $("#selectMembersCreate1 option:selected").data("memberno");
+        var selectedMemberName = $("#selectMembersCreate1 option:selected").data("membername");
+        var selectedStep = $("#selectMembersCreate1 option:selected").data("step");
+        var selectedStatus = $("#task_status").val();
 
-            // 확인용으로 콘솔에 출력 => 안찍힘
-            console.log("선택된 결재자의 번호:", selectedMemberNo);
-            console.log("선택된 결재자의 이름:", selectedMemberName);
-            console.log("선택된 결재자의 단계:", selectedStep);
-         
-            // AJAX를 사용해 데이터를 서버로 전송
-            $.ajax({
-                type: "POST",
-                url: "<c:url value='/insert' />", // => 컨트롤러의 업무 생성 부분의 url
-                data:  {
-                    member_no: selectedMemberNo, // member_no 값을 서버로 보냄 
-                    sign_approver: selectedMemberName, // 결재자(sign_approver)
-                    sign_step: selectedStep // 결재단계(sign_step)
-                },
-                contentType: "application/json;charset=utf-8", // JSON 데이터임을 명시
-                dataType : "json",
-                success: function(data) {                  
-                	 // 필요하다면 서버 응답을 처리
-                    console.log("데이터가 성공적으로 서버로 전송되었습니다!");
-                	 
-                     // 리다이렉트 처리
-                    window.location.href = "<c:url value='/soop/task' />";
-                  },
-                  error: function(data) {
-                	// 오류가 발생했을 경우 처리
-                      console.error("데이터를 서버로 전송하는데 오류가 발생했습니다:", error);
-/*                       console.log('에러'+ data);
-                      console.log('에러'+ JSON.stringify(data));
-                      console.log(JSON.stringify(data)) */
-                  }
+        // 데이터를 폼에 설정
+        $("#sign_member_no").val(selectedMemberNo);
+        $("#sign_approver").val(selectedMemberName);
+        $("#sign_step").val(selectedStep);
+        $("#task_status").val(selectedStatus);
+        
+        console.log(sign_member_no);
+        console.log(sign_approver);
+        console.log(sign_step);
+        console.log(task_status);
 
-            });  
-        });
-    });
-</script>
+        // 폼 제출
+        $("#insertForm").submit(); 
+        
+    }); */
+/*$(document).ready(function () {
+	$("#insert_btn").click(function () { // 업무 생성 버튼 누르면 아래 실행
+		
+        var selectedMemberNo = $("#selectMembersCreate1").val();
+        var selectedMemberName = $("#selectMembersCreate1 option:selected").data("membername");
+        var selectedStep = $("#selectMembersCreate1 option:selected").data("step"); // 선택된 결재자의 단계
+        var selectedStatus = $("#task_status").val(); // 선택된 값 가져오기
+
+        // 확인용으로 출력 => controller에서 log로 안찍힘
+        alert("selectedMemberNo : " + $("#selectMembersCreate1").val());
+        alert("selectedMemberName : " + $("#selectMembersCreate1 option:selected").data("membername"));
+        alert("selectedStep : " + $("#selectMembersCreate1 option:selected").data("step"));
+       
+        
+        alert("확인");
+        
+ 		$.ajax({
+			type : "POST",
+			url : "/soop/insert",
+			data : {
+				"sign_member_no": selectedMemberNo,
+				"sign_approver":selectedMemberName,
+				"sign_step":selectedStep,
+				 task_status: selectedStatus
+			},
+			dataType : "text",
+			success : function(data) {
+				alert("성공");
+			},
+			error:function(data){  
+				alert("실패");
+                console.log('에러'+ data);
+                console.log('에러'+ JSON.stringify(data));
+                console.log(JSON.stringify(data))
+			}
+		});
+		 
+	});
+	
+});*/
+
+</script> 
 
 <!-- 수정 모달에서 새 파일 선택했을 때, 기존 파일 보여주는 div 숨기기 -->
 <script>
@@ -206,6 +232,7 @@ $(document).ready(function(){
 			fileDtoDiv.style.display = "block"; // 혹은 "inline" 등 원하는 디스플레이 속성을 지정할 수 있습니다.
 		}
 	}
+	
 </script>
 
 <!-- 첨부 파일 크기 제한 (업무 생성 및 수정) -->
@@ -242,7 +269,7 @@ $(document).ready(function(){
 	<h2>list</h2>
 	<br /><br />
 	<!-- 업무 생성 모달 버튼 -->
-	<button type="button" id="insert_modal" class="btn btn-primary" data-no="${dto.task_no}" <%-- data-member="${members}"  --%>data-bs-toggle="modal" data-bs-target="#insertModal">업무 생성</button>
+	<button type="button" id="insert_modal" name="insert_modal" class="btn btn-primary" data-no="${dto.task_no}" <%-- data-member="${members}"  --%>data-bs-toggle="modal" data-bs-target="#insertModal">업무 생성</button>
 <!-- 	<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#insertModal">
 	  업무 생성
 	</button> -->
@@ -268,8 +295,12 @@ $(document).ready(function(){
 			<th>file_type</th>
 			<th>file_path</th>
 			<th>file_register_date</th>
+<!-- 			<th>sign_no</th>
+			<th>sign_approver</th>
+			<th>sign_status</th>
+			<th>sign_step</th> -->
 		</tr>
-		<c:forEach var="dto"  items="${list }"> <!-- list라는 아이템을 dto라는 이름으로 controller에서 가져옴 (taskAttachedFileService)-->
+		<c:forEach var="dto"  items="${list}"> <!-- list라는 아이템을 dto라는 이름으로 controller에서 가져옴 (taskAttachedFileService)-->
 		<tr>
 			<td>${dto.task_no}</td>
 			<td>${dto.project_no}</td>
@@ -284,7 +315,10 @@ $(document).ready(function(){
 			<td>${dto.file_no}</td>
 			<td>${dto.file_type}</td>
 			<td>${dto.file_path}</td>
-			<td>${dto.file_register_date}</td>
+		<%-- 	<td>${dto.sign_no}</td>
+			<td>${dto.sign_approver}</td>
+			<td>${dto.sign_status}</td>
+			<td>${dto.sign_status}</td> --%>
 			<td>
 					<!-- 수정 모달 버튼 -->
 					<button type="button" class="btn cmodel-btn btn-primary" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-status="${dto.task_status}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-filename="${dto.file_name}" data-bs-toggle="modal" data-bs-target="#updateModal">수정</button>
@@ -296,9 +330,9 @@ $(document).ready(function(){
 </div>  
 
 <!-- 업무 생성 모달 -->
-<!-- 일단 업무 생성 구현 용으로 project_no와 member_no을 임의로 지정 -->
-<form action="insert?project_no=1&member_no=3" id="insertForm" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
-<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
+<!-- 일단 업무 생성 구현 용으로 project_no member_no을 임의로 지정 -->
+<form action="insert" id="insertForm" name="insertForm" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
+<div class="modal fa와de" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -307,6 +341,9 @@ $(document).ready(function(){
       </div>
       <div class="modal-body">
         	<table class="table">
+         			<!-- link에 ?로 주는 대신 hidden으로 줘보기(자꾸 데이터 형식이 안맞아서 나는 오류를 해결하기 위해) -->
+		        	<input type="hidden" name="project_no" id="project_no" value="1">
+		        	<input type="hidden" name="member_no" id="member_no" value="1"> 
 			<tr>
 				<td colspan="8">업무 제목</td>
 				<td><input class="form-control" id="taskName" type="text" name="task_title"></td>
@@ -314,14 +351,25 @@ $(document).ready(function(){
 			</tr>
 			<tr><td colspan="8">업무 상태	&nbsp; &nbsp;
 						<td>
-						<select name="task_status"id="task_status" class="form-select" aria-label="Default select example">
+						<select name="task_status_select" id="task_status_select" class="form-select" aria-label="Default select example">
 							<!-- <option selected>------업무 상태 선택-----</option> -->
-							<option selected value="0">발의됨</option>
+							<option selected value="100">--업무 상태 선택--</option>
+							<option value="0">발의중</option>
 							<option value="1">진행중</option>
 							<option value="2">일시중지</option>
 							<option value="3">완료</option>
+							</select>
+							<!-- 컨트롤러에 task_status 넘겨주는 역할 -->
+							<input type="hidden" name="task_status" id="task_status" value="">
+								<script>
+									  document.getElementById("task_status_select").addEventListener("change", function () {
+									    var selectedValue = this.value;
+									    document.getElementById("task_status").value = selectedValue;
+									  });
+								</script>
+							
 						</td>
-			</td>
+						
 			</tr>
 			<tr>
 
@@ -338,11 +386,37 @@ $(document).ready(function(){
 				            <select name="sign_approval" id="selectMembersCreate1" class="form-select" aria-label="Default select example">
 				              <option value="">------결재자 선택-----</option>
 				              <c:forEach var="member" items="${members}">
-				                <option value="${member.member_no}" data-membername="${member.name}" data-projectno="${member.project_no}" data-step="1">${member.name}</option>
+				                <option data-memberno="${member.member_no}" data-membername="${member.name}" data-projectno="${member.project_no}" data-step="1">${member.name}</option>
 				              </c:forEach>
 				            </select>
+									<!-- 값 넘기기 위한.. hidden -->
+									<input type="hidden" name="sign_approver" id="sign_approver" value="">
+									<input type="hidden" name="sign_member_no" id="sign_member_no" value="">
+									<input type="hidden" name="sign_step" id="sign_step" value=""><!-- 일단 1단계라서 1 줌 -->
 						</td>
-<%-- 						<td>
+						
+						<script>
+								  // select 요소의 change 이벤트를 감지하여 value를 설정하는 함수
+								  document.getElementById("selectMembersCreate1").addEventListener("change", function () {
+								    var selectedOption = this.options[this.selectedIndex];
+								    var memberNo = selectedOption.getAttribute("data-memberno");
+								    var memberName = selectedOption.getAttribute("data-membername");
+								    var projectNo = selectedOption.getAttribute("data-projectno");
+								    var step = selectedOption.getAttribute("data-step");
+								
+								    // 값을 hidden input 요소에 설정
+								    document.getElementById("sign_approver").value = memberName;
+								    document.getElementById("sign_member_no").value = memberNo;
+								    document.getElementById("sign_step").value = step;
+								
+								    // 선택된 값 출력
+								    console.log("선택된 결재자: " + memberName);
+								    console.log("선택된 결재자 번호: " + memberNo);
+								    console.log("선택된 프로젝트 번호: " + projectNo);
+								    console.log("선택된 단계: " + step);
+								  });
+						</script>
+										<%-- 						<td>
 				            <select name="sign_approval" id="selectMembersCreate2" class="form-select" aria-label="Default select example">
 				              <option value="">------결재자 선택-----</option>
 				              <c:forEach var="member" items="${members}">
@@ -363,6 +437,7 @@ $(document).ready(function(){
 				<br />
 			</tr>
 			<tr>
+			<td>
 				<!-- calendar -->
 				
 					<!-- Calendar에 기본값 주기 위한 셋팅 -->
@@ -374,12 +449,15 @@ $(document).ready(function(){
 				<label for="to">마감일</label>&nbsp; &nbsp;
 				<input type="text" id="to" name="task_end_date" value="<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>">
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+				</td>
 			</tr>
 			<br /><br />
 			<tr>	
 				<!-- 첨부파일 -->
 				<!-- controller로 file 넘김 -->
+				<td>
 				<input type="file" name="file" onchange="checkFileSize(this);"/> 
+				</td>
 			</tr>
 			<tr>
 				<br />
@@ -428,8 +506,9 @@ $(document).ready(function(){
 					<option value="1">진행중</option>
 					<option value="2">일시중지</option>
 					<option value="3">완료</option>
+					</select>
 				</td>
-			</td></tr>
+			</tr>
 			<tr>
 			<tr>
 				<table class="table" id="tb" >
@@ -449,6 +528,7 @@ $(document).ready(function(){
 				<br />
 			</tr>
 			<tr>
+			<td>
 				<!-- calendar -->
 				<label for="from2">시작일</label>&nbsp; &nbsp;
 				<input type="text" id="startvalue" name="task_start_date" >
@@ -456,9 +536,11 @@ $(document).ready(function(){
 				<label for="to2">마감일</label>&nbsp; &nbsp;
 				<input type="text" id="endvalue" name="task_end_date">
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+				</td>
 			</tr>	
 			<br /><br />
 			<tr>	
+			<td>
 				<!-- 첨부파일 -->
 				<!-- controller로 file 넘김 -->
 				<input type="file" name="file" id="fileInput" onchange="hideFileDto(); checkFileSize(this);"/>
@@ -469,6 +551,7 @@ $(document).ready(function(){
 										<p>${file.file_path}</p>
 									</c:forEach>
 								</div>
+								</td>
 			</tr>
 			<tr>
 				<br />

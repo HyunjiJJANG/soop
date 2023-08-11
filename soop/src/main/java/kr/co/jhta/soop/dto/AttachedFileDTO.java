@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class AttachedFileDTO {
 	
-	
+
 	private int file_no;
 	private int task_no;
 	private String file_type;
@@ -21,4 +21,3 @@ public class AttachedFileDTO {
 	
 
 }
-
