@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>login</title>
-<!-- 폰트 적용 -->
-<link rel="stylesheet" type="text/css" href="/css/hhj.css">
 
 <!-- AJAX -->
 <script

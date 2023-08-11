@@ -121,7 +121,6 @@ public class MemberController {
 		
 		log.info("member_no" + memberDto.getMember_no());
 		
-		
 		model.addAttribute("memberDTO", memberService.selectOne(member_no));
 		
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
@@ -237,10 +236,10 @@ public class MemberController {
 	}
 
 	// 커스텀 로그아웃
-	@GetMapping("/clogout")
+	@GetMapping("/logout")
 	public String logout() {
 
-		return "logout";
+		return "/";
 	}
 
 	// 회원가입

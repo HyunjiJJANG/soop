@@ -8,6 +8,7 @@
 <title>::: SOOP :::</title>
 <!-- Meta -->
 <meta charset="utf-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="" />
@@ -91,7 +92,7 @@ $(function(){
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link ">
+						<a href="/historyList?member_no=${memberDTO.member_no }&email=${memberDTO.email}" class="nav-link ">
 							<span class="pcoded-micon"><i class="fa-solid fa-clock-rotate-left"></i></span>
 							<span class="pcoded-mtext">히스토리</span>
 						</a>
@@ -103,7 +104,7 @@ $(function(){
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="#" class="nav-link ">
+						<a href="/kanban?member_no=${memberDTO.member_no}" class="nav-link ">
 							<span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span>
 							<span class="pcoded-mtext">내 할 일</span>
 						</a>
@@ -227,7 +228,7 @@ $(function(){
 								</li>
 							</ul>
 							<div class="noti-footer">
-								<a href="#!">모든 히스토리 보기</a>
+								<a href="/historyList?member_no=${memberDTO.member_no }&email=${memberDTO.email}">모든 히스토리 보기</a>
 							</div>
 						</div>
 					</div>
@@ -240,22 +241,22 @@ $(function(){
 						<div
 							class="dropdown-menu dropdown-menu-right profile-notification">
 							<div class="pro-head">
-								<img src="assets/images/user/avatar-1.jpg" class="img-radius" alt="User-Profile-Image">
-								<span>John Doe</span>
+								<img src="/data/${memberDTO.profile_name}" class="img-radius" alt="User-Profile-Image">
+								<span>${memberDTO.name }</span>
 							</div>
 							<ul class="pro-body">
 								<li>
-									<a href="user-profile.html" class="dropdown-item">
+									<a href="/mypage?member_no=${memberDTO.member_no }&email=${memberDTO.email}" class="dropdown-item">
 										<i class="feather icon-user" style="color: #707272;"></i>마이페이지
 									</a>
 								</li>
 								<li>
-									<a href="email_inbox.html" class="dropdown-item">
+									<a href="" class="dropdown-item">
 										<i class="fa-regular fa-address-book" style="color: #707272;"></i>주소록
 									</a>
 								</li>
 								<li>
-									<a href="/clogout" class="dropdown-item">
+									<a href="/logout" class="dropdown-item">
 										<i class="feather icon-log-out" style="color: #707272;"></i>로그아웃
 									</a>
 								</li>

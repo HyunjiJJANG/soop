@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.soop.dto.HistoryTaskProjectMemberDTO;
 import kr.co.jhta.soop.service.HistoryTaskProjectMemberMysqlService;
+import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.util.PageUtil;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,6 +22,9 @@ public class HistoryController {
 
 	@Autowired
 	HistoryTaskProjectMemberMysqlService historyService;
+	
+	@Autowired
+	MemberService memberService;
 
 	// 히스토리 출력하기
 	@GetMapping("/historyList")
@@ -59,7 +63,7 @@ public class HistoryController {
 		dto.setEndNo(recordPerPage);
 
 		model.addAttribute("list", historyService.selectAll(dto));
-
+		model.addAttribute("memberDTO", memberService.selectOne(member_no));
 		log.info("" + historyService.selectAll(dto));
 		model.addAttribute("member_no", member_no);
 
@@ -92,6 +96,8 @@ public class HistoryController {
 		HistoryTaskProjectMemberDTO historyTaskProjectMemberdto = new HistoryTaskProjectMemberDTO();
 		historyTaskProjectMemberdto.setMember_no(member_no);
 		historyTaskProjectMemberdto.setProject_no(project_no);
+		
+		
 
 		return historyService.getSearchList(historyTaskProjectMemberdto);
 	}
