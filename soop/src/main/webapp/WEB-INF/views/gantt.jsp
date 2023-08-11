@@ -5,13 +5,56 @@
 <!doctype html>
 <html lang="en">
 <head>
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+<script src="https://kit.fontawesome.com/a613319909.js"
+	crossorigin="anonymous"></script>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<meta name="author" content="Phoenixcoded" />
+<!-- Favicon icon -->
+<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+<!-- vendor css -->
+<link rel="stylesheet" href="assets/css/style.css">
+
 <title>gantt chart</title>
 <!--     
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
 -->
+
+
+<link
+	href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"
+	rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+	integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+	crossorigin="anonymous"></script>
+<!-- jquery -->
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <style>
 * {
@@ -80,30 +123,51 @@
 <body>
 	<jsp:include page="nav.jsp" />
 
-	<div class="chartMenu">
-		<p>
-			<span id="chartVersion"></span>
-		</p>
-	</div>
+	<div class="pcoded-main-container">
+		<div class="pcoded-content">
+			<div class="row">
+				<!-- 간트차트 감싸는 DIV -->
 
-	<div class="chartCard">
-		<div class="chartBox">
-			<canvas id="myChart"></canvas>
-			<!-- <div id="kanbandiv"> -->
-			<table id="kanbanTable">
-				<tr>
-					<td><input type="month" onchange="chartFilter(this)"
-						style="margin-right: 20px; width: 123.63636px; height: 30.63636px;" /></td>
-					<td><button type="button" onclick="hrefLink()"
-							class="btn btn-primary btn-sm scheduleAdd">
-							<i class="fa-regular fa-pen-to-square" style="color: #fff;"></i>&nbsp;&nbsp;칸반보드
-							이동
-						</button></td>
-				</tr>
-			</table>
-			<!-- </div> -->
+				<div class="col-xl-12 col-md-10" style="margin-top: 40px">
+					<div class="card table-card">
+						<div class="card-header" style="padding-bottom: 0px;">
+							<h3>일정</h3>
+						</div>
+						<div class="card-body p-0">
+							<div class="table-responsive">
+								<div class="chartMenu" style="display: none;">
+									<p>
+										<span id="chartVersion"></span>
+									</p>
+								</div>
+
+								<div class="chartCard" style="margin-top: -40px" >
+									<div class="chartBox">
+										<canvas id="myChart"></canvas>
+										<!-- <div id="kanbandiv"> -->
+										<table id="kanbanTable">
+											<tr>
+												<td><input type="month" onchange="chartFilter(this)"
+													style="margin-right: 20px; width: 123.63636px; height: 30.63636px;" /></td>
+												<td><button type="button" onclick="hrefLink()"
+														class="btn btn-primary btn-sm scheduleAdd">
+														<i class="fa-regular fa-pen-to-square"
+															style="color: #fff;"></i>&nbsp;&nbsp;칸반보드 이동
+													</button></td>
+											</tr>
+										</table>
+										<!-- </div> -->
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
+
 
 	<script type="text/javascript"
 		src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>

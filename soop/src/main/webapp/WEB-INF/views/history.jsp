@@ -42,7 +42,7 @@ html, body {
 }
 
 body {
-	padding: 1.5em;
+	
 	background: #ffffff;
 }
 
@@ -175,11 +175,11 @@ a {
 	}
 }
 
-ul {
+/* ul {
 	text-align: center;
 	margin-top: 30px;
 	vertical-align: middle;
-}
+} */
 </style>
 
 
@@ -296,98 +296,100 @@ ul {
 </script>
 
 
+<jsp:include page="nav.jsp" />
 </head>
 <body>
-
 	<input type="hidden" value="${member_no }" name="member_no"
 		id="member_no" />
+	<div class="pcoded-main-container">
+		<div class="pcoded-content">
+			<div class="row">
+				<div class="col-xl-12 col-md-12" style="margin-top:100px">
+					<!-- <h2 class="card-title text-left" id="historyH2">히스토리</h2> -->
+					
+					<div class="container">
+						<table>
+							<thead>
+								<tr>
+									<th>프로젝트 제목</th>
+									<th>업무 제목</th>
+									<th>히스토리 내용</th>
+									<th>작성자</th>
+									<th>시간</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
 
-	<div>
-		<h2 class="card-title text-left" id="historyH2">히스토리</h2>
-		<hr class="pill" />
-		<div class="container">
-			<table>
-				<thead>
-					<tr>
-						<th>프로젝트 제목</th>
-						<th>업무 제목</th>
-						<th>히스토리 내용</th>
-						<th>작성자</th>
-						<th>시간</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
+
+									<td><select class="form-select"
+										aria-label="Default select example" name="projectList"
+										id="projectList">
+											<option selected>프로젝트 선택</option>
+											<option value="0">전체보기</option>
+											<c:forEach var="project" items="${projectList}">
+												<option value="${project.project_no}">${project.project_title}</option>
+											</c:forEach>
+
+									</select></td>
+
+								</tr>
+							<tbody id="historyListDiv">
+								<c:forEach var="historydto" items="${list }">
+									<tr>
+										<td>${historydto.project_title }</td>
+										<td><a href="/historyDetail?task_no=${hitorydto.task_no}">${historydto.task_title }</a></td>
+										<td>${historydto.history_content }</td>
+										<td>${historydto.name }</td>
+
+										<td>
+											<%-- ${historydto.history_register_date }  --%> <!-- 이 때 여기 value는 날짜값이 와야 합니다. string일 경우 날짜값으로 바꿔줘야 함 -->
+											<fmt:parseDate var="dateString"
+												value="${historydto.history_register_date }"
+												pattern="yyyy-MM-dd HH:mm:ss" /> <!-- 위에 저런 문자로 되어있으니까 날짜로 인식해서 바꿔줘 -->
+											<fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd" />
+										</td>
+									</tr>
 
 
-						<td><select class="form-select"
-							aria-label="Default select example" name="projectList"
-							id="projectList">
-								<option selected>프로젝트 선택</option>
-								<option value="0">전체보기</option>
-								<c:forEach var="project" items="${projectList}">
-									<option value="${project.project_no}">${project.project_title}</option>
 								</c:forEach>
 
-						</select></td>
-
-					</tr>
-				<tbody id="historyListDiv">
-					<c:forEach var="historydto" items="${list }">
-						<h2>멤버 번호 ${historydto.member_no }</h2>
-						<h2>프로젝트 번호 ${historydto.project_no }</h2>
-
-						<tr>
-							<td>${historydto.project_title }</td>
-							<td><a href="/historyDetail?task_no=${hitorydto.task_no}">${historydto.task_title }</a></td>
-							<td>${historydto.history_content }</td>
-							<td>${historydto.name }</td>
-
-							<td>
-								<%-- ${historydto.history_register_date }  --%> <!-- 이 때 여기 value는 날짜값이 와야 합니다. string일 경우 날짜값으로 바꿔줘야 함 -->
-								<fmt:parseDate var="dateString"
-									value="${historydto.history_register_date }"
-									pattern="yyyy-MM-dd HH:mm:ss" /> <!-- 위에 저런 문자로 되어있으니까 날짜로 인식해서 바꿔줘 -->
-								<fmt:formatDate value="${dateString}" pattern="yyyy-MM-dd" />
-							</td>
-						</tr>
-
-
-					</c:forEach>
-
-				</tbody>
+							</tbody>
 
 
 
-				<tr>
-					<td colspan="5">
-						<nav aria-label="Page navigation example">
-							<ul class="pagination">
-								<c:if test="${map.prev }">
-									<li class="page-item"><a class="page-link"
-										href="historyList?currentPage=${map.currentPage-5}&member_no=${member_no}">이전</a></li>
-								</c:if>
-								<c:forEach var="i" begin="${map.startPageNo}"
-									end="${map.endPageNo}">
-									<li class="page-item"><a class="page-link"
-										href="historyList?currentPage=${i}&member_no=${member_no}">${i}</a></li>
-								</c:forEach>
-								<c:if test="${map.next }">
-									<li class="page-item"><a class="page-link"
-										href="historyList?currentPage=${map.currentPage+5}&member_no=${member_no}">다음</a></li>
-								</c:if>
-							</ul>
-						</nav>
+							<tr>
+								<td colspan="5">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination">
+											<c:if test="${map.prev }">
+												<li class="page-item"><a class="page-link"
+													href="historyList?currentPage=${map.currentPage-5}&member_no=${member_no}">이전</a></li>
+											</c:if>
+											<c:forEach var="i" begin="${map.startPageNo}"
+												end="${map.endPageNo}">
+												<li class="page-item"><a class="page-link"
+													href="historyList?currentPage=${i}&member_no=${member_no}">${i}</a></li>
+											</c:forEach>
+											<c:if test="${map.next }">
+												<li class="page-item"><a class="page-link"
+													href="historyList?currentPage=${map.currentPage+5}&member_no=${member_no}">다음</a></li>
+											</c:if>
+										</ul>
+									</nav>
 
-					</td>
-				</tr>
-				</tbody>
-			</table>
+								</td>
+							</tr>
+							</tbody>
+						</table>
 
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
