@@ -44,7 +44,7 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 </head>
-<body class="modal-open" style="overflow: hidden; padding-right: 0px;">
+<body>
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
 	<div class="pcoded-main-container">
