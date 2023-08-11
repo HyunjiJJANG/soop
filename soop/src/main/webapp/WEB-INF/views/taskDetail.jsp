@@ -95,7 +95,7 @@
 			
 			<!-- 업무 피드 card -->
 			<div class="col-xl-8 col-md-12">
-				<div class="card table-card" style="left: 200px;">
+				<div class="card table-card" style="left: 250px;">
 					<div class="card-header">
 						<div class="d-inline-block align-middle">
 							<img src="${feedTaskDTO.profile_path}" alt="user image" class="img-radius wid-40 align-top m-r-15">

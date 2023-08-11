@@ -174,7 +174,6 @@
 			});
 		}
 	}
-
 </script>
 </head>
 <body class="modal-open" style="overflow: hidden; padding-right: 0px;">
@@ -426,5 +425,10 @@
 	    </div>
 	  </div>
 </div>
+
+<script src="assets/js/plugins/apexcharts.min.js"></script>
+<script src="assets/js/pages/chart-apex.js"></script>
+
+	
 </body>
 </html>

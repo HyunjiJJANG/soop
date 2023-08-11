@@ -238,14 +238,32 @@ $(document).ready(function() {
             );
             chart.render();
         });
-        $(function() {
+        
+        const searchParams = new URLSearchParams(window.location.search);
+		const project_no = searchParams.get('project_no');
+		console.log(project_no);
+        function getChartDataFromDB(callback) {
+            $.ajax({
+		        url: '/task/status', // 프로젝트 번호를 적절히 설정
+		        method: 'GET',
+		        data: {'project_no' : project_no},
+		        dataType: 'json',
+		        success: function(response) {
+		            callback(response); // 서버에서 받은 데이터를 콜백으로 전달
+		        }
+		    });
+        }
+
+        // 데이터를 가져온 후에 그래프를 그리는 함수
+        function drawChartWithData(data) {
             var options = {
                 chart: {
                     height: 320,
                     type: 'donut',
                 },
-                series: [44, 55, 41, 17, 15],
-                colors: ["#1abc9c", "#0e9e4a", "#00acc1", "#f1c40f", "#e74c3c"],
+                series: data, // 가져온 데이터로 시리즈 설정
+                labels: ["발의", "진행", "검토", "완료", "보류"],
+                colors: ["#00acc1", "#0e9e4a", "#f1c40f", "#6c757d", "#e74c3c"],
                 legend: {
                     show: true,
                     position: 'bottom',
@@ -273,19 +291,26 @@ $(document).ready(function() {
                 },
                 responsive: [{
                     breakpoint: 480,
-                    options: {          
+                    options: {
                         legend: {
                             position: 'bottom'
                         }
                     }
                 }]
-            }
+            };
+
             var chart = new ApexCharts(
                 document.querySelector("#pie-chart-2"),
                 options
             );
             chart.render();
+        }
+
+        // 데이터베이스에서 데이터 가져오기
+        getChartDataFromDB(function(data) {
+            // 데이터 가져오기 성공 시 그래프 그리기
+            drawChartWithData(data);
         });
     
-	}, 700);
+	}, 50);
 });

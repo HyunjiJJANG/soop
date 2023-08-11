@@ -1,10 +1,14 @@
 package kr.co.jhta.soop.control;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.soop.dto.ProjectMemberNo;
 import kr.co.jhta.soop.service.CommentService;
@@ -13,6 +17,7 @@ import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectMemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
+import kr.co.jhta.soop.service.ProjectTaskService;
 import kr.co.jhta.soop.service.SignMemberService;
 import kr.co.jhta.soop.util.Criteria;
 import kr.co.jhta.soop.util.Pagenation;
@@ -39,6 +44,9 @@ public class FeedController {
 	
 	@Autowired
 	CommentService commentService;
+	
+	@Autowired
+	ProjectTaskService projectTaskService;
 	
 	// side nav에 프로젝트명 클릭하면 해당 프로젝트 업무 리스트가 있는 피드로 이동
     @GetMapping("/feed")
@@ -104,6 +112,20 @@ public class FeedController {
     	
     	return "taskDetail";
     	
+    }
+    
+    @GetMapping("/task/status")
+    @ResponseBody
+    public List<Integer> taskStatus(@RequestParam("project_no")int project_no, Model model) {
+    	List<Integer> list = new ArrayList<Integer>();
+    	list.add(projectTaskService.cntTaskStatus0(project_no));
+    	list.add(projectTaskService.cntTaskStatus1(project_no));
+    	list.add(projectTaskService.cntTaskStatus2(project_no));
+    	list.add(projectTaskService.cntTaskStatus3(project_no));
+    	list.add(projectTaskService.cntTaskStatus4(project_no));
+    	
+    	model.addAttribute("list", list);
+    	return list;
     }
 
 }
