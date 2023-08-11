@@ -35,6 +35,23 @@
 		ORDER BY m.name
 
 	</select>
+	
+	<!-- 나의 모든 프로젝트의 모든 주소록 리스트 가져오기 -->
+	<select id="selectProjectAll" resultType="MemberProjectMemberDTO"
+		parameterType="MemberProjectMemberDTO" >
+		SELECT DISTINCT m.name, m.email, m.profile_path
+		FROM
+		member m
+		JOIN project_member pm ON pm.member_no = m.member_no
+		WHERE
+		pm.project_no IN (
+		SELECT project_no
+		FROM project_member
+		WHERE member_no
+		= #{member_no}
+		) AND m.member_no != #{member_no}
+		ORDER BY m.name
+		</select>
 
 	<select id="selectOne" resultType="MemberProjectMemberDTO"
 		parameterType="int">

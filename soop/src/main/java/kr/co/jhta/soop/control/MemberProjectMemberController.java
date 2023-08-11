@@ -6,15 +6,18 @@ import java.util.Random;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.soop.dto.MemberProjectMemberDTO;
+import kr.co.jhta.soop.dto.ProjectProjectMemberMemberDTO;
 import kr.co.jhta.soop.service.MemberProjectMemberService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectMemberService;
@@ -70,6 +73,17 @@ public class MemberProjectMemberController {
 		memberProjectMemberdto.setProject_no(1);
 		return memberProjectMemberService.getSearchList(memberProjectMemberdto);
 		  
+		}
+		
+		//나와 같은 프로젝트 구성원 전체 출력하기 
+		@GetMapping(value="/allContactList/{member_no}", produces= MediaType.APPLICATION_JSON_VALUE)
+		public List<MemberProjectMemberDTO> allContactList(@PathVariable("member_no") int member_no) {
+			
+			MemberProjectMemberDTO memberProjectMemberdto = memberProjectMemberService.selectOne(member_no);
+			
+			List<MemberProjectMemberDTO> list  = memberProjectMemberService.selectProjectAll(memberProjectMemberdto);
+			
+			return list ;
 		}
 	
 	

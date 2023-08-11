@@ -9,6 +9,9 @@ public interface MemberProjectMemberService {
 
 public List<MemberProjectMemberDTO> selectAll(MemberProjectMemberDTO dto);
 
+public List<MemberProjectMemberDTO> selectProjectAll(MemberProjectMemberDTO dto);
+
+
 	public MemberProjectMemberDTO selectOne(int member_no);
 
 	public MemberProjectMemberDTO selectMemberByEmail(String email);

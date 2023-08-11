@@ -384,13 +384,12 @@ img.rounded {
 </script>
 <jsp:include page="nav.jsp" />
 </head>
-
 	<body>
 		<div class="pcoded-main-container">
 			<div class="pcoded-content">
 				<div class="row" style="margin-top: 50px; margin-left: 200px;">
 					<div class="col-xl-10 col-md-12"
-						style="margin-top: 40px; height: 2000px;">
+						style="margin-top: 50px; height: 2000px;">
 						<div class="card table-card">
 							<div class="card-header" style="padding-bottom: 0px;">
 								<h3>회원정보</h3>
@@ -399,7 +398,7 @@ img.rounded {
 
 							<div class="card-body p-0 ">
 								<div class="table-responsive" style="height: 1200px">
-									<div class="card-text" style="margin-top:-50px;">
+									<div class="card-text" style="margin-top:-150px;">
 
 										<!-- <form name="frm" id="frm"> -->
 										<!-- <div class="card-title text-left" id="MypageH6">
@@ -413,7 +412,7 @@ img.rounded {
 							 따라서 로컬 파일 시스템의 경로를 직접 불러올 수 없도록 막고 있습니다. 그래서 정적 리소스 경로 사용하여 이미지 보여줌 -->
 											<img src="/data/${memberDTO.profile_name}" class="rounded"
 												alt="profile_image"
-												style="width: 150px; height: 150px; margin-right: 520px;">
+												style="width: 180px; height: 180px; margin-right: 520px;">
 
 											<!-- 버튼을 누르면 회원 프로필 사진이 변경되게하는 a태그 -->
 											<form id="profileImageForm" enctype="multipart/form-data"
@@ -583,98 +582,6 @@ img.rounded {
 											</div>
 
 										</div>
-
-
-										<!-- 비밀번호 -->
-										<div class="row g-3 align-items-center" style="width: 800px;"
-											id="passwordDiv">
-											<div class="col-md-6 position-relative" style="width: 150px;">
-												<div class="col-6">
-													<span class="join-label-title"
-														style="width: 200px; margin-top: 20px;">비밀번호</span>
-													<div class="form-floating">
-														<div class="form-floating">
-
-
-															<input type="password" class="form-control" name="pwView"
-																id="pwView" class="form-control" value="password"
-																style="--bs-border-color: #ffffff; width: 300px; background-color: white;  margin-bottom: 45px;"
-																readonly /> <input type="hidden" class="form-control"
-																name="passwordView" id="passwordView"
-																class="form-control" value="${memberDTO.password }" />
-															<label for="password"></label>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-1">
-												<input type="button" class="btn btn-outline-success btn-sm"
-													value="변경" id="passwordChange"
-													style="height: 45px; margin-top: 15px; width: 73px;" />
-
-											</div>
-										</div>
-
-										<!-- 변경 할 비밀번호 -->
-										<div class="row g-3 align-items-center"
-											style="width: 800px; display: none;"
-											id="newChangePasswordDiv">
-											<div class="col-md-6 position-relative" style="width: 150px;">
-												<div class="col-6">
-													<span class="join-label-title"
-														style="width: 200px; margin-top: 20px;">비밀번호</span>
-													<div class="form-floating">
-														<div class="form-floating">
-															<input type="password" class="form-control"
-																name="password" id="password" class="form-control"
-																style="width: 300px;  margin-bottom: 45px;"
-																id="validationTooltipUsername"
-																aria-describedby="validationTooltipUsernamePrepend"
-																required /> <label for="password"></label>
-															<div class="invalid-feedback"
-																style="width: 400px; margin-bottom: 30px; margin-top: -20px;">8~30자
-																영문 대소문자, 숫자만 입력하세요.</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-										<!-- 변경 할 비밀번호 확인 -->
-										<div class="row g-3 align-items-center"
-											style="width: 800px; display: none; margin-top: -50px;"
-											id="newChangePasswordCheckDiv">
-											<div class="col-md-6 position-relative" style="width: 150px;">
-												<div class="col-6">
-													<span class="join-label-title"
-														style="width: 200px; margin-top: 20px;">비밀번호 확인</span>
-													<div class="form-floating">
-														<div class="form-floating">
-															<input type="password" class="form-control"
-																name="repeatPw" id="repeatPw" class="form-control"
-																style="width: 250px; margin-bottom: 45px; width: 300px; "
-																id="validationTooltipUsername"
-																aria-describedby="validationTooltipUsernamePrepend"
-																required /> <label for="password"></label>
-															<div class="invalid-feedback"
-																style="width: 300px; margin-bottom: 30px; margin-top: -20px;">비밀번호와
-																동일하지 않습니다.</div>
-														</div>
-													</div>
-												</div>
-											</div>
-											<div class="col-1">
-												<input type="button" class="btn btn-outline-success btn-sm"
-													value="변경" id="passwordChangeOk"
-													style="height: 45px; margin-top: 15px; width: 73px;" />
-											</div>
-											<div class="col-1">
-												<input type="button" class="btn btn-outline-success btn-sm"
-													value="입력 취소" id="passwordChangeCancel"
-													style="height: 45px; margin-top: 15px; margin-left: 60px; width: 73px;" />
-											</div>
-
-										</div>
-
 										<hr />
 
 										<!-- 	</form> -->
@@ -690,4 +597,6 @@ img.rounded {
 
 		</div>
 	</body>
+
+
 </html>

@@ -459,7 +459,7 @@ form {
 
 						</div>
 						<div class="sign-in">
-							<a href="/clogin">이미 계정이 있습니다</a>
+							<a href="/">이미 계정이 있습니다</a>
 						</div>
 					</form>
 

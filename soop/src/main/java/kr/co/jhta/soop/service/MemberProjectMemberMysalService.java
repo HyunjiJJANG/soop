@@ -66,4 +66,9 @@ public class MemberProjectMemberMysalService implements MemberProjectMemberServi
 		return dao.selectAllProjectByEmail(email);
 	}
 
+	@Override
+	public List<MemberProjectMemberDTO> selectProjectAll(MemberProjectMemberDTO dto) {
+		return dao.selectProjectAll(dto);
+	}
+
 }

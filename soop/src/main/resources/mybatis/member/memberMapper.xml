@@ -28,7 +28,7 @@
 	<insert id="insertOne" parameterType="MemberDTO">
 		INSERT INTO member (email, password, name, profile_name, profile_path, enabled )
 		VALUES
-		(#{email},#{password},#{name},'profile','https://cdn-icons-png.flaticon.com/128/1077/1077063.png',1
+		(#{email},#{password},#{name},'profile.jpg','C:\Users\jhta\git\soop\soop\src\main\webapp\data\profile.jpg',1
 		)
 	</insert>
 	
@@ -38,7 +38,7 @@
 	<insert id="oAuth2UserinsertOne" parameterType="MemberDTO">
 		INSERT INTO member (email, password, name, profile_name, profile_path, enabled )
 		VALUES
-		(#{email},#{password},#{name},'profile','https://cdn-icons-png.flaticon.com/128/1077/1077063.png',#{enabled})
+		(#{email},#{password},#{name},'profile.jpg','C:\Users\jhta\git\soop\soop\src\main\webapp\data\profile.jpg',#{enabled})
 	</insert>
 	
 

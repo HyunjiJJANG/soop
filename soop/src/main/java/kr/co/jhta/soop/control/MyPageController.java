@@ -50,13 +50,20 @@ public class MyPageController {
 			return "redirect:/clogin";
 
 		} else {
-
 			MemberDTO memberDto = memberService.selectMemberByEmail(email);
-			model.addAttribute("memberDto", memberDto);
+			int enabled = memberDto.getEnabled();
+			if(enabled == 1) {
+			
+
+			model.addAttribute("memberDTO", memberDto);
 			return "mypage";
 
+		}else {
+			model.addAttribute("memberDTO", memberDto);
+			return "mypageOauth2";
 		}
 
+	}
 	}
 
 	// 마이페이지 입장 전 패스워드 체크를 위한 매핑
@@ -96,7 +103,7 @@ public class MyPageController {
 			Model model) {
 
 		MemberDTO memberDto = memberService.selectMemberByEmail(email);
-		model.addAttribute("memberDto", memberDto);
+		model.addAttribute("memberDTO", memberDto);
 
 		return "mypagePasswordCheckOk";
 	}

@@ -75,7 +75,6 @@ $(function(){
 		$(".alarm-number").fadeOut(50);
 	});
 })
-
 </script>
 </head>
 <body>
@@ -174,6 +173,7 @@ $(function(){
 								</div>
 							</div>
 							<ul class="noti-body">
+							<!-- 여기서부터 반복 -->
 								<li class="notification">
 									<div class="media">
 										<img class="img-radius" src="assets/images/user/avatar-1.jpg"
@@ -187,6 +187,8 @@ $(function(){
 										</div>
 									</div>
 								</li>
+								
+								<!-- 여기가 끝 -->
 								<li class="notification">
 									<div class="media">
 										<img class="img-radius" src="assets/images/user/avatar-2.jpg"
