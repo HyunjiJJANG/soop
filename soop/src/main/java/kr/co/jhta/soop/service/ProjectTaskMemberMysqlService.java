@@ -29,8 +29,14 @@ public class ProjectTaskMemberMysqlService implements ProjectTaskMemberService{
 
 	@Override
 	public void myprojectUpdateTaskStatus(HashMap<String, Integer> map) {
-		PTMdao.myprojectUpdateTaskStatus(map);
 		
+		PTMdao.myprojectUpdateTaskStatus(map);		
+	}
+
+	@Override
+	public List<ProjectTaskMemberDTO> TasksByProject(int project_no) {
+		
+		return PTMdao.TasksByProject(project_no);
 	}
 
 }

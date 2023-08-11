@@ -5,9 +5,7 @@
   
   <mapper namespace="kr.co.jhta.soop.dao.ProjectTaskMemberDAO">
   
-  	<!-- <gantt.jsp> 로그인 시 내가 포함된 프로젝트에 마우스를 올려놓으면 간단하게 업무생성된거 보여주기 => 보류 -->
-  	<!-- <kanban.jsp> gantt.jsp에서 kanban.jsp로 페이지 이동시 로그인한 본인의 프로젝트에서 생성한 업무일정 보여주기 -->
-  
+	<!-- 내가 참여한 프로젝트 가져오기 -->  
   	<select id="myproject_Select_task" resultType="kr.co.jhta.soop.dto.ProjectTaskMemberDTO" parameterType="int">
 		<!-- SELECT p.project_no, p.project_title, t.project_no, t.task_no, t.member_no, t.task_title, t.task_status,m.member_no,m.name -->  
 		SELECT *
@@ -17,10 +15,25 @@
 		JOIN member m
 		ON t.member_no = m.member_no
 		WHERE m.member_no = #{m.member_no}
-		<!-- AND p.project_no = #{p.project_no} -->
-		AND t.task_title != '';
+		AND t.task_title != ''
+		AND t.task_content != ''; 
   	</select>
   	
+  	<!-- 프로젝트별로 업무 가져오기  -->
+  	<select id="TasksByProject" resultType="kr.co.jhta.soop.dto.ProjectTaskMemberDTO" parameterType="int">
+  		SELECT p.project_no, p.project_title,t.task_no,t.task_title, m.member_no, m.name
+		FROM project p
+		JOIN task t
+		ON p.project_no = t.project_no
+		JOIN member m
+		ON t.member_no = m.member_no
+		WHERE m.member_no = #{member_no}
+        AND p.project_no = #{project_no}
+		AND t.task_title != ''
+		AND t.task_content != '';  	
+  	</select>
+  	 
+  	<!-- 드래그앤 드랍으로 업무상태값 변경시 업데이트  --> 	
   	<update id="myprojectUpdateTaskStatus" parameterType="kr.co.jhta.soop.dto.ProjectTaskMemberDTO">
   		UPDATE task t
   		JOIN member m
