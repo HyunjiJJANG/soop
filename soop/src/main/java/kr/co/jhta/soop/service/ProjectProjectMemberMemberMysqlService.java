@@ -29,8 +29,8 @@ public class ProjectProjectMemberMemberMysqlService implements ProjectProjectMem
 	}
 
 	@Override
-	public int selectRecentProjectByMno(int member_no) {
-		return dao.selectRecentProjectByMno(member_no);
+	public int selectRecentProject() {
+		return dao.selectRecentProject();
 	}
 
 }

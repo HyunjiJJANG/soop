@@ -68,5 +68,11 @@ public class ProjectMemberMysqlService implements ProjectMemberService {
 		
 	}
 
+	@Override
+	public void insertPM(ProjectMemberDTO dto) {
+		dao.insertPM(dto);
+		
+	}
+
 
 }

@@ -202,7 +202,7 @@
                      <ul class="nav pcoded-inner-navbar sidenav-inner">
                     
                           <li class="nav-item">
-                              <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
+                              <a href="feed?project_no=${pno}&member_no=${mno}" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
                           </li>
                           <li class="nav-item">
                               <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span><span class="pcoded-mtext">일정</span></a>
@@ -229,7 +229,7 @@
 			<input type="hidden" id="name" name="member_name" value="${name }"/>
 			<input type="hidden" id="project_no" name="project_no" value="${project_no }"/>
 			<!-- 업무 리스트 card -->
-			<div class="col-md-8">
+			<div class="col-md-6">
 				<div class="card" style="left: 0px;">	
 					<div class="card-header">
                         <button class="btn btn-primary col-md-12" type="button">
@@ -306,9 +306,23 @@
                     </div>
                 </div>
             </div>
+            
+        <!-- 업무 현황 -->
+        <div class="col-md-3" style="position: fixed; top: 193px; right: 360px;">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>업무 현황</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="pie-chart-2" style="width:100%">
+                        	
+                        </div>
+                    </div>
+                </div>
+            </div>
 	                
 		<!-- project member start -->
-        <div class="col-xl-3 col-md-12" style="position: fixed; top: 193px; right: 80px;">
+        <div class="col-xl-2 col-md-12" style="position: fixed; top: 193px; right: 30px;">
             <div class="card table-card">
                 <div class="card-header">
                     <h5>참여자</h5>

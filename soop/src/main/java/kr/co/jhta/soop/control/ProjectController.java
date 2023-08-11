@@ -44,7 +44,7 @@ public class ProjectController {
 						 	 @RequestParam("project_description")String project_description,
 						 	 @RequestParam("project_start_date")String project_start_date,
 						 	 @RequestParam("project_end_date")String project_end_date,
-						 	 @RequestParam("member_no")int member_no) {
+						 	 HttpSession session) {
 		
 		ProjectDTO projectDto = new ProjectDTO();
 		projectDto.setProject_title(project_title);
@@ -53,14 +53,15 @@ public class ProjectController {
 		projectDto.setProject_end_Date(project_end_date);
 		projectService.insertOne(projectDto);
 		
-		int project_no = projectProjectMemberMemberService.selectRecentProjectByMno(member_no);
+		int member_no = (int)session.getAttribute("member_no");
+		int project_no = projectProjectMemberMemberService.selectRecentProject();
 		
 		ProjectMemberDTO projectMemberDto = new ProjectMemberDTO();
 		projectMemberDto.setMember_no(member_no);
 		projectMemberDto.setProject_no(project_no);
-		projectMemberService.insertOne(projectMemberDto);
+		projectMemberService.insertPM(projectMemberDto);
 		
-		return "feed?project_no=" + project_no + "&member_no=" + member_no; // 생성 완료하면 해당 프로젝트의 피드로 이동
+		return "redirect:feed?project_no="+project_no+"&member_no="+member_no; // 생성 완료하면 해당 프로젝트의 피드로 이동
 	}
 	
 	// 프로젝트에 멤버 강퇴 클릭시 멤버 삭제

@@ -3,12 +3,9 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.jhta.soop.dao.ProjectProjectMemberMemberDAO">
-	<select id="selectRecentProjectByMno" parameterType="int" resultType="int">
+	<select id="selectRecentProject" resultType="int">
 		SELECT p.project_no
 		FROM project p
-		INNER JOIN project_member pm ON p.project_no = pm.project_no
-		INNER JOIN member m ON m.member_no = pm.member_no
-		WHERE m.member_no = #{member_no}
 		ORDER BY p.project_no DESC
 		LIMIT 1
 	</select>

@@ -68,7 +68,7 @@
                      <ul class="nav pcoded-inner-navbar sidenav-inner">
                     
                           <li class="nav-item">
-                              <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
+                              <a href="feed?project_no=${pno}&member_no=${mno}" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
                           </li>
                           <li class="nav-item">
                               <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span><span class="pcoded-mtext">일정</span></a>
@@ -156,13 +156,21 @@
                                     		<div style="float: left;"><i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;&nbsp;</div>
 											<!-- 결재 라인 보이는 곳 -->
                                    			<c:forEach var="signDTO" items="${signDTO}">
-	                                    		<div class="input-group" style="width: 130px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
-	                                    			<img src="${signDTO.profile_path}" alt="user image" class="img-radius wid-30">
-	                                    			<span style="padding-top:3px; padding-left:10px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-	                                    			<c:if test="${signDTO.sign_status eq '1'}">
-	                                    				<span style="padding-top:3px;"><i class="fa-solid fa-user-check"></i></span>
-	                                    			</c:if>
-	                                    		</div>
+                                   				<c:choose>
+		                                    		<c:when test="${signDTO.sign_status eq '1'}">
+			                                    		<div class="input-group" style="width: 140px; border: 1px solid #78C2AD; background-color: #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
+			                                    			<img src="${signDTO.profile_path}" alt="user image" class="img-radius wid-30">
+			                                    			<span style="padding-top:3px; padding-left:20px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			                                    			<span style="padding-top:5px; padding-left:10px;"><i class="fa-regular fa-circle-check" style="font-size: 20px; color: red;"></i></span>
+			                                    		</div>
+		                                    		</c:when>
+		                                    		<c:otherwise>
+		                                    			<div class="input-group" style="width: 140px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
+			                                    			<img src="${signDTO.profile_path}" alt="user image" class="img-radius wid-30">
+			                                    			<span style="padding-top:3px; padding-left:20px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+			                                    		</div>
+		                                    		</c:otherwise>
+	                                    		</c:choose>
                                    			</c:forEach>
                                     	</td>
                                     </tr>

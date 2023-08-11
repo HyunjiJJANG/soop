@@ -12,5 +12,5 @@ public interface ProjectProjectMemberMemberService {
 	
 	public List<ProjectProjectMemberMemberDTO> selectAllProjectMemberByPno(int project_no);
 	
-	public int selectRecentProjectByMno(int member_no);
+	public int selectRecentProject();
 }

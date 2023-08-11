@@ -14,6 +14,8 @@ public interface ProjectMemberService {
 	public ProjectMemberDTO selectOne(ProjectMemberNo pmno);
 
 	public void insertOne(ProjectMemberDTO dto);
+	
+	public void insertPM(ProjectMemberDTO dto);
 
 	public void updateOne(ProjectMemberDTO dto);
 

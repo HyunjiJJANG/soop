@@ -15,6 +15,11 @@
 		INSERT project_member
 		VALUES (#{member_no}, #{project_no}, 1)
 	</insert>
+	
+	<insert id="insertPM" parameterType="ProjectMemberDTO">
+		INSERT project_member
+		VALUES (#{member_no}, #{project_no}, 0)
+	</insert>
 
 	<delete id="deleteOne" parameterType="ProjectMemberNo">
 		DELETE FROM project_member
