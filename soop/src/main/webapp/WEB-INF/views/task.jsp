@@ -295,10 +295,10 @@ $(document).ready(function(){
 			<th>file_type</th>
 			<th>file_path</th>
 			<th>file_register_date</th>
-<!-- 			<th>sign_no</th>
+			<th>sign_no</th>
 			<th>sign_approver</th>
 			<th>sign_status</th>
-			<th>sign_step</th> -->
+			<th>sign_step</th>
 		</tr>
 		<c:forEach var="dto"  items="${list}"> <!-- list라는 아이템을 dto라는 이름으로 controller에서 가져옴 (taskAttachedFileService)-->
 		<tr>
@@ -315,10 +315,10 @@ $(document).ready(function(){
 			<td>${dto.file_no}</td>
 			<td>${dto.file_type}</td>
 			<td>${dto.file_path}</td>
-		<%-- 	<td>${dto.sign_no}</td>
+		 	<td>${dto.sign_no}</td>
 			<td>${dto.sign_approver}</td>
 			<td>${dto.sign_status}</td>
-			<td>${dto.sign_status}</td> --%>
+			<td>${dto.sign_status}</td> 
 			<td>
 					<!-- 수정 모달 버튼 -->
 					<button type="button" class="btn cmodel-btn btn-primary" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-status="${dto.task_status}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-filename="${dto.file_name}" data-bs-toggle="modal" data-bs-target="#updateModal">수정</button>

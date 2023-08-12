@@ -84,10 +84,10 @@ public class TaskController {
 		// model.addAttribute("list", taskService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌
 		
 		// JOIN한 service로 교체 
-		model.addAttribute("list",  taskAttachedFileService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌 
+		// model.addAttribute("list",  taskAttachedFileService.selectAll()); // task.jsp의 c:foreach list에 넘겨줌 
 		
 		// 이제 SIGN까지 조인한 SERVICE로 교체
-		// model.addAttribute("list",  signTaskAttachedFileService.selectAll());
+		 model.addAttribute("list",  signTaskAttachedFileService.selectAll());
 		
 		// 임의로 project_no 1로 설정하기 => 로그인 후에 수정
 		int project_no = 1;
@@ -114,10 +114,12 @@ public class TaskController {
 //		return "";
 //	}
 	
-	@Transactional
+//	@Transactional
 	@RequestMapping("/insert")
 	public String insert(
 			@ModelAttribute TaskDTO Taskdto, 
+			@ModelAttribute SignTaskAttachedFileDTO SignTaskAttachedFiledto,
+			@RequestParam("task_status")String task_status,
 			// projectno, memberno를 숫자로 전달하기 위해.. (링크로 주니까 자꾸 문자로 받음)
 //		    @RequestParam("project_no") String project_no,
 //		    @RequestParam("member_no") String member_no,
@@ -135,9 +137,11 @@ public class TaskController {
 			throws UnsupportedEncodingException {
 		
 		// ** task 생성(insert) **
-//		Taskdto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-		taskService.insertOne(Taskdto);
 		
+		int taskstatus = Integer.parseInt(task_status);
+		SignTaskAttachedFiledto.setTask_status(taskstatus); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+		//taskService.insertOne(Taskdto);
+		signTaskAttachedFileService.insertTask(SignTaskAttachedFiledto);
 		
 		// ** 결재 라인 **
 		
@@ -147,13 +151,20 @@ public class TaskController {
 
 	    // 결재 라인에 데이터 넣기
 	    int signMemberNo = Integer.parseInt(sign_member_no);
-	    SignDTO signdto = new SignDTO();
-	    signdto.setSign_member_no(signMemberNo);
-	    signdto.setSign_approver(sign_approver);
-	    signdto.setSign_step(sign_step);
-	    signdto.setSign_status(0); // 일단 0으로 설정
-		
-	    //signservice.insertOne(signdto); // => 이걸 살리면 첨부파일이 추가가 안되고..... 이걸 죽이면 그때 첨부파일이 추가됨 왜지?
+//	    SignDTO signdto = new SignDTO();
+//	    signdto.setSign_member_no(signMemberNo);
+//	    signdto.setSign_approver(sign_approver);
+//	    signdto.setSign_step(sign_step);
+//	    signdto.setSign_status(0); // 일단 0으로 설정
+//		
+//	    signservice.insertOne(signdto); // => 이걸 살리면 첨부파일이 추가가 안되고..... 이걸 죽이면 그때 첨부파일이 추가됨 왜지?
+	 
+	    SignTaskAttachedFiledto.setSign_member_no(signMemberNo);
+	    SignTaskAttachedFiledto.setSign_approver(sign_approver);
+	    SignTaskAttachedFiledto.setSign_step(sign_step);
+	    SignTaskAttachedFiledto.setSign_status(1);
+	    
+	    signTaskAttachedFileService.insertSign(SignTaskAttachedFiledto);
 
 	    // 확인용
 //	    List<TaskAttachedFileDTO> taskList = taskAttachedFileService.selectAll(); // 데이터 가져오기
@@ -173,7 +184,8 @@ public class TaskController {
 	 		
 	 		// 파일명 받아서 Filedto에 저장
 	 		log.info("파일명 : {} ",  file.getOriginalFilename()); // 파일명 받기 (=> 경로는 설정 파일에서 저장)
-	 		Filedto.setFile_name(file.getOriginalFilename());
+	 		// Filedto.setFile_name(file.getOriginalFilename());
+	 		SignTaskAttachedFiledto.setFile_name(file.getOriginalFilename());
 	 		
 	 		try {
 	 			// 파일 객체로 만들기 => 파일 경로에 / 와 파일 이름을 붙여서 객체로 만듦
@@ -189,7 +201,8 @@ public class TaskController {
 	 		
 	 		// 파일 타입 받아서 Filedto에 저장
 	 		log.info("파일 타입 : {} " , file.getContentType());
-	 		Filedto.setFile_type(file.getContentType());
+	 		// Filedto.setFile_type(file.getContentType());
+	 		SignTaskAttachedFiledto.setFile_type(file.getContentType());
 	 		
 	 		// 오늘 날짜 담아서 Filedto에 저장
 	 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -197,13 +210,17 @@ public class TaskController {
 	 		Date date = new Date();
 	 		String fileDate = sdf.format(date);
 	 		log.info("파일 날짜 : {} ", fileDate);
-	 		Filedto.setFile_register_date(fileDate);
+	 		// Filedto.setFile_register_date(fileDate);
+	 		SignTaskAttachedFiledto.setFile_register_date(fileDate);
 	 		
 	 		// 파일 경로 받아서 Filedto에 저장
-	 		Filedto.setFile_path(filePath + "\\" + file.getOriginalFilename());
-
-	 		attachedfileService.insertOne(Filedto);
+	 		// Filedto.setFile_path(filePath + "\\" + file.getOriginalFilename());)
+	 		SignTaskAttachedFiledto.setFile_path(filePath + "\\" + file.getOriginalFilename());
 	 		
+			//attachedfileService.insertOne(Filedto);
+			signTaskAttachedFileService.insertAttachedFile(SignTaskAttachedFiledto);
+
+			
 	    return "redirect:/soop/task"; // 새로고침을 위한 URL로 리다이렉트
 	}
 

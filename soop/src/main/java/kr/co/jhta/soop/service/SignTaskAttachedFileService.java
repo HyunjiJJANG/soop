@@ -11,4 +11,10 @@ public interface SignTaskAttachedFileService {
 	
 	public List<SignTaskAttachedFileDTO> selectAll();
 	
+	public void insertTask(SignTaskAttachedFileDTO dto);
+	
+	public void insertSign(SignTaskAttachedFileDTO dto);
+	
+	public void insertAttachedFile(SignTaskAttachedFileDTO dto);
+	
 }

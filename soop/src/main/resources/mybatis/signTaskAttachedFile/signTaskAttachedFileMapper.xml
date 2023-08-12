@@ -14,5 +14,22 @@
 		    JOIN sign s ON t.task_no = s.task_no
 		ORDER BY t.task_no ASC
 	</select>
+
+	<insert id="insertTask" parameterType="kr.co.jhta.soop.dto.SignTaskAttachedFileDTO" useGeneratedKeys="true" keyProperty="task_no">
+	    INSERT INTO task(project_no, member_no, task_title, task_register_date, task_content, task_status, task_start_date, task_end_date)
+	    VALUES (#{project_no}, #{member_no}, #{task_title}, DATE_ADD(NOW(), INTERVAL 9 HOUR), #{task_content}, #{task_status}, #{task_start_date}, #{task_end_date})
+	</insert>
 	
+	<insert id="insertSign" parameterType="kr.co.jhta.soop.dto.SignTaskAttachedFileDTO">
+	    <!-- Insert into sign table -->
+	    INSERT INTO sign(task_no, member_no, sign_step, sign_approver, sign_status, sign_date)
+	    VALUES (#{task_no}, #{sign_member_no}, #{sign_step}, #{sign_approver}, #{sign_status}, DATE_ADD(NOW(), INTERVAL 9 HOUR))
+	</insert>
+	
+	<insert id="insertAttachedFile" parameterType="kr.co.jhta.soop.dto.SignTaskAttachedFileDTO">
+	    <!-- Insert into attached_file table -->
+	    INSERT INTO attached_file(file_no, task_no, file_type, file_name, file_path, file_register_date)
+	    VALUES (#{file_no}, #{task_no}, #{file_type}, #{file_name}, #{file_path}, #{file_register_date})
+	</insert>
+
 </mapper>
