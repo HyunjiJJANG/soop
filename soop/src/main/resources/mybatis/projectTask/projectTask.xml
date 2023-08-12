@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
+  
   <mapper namespace="kr.co.jhta.soop.dao.ProjectTaskMemberDAO">
   
 	<!-- 내가 참여한 프로젝트 가져오기 -->  
