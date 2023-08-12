@@ -153,7 +153,7 @@ public class TaskController {
 	    signdto.setSign_step(sign_step);
 	    signdto.setSign_status(0); // 일단 0으로 설정
 		
-	    signservice.insertOne(signdto); // => 이걸 살리면 첨부파일이 추가가 안되고..... 이걸 죽이면 그때 첨부파일이 추가됨 왜지?
+	    //signservice.insertOne(signdto); // => 이걸 살리면 첨부파일이 추가가 안되고..... 이걸 죽이면 그때 첨부파일이 추가됨 왜지?
 
 	    // 확인용
 //	    List<TaskAttachedFileDTO> taskList = taskAttachedFileService.selectAll(); // 데이터 가져오기
