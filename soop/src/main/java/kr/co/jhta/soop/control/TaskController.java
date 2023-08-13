@@ -98,22 +98,6 @@ public class TaskController {
 		return "task";
 	}
 	
-//	@PostMapping("/selectOk")
-//	public String selectOk(
-//			Model model,
-//			@RequestParam("member_no")int member_no,
-//			@RequestParam("sign_approver")String sign_approver,
-//			@RequestParam("sign_step")int sign_step) {
-//		
-//		log.info("teskController selectOk 실행 됨 ---------------" );
-//		log.info("member_no : " + member_no);
-//		log.info("sign_approver : " + sign_approver);
-//		log.info("sign_step : " + sign_step);
-//		
-//		
-//		return "";
-//	}
-	
 //	@Transactional
 	@RequestMapping("/insert")
 	public String insert(
@@ -224,112 +208,43 @@ public class TaskController {
 	    return "redirect:/soop/task"; // 새로고침을 위한 URL로 리다이렉트
 	}
 
-//	@RequestMapping("/refresh")
-//	public String refreshTaskList(Model model) {
-//		
-//		model.addAttribute("list", taskAttachedFileService.selectAll());
-//
-//	    return "redirect:/soop/task"; // task.jsp를 다시 보여주는 뷰 이름
-//	}
-//	
-//	@PostMapping("/insertsign")
-//	@ResponseBody
-//	public String insertsign(
-//			
-//																		   // required = false :: 필수가 아님 (없어도 데이터 들어가게)
-////			@RequestParam("task_status") int task_status, 
-//			Model model,
-//			@ModelAttribute SignDTO signdto
-//			)
-//			throws UnsupportedEncodingException {
-//		
-//		
-//		signservice.insertOne(signdto);	// 추가
-//		// ** 결재 라인 **
-//
-//		log.info(""+signdto);
-//		
-//		log.info("결재자 memberno : " + signdto.getSign_member_no()); // 현재 1로 기본 설정해놔서 잘 받는 것 같음
-////
-////		
-//		log.info("결재자 sign_approver : " + signdto.getSign_approver()); // 여기부터 안받아짐..
-////
-////		
-//		log.info("결재자 sign_step : " + signdto.getSign_step());
-//
-//	
-//		return "";
-//	}
-	
 
-	@GetMapping("/update")
-	public String update(@RequestParam("task_no") int task_no, Model model,
-			@RequestParam("file_no") int file_no,
-			@ModelAttribute AttachedFileDTO filedto) {
-		
-		TaskDTO taskDTO = taskService.selectOne(task_no);
-		model.addAttribute("dtoTask", taskDTO);
+	
+		@GetMapping("/update") // 띄우기
+		public String update(@RequestParam("task_no") int task_no, Model model,
+				@RequestParam("file_no") int file_no,
+				@ModelAttribute AttachedFileDTO filedto) {
+			
+			TaskDTO taskDTO = taskService.selectOne(task_no);
+			model.addAttribute("dtoTask", taskDTO);
 
-		AttachedFileDTO attachedFileDTO = attachedfileService.selectOne(file_no);
-		model.addAttribute("dtoAttachedFile", attachedFileDTO);
-		return "/update";
-	}
-	
-	// 파일 다운로드
-		@RequestMapping("/download")
-		@ResponseBody // 사용자에게 전달
-		public byte[] download(HttpServletRequest req, 
-				@RequestParam("fileName")String fileName, // 파라미터값으로 파일 이름을(aa.PNG) 받아서 fileName이라는 String 변수에 담아주기
-				HttpServletResponse resp) { 
-			// /data 디렉토리에 저장되어 있다.
-					
-			String filePath = req.getSession().getServletContext().getRealPath("/data");
-			
-			// 파일의 절대 경로를 구할 수 있다.
-			System.out.println("/data 디렉토리의 절대 경로 : " + filePath);
-			
-			// 다운로드 받을 파일의 절대 경로
-			String absFilePath = filePath + "/" + fileName;
-			
-			System.out.println("다운로드 받을 파일의 절대 경로 : " + absFilePath);
-			
-			// 파일 객체 생성
-			File f = new File(absFilePath);
-			// 전송할 파일을 byte[] 형태로 형변환을 시켜준다.
-			byte[] b = null;
-			try {
-				b = FileCopyUtils.copyToByteArray(f); // 이 메서드가 byte 배열을 리턴해줌
-				
-				// 내가 보내는 파일이 무엇인지, 어떻게 처리할지 브라우저에 알려줌
-				String fn = new String(f.getName().getBytes(), "iso_8859_1"); // 파일 이름 한글이면 깨지니까 알 수 있도록 파일명 바꿔주고,
-				// 파일의 이름
-				resp.setHeader("Content-Disposition", "attachment;filename=\""+fn+"\""); // 매개변수로 httpservletresponse 추가
-				// 파일의 길이
-				resp.setContentLength(b.length);
-				// 파일의 종류
-				resp.setContentType("image/jpeg");
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-			
-			return b; // b를 리턴해주면서 파일이 전송됨
-			
-		} // download() end
-	
+			AttachedFileDTO attachedFileDTO = attachedfileService.selectOne(file_no);
+			model.addAttribute("dtoAttachedFile", attachedFileDTO);
+			return "/update";
+		}
 
 	@RequestMapping("/update")
 	public String updateOk(@ModelAttribute TaskDTO taskdto, 
 			@ModelAttribute AttachedFileDTO filedto, 
-			@RequestParam("task_status") int task_status, Model model,
+			@ModelAttribute SignTaskAttachedFileDTO SignTaskAttachedFiledto,
+			@RequestParam("task_status") String task_status, Model model,
 			HttpServletRequest req,
 			@RequestParam(name = "file", required = false) MultipartFile file,
 			@ModelAttribute UploadFile uploadfile) {
 		
-		taskdto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-		taskService.updateOne(taskdto);
+		
+		// ** task 수정 (update) **
+		
+		int taskstatus = Integer.parseInt(task_status);
+		SignTaskAttachedFiledto.setTask_status(taskstatus); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 
+		signTaskAttachedFileService.updateTask(SignTaskAttachedFiledto);
+		
+//		taskdto.setTask_status(task_status); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+//		taskService.updateOne(taskdto);
+
+		
+		// ** 첨부파일 수정 (update) **
 		
 		// 파일은 어디에 저장  /data <== (현재 임시 파일은 properties에 c:\\temp\\data 로 지정됨)
 				// 서버에 저장할 실제 디렉토리 경로 구하기
@@ -402,6 +317,48 @@ public class TaskController {
 		return "redirect:/soop/task";
 	}
 
+	// 파일 다운로드
+	@RequestMapping("/download")
+	@ResponseBody // 사용자에게 전달
+	public byte[] download(HttpServletRequest req, 
+			@RequestParam("fileName")String fileName, // 파라미터값으로 파일 이름을(aa.PNG) 받아서 fileName이라는 String 변수에 담아주기
+			HttpServletResponse resp) { 
+		// /data 디렉토리에 저장되어 있다.
+				
+		String filePath = req.getSession().getServletContext().getRealPath("/data");
+		
+		// 파일의 절대 경로를 구할 수 있다.
+		System.out.println("/data 디렉토리의 절대 경로 : " + filePath);
+		
+		// 다운로드 받을 파일의 절대 경로
+		String absFilePath = filePath + "/" + fileName;
+		
+		System.out.println("다운로드 받을 파일의 절대 경로 : " + absFilePath);
+		
+		// 파일 객체 생성
+		File f = new File(absFilePath);
+		// 전송할 파일을 byte[] 형태로 형변환을 시켜준다.
+		byte[] b = null;
+		try {
+			b = FileCopyUtils.copyToByteArray(f); // 이 메서드가 byte 배열을 리턴해줌
+			
+			// 내가 보내는 파일이 무엇인지, 어떻게 처리할지 브라우저에 알려줌
+			String fn = new String(f.getName().getBytes(), "iso_8859_1"); // 파일 이름 한글이면 깨지니까 알 수 있도록 파일명 바꿔주고,
+			// 파일의 이름
+			resp.setHeader("Content-Disposition", "attachment;filename=\""+fn+"\""); // 매개변수로 httpservletresponse 추가
+			// 파일의 길이
+			resp.setContentLength(b.length);
+			// 파일의 종류
+			resp.setContentType("image/jpeg");
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		return b; // b를 리턴해주면서 파일이 전송됨
+		
+	} // download() end
 	
 
 }

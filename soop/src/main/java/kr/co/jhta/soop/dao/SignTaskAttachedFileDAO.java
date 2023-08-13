@@ -19,6 +19,8 @@ public interface SignTaskAttachedFileDAO {
 	public void insertSign(SignTaskAttachedFileDTO dto);
 	
 	public void insertAttachedFile(SignTaskAttachedFileDTO dto);
+
+	public void updateTask(SignTaskAttachedFileDTO dto);
 	
 	
 }

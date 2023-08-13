@@ -16,5 +16,7 @@ public interface SignTaskAttachedFileService {
 	public void insertSign(SignTaskAttachedFileDTO dto);
 	
 	public void insertAttachedFile(SignTaskAttachedFileDTO dto);
+
+	public void updateTask(SignTaskAttachedFileDTO signTaskAttachedFiledto);
 	
 }

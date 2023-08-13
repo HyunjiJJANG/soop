@@ -31,5 +31,11 @@
 	    INSERT INTO attached_file(file_no, task_no, file_type, file_name, file_path, file_register_date)
 	    VALUES (#{file_no}, #{task_no}, #{file_type}, #{file_name}, #{file_path}, #{file_register_date})
 	</insert>
+	
+	<update id="updateTask" parameterType="kr.co.jhta.soop.dto.SignTaskAttachedFileDTO">
+		UPDATE task
+		SET task_title = #{task_title}, task_register_date = DATE_ADD(NOW(), INTERVAL 9 HOUR), task_content = #{task_content}, task_status = #{task_status}, task_start_date = #{task_start_date}, task_end_date = #{task_end_date}
+		WHERE task_no = #{task_no}
+	</update>
 
 </mapper>

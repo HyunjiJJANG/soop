@@ -332,7 +332,7 @@ $(document).ready(function(){
 <!-- 업무 생성 모달 -->
 <!-- 일단 업무 생성 구현 용으로 project_no member_no을 임의로 지정 -->
 <form action="insert" id="insertForm" name="insertForm" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
-<div class="modal fa와de" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
+<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -493,21 +493,36 @@ $(document).ready(function(){
       </div>
       <div class="modal-body">
         	<table class="table">
+         			<!-- link에 ?로 주는 대신 hidden으로 줘보기(자꾸 데이터 형식이 안맞아서 나는 오류를 해결하기 위해) -->
+		        	<input type="hidden" name="project_no" id="project_no" value="1">
+		        	<input type="hidden" name="member_no" id="member_no" value="1"> 
+        	<table class="table">
 			<tr>
 				<td colspan="8">업무 제목</td>
 				<td><input class="form-control" id="titlevalue" type="text" name="task_title"></td>
 				<br />
 			</tr>
 			<tr><td colspan="8">업무 상태	&nbsp; &nbsp;
-				<td>
-				<select name="task_status" id="statusvalue" class="form-select" aria-label="Default select example">
-					<option selected>------업무 상태 선택-----</option>
-					<option value="0">발의됨</option>
-					<option value="1">진행중</option>
-					<option value="2">일시중지</option>
-					<option value="3">완료</option>
-					</select>
-				</td>
+						<td>
+						<select name="task_status_select" id="statusvalue" class="form-select" aria-label="Default select example">
+							<!-- <option selected>------업무 상태 선택-----</option> -->
+							<option selected value="100">--업무 상태 선택--</option>
+							<option value="0">발의중</option>
+							<option value="1">진행중</option>
+							<option value="2">일시중지</option>
+							<option value="3">완료</option>
+							</select>
+							<!-- 컨트롤러에 task_status 넘겨주는 역할 -->
+							<input type="hidden" name="task_status" id="task_status" value="">
+								<script>
+									  document.getElementById("task_status_select").addEventListener("change", function () {
+									    var selectedValue = this.value;
+									    document.getElementById("task_status").value = selectedValue;
+									  });
+								</script>
+							
+						</td>
+						
 			</tr>
 			<tr>
 			<tr>
