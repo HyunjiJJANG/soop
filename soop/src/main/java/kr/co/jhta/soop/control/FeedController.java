@@ -1,6 +1,11 @@
 package kr.co.jhta.soop.control;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +62,7 @@ public class FeedController {
     public String list(@RequestParam("project_no")int project_no,
 			 	 	   @RequestParam("member_no")int member_no,
 			 	 	   @RequestParam(name="page",defaultValue="1")int page,
-			 	 	   Model model, Criteria criteria) {
+			 	 	   Model model, Criteria criteria) throws ParseException {
         
     	ProjectMemberNo pmno = new ProjectMemberNo();
 		pmno.setMember_no(member_no);
@@ -91,6 +96,21 @@ public class FeedController {
         // 프로젝트 통계
         model.addAttribute("countProjectMember", projectMemberService.countProjectMember(project_no));
         model.addAttribute("countTask", taskService.countTask(project_no));
+        
+        String now = LocalDate.now().toString();
+        String project_end_date = projectService.selectOneEndDate(project_no);
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date nowFormat = format.parse(now);
+        Date targetFormat = format.parse(project_end_date);
+        long diffSec = (nowFormat.getTime() - targetFormat.getTime()) / 1000;
+        long diffDays = (diffSec / (24 * 60 * 60)) + 1;
+        String DaysLeft = "";
+        if(nowFormat.getTime() > targetFormat.getTime()) {
+        	DaysLeft = "D+"+diffDays;
+        }else if(targetFormat.getTime() >= nowFormat.getTime()) {
+        	DaysLeft = "D-"+diffDays;
+        }
+        model.addAttribute("countDays", DaysLeft);
         
         return "feed";
     }

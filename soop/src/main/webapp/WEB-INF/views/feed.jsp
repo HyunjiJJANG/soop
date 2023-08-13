@@ -330,7 +330,7 @@
                         <div class="col-sm-6 card-body br">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <i class="fa-regular fa-user" style="color: #31cd73; font-size: 30px;"></i>
+                                    <i class="fa-regular fa-user" style="color: #f6cf0f; font-size: 30px;"></i>
                                 </div>
                                 <div class="col-sm-8 text-md-center">
                                     <h5>${countProjectMember}명</h5>
@@ -344,7 +344,7 @@
                                     <i class="fa-regular fa-calendar" style="color: #e74c3c; font-size: 30px;"></i>
                                 </div>
                                 <div class="col-sm-8 text-md-center">
-                                    <h5>5</h5>
+                                    <h5>${countDays}일</h5>
                                     <span>D-Day</span>
                                 </div>
                             </div>
@@ -354,7 +354,7 @@
                         <div class="col-sm-6 card-body br">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <i class="fa-solid fa-briefcase" style="color: #f6cf0f; font-size: 30px;"></i>
+                                    <i class="fa-solid fa-briefcase" style="color: brown; font-size: 30px;"></i>
                                 </div>
                                 <div class="col-sm-8 text-md-center">
                                     <h5>${countTask}개</h5>
