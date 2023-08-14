@@ -39,6 +39,7 @@
 		WHERE email = #{email}
 	</select>
 
+
 	<!-- member_role 추가를 위한 mapper -->
 	<insert id="insertRole" parameterType="String">
 		INSERT INTO member_role

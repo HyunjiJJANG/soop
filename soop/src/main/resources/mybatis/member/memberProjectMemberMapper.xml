@@ -9,6 +9,7 @@
 	<select id="selectAll" resultType="MemberProjectMemberDTO"
 		parameterType="int">
 
+
 		SELECT m.name, m.email, m.profile_path, m.member_no
 		FROM member m
 		JOIN project_member
