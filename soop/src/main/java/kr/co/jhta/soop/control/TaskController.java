@@ -51,7 +51,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/soop")
+@RequestMapping("/soop") // => 이거 없애야됨
 public class TaskController {
 
 //	@Autowired

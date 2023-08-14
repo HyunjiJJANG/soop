@@ -10,11 +10,12 @@
 		WHERE project_no = #{project_no}
 	</select>
 	
-<<<<<<< HEAD
+
 	<select id="updateFavorite" parameterType="int">
 		UPDATE task_favorite
 		SET favorite = 1
-=======
+		WHERE task_no = #{task_no}
+	</select>
 	
 	
 	<insert id="insertOne" parameterType="kr.co.jhta.soop.dto.TaskDTO">
@@ -26,20 +27,14 @@
 	<select id="selectOne" resultType="kr.co.jhta.soop.dto.TaskDTO" parameterType="int">
 		SELECT task_no, project_no, member_no, task_title, task_register_date, task_content, task_status, task_start_date, task_end_date
 		FROM task
->>>>>>> refs/remotes/origin/SOJIN
 		WHERE task_no = #{task_no}
 	</select>
-<<<<<<< HEAD
-=======
-	
-	
+
 	<update id="updateOne" parameterType="kr.co.jhta.soop.dto.TaskDTO">
 		UPDATE task
 		SET task_title = #{task_title}, task_register_date = DATE_ADD(NOW(), INTERVAL 9 HOUR), task_content = #{task_content}, task_status = #{task_status}, task_start_date = #{task_start_date}, task_end_date = #{task_end_date}
 		WHERE task_no = #{task_no}
 	</update>
-
-
 
 	<delete id="deleteOne" parameterType="int">
 		DELETE FROM task
@@ -47,5 +42,4 @@
 	</delete>
 	
 
->>>>>>> refs/remotes/origin/SOJIN
 </mapper>

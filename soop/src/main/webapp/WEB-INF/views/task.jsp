@@ -156,75 +156,6 @@ $(document).ready(function(){
 </script>
 
 
-<!-- 결재라인 : 선택된 결재자 정보 띄우기 -->
-
-
-<script>
-/* $(document).ready(function () {
-    $("#insert_btn").click(function () { 
-        var selectedMemberNo = $("#selectMembersCreate1 option:selected").data("memberno");
-        var selectedMemberName = $("#selectMembersCreate1 option:selected").data("membername");
-        var selectedStep = $("#selectMembersCreate1 option:selected").data("step");
-        var selectedStatus = $("#task_status").val();
-
-        // 데이터를 폼에 설정
-        $("#sign_member_no").val(selectedMemberNo);
-        $("#sign_approver").val(selectedMemberName);
-        $("#sign_step").val(selectedStep);
-        $("#task_status").val(selectedStatus);
-        
-        console.log(sign_member_no);
-        console.log(sign_approver);
-        console.log(sign_step);
-        console.log(task_status);
-
-        // 폼 제출
-        $("#insertForm").submit(); 
-        
-    }); */
-/*$(document).ready(function () {
-	$("#insert_btn").click(function () { // 업무 생성 버튼 누르면 아래 실행
-		
-        var selectedMemberNo = $("#selectMembersCreate1").val();
-        var selectedMemberName = $("#selectMembersCreate1 option:selected").data("membername");
-        var selectedStep = $("#selectMembersCreate1 option:selected").data("step"); // 선택된 결재자의 단계
-        var selectedStatus = $("#task_status").val(); // 선택된 값 가져오기
-
-        // 확인용으로 출력 => controller에서 log로 안찍힘
-        alert("selectedMemberNo : " + $("#selectMembersCreate1").val());
-        alert("selectedMemberName : " + $("#selectMembersCreate1 option:selected").data("membername"));
-        alert("selectedStep : " + $("#selectMembersCreate1 option:selected").data("step"));
-       
-        
-        alert("확인");
-        
- 		$.ajax({
-			type : "POST",
-			url : "/soop/insert",
-			data : {
-				"sign_member_no": selectedMemberNo,
-				"sign_approver":selectedMemberName,
-				"sign_step":selectedStep,
-				 task_status: selectedStatus
-			},
-			dataType : "text",
-			success : function(data) {
-				alert("성공");
-			},
-			error:function(data){  
-				alert("실패");
-                console.log('에러'+ data);
-                console.log('에러'+ JSON.stringify(data));
-                console.log(JSON.stringify(data))
-			}
-		});
-		 
-	});
-	
-});*/
-
-</script> 
-
 <!-- 수정 모달에서 새 파일 선택했을 때, 기존 파일 보여주는 div 숨기기 -->
 <script>
 	function hideFileDto() {
@@ -259,6 +190,43 @@ $(document).ready(function(){
 			input.value = '';
 		}
 	}
+</script>
+
+<!-- sign 수정을 위해 기본값 전달 -->
+<script type="text/javascript">
+ function test(e){
+	console.log($(e).parent().prev().prev().prev().html());
+	let member_no = $(e).parent().prev().prev().prev().html();
+	
+	//let member_no = ${signdto.member_no};
+	//let member_no = 1;
+	
+	$.ajax({
+		url: "/soop/taskinfo" , 
+		data : {"member_no": member_no},
+		success : function (data){
+			console.log(data);
+			
+			$("#sign_approver_up").val(data.sign_approver);
+			$("#sign_member_no_up").val(data.sign_member_no);
+			$("#sign_step_up").val(data.sign_step);
+			
+		}
+			
+	});
+	}
+</script>
+
+
+<!-- 리다이렉트로 넘어온 메세지  -->
+<script>
+	// 리다이렉트된 페이지 로딩 후 실행되는 스크립트
+	window.onload = function() {
+		var message = "${message}";
+		if (message) {
+			alert(message); // 얼럿 창에 메시지 출력
+		}
+	};
 </script>
 
 <style>
@@ -462,12 +430,12 @@ $(document).ready(function(){
 				<br />
 			</tr>
 			<tr>
-<<<<<<< HEAD
+
 			<a href=""><button></button></a>
 				<!-- Calender -->
 				<label for="from">시작일</label>
 				<input type="text" id="from" name="task_start_date">
-=======
+
 			<td>
 				<!-- calendar -->
 				
@@ -476,7 +444,6 @@ $(document).ready(function(){
 
 				<label for="from">시작일</label>&nbsp; &nbsp;
 				<input type="text" id="from" name="task_start_date" value="<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>">
->>>>>>> refs/remotes/origin/SOJIN
 				&nbsp; &nbsp;
 				<label for="to">마감일</label>&nbsp; &nbsp;
 				<input type="text" id="to" name="task_end_date" value="<fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/>">
@@ -614,31 +581,7 @@ $(document).ready(function(){
 
 								  });
 								  
-									/* 	// default 설정
-									// 서버에서 전달한 현재 사용자의 sign_member_no 값을 가져옴
-									  var currentUserSignMemberNo = "${currentUserSignMemberNo}"; // 서버에서 전달한 값으로 수정
-									  console.log("현재 사용자의 sign_member_no: " + currentUserSignMemberNo);
-									  
-									  var currentUserSignApprover = "${currentUserSignApprover}";
-									  var currentUserSignStep = "${currentUserSignStep}";
-									  
-									  /* // 선택된 옵션 중에서 현재 사용자의 sign_member_no와 일치하는 옵션을 찾습니다.
-									  var defaultOption = document.querySelector(`option[data-memberno="${currentUserSignMemberNo}"]`);
-			
-									  if (defaultOption) {
-									      defaultOption.selected = true;
-									      
-									      // 기본 값에 따라 해당 정보를 설정
-									      var defaultName = defaultOption.getAttribute("data-membername");
-									      var defaultStep = defaultOption.getAttribute("data-step"); */
-									      
-									 /*     // 값을 hidden input 요소에 설정
-									      document.getElementById("sign_approver_up").value = currentUserSignApprover;
-									      document.getElementById("sign_member_no_up").value = currentUserSignMemberNo;
-									      document.getElementById("sign_step_up").value = currentUserSignStep; 
-									  } => 얘를 하면 밑에 change가 안먹ㅁ*/ 
-							  
-								      
+									
 						</script>
 										<%-- 						<td>
 				            <select name="sign_approval" id="selectMembersCreate2" class="form-select" aria-label="Default select example">
@@ -706,44 +649,5 @@ $(document).ready(function(){
   </div>
 </div>
 </form>
-
-<!-- sign 수정을 위해 기본값 전달 -->
-<script type="text/javascript">
- function test(e){
-	console.log($(e).parent().prev().prev().prev().html());
-	let member_no = $(e).parent().prev().prev().prev().html();
-	
-	//let member_no = ${signdto.member_no};
-	//let member_no = 1;
-	
-	$.ajax({
-		url: "/soop/taskinfo" , 
-		data : {"member_no": member_no},
-		success : function (data){
-			console.log(data);
-			
-			$("#sign_approver_up").val(data.sign_approver);
-			$("#sign_member_no_up").val(data.sign_member_no);
-			$("#sign_step_up").val(data.sign_step);
-			
-		}
-			
-	});
-	}
-</script>
-
-
-<!-- 리다이렉트로 넘어온 메세지  -->
-<script>
-	// 리다이렉트된 페이지 로딩 후 실행되는 스크립트
-	window.onload = function() {
-		var message = "${message}";
-		if (message) {
-			alert(message); // 얼럿 창에 메시지 출력
-		}
-	};
-</script>
-
-
 </body>
 </html>
