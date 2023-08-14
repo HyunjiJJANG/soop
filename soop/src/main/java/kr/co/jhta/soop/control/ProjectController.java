@@ -1,5 +1,8 @@
 package kr.co.jhta.soop.control;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.soop.dto.ProjectDTO;
 import kr.co.jhta.soop.dto.ProjectMemberDTO;
@@ -38,37 +42,39 @@ public class ProjectController {
 	@Autowired
 	ProjectProjectMemberMemberService projectProjectMemberMemberService;
 	
-	// side nav의 프로젝트 생성 버튼 누르면 프로젝트 생성하기
-	@PostMapping("/createProject")
-	public String addProject(@RequestParam("project_title")String project_title,
-						 	 @RequestParam("project_description")String project_description,
-						 	 @RequestParam("project_start_date")String project_start_date,
-						 	 @RequestParam("project_end_date")String project_end_date,
-						 	 HttpSession session,
-						 	 @RequestParam("member_no")int member_no) {
-		
-		if(project_title != null && project_description != null && project_start_date != null && project_end_date != null) {
+	 // side nav의 프로젝트 생성 버튼 누르면 프로젝트 생성하기
+		@PostMapping("/createProject")
+		@ResponseBody
+		public int addProject(@RequestParam("project_title") String project_title,
+				@RequestParam("project_description") String project_description,
+				@RequestParam("project_start_date") String project_start_date,
+				@RequestParam("project_end_date") String project_end_date, HttpSession session,
+				@RequestParam("member_no") int member_no) {
+
 			ProjectDTO projectDto = new ProjectDTO();
 			projectDto.setProject_title(project_title);
 			projectDto.setProject_description(project_description);
 			projectDto.setProject_start_date(project_start_date);
 			projectDto.setProject_end_Date(project_end_date);
 			projectService.insertOne(projectDto);
-			
-			//int member_no = (int)session.getAttribute("member_no");
+
+//			String email = (String) session.getAttribute("email");
+//			System.out.println("email : "+email);
+//			int member_no = memberService.selectMnoByEmail(email);
+//			System.out.println("member_no : "+member_no);
+//			int member_no = (int) session.getAttribute("member_no");
 			int project_no = projectProjectMemberMemberService.selectRecentProject();
+//			List<Integer> list = new ArrayList<Integer>();
+//			list.add(member_no);
+//			list.add(project_no);
 			
 			ProjectMemberDTO projectMemberDto = new ProjectMemberDTO();
 			projectMemberDto.setMember_no(member_no);
 			projectMemberDto.setProject_no(project_no);
 			projectMemberService.insertPM(projectMemberDto);
-			
-			return "redirect:feed?project_no="+project_no+"&member_no="+member_no; // 생성 완료하면 해당 프로젝트의 피드로 이동			
-		}else {
-			return "redirect:home?member_no="+member_no;			
+
+			return project_no; // 생성 완료하면 해당 프로젝트의 피드로 이동
 		}
-		
-	}
 	
 	// 프로젝트에 멤버 강퇴 클릭시 멤버 삭제
 	@GetMapping("/deleteMemberOne")

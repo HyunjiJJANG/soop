@@ -69,17 +69,50 @@
 	    }
 	  } );
 
-$("#btnCreateProject").on("click", function(){
-	console.log("업무생성 클릭");
-	if($("#project_title").val() == null || $("#project_start_date").val() == null || $("#project_end_date").val() == null || $("#project_description").val() == null){
-		alert("내용을 입력해주세요.");
+  function createProject(event) {
+	    /* const searchParams = new URLSearchParams(window.location.search);
+	    const member_no = searchParams.get('member_no'); */
+	    var member_no = $("#member_no").val().trim();
+	    var project_title = $("#project_title").val().trim();
+	    var project_start_date = $("#project_start_date").val().trim();
+	    var project_end_date = $("#project_end_date").val().trim();
+	    var project_description = $("#project_description").val().trim();
+	    if (project_title == "" || project_start_date == "" || project_end_date == "" || project_description == "") {
+	        alert("내용을 입력해주세요.");
+	    } else {
+	        $.ajax({
+	            type: "post",
+	            url: "createProject",
+	            data: {
+	                "project_title": project_title,
+	                "project_start_date": project_start_date,
+	                "project_end_date": project_end_date,
+	                "project_description": project_description,
+	                "member_no": member_no
+	            },
+	            dataType: "text",
+	            success: function(response) {
+	               console.log(response);
+	               // var project_no = response.project_no;
+	               // console.log(project_no);
+	                alert("프로젝트가 생성되었습니다.");
+	                closeModal();
+	                window.location.href = "/feed?project_no=" + response + "&member_no=" + member_no;
+	            }
+	        });
+	    }
 	}
-})
+
+	function closeModal() {
+	    $("#createProjectModal").removeClass("show");
+	    $("#createProjectModal").hide();
+	}
 
 
 </script>
 </head>
 <body>
+	<input type="hidden" id="member_no" name="member_no" value="${member_no}" />
 	<!-- [ navigation menu ] start -->
 	<nav class="pcoded-navbar  ">
 		<div class="navbar-wrapper  ">
@@ -279,50 +312,48 @@ $("#btnCreateProject").on("click", function(){
 	<script src="assets/js/pcoded.min.js"></script>
 
 	<!-- Modal -->
-	<div class="modal" id="createProjectModal" role="dialog">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title">새 프로젝트 생성</h4>
-					<button type="button" class="close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
-				</div>
-				<form action="createProject?member_no=${memberDTO.member_no }" method="post">
-					<div class="modal-body">
-						<table class="table">
-							<tr>
-								<td>프로젝트 이름</td>
-								<td colspan="2">
-									<input type="text" class="form-control" name="project_title" id="project_title">
-								</td>
-							</tr>
-							<tr>
-								<td>프로젝트 기간</td>
-								<td>
-									<div class="input-group" >
-										<input type="text" id="daterangepicker" class="form-control" name="project_start_date" id="project_start_date" placeholder="시작일">
-										<label for="project_start_date" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>
-									</div>								
-								</td>
-								<td>
-									<div class="input-group">
-										<input type="text" class="form-control datepicker" name="project_end_date" id="project_end_date" placeholder="종료일">
-										<label for="project_end_date" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>	
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td>프로젝트 설명</td>
-								<td colspan="2"><textarea class="form-control" name="project_description" id="project_description" rows="5"></textarea></td>
-							</tr>
-						</table>
-					</div>
-					<div class="modal-footer">
-						<input type="submit" class="btn btn-primary" id="btnCreateProject" value="프로젝트 생성">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>			
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
+   <div class="modal" id="createProjectModal" role="dialog">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title">새 프로젝트 생성</h4>
+               <button type="button" class="close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+            </div>
+               <div class="modal-body">
+                  <table class="table">
+                     <tr>
+                        <td>프로젝트 이름</td>
+                        <td colspan="2">
+                           <input type="text" class="form-control" name="project_title" id="project_title">
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>프로젝트 기간</td>
+                        <td>
+                           <div class="input-group" >
+                              <input type="text" class="form-control" name="project_start_date" id="project_start_date" placeholder="시작일">
+                              <label for="project_start_date" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>
+                           </div>                        
+                        </td>
+                        <td>
+                           <div class="input-group">
+                              <input type="text" class="form-control datepicker" name="project_end_date" id="project_end_date" placeholder="종료일">
+                              <label for="project_end_date" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>   
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>프로젝트 설명</td>
+                        <td colspan="2"><textarea class="form-control" name="project_description" id="project_description" rows="5"></textarea></td>
+                     </tr>
+                  </table>
+               </div>
+               <div class="modal-footer">
+                  <input type="button" class="btn btn-primary" id="btnCreateProject" onclick="createProject();" value="프로젝트 생성">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>         
+               </div>
+         </div>
+      </div>
+   </div>
 </body>
 </html>

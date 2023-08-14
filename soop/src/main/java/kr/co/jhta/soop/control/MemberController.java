@@ -101,7 +101,7 @@ public class MemberController {
 			model.addAttribute("memberDTO", memberDto);
 			
 			int member_no = memberDto.getMember_no();
-			
+			httpSession.setAttribute("member_no", member_no);
 			model.addAttribute("member_no", memberDto.getMember_no());
 			model.addAttribute("taskList", feedTaskService.selectAllTaskListByMno(member_no));
 			model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
@@ -145,7 +145,7 @@ public class MemberController {
 		model.addAttribute("memberDTO", memberDto);
 		
 		int member_no = memberDto.getMember_no();
-		
+		httpSession.setAttribute("member_no", member_no);
 		model.addAttribute("member_no", memberDto.getMember_no());
 		model.addAttribute("taskList", feedTaskService.selectAllTaskListByMno(member_no));
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));

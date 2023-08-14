@@ -36,6 +36,8 @@ public interface MemberService {
 	public String selectOneByName(int member_no);
 
 	public int selectMemberByMemberNo(String email);
+	
+	public int selectMnoByEmail(String email);
 
 
 }

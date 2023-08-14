@@ -15,6 +15,11 @@
 		FROM member
 		WHERE email = #{email}
 	</select>
+	<select id="selectMnoByEmail" parameterType="String" resultType="int">
+		SELECT member_no
+		FROM member
+		WHERE email = #{email}
+	</select>
 	<!-- id 중복 체크 -->
 	<select id="selectOneByEmail" parameterType="String"
 		resultType="String">

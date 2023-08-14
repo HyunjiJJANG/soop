@@ -107,4 +107,10 @@ public class MemberMysqlService implements MemberService{
 		return dao.selectMemberByMemberNo(email);
 	}
 
+
+	@Override
+	public int selectMnoByEmail(String email) {
+		return dao.selectMnoByEmail(email);
+	}
+
 }
