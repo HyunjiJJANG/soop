@@ -234,12 +234,12 @@ $(function() {
 								
 								<h3>여기에 프로젝트별로 업무 보여주기</h3>
 
-								
+								${dto}
 								<select id="mySelect">
-								  <option value="option1">프로젝트 이름1</option>
-								  <option value="option2">프로젝트 이름2</option>
-								  <option value="option3">프로젝트 이름3</option>
-
+									<c:if test=""></c:if>
+									<c:forEach var="project" items="${dto }">										
+									  <option value="project.project_no">${project.project_title }</option>							
+									</c:forEach>
 								</select>
 								
 								<button id="showSelected">선택된 프로젝트 보기</button>
