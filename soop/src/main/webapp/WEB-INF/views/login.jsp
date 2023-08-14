@@ -142,6 +142,37 @@ form {
 	color: black;
 	align-items: center;
 }
+
+/* 이미지 오른쪽으로 */
+/*
+ #Login_Logo {
+        position: fixed;
+        right: 200px;
+        top: 430px;
+        transform: translateY(-50%);
+        width: 600px;
+        height: 400px;
+        
+    }
+.global-container{
+ position: fixed;
+ left:400px;
+ top:10px;
+} */
+/* 이미지가 왼쪽으로 */
+.global-container {
+	position: fixed;
+	right: 350px;
+	top: 50px;
+}
+
+#Login_Logo {
+	position: fixed;
+	left: 320px;
+	top: 200px;
+	width: 600px;
+	height: 400px;
+}
 </style>
 
 <!-- 리다이렉트로 넘어온 메세지  -->
@@ -157,7 +188,8 @@ form {
 
 <script>
 	// URL에서 message 파라미터 값 가져오기
-	var loginMessage = new URLSearchParams(window.location.search).get('loginMessage');
+	var loginMessage = new URLSearchParams(window.location.search)
+			.get('loginMessage');
 	if (loginMessage) {
 		loginMessage = "비밀번호 또는 이메일이 일치하는 회원이 없습니다. 다시한번 확인해주세요";
 		alert(loginMessage); // 얼럿 창에 메시지 출력
@@ -180,8 +212,9 @@ form {
 									<span class="join-label-title">이메일</span>
 									<div class="form-floating">
 										<div class="form-floating mb-3">
-											<input type="email" value="test1@naver.com" class="form-control" name="username"
-												id="username" placeholder="account@example.com"
+											<input type="email" value="test1@naver.com"
+												class="form-control" name="username" id="username"
+												placeholder="account@example.com"
 												aria-labelledby="emailCheck" class="form-control"
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required>
@@ -199,8 +232,9 @@ form {
 										style="width: 200px; margin-top: 20px;">비밀번호</span>
 									<div class="form-floating">
 										<div class="form-floating">
-											<input type="password" value="11111111a!" class="form-control" name="password"
-												id="password" placeholder="Password" class="form-control"
+											<input type="password" value="11111111a!"
+												class="form-control" name="password" id="password"
+												placeholder="Password" class="form-control"
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="password">비밀번호</label> <input type="hidden"
@@ -220,6 +254,7 @@ form {
 								style="margin-top: 20px; width: 450px; height: 50px;" />
 						</div>
 					</form>
+
 					<div class="link">
 						<a href="/searchPassword"
 							style="margin-left: 90px; color: black; text-decoration-line: none;">비밀번호
@@ -242,6 +277,15 @@ form {
 					</div>
 
 				</div>
+				<div id="Login_Logo">
+					<h2>쉽고,</h2>
+					<br />
+					<h2>빠른 업무 관리의 시작 SOOP</h2>
+					<br /> <img src="/images/LoginLogo.png" alt="LoginLogo"
+						style="width: 500px; height: 300px;" />
+
+				</div>
+
 			</div>
 		</div>
 	</div>
