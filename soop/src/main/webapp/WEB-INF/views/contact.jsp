@@ -356,17 +356,15 @@ form {
 								<div class="card-body p-0">
 									<div class="table-responsive">
 										<div class="card-text">
+					
+												<div class="search-result-container">
 											<div id="searchDiv">
 												<input type="text" id="searchInput" name="searchInput"
 													required> <label id="searchLable">이름🔍</label> <span
 													id="searchSpan"></span>
 											</div>
-											<div class="card-text">
-
-
-												<div class="search-result-container">
-													<div class="row row-cols-1 row-cols-md-3 g-4"
-														id="profileCard">
+													<div class="row row-cols-1 row-cols-md-3 g-6 "
+														id="profileCard" style="height: 600px; width: 800px;">
 														<c:forEach var="memberProjectMemberdto" items="${list}">
 															<div class="col" id="searchResultList">
 																<div class="card">
@@ -387,7 +385,7 @@ form {
 									</div>
 								</div>
 							</div>
-						</div>
+					
 					</div>
 				</div>
 			</div>

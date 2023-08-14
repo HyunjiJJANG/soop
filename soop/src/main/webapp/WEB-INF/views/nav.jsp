@@ -69,12 +69,14 @@
 	    }
 	  } );
 
-/* 읽음 처리 버튼 클릭시 알림숫자 사라지게 */
-$(function(){
-	$(".read-button").on("click", function(){
-		$(".alarm-number").fadeOut(50);
-	});
+$("#btnCreateProject").on("click", function(){
+	console.log("업무생성 클릭");
+	if($("#project_title").val() == null || $("#project_start_date").val() == null || $("#project_end_date").val() == null || $("#project_description").val() == null){
+		alert("내용을 입력해주세요.");
+	}
 })
+
+
 </script>
 </head>
 <body>

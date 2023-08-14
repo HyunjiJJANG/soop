@@ -47,22 +47,27 @@ public class ProjectController {
 						 	 HttpSession session,
 						 	 @RequestParam("member_no")int member_no) {
 		
-		ProjectDTO projectDto = new ProjectDTO();
-		projectDto.setProject_title(project_title);
-		projectDto.setProject_description(project_description);
-		projectDto.setProject_start_date(project_start_date);
-		projectDto.setProject_end_Date(project_end_date);
-		projectService.insertOne(projectDto);
+		if(project_title != null && project_description != null && project_start_date != null && project_end_date != null) {
+			ProjectDTO projectDto = new ProjectDTO();
+			projectDto.setProject_title(project_title);
+			projectDto.setProject_description(project_description);
+			projectDto.setProject_start_date(project_start_date);
+			projectDto.setProject_end_Date(project_end_date);
+			projectService.insertOne(projectDto);
+			
+			//int member_no = (int)session.getAttribute("member_no");
+			int project_no = projectProjectMemberMemberService.selectRecentProject();
+			
+			ProjectMemberDTO projectMemberDto = new ProjectMemberDTO();
+			projectMemberDto.setMember_no(member_no);
+			projectMemberDto.setProject_no(project_no);
+			projectMemberService.insertPM(projectMemberDto);
+			
+			return "redirect:feed?project_no="+project_no+"&member_no="+member_no; // 생성 완료하면 해당 프로젝트의 피드로 이동			
+		}else {
+			return "redirect:home?member_no="+member_no;			
+		}
 		
-		//int member_no = (int)session.getAttribute("member_no");
-		int project_no = projectProjectMemberMemberService.selectRecentProject();
-		
-		ProjectMemberDTO projectMemberDto = new ProjectMemberDTO();
-		projectMemberDto.setMember_no(member_no);
-		projectMemberDto.setProject_no(project_no);
-		projectMemberService.insertPM(projectMemberDto);
-		
-		return "redirect:feed?project_no="+project_no+"&member_no="+member_no; // 생성 완료하면 해당 프로젝트의 피드로 이동
 	}
 	
 	// 프로젝트에 멤버 강퇴 클릭시 멤버 삭제

@@ -15,4 +15,6 @@ public interface FeedTaskService {
 	FeedTaskDTO selectOneTaskDetailByTno(int task_no);
 	
 	int countFile(int project_no);
+	
+	List<FeedTaskDTO> selectAllTaskListByMno(int member_no);
 }

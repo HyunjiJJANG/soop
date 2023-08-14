@@ -128,7 +128,7 @@ public class InvitationController {
 		String checkKey ="";
 		int project_no =0;
 		
-		if(piDto != null) {
+		if(piDto != null) { // 초대코드가 인증되면
 			checkKey = piDto.getInvitation_code();
 			project_no = piDto.getProject_no();
 		
@@ -150,13 +150,10 @@ public class InvitationController {
 					
 					return "redirect:/";
 					
-				}else {
+				}else { // 초대테이블에 있는 이메일이 멤버테이블에 없으면 회원가입 화면이동
 					
 					return "redirect:/register";
 				}
-			}else { //입력한 초대코드와 프로젝트 초대코드 테이블에 들어있는 초대코드가 일치하지 않으면 회원가입 페이지로
-				
-				return "redirect:/register";
 			}
 		}
 		

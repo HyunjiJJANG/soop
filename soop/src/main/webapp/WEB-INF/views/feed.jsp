@@ -11,6 +11,7 @@
 <meta name="keywords" content="">
 <meta name="author" content="Phoenixcoded" />
 <title>FEED : SOOP</title>
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 <!-- fontawesome -->
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <!-- Favicon icon -->
@@ -240,6 +241,15 @@
                         	<div class="scrollbar" style="overflow-x: hidden;">
                             <table class="table table-hover">
                                 <tbody>
+                                <c:choose>
+                                	<c:when test="${empty feedListDTO}">
+                                		<tr>
+                                			<td colspan="8" style="text-align:center;">
+                                				해당 프로젝트에 작성된 업무가 없습니다.
+                                			</td>
+                                		</tr>
+                                	</c:when>
+                                	<c:otherwise>
                                 	<c:forEach var="feedListDTO" items="${feedListDTO}">
 	                                    <tr>
 	                                        <td width="10">
@@ -271,6 +281,8 @@
 	                                        <td width="50">${feedListDTO.task_register_date}</td>
 	                                    </tr>
 									</c:forEach>
+									</c:otherwise>
+									</c:choose>
                                 </tbody>
                                 <tfoot>
                                 	<tr>
@@ -283,11 +295,29 @@
 											                    <a href='<c:url value="/feed?project_no=${pno}&member_no=${mno}&page=${pagenation.startPage-1 }"/>'><i class="fa fa-chevron-left"></i></a>
 											                </li>
 											            </c:if>
-											             <c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="pageNum">
+														    <c:choose>
+														      		<c:when test="${empty feedListDTO}">
+																		<li><i class="fa-solid fa-circle" style="color:#78C2AD; font-size:5px;"></i></li>
+																	</c:when>
+																	<c:otherwise>
+											            <c:forEach begin="${pagenation.startPage}" end="${pagenation.endPage}" var="pageNum">
+														            <li>
+														                <a href='<c:url value="/feed?project_no=${pno}&member_no=${mno}&page=${pageNum}"/>'>
+														                    <i class="fa">${pageNum}</i>
+														                </a>&nbsp;&nbsp;
+														            </li>
+														</c:forEach>
+														        </c:otherwise>
+														    </c:choose>
+											            
+											             <%-- <c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="pageNum">
+											                 <c:if test="${empty pageNum}">
+											                 	<i class="fa-solid fa-circle" style="color:#78C2AD; font-size:5px;"></i>
+											                 </c:if>
 											                 <li>
 											                    <a href='<c:url value="/feed?project_no=${pno}&member_no=${mno}&page=${pageNum }"/>'><i class="fa">${pageNum }</i></a>&nbsp;&nbsp;
 											                </li>
-											            </c:forEach>
+											            </c:forEach> --%>
 											            <c:if test="${pagenation.next && pagenation.endPage >0 }">
 											                <li>
 											                     <a href='<c:url value="/feed?project_no=${pno}&member_no=${mno}&page=${pagenation.endPage+1 }"/>'><i class="fa fa-chevron-right"></i></a>
@@ -307,15 +337,26 @@
             </div>
             
         <!-- 업무 현황 -->
+        
         <div class="col-md-3" style="position: fixed; top: 193px; right: 360px;">
                 <div class="card">
                     <div class="card-header">
                         <h5>업무 현황</h5>
                     </div>
                     <div class="card-body">
-                        <div id="pie-chart-2" style="width:100%">
-                        	
-                        </div>
+							<c:if test="${empty feedListDTO}">
+								<div>
+								<br /><br /><br /><br />
+									<h3 style="text-align:center;">등록된 업무</h3>	
+									<br />
+									<h3 style="color:#1abc9c; text-align:center;">0</h3>
+								<br /><br /><br /><br /><br />					
+								</div>
+							</c:if>
+							<c:if test="${!empty feedListDTO}">
+		                        <div id="pie-chart-2" style="width:100%">
+								</div>
+							</c:if>
                     </div>
                 </div>
             </div>
@@ -375,9 +416,13 @@
                         </div>
                     </div>
                 </div>
+	    
+	    <!-- 새 멤버 초대 버튼 -->
+	    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="position: fixed; top: 193px; right: 46px; width: 288px;">
+	    <i class="fa-solid fa-user-plus"></i>&nbsp;&nbsp;새 멤버 초대</a>
 	                
 		<!-- project member start -->
-        <div class="col-xl-2 col-md-12" style="position: fixed; top: 193px; right: 30px;">
+        <div class="col-xl-2 col-md-8" style="position: fixed; top: 250px; right: 30px; ">
             <div class="card table-card">
                 <div class="card-header">
                     <h5>참여자</h5>
@@ -399,8 +444,9 @@
 	               </c:choose>
                 </div>
                 <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover mb-0">
+                    <div class="table-responsive" >
+                     <div class="scrollbar" style="background-color:#E9E9E9; overflow-x: hidden; overflow-y: auto; height:550px;">
+                        <table class="table table-hover mb-0" >
                             <tbody>
                            		<!-- 해당 프로젝트 멤버 리스트가 보여지는 곳 -->
                                 <c:forEach var="dto" items="${memberList }">
@@ -436,14 +482,8 @@
                                 </tr>
                                 </c:forEach>
                             </tbody>
-                            <tfoot>
-                            	<tr>
-                            		<td style="text-align: center;">
-                            			<a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"><i class="fa-solid fa-user-plus" style="color:#78C2AD"></i>&nbsp;&nbsp;새 멤버 초대</a>
-                            		</td>
-                            	</tr>
-                            </tfoot>
                         </table>
+                      </div>
                     </div>
                 </div>
             </div>

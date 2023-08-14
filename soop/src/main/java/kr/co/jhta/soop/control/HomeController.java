@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -16,10 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jdk.internal.org.jline.utils.Log;
-import kr.co.jhta.soop.dto.MemberDTO;
+
 import kr.co.jhta.soop.dto.MemoDTO;
 import kr.co.jhta.soop.service.FeedService;
 import kr.co.jhta.soop.service.MemberService;
@@ -28,7 +25,6 @@ import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.TaskMemberFileService;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 public class HomeController {
 	

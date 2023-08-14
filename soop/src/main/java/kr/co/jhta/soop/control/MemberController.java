@@ -26,6 +26,7 @@ import kr.co.jhta.soop.dto.MemberDTO;
 import kr.co.jhta.soop.dto.ProjectInvitationDTO;
 import kr.co.jhta.soop.dto.ProjectMemberDTO;
 import kr.co.jhta.soop.service.FeedService;
+import kr.co.jhta.soop.service.FeedTaskService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.MemoService;
 import kr.co.jhta.soop.service.ProjectInvitationService;
@@ -62,10 +63,12 @@ public class MemberController {
 	
 	@Autowired
 	TaskMemberFileService taskMemberFileService;
-	
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	FeedTaskService feedTaskService;
 
 	// http://localhost:8081/inviteMember/key=aaaaaaaaa
 	// test
@@ -100,7 +103,7 @@ public class MemberController {
 			int member_no = memberDto.getMember_no();
 			
 			model.addAttribute("member_no", memberDto.getMember_no());
-			
+			model.addAttribute("taskList", feedTaskService.selectAllTaskListByMno(member_no));
 			model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 			model.addAttribute("memoDTO", memoService.selectOne(member_no));
 			model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));
@@ -122,7 +125,7 @@ public class MemberController {
 		log.info("member_no" + memberDto.getMember_no());
 		
 		model.addAttribute("memberDTO", memberService.selectOne(member_no));
-		
+		model.addAttribute("taskList", feedTaskService.selectAllTaskListByMno(member_no));
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 		model.addAttribute("memoDTO", memoService.selectOne(member_no));
 		model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));
@@ -133,7 +136,6 @@ public class MemberController {
 	}
 
 	// 소셜 로그인 후 출력되는 index mapping
-
 	@GetMapping("/Oauth2Home")
 	public String loginOk(Model model, HttpSession httpSession, RedirectAttributes redirectAttributes) {
 		String email = (String) httpSession.getAttribute("email");
@@ -145,7 +147,7 @@ public class MemberController {
 		int member_no = memberDto.getMember_no();
 		
 		model.addAttribute("member_no", memberDto.getMember_no());
-		
+		model.addAttribute("taskList", feedTaskService.selectAllTaskListByMno(member_no));
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 		model.addAttribute("memoDTO", memoService.selectOne(member_no));
 		model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));

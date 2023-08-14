@@ -48,7 +48,7 @@
 	// 대시보드 일정(캘린더)
  	document.addEventListener("DOMContentLoaded", function() {
  		var member_no = $("#member_no").val(); 
- 		console.log(member_no); // 여기서 member_no 값 확인
+ 		// console.log(member_no); // 여기서 member_no 값 확인
  		$.ajax({
  			type: "GET", 
  			url: "/home/selectStatus/"+member_no,
@@ -82,7 +82,7 @@
 	// 참여 중인 프로젝트 비동기 선택옵션
     function projectStatusSelect(){
     	var member_no = $("#member_no").val(); 
-  	  let status = $("#projectStatusOption").val();
+  	  	let status = $("#projectStatusOption").val();
   	  $.ajax({
   		type: "GET",  
   		url: "/home/selectStatus/"+member_no,
@@ -93,29 +93,48 @@
   		success: function(data){
   			var obj = JSON.parse(data);
   			var text = "";
+  			var count = 0;
+  			
   			for(var i=0; i<obj.length; i++){
-   				var txt = "<tr><td colspan='8'><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
-  						+ obj[i].project_title + 
-  						"</h6></div></div></td><td>"
-  						+ obj[i].project_start_date
-  						+ " ~ " + obj[i].project_end_date + "</td>";
-  				if(status==0 && obj[i].project_status==status){
-  					text += txt + "<td><label class='badge badge-light-success'>진행중</label></td></tr>";
-  				}else if(status==1 && obj[i].project_status==status){
-  					text += txt + "<td><label class='badge badge-light-dark'>완료</label></td></tr>";                                      
-  				}else if(status==2 && obj[i].project_status==status){
-  					text += txt + "<td><label class='badge badge-light-danger'>보류</label></td></tr>"; 
-  				}else if(status==3) {
-  					if(obj[i].project_status==0){
-  	  					text += txt + "<td><label class='badge badge-light-success'>진행중</label></td></tr>";
-  	  				}
-  					if(obj[i].project_status==1){
-  	  					text += txt + "<td><label class='badge badge-light-dark'>완료</label></td></tr>";                                      
-  	  				}
-  					if(obj[i].project_status==2){
-  	  					text += txt + "<td><label class='badge badge-light-danger'>보류</label></td></tr>"; 
+  				count += (status == obj[i].project_status);
+  			}
+  			
+  			if(count == 0){
+  				if(status == 3){
+  					for(var i=0; i<obj.length; i++){
+	  					var txt = "<tr><td colspan='8'><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+							+ obj[i].project_title + 
+							"</h6></div></div></td><td>"
+							+ obj[i].project_start_date
+							+ " ~ " + obj[i].project_end_date + "</td>";
+	  					if(obj[i].project_status==0){
+	  	  					text += txt + "<td><label class='badge badge-light-success'>진행</label></td></tr>";
+	  	  				}
+	  					if(obj[i].project_status==1){
+	  	  					text += txt + "<td><label class='badge badge-light-dark'>완료</label></td></tr>";                                      
+	  	  				}
+	  					if(obj[i].project_status==2){
+	  	  					text += txt + "<td><label class='badge badge-light-danger'>보류</label></td></tr>"; 
+	  					}
   					}
+  				}else{
+  					text +="<tr><td colspan='10' style='text-align: center;'>참여 중인 프로젝트 없음</td></tr>"
   				}
+  			}else{
+	  			for(var i=0; i<obj.length; i++){
+	   				var txt = "<tr><td colspan='8'><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+	  						+ obj[i].project_title + 
+	  						"</h6></div></div></td><td>"
+	  						+ obj[i].project_start_date
+	  						+ " ~ " + obj[i].project_end_date + "</td>";
+	  				if(status==0 && obj[i].project_status==status){
+	  					text += txt + "<td><label class='badge badge-light-success'>진행</label></td></tr>";
+	  				}else if(status==1 && obj[i].project_status==status){
+	  					text += txt + "<td><label class='badge badge-light-dark'>완료</label></td></tr>";                                      
+	  				}else if(status==2 && obj[i].project_status==status){
+	  					text += txt + "<td><label class='badge badge-light-danger'>보류</label></td></tr>"; 
+	  				}
+	  			}
   			}
   			$("#projectList").html(text);
   		}
@@ -152,7 +171,7 @@
 		                    +"</span></div></div></td></tr>"
 	  					}
 	  				}else {
-	  					text +="<tr><td><div class='chk-option'>첨부파일 비어있음</div></td></tr>"
+	  					text +="<tr><td style='text-align: center;'><div class='chk-option'>첨부파일 비어있음</div></td></tr>"
 		  			}
 	  			}else if(count != 0){
 				  	for(var i=0; i<obj.length; i++){
@@ -174,7 +193,7 @@
 	// 첨부파일 다운로드 버튼 클릭시 파일 다운로드 하기
 	$(function() {
 	    $("#fileDownload").click(function(){
-	        const fileName = $("input:radio[id='fileName']:checked").val();
+	    	var fileName = $("input:radio[id='fileName']:checked").val();
 	        if (fileName) {
 	            console.log("선택한 파일이름: " + fileName);
 	            $.ajax({
@@ -224,7 +243,7 @@
   $(function(){
 	  var member_no = $("#member_no").val(); 
 	  $("#memo_content").on("focusout", function(event){
-		  const memo_content = $("#memo_content").val();
+		  var memo_content = $("#memo_content").val();
 		  $.ajax({
 	  		  type: "POST",
 	  		  url: "/home?member_no="+member_no,
@@ -235,13 +254,83 @@
 	  })
   })
   
-  // 일정추가 버튼 클릭하면 캘린더에 나의 일정 추가
-/*   $(function(){
-	  $("#scheduleAdd").on("click", function(){
-		  
+	//관심업무 비동기 선택옵션
+	function projectTaskSelect(){
+	  var member_no = $("#member_no").val(); 
+	  let projectNo = $("#projectTaskSelect").val();
+	  $.ajax({
+		type: "GET",  
+		url: "/home/selectFavorite/"+member_no,
+		data : {
+			"member_no" : member_no
+		},
+		dataType: "text",
+		success: function(data){
+			var obj = JSON.parse(data);
+			var text = ""
+			var count = 0;
+			
+			for(var i=0; i<obj.length; i++){
+				count += (projectNo == obj[i].project_no);
+			}
+			
+			if(count == 0){
+				if(projectNo == "프로젝트 선택"){ // 프로젝트 선택 옵션은 전체 리스트가 나오게
+					for(var i=0; i<obj.length; i++){
+						var txt = "<tr><td><i class='fa-solid fa-star' style='color: #78C2AD;'></i></td><td><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+	  						+obj[i].task_title
+	  						+"</h6></div></div></td><td><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+	  						+obj[i].project_title
+	  						+"</h6></div></div></td>"
+	  						
+		  					if(obj[i].task_status==0){
+		  	  					text += txt + "<td><label class='badge badge-light-info'>발의</label></td></tr>";
+		  	  				}
+		  					if(obj[i].task_status==1){
+		  	  					text += txt + "<td><label class='badge badge-light-success'>진행</label></td></tr>";                                      
+		  	  				}
+		  					if(obj[i].task_status==2){
+		  	  					text += txt + "<td><label class='badge badge-light-warning'>검토</label></td></tr>"; 
+		  					}
+		  					if(obj[i].task_status==3){
+		  	  					text += txt + "<td><label class='badge badge-light-secondary'>완료</label></td></tr>"; 
+		  					}
+		  					if(obj[i].task_status==4){
+		  	  					text += txt + "<td><label class='badge badge-light-danger'>보류</label></td></tr>"; 
+		  					}
+					}
+				}else {
+					text +="<tr><td colspan='4' style='text-align: center;'><div class='chk-option'>관심업무 없음</div></td></tr>"
+	  			}
+			}else if(count != 0){
+			  	for(var i=0; i<obj.length; i++){
+					if(projectNo == obj[i].project_no){
+						var txt = "<tr><td><i class='fa-solid fa-star' style='color: #78C2AD;'></i></td><td><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+						+obj[i].task_title
+						+"</h6></div></div></td><td><div class='d-inline-block align-middle'><div class='d-inline-block'><h6>"
+						+obj[i].project_title
+						+"</h6></div></div></td>"
+						
+						if(obj[i].task_status == 0){
+		  					text += txt + "<td><label class='badge badge-light-info'>발의</label></td></tr>";
+		  				}else if(obj[i].task_status == 1){
+		  					text += txt + "<td><label class='badge badge-light-success'>진행</label></td></tr>";                                      
+		  				}else if(obj[i].task_status == 2){
+		  					text += txt + "<td><label class='badge badge-light-warning'>검토</label></td></tr>"; 
+		  				}else if(obj[i].task_status == 3){
+		  					text += txt + "<td><label class='badge badge-light-secondary'>완료</label></td></tr>"; 
+		  				}else if(obj[i].task_status == 4){
+		  					text += txt + "<td><label class='badge badge-light-danger'>보류</label></td></tr>"; 
+						}
+
+					}
+	  			}
+			}
+			
+			$("#favoriteList").html(text);
+		}
 	  })
-  }) */
-  
+	}
 </script>
 </head>
 <body>
@@ -255,12 +344,12 @@
 		<div class="row">
 		<!-- 참여 중인 프로젝트 -->
             <div class="col-xl-5 col-md-12">
-                <div class="card table-card"  style="height:370px;">
+                <div class="card table-card" style="height:370px;">
                     <div class="card-header">
                         <h5>참여 중인 프로젝트</h5>
                             <select id="projectStatusOption" onchange="projectStatusSelect();" style="width:30%;float:right;" class="form-select" aria-label="Default select example">
 								<option value="3">전체</option>
-								<option value="0">진행중</option>
+								<option value="0">진행</option>
 								<option value="1">완료</option>
 								<option value="2">보류</option>
 							</select>
@@ -296,7 +385,7 @@
                                         <td>${dto.project_start_date} ~ ${dto.project_end_date}</td>
                                         
                                         <c:if test="${dto.project_status == 0}">
-                                        	<td><label class="badge badge-light-success">진행중</label></td>                                        
+                                        	<td><label class="badge badge-light-success">진행</label></td>                                        
                                         </c:if>
                                         <c:if test="${dto.project_status == 1}">
                                         	<td><label class="badge badge-light-dark">완료</label></td>                                        
@@ -398,12 +487,11 @@
                 <div class="card table-card">
                     <div class="card-header">
                         <h5>관심업무</h5>
-                        <select style="width:30%;float:right;" id="" class="form-select" aria-label="Default select example">
-								<option value="4">전체</option>
-								<option value="0">발의</option>
-								<option value="1">진행</option>
-								<option value="2">보류</option>
-								<option value="3">완료</option>
+                       <select id="projectTaskSelect" onchange="projectTaskSelect();" style="width:30%; float:right;" class="form-select" aria-label="Default select example">
+								<option selected>프로젝트 선택</option>
+								<c:forEach var="dto" items="${projectList}">
+									<option value="${dto.project_no}">${dto.project_title}</option>								
+								</c:forEach>
 						</select>
                     </div>
                     
@@ -421,7 +509,8 @@
                                     </tr>
                                 </thead>
                         			
-                                <tbody>
+                                <tbody id="favoriteList">
+                                	<c:forEach var="tdto" items="${taskList}">
                                     <tr>
                                         <td>
                                             <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
@@ -429,131 +518,34 @@
                                         <td>
                                             <div class="d-inline-block align-middle">
                                                 <div class="d-inline-block">
-                                                    <h6>[보완] 랜딩페이지 개선</h6>
+                                                    <h6>${tdto.task_title}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">
                                                 <div class="d-inline-block">
-                                                    <h6>[중앙HTA] SOOP 프로젝트</h6>
+                                                    <h6>${tdto.project_title}</h6>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
-                                        	<label class="badge badge-light-warning">발의</label>
-                                        </td>
+                                        <c:if test="${tdto.task_status == 0}">
+                                        	<td><label class="badge badge-light-info">발의</label></td>                                        
+                                        </c:if>
+                                        <c:if test="${tdto.task_status == 1}">
+                                        	<td><label class="badge badge-light-success">진행</label></td>                                        
+                                        </c:if>
+                                        <c:if test="${tdto.task_status == 2}">
+                                        	<td><label class="badge badge-light-warning">검토</label></td>                                        
+                                        </c:if>
+                                        <c:if test="${tdto.task_status == 3}">
+                                        	<td><label class="badge badge-light-secondary">완료</label></td>                                        
+                                        </c:if>
+                                        <c:if test="${tdto.task_status == 4}">
+                                        	<td><label class="badge badge-light-danger">보류</label></td>                                        
+                                        </c:if>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-block align-middle">
-                                                <div class="d-inline-block">
-                                                    <h6>[신규기능] 로그인 프로세스 개선</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-block align-middle">
-                                                <div class="d-inline-block">
-                                                    <h6>[까까오똑] KAKA 프로젝트</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                        	<label class="badge badge-light-success">진행중</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-block align-middle">
-                                                <div class="d-inline-block">
-                                                    <h6>[로고] 이미지 시안</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-block align-middle">
-                                                <div class="d-inline-block">
-                                                    <h6>[네이바] NAVE 프로젝트</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                        	<label class="badge badge-light-dark">완료</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-block align-middle">
-                                                <div class="d-inline-block">
-                                                    <h6>[로고] 이미지 시안</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-block align-middle">
-                                                <div class="d-inline-block">
-                                                    <h6>[네이바] NAVE 프로젝트</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                        	<label class="badge badge-light-danger">보류</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-block align-middle">
-                                                <div class="d-inline-block">
-                                                    <h6>[로고] 이미지 시안</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-block align-middle">
-                                                <div class="d-inline-block">
-                                                    <h6>[네이바] NAVE 프로젝트</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                        	<label class="badge badge-light-success">진행중</label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-block align-middle">
-                                                <div class="d-inline-block">
-                                                    <h6>[로고] 이미지 시안</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-inline-block align-middle">
-                                                <div class="d-inline-block">
-                                                    <h6>[네이바] NAVE 프로젝트</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                        	<label class="badge badge-light-success">진행중</label>
-                                        </td>
-                                    </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                               </div>
@@ -561,7 +553,7 @@
                     </div>
                     </div>
                     </div>
-                    <!-- 관심업무 end -->
+            <!-- 관심업무 end -->
                     
 		</div>
 	</div> 
