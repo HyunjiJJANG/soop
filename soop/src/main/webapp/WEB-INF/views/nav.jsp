@@ -35,37 +35,19 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script>
 /* Range Calender */
-  $( function() {
+ $(document).ready(function() {
 	  	/* dateFormat mm/dd/yy에서 수정함 */
-	    var dateFormat = "yy/mm/dd",
-	      from = $( "#projectStartDate" ).datepicker({
-	          changeMonth: true,
-	          numberOfMonths: 1
-	      })
-	        .on( "change", function() {
-	          to.datepicker( "option", "minDate", getDate( this ) );
-	        }),
-	      to = $( "#projectEndDate" ).datepicker({
-	        changeMonth: true,
-	        numberOfMonths: 1
-	      })
-	      .on( "change", function() {
-	        from.datepicker( "option", "maxDate", getDate( this ) );
-	      });
-	 
-	    function getDate( element ) {
-	      var date;
-	      try {
-	        date = $.datepicker.parseDate( dateFormat, element.value );
-	      } catch( error ) {
-	        date = null;
-	      }	 
-	      return date;
-	    }
+	    // 시작일 datepicker 활성화
+	    $("#project_start_date").datepicker({
+	        dateFormat: "yyyy-MM-dd" // 날짜 형식 설정
+	    });
+
+	    // 종료일 datepicker 활성화
+	    $("#project_end_date").datepicker({
+	        dateFormat: "yyyy-MM-dd" // 날짜 형식 설정
+	    });
 	  } );
 
 /* 읽음 처리 버튼 클릭시 알림숫자 사라지게 */
@@ -294,7 +276,7 @@ $(function(){
 								<td>프로젝트 기간</td>
 								<td>
 									<div class="input-group" >
-										<input type="text" id="daterangepicker" class="form-control" name="project_start_date" id="project_start_date" placeholder="시작일">
+										<input type="text" class="form-control" name="project_start_date" id="project_start_date" placeholder="시작일">
 										<label for="project_start_date" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>
 									</div>								
 								</td>
