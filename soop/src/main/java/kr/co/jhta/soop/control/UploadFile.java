@@ -15,3 +15,4 @@ public class UploadFile {
 	private MultipartFile file;
 
 }
+

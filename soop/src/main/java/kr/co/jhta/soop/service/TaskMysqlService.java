@@ -39,12 +39,6 @@ public class TaskMysqlService implements TaskService{
 	}
 
 	@Override
-	public void deleteOne(int task_no) {
-		dao.deleteOne(task_no);
-		
-	}
-
-	@Override
 	public int countTask(int project_no) {
 		return dao.countTask(project_no);
 	}
@@ -55,4 +49,10 @@ public class TaskMysqlService implements TaskService{
 		
 	}
 
+	@Override
+	public void deleteOne(TaskDTO dto) {
+		dao.deleteOne(dto);
+	}
+
+	
 }

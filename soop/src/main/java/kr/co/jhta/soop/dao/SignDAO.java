@@ -19,7 +19,9 @@ public interface SignDAO {
 
 	public void updateOne(SignDTO dto);
 
-	public void deleteOne(int sign_no);
+	public void deleteOne(int task_no);
+
+	public SignDTO selectOneByMno(int sign_member_no);
 
 	public List<SignDTO> selectAllSignByTno(int task_no);
 
