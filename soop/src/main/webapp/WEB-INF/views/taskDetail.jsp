@@ -110,7 +110,7 @@
 	                                <i class="feather icon-more-horizontal"></i>
 	                            </button>
 	                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-	                            	<li class="dropdown-item"><a href="#!"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무로 등록</a></li>
+	                            	<li class="dropdown-item"><a href="favorite?project_no=${pno}&member_no=${mno}&task_no=${tno}"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무로 등록</a></li>
 	                                <li class="dropdown-item"><a href="#!"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;수정</a></li>
 	                                <li class="dropdown-item"><a href="#!"><i class="feather icon-trash"></i>&nbsp;&nbsp;삭제</a></li>
 	                            </ul>

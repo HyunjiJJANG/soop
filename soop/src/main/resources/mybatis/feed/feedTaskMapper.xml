@@ -34,5 +34,14 @@
 		WHERE t.task_no = #{task_no}
 	</select>
 	
+	<!-- feed 페이지 프로젝트 통계 첨부파일 개수 -->
+	<select id="countFile" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM attached_file f
+		INNER JOIN task t ON f.task_no = t.task_no
+		INNER JOIN project p ON t.project_no = p.project_no
+		WHERE p.project_no = #{project_no}
+	</select>
+	
 
 </mapper>

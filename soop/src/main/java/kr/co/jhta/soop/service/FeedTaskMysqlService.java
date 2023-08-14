@@ -30,4 +30,9 @@ public class FeedTaskMysqlService implements FeedTaskService {
 		return dao.selectOneTaskDetailByTno(task_no);
 	}
 
+	@Override
+	public int countFile(int project_no) {
+		return dao.countFile(project_no);
+	}
+
 }

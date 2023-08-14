@@ -9,4 +9,10 @@
 		FROM task
 		WHERE project_no = #{project_no}
 	</select>
+	
+	<select id="updateFavorite" parameterType="int">
+		UPDATE task_favorite
+		SET favorite = 1
+		WHERE task_no = #{task_no}
+	</select>
 </mapper>

@@ -368,7 +368,7 @@
                                     <i class="icon feather icon-file-text text-c-blue mb-1 d-block"></i>
                                 </div>
                                 <div class="col-sm-8 text-md-center">
-                                    <h5>110</h5>
+                                    <h5>${countFile}개</h5>
                                     <span>업로드된 파일</span>
                                 </div>
                             </div>

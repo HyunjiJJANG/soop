@@ -20,6 +20,7 @@ public class TaskDTO {
 	private int task_status;
 	private String task_start_date;
 	private String task_end_date;
+	private String task_favorite;
 
 }
 

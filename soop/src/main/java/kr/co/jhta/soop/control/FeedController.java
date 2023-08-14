@@ -96,6 +96,7 @@ public class FeedController {
         // 프로젝트 통계
         model.addAttribute("countProjectMember", projectMemberService.countProjectMember(project_no));
         model.addAttribute("countTask", taskService.countTask(project_no));
+        model.addAttribute("countFile", feedTaskService.countFile(project_no));
         
         String now = LocalDate.now().toString();
         String project_end_date = projectService.selectOneEndDate(project_no);
@@ -154,6 +155,16 @@ public class FeedController {
     	
     	model.addAttribute("list", list);
     	return list;
+    }
+    
+    @GetMapping("/favorite")
+    public String taskFavorite(@RequestParam("project_no")int project_no,
+							   @RequestParam("member_no")int member_no,
+							   @RequestParam("task_no")int task_no) {
+    	
+    	taskService.updateFavorite(task_no);
+    	
+    	return "redirect:taskDetail?project_no="+project_no+"&member_no="+member_no+"&task_no="+task_no;
     }
 
 }

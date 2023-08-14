@@ -13,4 +13,6 @@ public interface FeedTaskService {
     public int totalCount(int project_no);
 
 	FeedTaskDTO selectOneTaskDetailByTno(int task_no);
+	
+	int countFile(int project_no);
 }
