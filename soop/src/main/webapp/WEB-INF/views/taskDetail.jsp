@@ -42,7 +42,21 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script type="text/javascript">
 
+//관심업무 해제하기
+function deleteFavorite(task_no){	
+		console.log("관심업무 해제 클릭");
+			$.ajax({
+				type: "GET",
+				url: "/deleteFavoriteOne",
+				data: {
+					"task_no" : task_no
+				}
+			});
+}
+
+</script>
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
@@ -110,7 +124,15 @@
 	                                <i class="feather icon-more-horizontal"></i>
 	                            </button>
 	                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-	                            	<li class="dropdown-item"><a href="favorite?project_no=${pno}&member_no=${mno}&task_no=${tno}"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무로 등록</a></li>
+									<%-- <c:choose>
+										<c:when test="${favorite eq 0}">
+			                            	<li class="dropdown-item"><a href="favorite?project_no=${pno}&member_no=${mno}&task_no=${tno}"><i class="fa-solid fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무 등록</a></li>
+										</c:when>
+										<c:otherwise>
+			                            	<li class="dropdown-item"><a href="" onclick="deleteFavorite(${})"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무 해제</a></li>
+										</c:otherwise>
+									</c:choose> --%>
+								
 	                                <li class="dropdown-item"><a href="#!"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;수정</a></li>
 	                                <li class="dropdown-item"><a href="#!"><i class="feather icon-trash"></i>&nbsp;&nbsp;삭제</a></li>
 	                            </ul>

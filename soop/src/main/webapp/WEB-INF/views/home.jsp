@@ -340,7 +340,7 @@ function deleteFavorite(task_no){
 				type: "GET",
 				url: "/deleteFavoriteOne",
 				data: {
-					"task_no" : task_no,
+					"task_no" : task_no
 				}
 			});
 }
