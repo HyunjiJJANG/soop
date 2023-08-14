@@ -154,8 +154,9 @@ form {
 #profileCard {
 	text-align: left;
 	align-items: center;
-	margin-right: 100px;
-	width: 700px;
+	margin-right: 50px;
+	margin-left:200px;
+	width: 1000px;
 	height: 400px;
 	overflow-y: auto;
 }
@@ -164,8 +165,8 @@ form {
 	position: relative;
 	width: 200px;
 	margin-left: 1000px;
-	margin-top: 50px;
-	margin-bottom: 50px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 #searchInput {
@@ -257,9 +258,9 @@ form {
 							result
 									.forEach(function(item) {
 										var str = '<div class="col" id="searchResultList">';
-										str += '<div class="card">';
+										str += '<div>';
 										str += '<img src="' + item.profile_path + '" class="card-img-top" alt="프로필 이미지" id="profileImage">';
-										str += '<div class="card-body">';
+										str += '<div>';
 										str += '<h5 class="card-title" style="margin-top: 10px;">'
 												+ item.name + '</h5>';
 										str += '<p class="card-text">'
@@ -365,13 +366,19 @@ form {
 											</div>
 													<div class="row row-cols-1 row-cols-md-3 g-6 "
 														id="profileCard" style="height: 600px; width: 800px;">
+									</div>
+								</div>
+								<div class="card-body p-0">
+									<div class="table-responsive">
+										<div class="card-text">
+												<div class="search-result-container">
+													<div class="row" id="profileCard">
 														<c:forEach var="memberProjectMemberdto" items="${list}">
 															<div class="col" id="searchResultList">
-																<div class="card">
-																	<img src="${memberProjectMemberdto.profile_path }"
+																<div>
+																	<img src="/data/${memberProjectMemberdto.profile_name }"
 																		class="card-img-top" alt="프로필 이미지" id="profileImage">
-
-																	<div class="card-body">
+																	<div>
 																		<h5 class="card-title" style="margin-top: 10px;">${memberProjectMemberdto.name }</h5>
 																		<p class="card-text">${memberProjectMemberdto.email }</p>
 																	</div>
@@ -380,7 +387,7 @@ form {
 														</c:forEach>
 													</div>
 												</div>
-											</div>
+										
 										</div>
 									</div>
 								</div>

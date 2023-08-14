@@ -225,13 +225,10 @@ a {
 
 															},
 															dataType : "json",
-															success : function(
-																	result) {
-																if (result
-																		&& result.length >= 1) {
+															success : function(result) {
+																if (result && result.length >= 1) {
 																	var searchResultList = [];
-																	result
-																			.forEach(function(
+																	result.forEach(function(
 																					item) {
 
 																				var str = '<tr>';
@@ -334,7 +331,7 @@ a {
 						<div class="card-body p-0 ">
 							<div class="table-responsive" style="height: 550px">
 								<div class="card-text">
-									<div class="container" style="margin-top:50px">
+									<div class="container" style="margin-top: 50px">
 										<table>
 											<thead>
 												<tr>

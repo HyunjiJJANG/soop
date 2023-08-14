@@ -18,7 +18,7 @@
 	<select id="selectAll" resultType="MemberProjectMemberDTO"
 		parameterType="MemberProjectMemberDTO">
 
-		SELECT DISTINCT m.name, m.email, m.profile_path
+		SELECT DISTINCT m.name, m.email, m.profile_path, m.profile_name
 		FROM
 		member m
 		JOIN project_member pm ON pm.member_no = m.member_no
