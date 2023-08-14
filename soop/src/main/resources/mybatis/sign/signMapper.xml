@@ -12,5 +12,16 @@
 				SELECT LAST_INSERT_ID()
 			</selectKey> 
 	</insert>
+
+	<select id="selectOneByMno" resultType="kr.co.jhta.soop.dto.SignDTO" parameterType="int">
+		SELECT distinct member_no as sign_member_no, sign_step, sign_approver, sign_status
+		FROM sign
+		WHERE member_no = #{sign_member_no}
+	</select>
+	
+	<delete id="deleteOne" parameterType="int"> 
+		DELETE FROM sign
+		WHERE task_no = #{task_no}
+	</delete>
 	
 </mapper>

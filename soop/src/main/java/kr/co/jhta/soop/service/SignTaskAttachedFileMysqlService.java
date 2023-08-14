@@ -43,5 +43,16 @@ public class SignTaskAttachedFileMysqlService implements SignTaskAttachedFileSer
 	public void updateTask(SignTaskAttachedFileDTO dto) {
 		dao.updateTask(dto);
 	}
+
+	@Override
+	public SignTaskAttachedFileDTO selectOne(int task_no) {
+		return dao.selectOne(task_no);
+	}
+
+	@Override
+	public void updateSign(SignTaskAttachedFileDTO dto) {
+		dao.updateSign(dto);
+		
+	}
 	
 }

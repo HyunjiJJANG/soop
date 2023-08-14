@@ -129,6 +129,9 @@ $(document).ready(function(){
 			var start = $(e.relatedTarget).data().start;
 			var end = $(e.relatedTarget).data().end;
 			var filename = $(e.relatedTarget).data().filename;
+			var signappover1 = $(e.relatedTarget).data().signappover1;
+			/* var currentUserSignMemberNo = $(e.relatedTarget).data().currentUserSignMemberNo;
+			var currentUserSignApprover = $(e.relatedTarget).data().currentUserSignApprover; */
 			console.log(no);
 			
 			
@@ -142,6 +145,10 @@ $(document).ready(function(){
 			$("#filename").val(filename);
 			$("#filedto").empty(); // 이전 파일 정보를 지웁니다.
 			$("#filedto").append("<p>기존파일 : " + filename + "</p>");
+			$("#signapprovervalue1").val(signappover1); // sign1의 value를 signvalue1에 넣기
+			/* $("#currentUserSignMemberNo").val(currentUserSignMemberNo); // sign1의 value를 signvalue1에 넣기
+			$("#currentUserSignApprover").val(currentUserSignApprover); // sign1의 value를 signvalue1에 넣기 */
+			
 
 		});
 
@@ -316,12 +323,12 @@ $(document).ready(function(){
 			<td>${dto.file_type}</td>
 			<td>${dto.file_path}</td>
 		 	<td>${dto.sign_no}</td>
+			<td>${dto.member_no}</td>
 			<td>${dto.sign_approver}</td>
-			<td>${dto.sign_status}</td>
 			<td>${dto.sign_status}</td> 
 			<td>
 					<!-- 수정 모달 버튼 -->
-					<button type="button" class="btn cmodel-btn btn-primary" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-status="${dto.task_status}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-filename="${dto.file_name}" data-bs-toggle="modal" data-bs-target="#updateModal">수정</button>
+					<button type="button" class="btn cmodel-btn btn-primary" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-status="${dto.task_status}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-filename="${dto.file_name}" data-signappover1="${dto.sign_approver}"  data-bs-toggle="modal" data-bs-target="#updateModal" onclick="test(this)">수정</button>
 					<a href="delete?task_no=${dto.task_no}"><input type="button" value="삭제" class="btn btn-outline-danger" id="btn"/></a>	
 			</td>
 		</tr>
@@ -352,8 +359,8 @@ $(document).ready(function(){
 			<tr><td colspan="8">업무 상태	&nbsp; &nbsp;
 						<td>
 						<select name="task_status_select" id="task_status_select" class="form-select" aria-label="Default select example">
-							<!-- <option selected>------업무 상태 선택-----</option> -->
-							<option selected value="100">--업무 상태 선택--</option>
+							<option selected>------업무 상태 선택-----</option>
+							<!-- <option selected value="0">--업무 상태 선택--</option> -->
 							<option value="0">발의중</option>
 							<option value="1">진행중</option>
 							<option value="2">일시중지</option>
@@ -380,11 +387,10 @@ $(document).ready(function(){
 						<th>2단계</th>
 						<th>3단계</th>
 					</tr>
-					<tr>
 					<tr> 
 						<td>
 				            <select name="sign_approval" id="selectMembersCreate1" class="form-select" aria-label="Default select example">
-				              <option value="">------결재자 선택-----</option>
+				              <option selected value="">------결재자 선택-----</option>
 				              <c:forEach var="member" items="${members}">
 				                <option data-memberno="${member.member_no}" data-membername="${member.name}" data-projectno="${member.project_no}" data-step="1">${member.name}</option>
 				              </c:forEach>
@@ -393,9 +399,13 @@ $(document).ready(function(){
 									<input type="hidden" name="sign_approver" id="sign_approver" value="">
 									<input type="hidden" name="sign_member_no" id="sign_member_no" value="">
 									<input type="hidden" name="sign_step" id="sign_step" value=""><!-- 일단 1단계라서 1 줌 -->
+									<!-- 선택하지 않았을 때 경고 메시지 -->
+       							<!-- 	<p id="sign_alert" style="color: red; display: none;">결재자를 선택하세요.</p> -->
 						</td>
 						
 						<script>
+
+						
 								  // select 요소의 change 이벤트를 감지하여 value를 설정하는 함수
 								  document.getElementById("selectMembersCreate1").addEventListener("change", function () {
 								    var selectedOption = this.options[this.selectedIndex];
@@ -411,9 +421,24 @@ $(document).ready(function(){
 								
 								    // 선택된 값 출력
 								    console.log("선택된 결재자: " + memberName);
+								    console.log("sign_approver : " + sign_approver);
 								    console.log("선택된 결재자 번호: " + memberNo);
 								    console.log("선택된 프로젝트 번호: " + projectNo);
 								    console.log("선택된 단계: " + step);
+								    
+/* 							        // 선택되지 않았을 때 경고 메시지 띄우기
+							        var signAlert = document.getElementById("sign_alert");
+							        if (memberNo === "") {
+							            signAlert.style.display = "block"; // 경고 메시지 표시
+							        } else {
+							            signAlert.style.display = "none";  // 경고 메시지 감추기
+							        }
+							        
+							        String errorType = request.getParameter("error");
+							        if ("missingFields".equals(errorType)) {
+							            out.println("<p style=\"color: red;\">결재자와 업무 상태를 입력하세요.</p>");
+							        } */
+						            
 								  });
 						</script>
 										<%-- 						<td>
@@ -493,20 +518,27 @@ $(document).ready(function(){
       </div>
       <div class="modal-body">
         	<table class="table">
-         			<!-- link에 ?로 주는 대신 hidden으로 줘보기(자꾸 데이터 형식이 안맞아서 나는 오류를 해결하기 위해) -->
-		        	<input type="hidden" name="project_no" id="project_no" value="1">
-		        	<input type="hidden" name="member_no" id="member_no" value="1"> 
-        	<table class="table">
 			<tr>
 				<td colspan="8">업무 제목</td>
 				<td><input class="form-control" id="titlevalue" type="text" name="task_title"></td>
 				<br />
 			</tr>
+			<!-- <tr><td colspan="8">업무 상태	&nbsp; &nbsp;
+				<td>
+				<select name="task_status" id="statusvalue" class="form-select" aria-label="Default select example">
+					<option selected>------업무 상태 선택-----</option>
+					<option value="0">발의됨</option>
+					<option value="1">진행중</option>
+					<option value="2">일시중지</option>
+					<option value="3">완료</option>
+				</td>
+			</td>
+			</tr> -->
 			<tr><td colspan="8">업무 상태	&nbsp; &nbsp;
 						<td>
-						<select name="task_status_select" id="statusvalue" class="form-select" aria-label="Default select example">
-							<!-- <option selected>------업무 상태 선택-----</option> -->
-							<option selected value="100">--업무 상태 선택--</option>
+						<select name="task_status" id="statusvalue" class="form-select" aria-label="Default select example">
+							<option selected>------업무 상태 선택-----</option>
+	<!-- 						<option selected value="100">--업무 상태 선택--</option> -->
 							<option value="0">발의중</option>
 							<option value="1">진행중</option>
 							<option value="2">일시중지</option>
@@ -525,7 +557,7 @@ $(document).ready(function(){
 						
 			</tr>
 			<tr>
-			<tr>
+
 				<table class="table" id="tb" >
 				<p>결재 라인</p>
 					<tr>
@@ -534,10 +566,89 @@ $(document).ready(function(){
 						<th>3단계</th>
 					</tr>
 					<tr>
+					<tr> 
+						<td>
+				            <select name="sign_approver" id="signapprovervalue1" class="form-select" aria-label="Default select example" value="">
+							<option value="">------결재자 선택-----</option>
+				              <c:forEach var="member" items="${members}">
+				                <option data-memberno="${member.member_no}" data-membername="${member.name}" data-projectno="${member.project_no}" data-step="1">${member.name}</option>
+				              </c:forEach>
+				            </select>
+									<!-- 값 넘기기 위한.. hidden -->
+									<input type="hidden" name="sign_approver_up" id="sign_approver_up" value="">
+									<input type="hidden" name="sign_member_no_up" id="sign_member_no_up" value="">
+									<input type="hidden" name="sign_step_up" id="sign_step_up" value=""><!-- 일단 1단계라서 1 줌 -->
+									
+									
+						</td>
+						
+						<script>
+						
+								  // select 요소의 change 이벤트를 감지하여 value를 설정하는 함수
+								  document.getElementById("signapprovervalue1").addEventListener("change", function () {
+								    var selectedOption = this.options[this.selectedIndex];
+								    var memberNo = selectedOption.getAttribute("data-memberno");
+								    var memberName = selectedOption.getAttribute("data-membername");
+								    var projectNo = selectedOption.getAttribute("data-projectno");
+								    var step = selectedOption.getAttribute("data-step");
+								
+								    // 값을 hidden input 요소에 설정
+								    document.getElementById("sign_approver_up").value = memberName;
+								    document.getElementById("sign_member_no_up").value = memberNo;
+								    document.getElementById("sign_step_up").value = step;
+								
+								    // 선택된 값 출력
+								    console.log("선택된 결재자: " + memberName);
+/* 								    console.log("sign_approver_up : " + sign_approver_up); */
+								    console.log("선택된 결재자 번호: " + memberNo);
+								    console.log("선택된 프로젝트 번호: " + projectNo);
+								    console.log("선택된 단계: " + step);
+								    
 
-						<th><input type="button" value="+" /></th>
-						<th><input type="button" value="+" /></th>
-						<th><input type="button" value="+" /></th> 
+								  });
+								  
+									/* 	// default 설정
+									// 서버에서 전달한 현재 사용자의 sign_member_no 값을 가져옴
+									  var currentUserSignMemberNo = "${currentUserSignMemberNo}"; // 서버에서 전달한 값으로 수정
+									  console.log("현재 사용자의 sign_member_no: " + currentUserSignMemberNo);
+									  
+									  var currentUserSignApprover = "${currentUserSignApprover}";
+									  var currentUserSignStep = "${currentUserSignStep}";
+									  
+									  /* // 선택된 옵션 중에서 현재 사용자의 sign_member_no와 일치하는 옵션을 찾습니다.
+									  var defaultOption = document.querySelector(`option[data-memberno="${currentUserSignMemberNo}"]`);
+			
+									  if (defaultOption) {
+									      defaultOption.selected = true;
+									      
+									      // 기본 값에 따라 해당 정보를 설정
+									      var defaultName = defaultOption.getAttribute("data-membername");
+									      var defaultStep = defaultOption.getAttribute("data-step"); */
+									      
+									 /*     // 값을 hidden input 요소에 설정
+									      document.getElementById("sign_approver_up").value = currentUserSignApprover;
+									      document.getElementById("sign_member_no_up").value = currentUserSignMemberNo;
+									      document.getElementById("sign_step_up").value = currentUserSignStep; 
+									  } => 얘를 하면 밑에 change가 안먹ㅁ*/ 
+							  
+								      
+						</script>
+										<%-- 						<td>
+				            <select name="sign_approval" id="selectMembersCreate2" class="form-select" aria-label="Default select example">
+				              <option value="">------결재자 선택-----</option>
+				              <c:forEach var="member" items="${members}">
+				                <option value="${member.member_no}" data-membername="${member.name}" data-step="2">${member.name}</option>
+				              </c:forEach>
+				            </select>
+						</td>
+						<td>
+				            <select name="sign_approval" id="selectMembersCreate3" class="form-select" aria-label="Default select example">
+				              <option value="">------결재자 선택-----</option>
+				              <c:forEach var="member" items="${members}">
+				                <option value="${member.member_no}" data-membername="${member.name}" data-step="3" >${member.name}</option>
+				              </c:forEach>
+				            </select>
+						</td> --%>
 					</tr>
 				</table>
 				<br />
@@ -582,14 +693,49 @@ $(document).ready(function(){
       
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-        <button type="submit" class="btn btn-primary">업무 수정</button>
+        <button type="submit"  class="btn btn-primary">업무 수정</button>
       </div>
     </div>
   </div>
 </div>
 </form>
 
+<!-- sign 수정을 위해 기본값 전달 -->
+<script type="text/javascript">
+ function test(e){
+	console.log($(e).parent().prev().prev().prev().html());
+	let member_no = $(e).parent().prev().prev().prev().html();
+	
+	//let member_no = ${signdto.member_no};
+	//let member_no = 1;
+	
+	$.ajax({
+		url: "/soop/taskinfo" , 
+		data : {"member_no": member_no},
+		success : function (data){
+			console.log(data);
+			
+			$("#sign_approver_up").val(data.sign_approver);
+			$("#sign_member_no_up").val(data.sign_member_no);
+			$("#sign_step_up").val(data.sign_step);
+			
+		}
+			
+	});
+	}
+</script>
 
+
+<!-- 리다이렉트로 넘어온 메세지  -->
+<script>
+	// 리다이렉트된 페이지 로딩 후 실행되는 스크립트
+	window.onload = function() {
+		var message = "${message}";
+		if (message) {
+			alert(message); // 얼럿 창에 메시지 출력
+		}
+	};
+</script>
 
 
 </body>

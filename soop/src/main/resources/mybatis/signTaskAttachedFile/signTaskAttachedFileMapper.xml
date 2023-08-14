@@ -37,5 +37,12 @@
 		SET task_title = #{task_title}, task_register_date = DATE_ADD(NOW(), INTERVAL 9 HOUR), task_content = #{task_content}, task_status = #{task_status}, task_start_date = #{task_start_date}, task_end_date = #{task_end_date}
 		WHERE task_no = #{task_no}
 	</update>
+	
+	<update id="updateSign" parameterType="kr.co.jhta.soop.dto.SignTaskAttachedFileDTO">
+		UPDATE sign
+		SET member_no = #{sign_member_no}, sign_step = #{sign_step}, sign_approver = #{sign_approver}, sign_status = #{sign_status}, sign_date = DATE_ADD(NOW(), INTERVAL 9 HOUR) 
+		WHERE task_no = #{task_no}
+	</update>
+
 
 </mapper>

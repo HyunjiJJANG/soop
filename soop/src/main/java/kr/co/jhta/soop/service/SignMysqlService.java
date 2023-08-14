@@ -39,9 +39,14 @@ public class SignMysqlService implements SignService {
 	}
 
 	@Override
-	public void deleteOne(int sign_no) {
-		dao.deleteOne(sign_no);
+	public void deleteOne(int task_no) {
+		dao.deleteOne(task_no);
 		
+	}
+
+	@Override
+	public SignDTO selectOneByMno(int sign_member_no) {
+		return dao.selectOneByMno(sign_member_no);
 	}
 
 }
