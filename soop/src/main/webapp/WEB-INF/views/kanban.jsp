@@ -56,7 +56,7 @@
 <style type="text/css">
 .sortable_list, .sortable_list0 {
 	border: 1px solid #eee;
-	width: 200px;
+	width: 300px;
 	min-height: auto;
 	list-style-type: none;
 	margin: 0;
@@ -70,13 +70,17 @@
 	margin: auto;
 	padding: 5px;
 	font-size: 1.0em;
-	width: 180px;
+	width: 250px;
 }
 
 #kanbanDiv {
 	margin: auto;
 	width: 1200px;
 	background-color: aquamarine;
+}
+.table-responsive{
+	margin-left: 8%;
+	margin-bottom: 5%;
 }
 </style>
 
@@ -107,7 +111,7 @@ $(function() {
 	        //alert("item = "+ui.item); //Which item (or ui.item[0].id)
 	        
 	        console.log("before_업무상태값 : " + ui.item.find("input[name='task_status']").val()); //내가 클릭한 카드의 업무상태값
-        	        
+
 	        // 업무상태가 열의 id의 상태값에 따라 변경되도록하기
 	        var beforeTaskStatus = ui.sender[0].id//내가 클릭한 카드의 열의 위치
 	        //console.log("현재 열의 위치 : " + beforeTaskStatus)
@@ -119,29 +123,32 @@ $(function() {
 	        // 2 - 보류
 	        // 3 - 완료
 	        
-	       var changeStatus;
+	       var changeStatus;	/* 바뀐 업무상태값 변수 */
+        
 	        if(beforeTaskStatus != presentTaskStatus){
 	        	if(presentTaskStatus == "sortable0"){
 		        	ui.item.find("td").eq(9).html("발의")		        	
 		        	//ui.item.find("td").eq(10).find("input").val("0");
 		        	// console.log(ui.item.find("td").eq(10));		        	
-		        	changeStatus = $("table").eq(0).next().val("0");
-		        	
+ 		        	changeStatus = $("table").eq(0).next().val("0");    
 		        	console.log("after_업무상태값 : " + $("table").eq(0).next().val());
 					// 업무상태값을 변경
 					// console.log(ui.item.find("input"));
 					//ui.item.find("input").val("0");
+					
 	        	}else if(presentTaskStatus == "sortable1"){
 	        		ui.item.find("td").eq(9).html("진행")
 	        		// 업무상태값을 변경
 	        		//ui.item.find("td").eq(10).html("1");
 	        		changeStatus = $("table").eq(1).next().val("1");
 	        		console.log("after_업무상태값 : " + $("table").eq(1).next().val());
+	        		
 	        	}else if(presentTaskStatus == "sortable2"){
 	        		ui.item.find("td").eq(9).html("보류")
 	        		// 업무상태값을 변경
 	        		changeStatus = $("table").eq(2).next().val("2");
 	        		console.log("after_업무상태값 : " + $("table").eq(2).next().val());
+	        		
 	        	}else if(presentTaskStatus == "sortable3"){
 	        		ui.item.find("td").eq(9).html("완료")
 	        		// 업무상태값을 변경
@@ -154,7 +161,7 @@ $(function() {
 	        	        
 	        // ajax 변수
 	        // 변동된 정보를 업데이트
-	         var task_status = changeStatus.val();
+	        var task_status = changeStatus.val();	        
 	        var member_no = ui.item.find("td").eq(4).text();
 	        var task_no = ui.item.find("td").eq(2).text();
 	        
@@ -162,6 +169,10 @@ $(function() {
 	        console.log("task_no : " + ui.item.find("td").eq(2).text())
 	        console.log("task_status : " + task_status)
 	        
+	        if(task_status == undefined){
+	        	task_status = 0;
+	        }
+	        	        
 	        $.ajax({	        	
 	        	 url: "<c:url value='/chageTaskStatus' />",
 	            type: "get",
@@ -189,244 +200,284 @@ $(function() {
 
 </script>
 
+<script>
+	$(document).ready(function() {
+	  // 버튼을 클릭하면 선택된 옵션의 값을 보여줍니다.
+	  $("#showSelected").click(function() {
+	    var selectedOption = $("#mySelect option:selected").text();
+	    $("#result").text("선택된 옵션: " + selectedOption);
+	  });
+	});
+</script>
+
 </head>
 <body>
-	<%-- 
-<jsp:include page="nav.jsp" /> --%>
+	
 	<div class="pcoded-main-container">
+		
 		<div class="pcoded-content">
+		
 			<div class="row">
 				<!-- 간트차트 감싸는 DIV -->
-
 				<div class="col-xl-12 col-md-10" style="margin-top: 40px">
+				
 					<div class="card table-card">
+					
 						<div class="card-header" style="padding-bottom: 0px;">
 							<h3>할 일</h3>
 						</div>
+						
 						<div class="card-body p-0">
+						
 							<div class="table-responsive">
 							
-<ul id="sortable0" class="sortable_list connectedSortable">
-	<c:forEach var="tasklist" items="${dto}">
-		<c:if test="${tasklist.task_status == 0}">
-			<li class="ui-state-default">								
-				<table>					
-				    <tr>				    	
-				    	<th style=" display: none;" >프로젝트 번호 : </th>
-				    	<td style=" display: none;">${tasklist.project_no }</td>
-				    </tr>
-					<tr>
-				    	<th style=" display: none;">프로젝트 제목 : </th>
-				    	<td style=" display: none;">${tasklist.project_title }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무 번호 : </th>
-				    	<td style=" display: none;">${tasklist.task_no }</td>
-				    </tr>
-				    <tr>
-				    	<th>업무 제목 : </th>
-				    	<td>${tasklist.task_title }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무생성자번호 : </th>
-				    	<td style=" display: none;">${tasklist.member_no }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무생성자이름 : </th>
-				    	<td style=" display: none;">${tasklist.name }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무등록일 : </th>
-				    	<td style=" display: none;">${tasklist.task_register_date }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무시작일 : </th>
-				    	<td style=" display: none;">${tasklist.task_start_date }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무종료일 : </th>
-				    	<td style=" display: none;">${tasklist.task_end_date }</td>
-				    </tr>
-					<tr>
-						<th>업무 상태 :</th>
-							<td>
-							<c:out value="발의"></c:out>
-						</td>
-					</tr>				    		
-				</table>
-				<input type="hidden" name="task_status" value="${tasklist.task_status}" />
-			</li>
-		</c:if>
-	</c:forEach>
-</ul>
-     
-<ul id="sortable1" class="sortable_list connectedSortable">
-	<c:forEach var="tasklist" items="${dto }">
-		<c:if test="${tasklist.task_status == 1}">
-			<li class="ui-state-default">								
-				<table>					
-				    <tr>				    	
-				    	<th style=" display: none;" >프로젝트 번호 : </th>
-				    	<td style=" display: none;">${tasklist.project_no }</td>
-				    </tr>
-					<tr>
-				    	<th style=" display: none;">프로젝트 제목 : </th>
-				    	<td style=" display: none;">${tasklist.project_title }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무 번호 : </th>
-				    	<td style=" display: none;">${tasklist.task_no }</td>
-				    </tr>
-				    <tr>
-				    	<th>업무 제목 : </th>
-				    	<td>${tasklist.task_title }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무생성자번호 : </th>
-				    	<td style=" display: none;">${tasklist.member_no }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무생성자이름 : </th>
-				    	<td style=" display: none;">${tasklist.name }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무등록일 : </th>
-				    	<td style=" display: none;">${tasklist.task_register_date }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무시작일 : </th>
-				    	<td style=" display: none;">${tasklist.task_start_date }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무종료일 : </th>
-				    	<td style=" display: none;">${tasklist.task_end_date }</td>
-				    </tr>
-					<tr>
-						<th>업무 상태 :</th>
-							<td>
-							<c:out value="진행"></c:out>
-							</td>
-					</tr>				    		
-				</table>
-				<input type="hidden" name="task_status" value="${tasklist.task_status}" />
-			</li>
-		</c:if>
-	</c:forEach>
-</ul>     
-     
-<ul id="sortable2" class="sortable_list connectedSortable">
-	<c:forEach var="tasklist" items="${dto }">
-		<c:if test="${tasklist.task_status == 2}">
-			<li class="ui-state-default">								
-				<table>					
-				    <tr>				    	
-				    	<th style=" display: none;" >프로젝트 번호 : </th>
-				    	<td style=" display: none;">${tasklist.project_no }</td>
-				    </tr>
-					<tr>
-				    	<th style=" display: none;">프로젝트 제목 : </th>
-				    	<td style=" display: none;">${tasklist.project_title }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무 번호 : </th>
-				    	<td style=" display: none;">${tasklist.task_no }</td>
-				    </tr>
-				    <tr>
-				    	<th>업무 제목 : </th>
-				    	<td>${tasklist.task_title }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무생성자번호 : </th>
-				    	<td style=" display: none;">${tasklist.member_no }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무생성자이름 : </th>
-				    	<td style=" display: none;">${tasklist.name }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무등록일 : </th>
-				    	<td style=" display: none;">${tasklist.task_register_date }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무시작일 : </th>
-				    	<td style=" display: none;">${tasklist.task_start_date }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무종료일 : </th>
-				    	<td style=" display: none;">${tasklist.task_end_date }</td>
-				    </tr>
-					<tr>
-						<th>업무 상태 :</th>
-							<td>
-							<c:out value="보류"></c:out>
-							</td>
-					</tr>				    							    		
-				</table>
-				<input type="hidden" name="task_status" value="${tasklist.task_status}" />
-			</li>
-		</c:if>
-	</c:forEach>
-</ul> 
+								
+								<h3>여기에 프로젝트별로 업무 보여주기</h3>
 
-<ul id="sortable3" class="sortable_list connectedSortable">
-	<c:forEach var="tasklist" items="${dto }">
-		<c:if test="${tasklist.task_status == 3}">
-			<li class="ui-state-default">								
-				<table>					
-				    <tr>				    	
-				    	<th style=" display: none;" >프로젝트 번호 : </th>
-				    	<td style=" display: none;">${tasklist.project_no }</td>
-				    </tr>
-					<tr>
-				    	<th style=" display: none;">프로젝트 제목 : </th>
-				    	<td style=" display: none;">${tasklist.project_title }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무 번호 : </th>
-				    	<td style=" display: none;">${tasklist.task_no }</td>
-				    </tr>
-				    <tr>
-				    	<th>업무 제목 : </th>
-				    	<td>${tasklist.task_title }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무생성자번호 : </th>
-				    	<td style=" display: none;">${tasklist.member_no }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무생성자이름 : </th>
-				    	<td style=" display: none;">${tasklist.name }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무등록일 : </th>
-				    	<td style=" display: none;">${tasklist.task_register_date }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무시작일 : </th>
-				    	<td style=" display: none;">${tasklist.task_start_date }</td>
-				    </tr>
-				    <tr>
-				    	<th style=" display: none;">업무종료일 : </th>
-				    	<td style=" display: none;">${tasklist.task_end_date }</td>
-				    </tr>
-					<tr>
-						<th>업무 상태 :</th>
-						<td>
-							<c:out value="완료"></c:out>
-						</td>
-					</tr>						    		
-				</table>
-				<input type="hidden" name="task_status" value="${tasklist.task_status}" />
-			</li>
-		</c:if>
-	</c:forEach>
-</ul> 
+								${dto}
+								<select id="mySelect">
+									<c:if test=""></c:if>
+									<c:forEach var="project" items="${dto }">										
+									  <option value="project.project_no">${project.project_title }</option>							
+									</c:forEach>
+								</select>
+								
+								<button id="showSelected">선택된 프로젝트 보기</button>
+								
+								<div id="result"></div>
+								
+								
+								
+							
+								<ul id="sortable0" class="sortable_list connectedSortable">							
+									<c:forEach var="tasklist" items="${dto }">																		
+										<c:if test="${tasklist.task_status == 0}">
+											<li class="ui-state-default">								
+												<table>					
+												    <tr>				    	
+												    	<th style=" display: none;" >프로젝트 번호 : </th>
+												    	<td style=" display: none;">${tasklist.project_no }</td>
+												    </tr>
+													<tr>
+												    	<th style=" display: none;">프로젝트 제목 : </th>
+												    	<td style=" display: none;">${tasklist.project_title }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무 번호 : </th>
+												    	<td style=" display: none;">${tasklist.task_no }</td>
+												    </tr>
+												    <tr>
+												    	<th>업무 제목 : </th>
+												    	<td>${tasklist.task_title }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무생성자번호 : </th>
+												    	<td style=" display: none;">${tasklist.member_no }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무생성자이름 : </th>
+												    	<td style=" display: none;">${tasklist.name }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무등록일 : </th>
+												    	<td style=" display: none;">${tasklist.task_register_date }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무시작일 : </th>
+												    	<td style=" display: none;">${tasklist.task_start_date }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무종료일 : </th>
+												    	<td style=" display: none;">${tasklist.task_end_date }</td>
+												    </tr>													
+													<tr>
+														<th>업무 상태 :</th>
+														<td>
+															<c:out value="발의"></c:out>
+														</td>
+													</tr>			    		
+												</table>
+												<input type="hidden" name="task_status" value="${tasklist.task_status}" />
+											</li>
+										</c:if>
+									</c:forEach>
+								</ul>
+								     
+								<ul id="sortable1" class="sortable_list connectedSortable">
+									<c:forEach var="tasklist" items="${dto }">
+										<c:if test="${tasklist.task_status == 1}">
+											<li class="ui-state-default">								
+												<table>					
+												    <tr>				    	
+												    	<th style=" display: none;" >프로젝트 번호 : </th>
+												    	<td style=" display: none;">${tasklist.project_no }</td>
+												    </tr>
+													<tr>
+												    	<th style=" display: none;">프로젝트 제목 : </th>
+												    	<td style=" display: none;">${tasklist.project_title }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무 번호 : </th>
+												    	<td style=" display: none;">${tasklist.task_no }</td>
+												    </tr>
+												    <tr>
+												    	<th>업무 제목 : </th>
+												    	<td>${tasklist.task_title }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무생성자번호 : </th>
+												    	<td style=" display: none;">${tasklist.member_no }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무생성자이름 : </th>
+												    	<td style=" display: none;">${tasklist.name }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무등록일 : </th>
+												    	<td style=" display: none;">${tasklist.task_register_date }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무시작일 : </th>
+												    	<td style=" display: none;">${tasklist.task_start_date }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무종료일 : </th>
+												    	<td style=" display: none;">${tasklist.task_end_date }</td>
+												    </tr>
+													<tr>
+														<th>업무 상태 :</th>
+															<td>
+															<c:out value="진행"></c:out>
+														</td>
+													</tr>				    		
+												</table>
+												<input type="hidden" name="task_status" value="${tasklist.task_status}" />
+											</li>
+										</c:if>
+									</c:forEach>
+								</ul>     
+								     
+								<ul id="sortable2" class="sortable_list connectedSortable">
+									<c:forEach var="tasklist" items="${dto }">
+										<c:if test="${tasklist.task_status == 2}">
+											<li class="ui-state-default">								
+												<table>					
+												    <tr>				    	
+												    	<th style=" display: none;" >프로젝트 번호 : </th>
+												    	<td style=" display: none;">${tasklist.project_no }</td>
+												    </tr>
+													<tr>
+												    	<th style=" display: none;">프로젝트 제목 : </th>
+												    	<td style=" display: none;">${tasklist.project_title }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무 번호 : </th>
+												    	<td style=" display: none;">${tasklist.task_no }</td>
+												    </tr>
+												    <tr>
+												    	<th>업무 제목 : </th>
+												    	<td>${tasklist.task_title }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무생성자번호 : </th>
+												    	<td style=" display: none;">${tasklist.member_no }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무생성자이름 : </th>
+												    	<td style=" display: none;">${tasklist.name }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무등록일 : </th>
+												    	<td style=" display: none;">${tasklist.task_register_date }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무시작일 : </th>
+												    	<td style=" display: none;">${tasklist.task_start_date }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무종료일 : </th>
+												    	<td style=" display: none;">${tasklist.task_end_date }</td>
+												    </tr>
+													<tr>
+														<th>업무 상태 :</th>
+															<td>
+															<c:out value="보류"></c:out>
+														</td>
+													</tr>				    							    		
+												</table>
+												<input type="hidden" name="task_status" value="${tasklist.task_status}" />
+											</li>
+										</c:if>
+									</c:forEach>
+								</ul> 
+								
+								<ul id="sortable3" class="sortable_list connectedSortable">
+									<c:forEach var="tasklist" items="${dto }">
+										<c:if test="${tasklist.task_status == 3}">
+											<li class="ui-state-default">								
+												<table>					
+												    <tr>				    	
+												    	<th style=" display: none;" >프로젝트 번호 : </th>
+												    	<td style=" display: none;">${tasklist.project_no }</td>
+												    </tr>
+													<tr>
+												    	<th style=" display: none;">프로젝트 제목 : </th>
+												    	<td style=" display: none;">${tasklist.project_title }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무 번호 : </th>
+												    	<td style=" display: none;">${tasklist.task_no }</td>
+												    </tr>
+												    <tr>
+												    	<th>업무 제목 : </th>
+												    	<td>${tasklist.task_title }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무생성자번호 : </th>
+												    	<td style=" display: none;">${tasklist.member_no }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무생성자이름 : </th>
+												    	<td style=" display: none;">${tasklist.name }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무등록일 : </th>
+												    	<td style=" display: none;">${tasklist.task_register_date }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무시작일 : </th>
+												    	<td style=" display: none;">${tasklist.task_start_date }</td>
+												    </tr>
+												    <tr>
+												    	<th style=" display: none;">업무종료일 : </th>
+												    	<td style=" display: none;">${tasklist.task_end_date }</td>
+												    </tr>
+													<tr>
+														<th>업무 상태 :</th>
+														<td>
+															<c:out value="완료"></c:out>
+														</td>
+													</tr>						    		
+												</table>
+												<input type="hidden" name="task_status" value="${tasklist.task_status}" />
+											</li>
+										</c:if>
+									</c:forEach>
+								</ul> 
+							
+ 
 							</div>
+							
 						</div>
-					</div>
-				</div>
-			</div>
+																		
+					</div>										
+					
+				</div>				
+							
+			</div>			
+			
 		</div>
+	
 	</div>
 	
 </body>

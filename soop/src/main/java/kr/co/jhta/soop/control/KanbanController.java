@@ -67,5 +67,24 @@ public class KanbanController {
 		
 	}
 	
+	@GetMapping("/tasksByProject")
+	@ResponseBody
+	public Model myTasksByProject(
+			Model model,
+			@RequestParam("project_no")int project_no,
+			@RequestParam("member_no")int member_no) {
+		return model.addAttribute("projectbytask", kanban_PTMservice.TasksByProject(project_no));
+		
+		 
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
