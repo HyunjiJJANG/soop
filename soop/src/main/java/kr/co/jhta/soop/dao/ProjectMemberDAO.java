@@ -19,6 +19,8 @@ public interface ProjectMemberDAO {
 	public ProjectMemberDTO selectOne(ProjectMemberNo pmno);
 
 	public void insertOne(ProjectMemberDTO dto);
+	
+	public void insertPM(ProjectMemberDTO dto);
 
 	public void updateOne(ProjectMemberDTO dto);
 
@@ -29,5 +31,7 @@ public interface ProjectMemberDAO {
 	public void changeAuth1(int project_no);
 	
 	public void changeAuth2(ProjectMemberNo pmno);
+	
+	public int countProjectMember(int project_no);
 
 }

@@ -18,4 +18,6 @@ public interface FeedTaskDAO {
     int totalCount(int project_no);
     
     FeedTaskDTO selectOneTaskDetailByTno(int task_no);
+    
+    int countFile(int project_no);
 }

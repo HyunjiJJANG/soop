@@ -42,4 +42,9 @@ public class ProjectMysqlService implements ProjectService {
 		
 	}
 
+	@Override
+	public String selectOneEndDate(int project_no) {
+		return dao.selectOneEndDate(project_no);
+	}
+
 }

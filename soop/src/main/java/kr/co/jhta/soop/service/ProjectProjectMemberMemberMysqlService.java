@@ -28,4 +28,9 @@ public class ProjectProjectMemberMemberMysqlService implements ProjectProjectMem
 		return dao.selectAllProjectMember(project_no);
 	}
 
+	@Override
+	public int selectRecentProject() {
+		return dao.selectRecentProject();
+	}
+
 }

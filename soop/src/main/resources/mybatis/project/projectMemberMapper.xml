@@ -16,6 +16,11 @@
 		INSERT project_member
 		VALUES (#{member_no}, #{project_no}, 1)
 	</insert>
+	
+	<insert id="insertPM" parameterType="ProjectMemberDTO">
+		INSERT project_member
+		VALUES (#{member_no}, #{project_no}, 0)
+	</insert>
 
 	<delete id="deleteOne" parameterType="ProjectMemberNo">
 		DELETE FROM project_member
@@ -31,5 +36,11 @@
 		SET member_position = 0
 		WHERE project_no=#{project_no} and member_no=#{member_no}
 	</update>
+	
+	<select id="countProjectMember" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM project_member
+		WHERE project_no = #{project_no}
+	</select>
 
 </mapper>

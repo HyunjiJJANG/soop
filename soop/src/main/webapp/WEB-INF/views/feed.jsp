@@ -174,7 +174,6 @@
 			});
 		}
 	}
-
 </script>
 </head>
 <body class="modal-open" style="overflow: hidden; padding-right: 0px;">
@@ -182,47 +181,12 @@
 	<jsp:include page="nav.jsp" />
 	<!-- [ Main Content ] start -->
 	<div class="pcoded-main-container">
-		<div class="pcoded-content" style="padding-left: 250px;">
+		<div class="pcoded-content">
 			<!-- [ Feed navigation menu ] start -->
 		    <nav class="pcoded-navbar theme-horizontal menu-light" style="position: fixed;height: 100px;">
 		        <div class="navbar-wrapper container" style="text-align: left;">
 		            <div class="navbar-content sidenav-horizontal" id="layout-sidenav">
-		            	<table>
-			                <tr>
-		                       <td> 
-		                       <ul class="nav pcoded-inner-navbar sidenav-inner">
-		                       <li class="nav-item">
-		                       <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">프로젝트명</span></a>
-		            			</li>
-		            			</ul>
-		            			</td>
-		            		</tr>
-		            	<tr>
-		            	 <td>
-		            	<ul class="nav pcoded-inner-navbar sidenav-inner">
-                    
-		                    <li class="nav-item">
-		                        <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span><span class="pcoded-mtext">일정</span></a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="chart-apex.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-address-book"></i></span><span class="pcoded-mtext">주소록</span></a>
-		                    </li>
-		                    <li class="nav-item">
-		                        <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-file-arrow-down"></i></span><span class="pcoded-mtext">첨부파일</span></a>
-		                    </li>
-
-		                </ul>
-						</td>
-		                
-		                </tr>
-		                </table>
-		                <table>
+		            <table>
                          <tr>
                              <td> 
                              <ul class="nav pcoded-inner-navbar sidenav-inner">
@@ -237,7 +201,7 @@
                      <ul class="nav pcoded-inner-navbar sidenav-inner">
                     
                           <li class="nav-item">
-                              <a href="index.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
+                              <a href="feed?project_no=${pno}&member_no=${mno}" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
                           </li>
                           <li class="nav-item">
                               <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span><span class="pcoded-mtext">일정</span></a>
@@ -260,16 +224,12 @@
 		            </div>
 		        </div>
 		    </nav>
-			<br /><br /><br /><br /><br /><br />
+			<br /><br /><br /><br /><br /><br /><br /><br />
 			<input type="hidden" id="name" name="member_name" value="${name }"/>
 			<input type="hidden" id="project_no" name="project_no" value="${project_no }"/>
-			<!-- 업무 피드 card -->
-			<div class="col-xl-6 col-md-12">
-				<div class="card table-card">
-			<br /><br /><br /><br /><br /><br /><br /><br />
 			<!-- 업무 리스트 card -->
-			<div class="col-md-8">
-				<div class="card" style="left: 100px;">	
+			<div class="col-md-6">
+				<div class="card" style="left: 0px;">	
 					<div class="card-header">
                         <button class="btn btn-primary col-md-12" type="button">
 							<i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;새 업무 작성
@@ -345,172 +305,79 @@
                     </div>
                 </div>
             </div>
-	                
-			<!-- project member start -->
-	        <div class="col-xl-2 col-md-12" style="position: fixed; top: 200px; right: 100px;">
-	            <div class="card table-card">
-	                <div class="card-header">
-	                    <h5>참여자</h5>
-	                    <div class="card-header-right">
-	                        <div class="btn-group card-option">
-			                    <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			                        <i class="feather icon-more-horizontal"></i>
-			                    </button>
-	                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-	                                <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li>
-	                                <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
-	                            </ul>
-	                        </div>
-	                    </div>
-                	</div>
-                    <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table mb-0" >
-                                <thead style="border-color: transparent;">
-                                    <tr>
-                                        <td>
-                                        	<div class="row m-b-0"><h4>업무 이름</h4></div>
-                                        </td>
-                                    </tr>
-                                </thead>
-                                <tbody style="border-color: transparent;">
-                                	<tr>
-                                		<td>
-                                			<i class="fa-solid fa-chart-simple"></i>
-                                			&nbsp;&nbsp;
-											<div class="btn-group btn-group-toggle" data-toggle="buttons">
-												<label class="btn btn-outline-info btn-sm active" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option1" checked>발의</label>
-												&nbsp;&nbsp;&nbsp;
-												<label class="btn btn-outline-success btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option2">진행</label>
-												&nbsp;&nbsp;&nbsp;
-												<label class="btn btn-outline-warning btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option3">검토</label>
-												&nbsp;&nbsp;&nbsp;
-												<label class="btn btn-outline-secondary btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option4">완료</label>
-												&nbsp;&nbsp;&nbsp;
-												<label class="btn btn-outline-danger btn-sm" style="border-radius: 10px;">
-												<input type="radio" name="options" id="option5">보류</label>
-											</div>
-                                		</td>
-                                	</tr>
-                                    <tr>
-                                    	<td><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;0000/00/00부터&nbsp;&nbsp;&nbsp;0000/00/00까지</td>
-                                    </tr>
-                                    <tr style="border-bottom: #DEE2E6;">
-                                    	<td>
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    		냉무 <br />
-                                    	</td>
-                                    </tr>
-                                </tbody>
-                                <tfoot style="border-color: transparent;">
-                                	<tr>
-                                		<td>
-											<div class="input-group m-t-0">
-												<div class="col-auto p-r-0">
-													<img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
-												</div>
-												&nbsp;&nbsp;&nbsp;
-												<input type="text" name="" class="form-control" id="comment" placeholder="댓글을 입력하세요.">
-												<div class="input-group-append">
-													<button class="btn btn-primary"><i class="fa-regular fa-paper-plane"></i></button>
-												</div>
-                       						</div>
-                                		</td>
-                                	</tr>
-                                	<!-- 댓글 입력하면 여기에 append -->
-                                	<tr>
-                                		<td>
-                                			<div class="row m-b-0">
-												<div class="col-auto p-r-0">
-													<img src="assets/images/user/avatar-2.jpg" alt="user image" class="img-radius wid-40">
-												</div>
-												<div class="col">
-													<p class="text-muted m-b-0">작성자&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o m-r-10"></i>작성시간</p>
-													<p class="m-b-0">Nice to meet you!</p>
-												</div>
-                       						</div>
-                                		</td>
-                                	</tr>
-                                	<tr>
-                                		<td>
-                                			<div class="row m-b-0">
-												<div class="col-auto p-r-0">
-													<img src="assets/images/user/avatar-3.jpg" alt="user image" class="img-radius wid-40">
-												</div>
-												<div class="col">
-													<p class="text-muted m-b-0">작성자&nbsp;&nbsp;&nbsp;<i class="fa fa-clock-o m-r-10"></i>작성시간</p>
-													<p class="m-b-0">Nice to meet you too!</p>
-												</div>
-                       						</div>
-                                		</td>
-                                	</tr>
-                                </tfoot>
-                            </table>
+            
+        <!-- 업무 현황 -->
+        <div class="col-md-3" style="position: fixed; top: 193px; right: 360px;">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>업무 현황</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="pie-chart-2" style="width:100%">
+                        	
                         </div>
                     </div>
                 </div>
             </div>
-
-
-		<!-- buttons -->            
-		<div class="col-xl-2 col-md-12" style="position: fixed; top: 172px; right: 300px;">
-			<button class="btn btn-primary col-md-12" type="button" data-bs-toggle="modal" data-bs-target="#insertModal">
-				<i class="fa-solid fa-pen-to-square" style="color: #fff;"></i>&nbsp;&nbsp;업무 생성
-			</button> <br />
-		      </div>
-	                <div class="card-body p-0">
-	                    <div class="table-responsive">
-	                        <table class="table table-hover mb-0">
-	                            <tbody>
-	                            	<c:forEach var="pjmemberList" items="${pjmemberList}">
-	                                <tr>
-	                                    <td>
-	                                        <div class="d-inline-block align-middle">
-	                                            <img src="${pjmemberList.profile_path}" alt="user image" class="img-radius wid-40 align-top m-r-15">
-	                                            <div class="d-inline-block">
-	                                                <h6>${pjmemberList.name}</h6>
-	                                                <c:if test="${pjmemberList.member_position eq '0'}">
-		                                                <p class="text-muted m-b-0">프로젝트 관리자</p>                                                
-	                                                </c:if>
-	                                                <c:if test="${pjmemberList.member_position eq '1'}">
-		                                                <p class="text-muted m-b-0">프로젝트 멤버</p>                                                
-	                                                </c:if>
-	                                            </div>
-	                                        </div>
-	                                    </td>
-	                                </tr>
-	                                </c:forEach>
-	                            </tbody>
-	                            <tfoot>
-	                            	<tr>
-	                            		<td style="text-align: center;">
-	                                       <a href="#"><i class="fa-solid fa-user-plus" style="color: #1abc9c;"></i>&nbsp;&nbsp;새 멤버 초대</a>
-	                            		</td>
-	                            	</tr>
-	                            </tfoot>
-	                        </table>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-		</div> 
+            
+          <!-- 프로젝트 통계 -->  
+             <div class="col-md-3 col-xl-3" style="position: fixed; top: 640px; right: 360px;">
+                <div class="card flat-card">
+                <div class="card-header">
+                        <h5>프로젝트 통계</h5>
+                    </div>
+                    <div class="row-table">
+                        <div class="col-sm-6 card-body br">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="fa-regular fa-user" style="color: #f6cf0f; font-size: 30px;"></i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>${countProjectMember}명</h5>
+                                    <span>참여 중인 인원</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 card-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="fa-regular fa-calendar" style="color: #e74c3c; font-size: 30px;"></i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>${countDays}일</h5>
+                                    <span>D-Day</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-table">
+                        <div class="col-sm-6 card-body br">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="fa-solid fa-briefcase" style="color: brown; font-size: 30px;"></i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>${countTask}개</h5>
+                                    <span>작성된 업무</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 card-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <i class="icon feather icon-file-text text-c-blue mb-1 d-block"></i>
+                                </div>
+                                <div class="col-sm-8 text-md-center">
+                                    <h5>${countFile}개</h5>
+                                    <span>업로드된 파일</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+	                
 		<!-- project member start -->
-        <div class="col-xl-2 col-md-12" style="position: fixed; top: 230px; right: 300px;">
+        <div class="col-xl-2 col-md-12" style="position: fixed; top: 193px; right: 30px;">
             <div class="card table-card">
                 <div class="card-header">
                     <h5>참여자</h5>
@@ -582,37 +449,42 @@
             </div>
         </div>
 	</div>
-
+</div>
 	
 	<!-- 새 멤버 추가 modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">파트너 초대하기</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="email" class="col-form-label">초대할 이메일</label>
-            <input type="text" class="form-control" id="email"  placeholder="example@soop.team">
-          </div>
-		<div class="col-6" id="idCheck">
-			
-		</div>
-		  <div class="mb-3">
-            <label for="message" class="col-form-label">초대내용 입력</label>
-            <textarea class="form-control" id="inviteMessage"></textarea>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="btnInvitation" >파트너 초대하기</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-      </div>
-    </div>
-  </div>
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="exampleModalLabel">파트너 초대하기</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <form>
+	          <div class="mb-3">
+	            <label for="email" class="col-form-label">초대할 이메일</label>
+	            <input type="text" class="form-control" id="email"  placeholder="example@soop.team">
+	          </div>
+			<div class="col-6" id="idCheck">
+				
+			</div>
+			  <div class="mb-3">
+	            <label for="message" class="col-form-label">초대내용 입력</label>
+	            <textarea class="form-control" id="inviteMessage"></textarea>
+	          </div>
+	        </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" id="btnInvitation" >파트너 초대하기</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	      </div>
+	    </div>
+	  </div>
 </div>
+
+<script src="assets/js/plugins/apexcharts.min.js"></script>
+<script src="assets/js/pages/chart-apex.js"></script>
+
+	
 </body>
 </html>

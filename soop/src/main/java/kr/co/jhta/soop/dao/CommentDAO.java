@@ -27,13 +27,13 @@ public interface CommentDAO {
     // 댓글 목록
     public List<CommentDTO> commentList(int task_no) throws Exception;
  
-    // 댓글 작성
-    public int commentInsert(CommentDTO dto) throws Exception;
-    
-    // 댓글 수정
-    public int commentUpdate(CommentDTO dto) throws Exception;
- 
-    // 댓글 삭제
-    public int commentDelete(int comment_no) throws Exception;
+//    // 댓글 작성
+//    public int commentInsert(CommentDTO dto) throws Exception;
+//    
+//    // 댓글 수정
+//    public int commentUpdate(CommentDTO dto) throws Exception;
+// 
+//    // 댓글 삭제
+//    public int commentDelete(int comment_no) throws Exception;
  
 }

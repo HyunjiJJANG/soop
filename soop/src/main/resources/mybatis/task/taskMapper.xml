@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.jhta.soop.dao.TaskDAO">
+	<select id="countTask" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		FROM task
+		WHERE project_no = #{project_no}
+	</select>
+	
+	<select id="updateFavorite" parameterType="int">
+		UPDATE task_favorite
+		SET favorite = 1
+		WHERE task_no = #{task_no}
+	</select>
+</mapper>

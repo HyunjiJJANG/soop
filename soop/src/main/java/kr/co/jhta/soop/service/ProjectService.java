@@ -14,4 +14,6 @@ public interface ProjectService {
 	public void updateOne(ProjectDTO dto);
 
 	public void deleteOne(int project_no);
+	
+	public String selectOneEndDate(int project_no);
 }

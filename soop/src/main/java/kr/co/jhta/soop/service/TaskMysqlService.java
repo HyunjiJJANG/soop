@@ -44,4 +44,15 @@ public class TaskMysqlService implements TaskService{
 		
 	}
 
+	@Override
+	public int countTask(int project_no) {
+		return dao.countTask(project_no);
+	}
+
+	@Override
+	public void updateFavorite(int task_no) {
+		dao.updateFavorite(task_no);
+		
+	}
+
 }

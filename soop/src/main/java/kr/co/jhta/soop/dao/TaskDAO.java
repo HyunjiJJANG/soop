@@ -21,5 +21,7 @@ public interface TaskDAO {
 
 	public void deleteOne(int task_no);
 
+	public int countTask(int project_no);
 	
+	public void updateFavorite(int task_no);
 }

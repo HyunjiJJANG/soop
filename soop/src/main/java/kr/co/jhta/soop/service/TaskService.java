@@ -18,4 +18,7 @@ public interface TaskService {
 
 	
 
+	public int countTask(int project_no);
+	
+	public void updateFavorite(int task_no);
 }
