@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.soop.dto.ProjectDTO;
 import kr.co.jhta.soop.dto.ProjectMemberDTO;
@@ -40,7 +41,8 @@ public class ProjectController {
 	
 	// side nav의 프로젝트 생성 버튼 누르면 프로젝트 생성하기
 	@PostMapping("/createProject")
-	public String addProject(@RequestParam("project_title")String project_title,
+	@ResponseBody
+	public int addProject(@RequestParam("project_title")String project_title,
 						 	 @RequestParam("project_description")String project_description,
 						 	 @RequestParam("project_start_date")String project_start_date,
 						 	 @RequestParam("project_end_date")String project_end_date,
@@ -55,13 +57,13 @@ public class ProjectController {
 		
 		int member_no = (int)session.getAttribute("member_no");
 		int project_no = projectProjectMemberMemberService.selectRecentProject();
-		
+
 		ProjectMemberDTO projectMemberDto = new ProjectMemberDTO();
 		projectMemberDto.setMember_no(member_no);
 		projectMemberDto.setProject_no(project_no);
 		projectMemberService.insertPM(projectMemberDto);
 		
-		return "redirect:feed?project_no="+project_no+"&member_no="+member_no; // 생성 완료하면 해당 프로젝트의 피드로 이동
+		return project_no; // 생성 완료하면 해당 프로젝트의 피드로 이동
 	}
 	
 	// 프로젝트에 멤버 강퇴 클릭시 멤버 삭제

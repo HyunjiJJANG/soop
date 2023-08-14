@@ -57,6 +57,75 @@ $(function(){
 	});
 })
 
+function createProject(event) {
+    const searchParams = new URLSearchParams(window.location.search);
+    const member_no = searchParams.get('member_no');
+    var project_title = $("#project_title").val().trim();
+    var project_start_date = $("#project_start_date").val().trim();
+    var project_end_date = $("#project_end_date").val().trim();
+    var project_description = $("#project_description").val().trim();
+    if (project_title == "" || project_start_date == "" || project_end_date == "" || project_description == "") {
+        alert("내용을 입력해주세요.");
+    } else {
+        $.ajax({
+            type: "post",
+            url: "createProject",
+            data: {
+                "project_title": project_title,
+                "project_start_date": project_start_date,
+                "project_end_date": project_end_date,
+                "project_description": project_description
+            },
+            dataType: "text",
+            success: function(response) {
+            	console.log(response);
+            	// var project_no = response.project_no;
+            	// console.log(project_no);
+                alert("프로젝트가 생성되었습니다.");
+                closeModal();
+                window.location.href = "/feed?project_no=" + response + "&member_no=" + member_no;
+            }
+        });
+    }
+}
+
+function closeModal() {
+    $("#createProjectModal").removeClass("show");
+    $("#createProjectModal").hide();
+}
+
+/* function createProject(event){
+	const searchParams = new URLSearchParams(window.location.search);
+	const member_no = searchParams.get('member_no');
+	var project_title = $("#project_title").val().trim();
+	var project_start_date = $("#project_start_date").val().trim();
+	var project_end_date = $("#project_end_date").val().trim();
+	var project_description = $("#project_description").val().trim();
+	if(project_title == "" || project_start_date == "" || project_end_date == "" || project_description == ""){
+		alert("내용을 입력해주세요.");
+	}else{
+		$.ajax({
+			type: "post",
+			url: "createProject",
+			data: {
+				"project_title": project_title,
+				"project_start_date": project_start_date,
+				"project_end_date": project_end_date,
+				"project_description": project_description
+			}
+		});
+		alert("프로젝트가 생성되었습니다.");
+		if ($(event.target).hasClass("btn-primary")){
+			closeModal();
+		}
+		window.location.href = "/feed?project_no="+project_no+"&member_no="+member_no;
+	}
+    function closeModal() {
+        $("#createProjectModal").removeClass("show");
+        $("#createProjectModal").hide();
+    }
+}
+ */
 </script>
 </head>
 <body>
@@ -263,7 +332,6 @@ $(function(){
 					<h4 class="modal-title">새 프로젝트 생성</h4>
 					<button type="button" class="close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 				</div>
-				<form action="createProject" method="post">
 					<div class="modal-body">
 						<table class="table">
 							<tr>
@@ -294,10 +362,9 @@ $(function(){
 						</table>
 					</div>
 					<div class="modal-footer">
-						<input type="submit" class="btn btn-primary" id="btnCreateProject" value="프로젝트 생성">
+						<input type="button" class="btn btn-primary" id="btnCreateProject" onclick="createProject();" value="프로젝트 생성">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>			
 					</div>
-				</form>
 			</div>
 		</div>
 	</div>
