@@ -331,6 +331,19 @@
 		}
 	  })
 	}
+  
+
+// 관심업무 해제하기
+function deleteFavorite(task_no){	
+		console.log("관심업무 해제 클릭");
+			$.ajax({
+				type: "GET",
+				url: "/deleteFavoriteOne",
+				data: {
+					"task_no" : task_no,
+				}
+			});
+}
 </script>
 </head>
 <body>
@@ -513,7 +526,7 @@
                                 	<c:forEach var="tdto" items="${taskList}">
                                     <tr>
                                         <td>
-                                            <i class="fa-solid fa-star" style="color: #78C2AD;"></i>
+                                        <a href="" onclick="deleteFavorite(${tdto.task_no})" ><i class="fa-solid fa-star" style="color: #78C2AD;"></i></a>
                                         </td>
                                         <td>
                                             <div class="d-inline-block align-middle">

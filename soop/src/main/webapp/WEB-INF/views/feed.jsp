@@ -309,15 +309,6 @@
 														</c:forEach>
 														        </c:otherwise>
 														    </c:choose>
-											            
-											             <%-- <c:forEach begin="${pagenation.startPage }" end="${pagenation.endPage }" var="pageNum">
-											                 <c:if test="${empty pageNum}">
-											                 	<i class="fa-solid fa-circle" style="color:#78C2AD; font-size:5px;"></i>
-											                 </c:if>
-											                 <li>
-											                    <a href='<c:url value="/feed?project_no=${pno}&member_no=${mno}&page=${pageNum }"/>'><i class="fa">${pageNum }</i></a>&nbsp;&nbsp;
-											                </li>
-											            </c:forEach> --%>
 											            <c:if test="${pagenation.next && pagenation.endPage >0 }">
 											                <li>
 											                     <a href='<c:url value="/feed?project_no=${pno}&member_no=${mno}&page=${pagenation.endPage+1 }"/>'><i class="fa fa-chevron-right"></i></a>

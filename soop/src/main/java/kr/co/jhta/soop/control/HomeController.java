@@ -23,6 +23,7 @@ import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.MemoService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.TaskMemberFileService;
+import kr.co.jhta.soop.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -43,22 +44,9 @@ public class HomeController {
 	@Autowired
 	TaskMemberFileService taskMemberFileService;
 	
-	// 홈화면 처음 들어갈 때 프로젝트,파일함,메모,캘린더,관심업무 보여주기
-//	@GetMapping("/home")
-//	public String showHome(@RequestParam("member_no")int member_no, Model model,
-//			 Authentication auth, RedirectAttributes redirectAttributes) {
-//		log.info("member_no" + member_no);
-//		
-//		String email = auth.getName();
-//		MemberDTO memberDto = memberService.selectMemberByEmail(email);
-//		//model.addAttribute("memberDTO", memberService.selectOne(member_no));
-//		model.addAttribute("memberDTO", memberDto);
-//		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
-//		model.addAttribute("memoDTO", memoService.selectOne(member_no));
-//		model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));
-//		return "home";
-//	}
-//	
+	@Autowired
+	TaskService taskService;
+	
 	// 메모 수정
 	@PostMapping("/home")
 	public String saveMemo(@RequestParam("member_no")int member_no,
@@ -137,5 +125,13 @@ public class HomeController {
 		return b; // b를 리턴해주면서 파일이 전송됨
 
 	} // download() end
+	
+	// 관심업무 삭제
+	@GetMapping("/deleteFavoriteOne")
+	public void deleteFavoriteOne(@RequestParam("task_no")int task_no) {
+		taskService.deleteOne(task_no);
+		
+	}
+	
 	
 } // class end

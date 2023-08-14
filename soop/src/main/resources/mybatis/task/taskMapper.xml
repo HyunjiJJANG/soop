@@ -15,4 +15,9 @@
 		SET favorite = 1
 		WHERE task_no = #{task_no}
 	</select>
+	<update id="deleteOne" parameterType="int">
+		UPDATE task_favorite
+		SET favorite = 0
+		WHERE task_no = #{task_no}
+	</update>
 </mapper>
