@@ -258,7 +258,7 @@ function validation() {
 												id="validationTooltipUsername"
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="password">비밀번호</label>
-											<div class="invalid-feedback">비밀번호는
+											<div class="invalid-feedback " style="width: 400px;">비밀번호는
 												8자 이상으로 영어 대,소문자와 숫자 특수문자를 포함하여 입력해주세요</div>
 										</div>
 									</div>
@@ -279,7 +279,7 @@ function validation() {
 												class="form-control"
 												aria-describedby="validationTooltipUsernamePrepend" required>
 											<label for="repeatPw">비밀번호 확인</label>
-											<div class="invalid-feedback">비밀번호와 동일하지 않습니다.</div>
+											<div class="invalid-feedback" style="width: 400px;">비밀번호와 동일하지 않습니다.</div>
 										</div>
 									</div>
 								</div>

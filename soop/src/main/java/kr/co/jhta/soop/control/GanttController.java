@@ -13,6 +13,7 @@ import kr.co.jhta.soop.dto.MemberProjectProject_MemberDTO;
 import kr.co.jhta.soop.dto.ProjectTaskMemberDTO;
 import kr.co.jhta.soop.service.MemberProjectProject_MemberService;
 import kr.co.jhta.soop.service.MemberService;
+import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
 import kr.co.jhta.soop.service.ProjectTaskMemberService;
 
@@ -26,6 +27,9 @@ public class GanttController {
 	MemberProjectProject_MemberService MPPservice;
 	
 	@Autowired
+	ProjectProjectMemberMemberService projectProjectMemberMemberService;
+	
+	@Autowired
 	ProjectTaskMemberService PTMservice;
 	
 	@Autowired
@@ -35,6 +39,9 @@ public class GanttController {
 	public String myProject(
 			Model model,
 			@RequestParam("member_no")int member_no) { // @RequestParam("member_no")int member_no 추가하기 -1
+				
+		// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
+				model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 				
 		model.addAttribute("no", member_no); // test 후 member_no 로변경하기 -2
 		model.addAttribute("memberDTO", memberService.selectOne(member_no));

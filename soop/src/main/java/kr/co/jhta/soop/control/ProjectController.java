@@ -44,7 +44,8 @@ public class ProjectController {
 						 	 @RequestParam("project_description")String project_description,
 						 	 @RequestParam("project_start_date")String project_start_date,
 						 	 @RequestParam("project_end_date")String project_end_date,
-						 	 HttpSession session) {
+						 	 HttpSession session,
+						 	 @RequestParam("member_no")int member_no) {
 		
 		ProjectDTO projectDto = new ProjectDTO();
 		projectDto.setProject_title(project_title);
@@ -53,7 +54,7 @@ public class ProjectController {
 		projectDto.setProject_end_Date(project_end_date);
 		projectService.insertOne(projectDto);
 		
-		int member_no = (int)session.getAttribute("member_no");
+		//int member_no = (int)session.getAttribute("member_no");
 		int project_no = projectProjectMemberMemberService.selectRecentProject();
 		
 		ProjectMemberDTO projectMemberDto = new ProjectMemberDTO();

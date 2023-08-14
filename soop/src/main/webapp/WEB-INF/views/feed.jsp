@@ -210,7 +210,7 @@
                               <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
                           </li>
                           <li class="nav-item">
-                              <a href="chart-apex.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-address-book"></i></span><span class="pcoded-mtext">주소록</span></a>
+                              <a href="contact?email=${memberDTO.email }&project_no=${pno}&member_no=${mno}" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-address-book"></i></span><span class="pcoded-mtext">주소록</span></a>
                           </li>
                           <li class="nav-item">
                               <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-file-arrow-down"></i></span><span class="pcoded-mtext">첨부파일</span></a>
@@ -264,7 +264,7 @@
 	                                        </td>
 	                                        <td width="50">
 	                                        	<div class="input-group" style="width: 100px; border: 1px solid #78C2AD; border-radius: 30px;">
-	                                        		<img src="${feedListDTO.profile_path}" alt="user image" class="img-radius wid-30">&nbsp;&nbsp;&nbsp;
+	                                        		<img src="/data/${feedListDTO.profile_name}" alt="user image" class="img-radius wid-30"/>&nbsp;&nbsp;&nbsp;
 	                                    			<span style="padding-top:3px;">${feedListDTO.name}</span>
                                     			</div>
 	                                        </td>
@@ -321,7 +321,7 @@
             </div>
             
           <!-- 프로젝트 통계 -->  
-             <div class="col-md-3 col-xl-3" style="position: fixed; top: 640px; right: 360px;">
+             <div class="col-md-3 col-xl-3" style="position: fixed; top: 620px; right: 360px;">
                 <div class="card flat-card">
                 <div class="card-header">
                         <h5>프로젝트 통계</h5>
@@ -419,7 +419,7 @@
                                                 </c:otherwise>
                                         </c:choose>
                                         <div class="d-inline-block align-middle">
-                                            <img src="${dto.profile_path}" alt="user image" class="img-radius wid-40 align-top m-r-15">
+                                            <img src="/data/${dto.profile_name}" alt="user image" class="img-radius wid-40 align-top m-r-15">
                                             <div class="d-inline-block">
 													<h6>${dto.name }</h6>
 												<c:choose>

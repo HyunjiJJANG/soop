@@ -7,7 +7,7 @@
 
 	<!-- task 리스트 불러오기 -->
 	<select id="selectAllTaskListByPno" resultType="kr.co.jhta.soop.dto.FeedTaskDTO" parameterType="kr.co.jhta.soop.util.Criteria">
-			SELECT t.task_no, t.task_title, t.task_register_date, t.task_status, m.name, m.profile_path
+			SELECT t.task_no, t.task_title, t.task_register_date, t.task_status, m.name, m.profile_path, m.profile_name
 			FROM task t
 			INNER JOIN project p ON t.project_no = p.project_no
 			INNER JOIN member m ON t.member_no = m.member_no

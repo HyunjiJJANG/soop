@@ -148,8 +148,11 @@ public class InvitationController {
 					pmdto.setProject_no(project_no);
 					projectMemberService.insertOne(pmdto);
 					
-					return "redirect:/clogin";
+					return "redirect:/";
 					
+				}else {
+					
+					return "redirect:/register";
 				}
 			}else { //입력한 초대코드와 프로젝트 초대코드 테이블에 들어있는 초대코드가 일치하지 않으면 회원가입 페이지로
 				

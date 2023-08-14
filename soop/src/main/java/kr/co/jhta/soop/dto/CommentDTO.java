@@ -19,6 +19,7 @@ public class CommentDTO {
 	
 	private String name;
 	private String profile_path;
+	private String profile_name;
 
 }
 

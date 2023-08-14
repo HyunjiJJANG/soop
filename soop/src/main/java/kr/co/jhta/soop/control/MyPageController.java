@@ -28,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.jhta.soop.dto.MemberDTO;
 import kr.co.jhta.soop.dto.MemberProjectMemberDTO;
 import kr.co.jhta.soop.service.MemberService;
+import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
+import kr.co.jhta.soop.service.ProjectService;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -39,6 +41,14 @@ public class MyPageController {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	ProjectProjectMemberMemberService projectProjectMemberMemberService;
+
+	@Autowired
+	ProjectService projectService;
+
+	
 
 	// 마이페이지 리스트
 	@GetMapping("/mypage")
@@ -47,18 +57,23 @@ public class MyPageController {
 
 		if (member_no == 0 || email == null) {
 
-			return "redirect:/clogin";
+			return "redirect:/";
 
 		} else {
 			MemberDTO memberDto = memberService.selectMemberByEmail(email);
 			int enabled = memberDto.getEnabled();
 			if(enabled == 1) {
-			
+				// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
+				model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+
 
 			model.addAttribute("memberDTO", memberDto);
 			return "mypage";
 
 		}else {
+			// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
+			model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+
 			model.addAttribute("memberDTO", memberDto);
 			return "mypageOauth2";
 		}
@@ -104,6 +119,11 @@ public class MyPageController {
 
 		MemberDTO memberDto = memberService.selectMemberByEmail(email);
 		model.addAttribute("memberDTO", memberDto);
+		int member_no = memberDto.getMember_no();
+		// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
+		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+
+				
 
 		return "mypagePasswordCheckOk";
 	}
@@ -116,6 +136,11 @@ public class MyPageController {
 		MemberDTO memberDto = memberService.selectMemberByEmail(email);
 		model.addAttribute("memberOauth2Dto", memberDto);
 
+		
+		// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
+		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+
+		
 		return "mypagePasswordCheckOk";
 	}
 
@@ -210,7 +235,11 @@ public class MyPageController {
 				memberDto.setEmail(email);
 
 				// member테이블 프로필 업로드 후 업데이트
+				int member_no = memberDto.getMember_no();
+				// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
+				model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 
+				
 				memberService.updateOneProfile(memberDto);
 				return ResponseEntity.ok("프로필 사진이 성공적으로 업로드되었습니다!");
 			} catch (Exception e) {

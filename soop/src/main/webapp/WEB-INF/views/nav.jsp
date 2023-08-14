@@ -284,7 +284,7 @@ $(function(){
 					<h4 class="modal-title">새 프로젝트 생성</h4>
 					<button type="button" class="close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
 				</div>
-				<form action="createProject" method="post">
+				<form action="createProject?member_no=${memberDTO.member_no }" method="post">
 					<div class="modal-body">
 						<table class="table">
 							<tr>

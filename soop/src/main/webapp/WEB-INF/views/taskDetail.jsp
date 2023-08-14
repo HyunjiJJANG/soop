@@ -77,7 +77,7 @@
                               <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
                           </li>
                           <li class="nav-item">
-                              <a href="chart-apex.html" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-address-book"></i></span><span class="pcoded-mtext">주소록</span></a>
+                              <a href="contact?email=${memberDTO.email }&project_no=${pno}&member_no=${mno}" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-address-book"></i></span><span class="pcoded-mtext">주소록</span></a>
                           </li>
                           <li class="nav-item">
                               <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-file-arrow-down"></i></span><span class="pcoded-mtext">첨부파일</span></a>
@@ -98,7 +98,7 @@
 				<div class="card table-card" style="left: 250px;">
 					<div class="card-header">
 						<div class="d-inline-block align-middle">
-							<img src="${feedTaskDTO.profile_path}" alt="user image" class="img-radius wid-40 align-top m-r-15">
+							<img src="/data/${feedTaskDTO.profile_name}" alt="user image" class="img-radius wid-40 align-top m-r-15">
 							<div class="d-inline-block" style="position: absolute; top: 35%;">
 								<span style="font-size: 15px; font-weight: bold;">${feedTaskDTO.name}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;								
 								<span style="font-size: 15px;"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_register_date}</span>
@@ -211,7 +211,8 @@
 			                                		<td colspan="2">
 			                                			<div class="row m-b-0">
 															<div class="col-auto p-r-0">
-																<img src="${commentDTO.profile_path}" alt="user image" class="img-radius wid-40">
+																<img src="/data/${commentDTO.profile_name}" alt="user image" class="img-radius wid-40">
+																
 															</div>
 															<div class="col">
 																<c:choose>

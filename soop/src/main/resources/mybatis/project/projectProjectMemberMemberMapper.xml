@@ -5,9 +5,9 @@
 
 
 <mapper namespace="kr.co.jhta.soop.dao.ProjectProjectMemberMemberDAO">
-<<<<<<< HEAD
 
-=======
+
+
 	<select id="selectRecentProject" resultType="int">
 		SELECT p.project_no
 		FROM project p
@@ -15,7 +15,7 @@
 		LIMIT 1
 	</select>
 	
->>>>>>> refs/remotes/origin/Jhyuk
+
 	<select id="selectAllProjectTitle" parameterType="int" resultType="kr.co.jhta.soop.dto.ProjectProjectMemberMemberDTO">
 		SELECT p.project_no, p.project_title, p.project_start_date, p.project_end_date, p.project_status, m.member_no, m.name
 		FROM project p
@@ -25,7 +25,7 @@
 	</select>
 
 	<select id="selectAllProjectMember" parameterType="int" resultType="kr.co.jhta.soop.dto.ProjectProjectMemberMemberDTO">
-		SELECT p.project_no, p.project_status, pm.member_no, pm.member_position, m.name, m.profile_path
+		SELECT p.project_no, p.project_status, pm.member_no, pm.member_position, m.name, m.profile_path, m.profile_name
 		FROM project p
 		JOIN project_member pm
 		ON p.project_no = pm.project_no

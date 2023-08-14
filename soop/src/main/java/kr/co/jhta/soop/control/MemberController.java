@@ -175,22 +175,23 @@ public class MemberController {
 		String result = "";
 		// 소셜 로그인 회원 비밀번호 찾기 막기 위한 코드
 		MemberDTO memberdto = memberService.selectMemberByEmail(email);
+		
 
 		if (memberdto == null) {
 			String message = "SOOP 회원가입이 되어있지 않습니다. 회원가입 후 서비스 이용이 가능합니다.";
 			redirectAttributes.addFlashAttribute("message", message);
-			return "redirect:/clogin";
+			return "redirect:/";
 		} else {
 			int enabled = memberdto.getEnabled();
 			if (enabled == 2) {
 				redirectAttributes.addFlashAttribute("message", "소셜 로그인 회원입니다. 비밀번호 찾기가 불가능합니다."); // 리다이렉트 전에 안내 문구를 전달
-				return "redirect:/clogin";
+				return "redirect:/";
 
 			} else {
 
 				if (email == null || authCode == null) {
 					redirectAttributes.addFlashAttribute("message", "이메일 또는 이메일 인증 코드가 입력되지 않았습니다.");
-					return "redirect:/clogin";
+					return "redirect:/";
 
 				} else if (email != null && authCode != null) {
 
@@ -208,12 +209,12 @@ public class MemberController {
 
 						} else {
 
-							return "redirect:/clogin";
+							return "redirect:/";
 
 						}
 
 					} else {
-						return "redirect:/clogin";
+						return "redirect:/";
 
 					}
 
@@ -259,8 +260,9 @@ public class MemberController {
 		memberDto.setPassword(passwordEncoder.encode(password));
 		memberService.insertOne(memberDto);
 
+		
 		ProjectInvitationDTO projectInvitationdto = projectInvitationService.selectOneByEmail(email);
-
+		log.info("회원 가입후 넘어온 프로젝트 초대 dto : "+projectInvitationdto);
 		if (projectInvitationdto != null) {
 
 			MemberDTO memberdto = memberService.selectMemberByEmail(email);
@@ -278,7 +280,7 @@ public class MemberController {
 
 		}
 		redirectAttributes.addFlashAttribute("message", "회원가입이 완료되었습니다. 감사합니다.");
-		return "redirect:/clogin";
+		return "redirect:/";
 	}
 
 	// 회원 가입시 이메일 중복체크를 위한 mapping

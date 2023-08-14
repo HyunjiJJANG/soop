@@ -10,34 +10,57 @@
 <meta charset="UTF-8">
 <title>주소록</title>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+<script src="https://kit.fontawesome.com/a613319909.js"
+	crossorigin="anonymous"></script>
+
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="" />
+<meta name="keywords" content="">
+<meta name="author" content="Phoenixcoded" />
+<!-- Favicon icon -->
+<link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+
+<!-- vendor css -->
+<link rel="stylesheet" href="assets/css/style.css">
+
 <link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
-	rel="stylesheet">
+	href="https://code.jquery.com/ui/1.12.1/themes/ui-lightness/jquery-ui.css"
+	rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+	integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- 폰트 적용 -->
-<link rel="stylesheet" type="text/css" href="/css/hhj.css">
-
-<!-- AJAX -->
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-
-<!-- 부트스트랩 cdn -->
+	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+	crossorigin="anonymous"></script>
+<!-- jquery -->
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
 	crossorigin="anonymous">
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
-	crossorigin="anonymous"></script>
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
 	integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -49,54 +72,23 @@
 
 
 
+
 <!-- css -->
 
 <style>
-html, body {
-	height: 100%;
-}
-
-.global-container {
-	margin-top: 100px;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: #ffffff;
-}
-
 form {
 	padding-top: 10px;
 	font-size: 14px;
 	margin-top: 20px;
 }
 
-.card-title {
-	font-weight: 300;
-}
-
 .form-floating {
 	margin-top: 10px;
-}
-
-.mypage-form {
-	width: 900px;
-	margin: 20px;
 }
 
 .sign-in {
 	text-align: center;
 	padding: 20px 0 0;
-}
-
-.card {
-	--bs-card-border-color: rgb(0 0 0/ 0%);
-}
-
-.card-body {
-	flex: 1 1 auto;
-	padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
-	color: var(--bs-card-color);
 }
 
 .join-label-title {
@@ -162,16 +154,18 @@ form {
 #profileCard {
 	text-align: left;
 	align-items: center;
-	 height: 500px; 
-  overflow-y: auto; 
-  
+	margin-right: 100px;
+	width: 700px;
+	height: 400px;
+	overflow-y: auto;
 }
 /* 검색창  */
 #searchDiv {
 	position: relative;
 	width: 200px;
-	margin-left: 660px;
+	margin-left: 1000px;
 	margin-top: 50px;
+	margin-bottom: 50px;
 }
 
 #searchInput {
@@ -226,6 +220,11 @@ form {
 #searchInput:focus ~ #searchSpan, #searchInput:valid ~ #searchSpan {
 	width: 100%;
 }
+
+.search-result-container {
+	margin-left: 100px;
+	/* margin:auto; */
+}
 </style>
 
 <script type="text/javascript">
@@ -269,14 +268,13 @@ form {
 										str += '</div>';
 										str += '</div>';
 
-										searchResultList.push(str); 
+										searchResultList.push(str);
 									});
 
-							
 							$('#profileCard').empty().append(
 									searchResultList.join(''));
 						} else {
-							
+
 							$('#profileCard').empty();
 						}
 					},
@@ -286,42 +284,109 @@ form {
 				});
 	}
 </script>
+<jsp:include page="nav.jsp" />
 </head>
 
-<body class="d-flex flex-column h-100">
+<body>
 	<input type="hidden" value="${email }" name="email" />
 	<input type="hidden" value="${member_no }" name="member_no"
 		id="member_no" />
 	<input type="hidden" value="${project_no }" name="project_no"
 		id="project_no" />
+	<div class="pcoded-main-container">
+		<div class="pcoded-content">
+			<nav class="pcoded-navbar theme-horizontal menu-light"
+				style="position: fixed; height: 100px;">
+				<div class="navbar-wrapper container" style="text-align: left;">
+					<div class="navbar-content sidenav-horizontal" id="layout-sidenav">
+						<table>
+							<tr>
+								<td>
+									<ul class="nav pcoded-inner-navbar sidenav-inner">
+										<li class="nav-item"><span class="pcoded-mtext"
+											style="padding-top: 15px; font-size: 20px;">${projectDTO.project_title}</span>
+										</li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<ul class="nav pcoded-inner-navbar sidenav-inner">
 
-	<div class="global-container">
-		<div class="card mypage-form">
-			<div class="card-body">
-				<h2 class="card-title text-left" id="MypageH2">주소록</h2>
-				<hr class="pill" />
-				<div id="searchDiv">
-					<input type="text" id="searchInput" name="searchInput" required>
-					<label id="searchLable">이름🔍</label> <span id="searchSpan"></span>
+										<li class="nav-item"><a
+											href="feed?project_no=${pno}&member_no=${mno}"
+											class="nav-link "><span class="pcoded-micon"><i
+													class="fa-regular fa-message" style="color: #707272;"></i></span><span
+												class="pcoded-mtext">피드</span></a></li>
+										<li class="nav-item"><a href="form_elements.html"
+											class="nav-link "><span class="pcoded-micon"><i
+													class="fa-solid fa-calendar-days"></i></span><span
+												class="pcoded-mtext">일정</span></a></li>
+										<li class="nav-item"><a href="tbl_bootstrap.html"
+											class="nav-link "><span class="pcoded-micon"><i
+													class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
+										</li>
+										<li class="nav-item"><a href="chart-apex.html"
+											class="nav-link "><span class="pcoded-micon"><i
+													class="fa-regular fa-address-book"></i></span><span
+												class="pcoded-mtext">주소록</span></a></li>
+										<li class="nav-item"><a href="map-google.html"
+											class="nav-link "><span class="pcoded-micon"><i
+													class="fa-solid fa-file-arrow-down"></i></span><span
+												class="pcoded-mtext">첨부파일</span></a></li>
+
+									</ul>
+								</td>
+
+							</tr>
+						</table>
+					</div>
 				</div>
-				<div class="card-text">
+			</nav>
 
-					<div class="card-title text-left" id="MypageH6"></div>
-					  <div class="search-result-container">
-						<div class="row row-cols-1 row-cols-md-3 g-4" id="profileCard">
-							<c:forEach var="memberProjectMemberdto" items="${list}">
-								<div class="col" id="searchResultList">
-									<div class="card">
-										<img src="${memberProjectMemberdto.profile_path }"
-											class="card-img-top" alt="프로필 이미지" id="profileImage">
+			<div class="pcoded-main-container">
+				<div class="pcoded-content">
+					<div class="row" style="margin-top: 50px;">
+						<div class="col-xl-12 col-md-12">
+							<div class="card table-card">
+								<div class="card-header" style="padding-bottom: 0px;">
+									<h3>주소록</h3>
+								</div>
 
-										<div class="card-body">
-											<h5 class="card-title" style="margin-top: 10px;">${memberProjectMemberdto.name }</h5>
-											<p class="card-text">${memberProjectMemberdto.email }</p>
+								<div class="card-body p-0">
+									<div class="table-responsive">
+										<div class="card-text">
+											<div id="searchDiv">
+												<input type="text" id="searchInput" name="searchInput"
+													required> <label id="searchLable">이름🔍</label> <span
+													id="searchSpan"></span>
+											</div>
+											<div class="card-text">
+
+
+												<div class="search-result-container">
+													<div class="row row-cols-1 row-cols-md-3 g-4"
+														id="profileCard">
+														<c:forEach var="memberProjectMemberdto" items="${list}">
+															<div class="col" id="searchResultList">
+																<div class="card">
+																	<img src="${memberProjectMemberdto.profile_path }"
+																		class="card-img-top" alt="프로필 이미지" id="profileImage">
+
+																	<div class="card-body">
+																		<h5 class="card-title" style="margin-top: 10px;">${memberProjectMemberdto.name }</h5>
+																		<p class="card-text">${memberProjectMemberdto.email }</p>
+																	</div>
+																</div>
+															</div>
+														</c:forEach>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
-							</c:forEach>
+							</div>
 						</div>
 					</div>
 				</div>

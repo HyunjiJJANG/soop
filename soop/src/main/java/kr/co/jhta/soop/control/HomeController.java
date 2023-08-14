@@ -92,6 +92,9 @@ public class HomeController {
 	public String faq(@RequestParam("member_no")int member_no,
 					 Model model) {
 		
+		// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
+				model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+				
 		model.addAttribute("memberDTO", memberService.selectOne(member_no)); // nav에 name 들어갈 수 있게
 		
 		return "faq";

@@ -21,6 +21,8 @@ import kr.co.jhta.soop.dto.ProjectProjectMemberMemberDTO;
 import kr.co.jhta.soop.service.MemberProjectMemberService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectMemberService;
+import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
+import kr.co.jhta.soop.service.ProjectService;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
@@ -30,6 +32,18 @@ public class MemberProjectMemberController {
 	
 	@Autowired
 	MemberProjectMemberService memberProjectMemberService;
+	
+	
+	@Autowired
+	ProjectProjectMemberMemberService projectProjectMemberMemberService;
+
+	
+	
+	@Autowired
+	MemberService memberService;
+	
+	@Autowired
+	ProjectService projectService;
 
 //	@GetMapping("/contact")
 //	public String myContactList(@RequestParam("email")String email, @RequestParam("member_no")int member_no, Model model) {
@@ -47,13 +61,32 @@ public class MemberProjectMemberController {
 			
 			MemberProjectMemberDTO memberProjectMemberdto =  memberProjectMemberService.selectOne(member_no);
 			memberProjectMemberdto.setMember_no(member_no);
-			memberProjectMemberdto.setProject_no(1);
+			memberProjectMemberdto.setProject_no(project_no);
 			 
 			model.addAttribute("list", memberProjectMemberService.selectAll(memberProjectMemberdto));
 			log.info(""+memberProjectMemberService.selectAll(memberProjectMemberdto));
 			model.addAttribute("member_no", member_no);
-			model.addAttribute("project_no", 1);
+			model.addAttribute("project_no", project_no);
 			model.addAttribute("email", email);
+			model.addAttribute("pno", project_no);
+			model.addAttribute("mno", member_no);
+			
+			
+			// 피드 페이지 상단에 프로젝트 제목 보여주기
+			model.addAttribute("projectDTO", projectService.selectOne(project_no));
+
+			
+			
+			
+			// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
+			model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+
+			
+			
+			
+			//네비바를 위한 memberDTO
+			model.addAttribute("memberDTO", memberService.selectOne(member_no));
+			
 			
 			return "contact";
 		}
@@ -70,7 +103,7 @@ public class MemberProjectMemberController {
 		
 		memberProjectMemberdto.setSearch_name(search_name);
 		memberProjectMemberdto.setMember_no(member_no);
-		memberProjectMemberdto.setProject_no(1);
+		memberProjectMemberdto.setProject_no(project_no);
 		return memberProjectMemberService.getSearchList(memberProjectMemberdto);
 		  
 		}
