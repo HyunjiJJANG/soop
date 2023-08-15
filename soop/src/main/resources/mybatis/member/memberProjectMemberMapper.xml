@@ -32,6 +32,7 @@
 		where member_no = #{member_no}
 	</select>
 	
+	
 	<select id="selectAllProjectByEmail" parameterType="String" resultType="int">
 		SELECT pm.project_no
 		FROM project_member pm
