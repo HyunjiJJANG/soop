@@ -8,6 +8,8 @@ import kr.co.jhta.soop.util.Criteria;
 
 public interface FeedTaskService {
 
+	List<FeedTaskDTO> selectAllTaskListByMno(int member_no);
+	
 	List<Map<String, Object>> selectAllTaskListByPno(Criteria criteria);
     
     public int totalCount(int project_no);

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.soop.dto.MemoDTO;
 import kr.co.jhta.soop.service.FeedService;
+import kr.co.jhta.soop.service.FeedTaskService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.MemoService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
@@ -39,6 +40,9 @@ public class HomeController {
 	FeedService feedService;
 	
 	@Autowired
+	FeedTaskService feedTaskService;
+	
+	@Autowired
 	TaskMemberFileService taskMemberFileService;
 	
 	// 홈화면 처음 들어갈 때 프로젝트,파일함,메모,캘린더,관심업무 보여주기
@@ -48,6 +52,7 @@ public class HomeController {
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 		model.addAttribute("memoDTO", memoService.selectOne(member_no));
 		model.addAttribute("fileList", taskMemberFileService.selectAllProjectFile(member_no));
+		model.addAttribute("taskList", feedTaskService.selectAllTaskListByMno(member_no));
 		return "home";
 	}
 	
@@ -125,5 +130,6 @@ public class HomeController {
 		return b; // b를 리턴해주면서 파일이 전송됨
 
 	} // download() end
+
 	
 } // class end

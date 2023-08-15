@@ -12,6 +12,7 @@ import kr.co.jhta.soop.util.Criteria;
 @Repository
 @Mapper
 public interface FeedTaskDAO {
+	List<FeedTaskDTO> selectAllTaskListByMno(int member_no);
 
     List<Map<String, Object>> selectAllTaskListByPno(Criteria criteria);
     
