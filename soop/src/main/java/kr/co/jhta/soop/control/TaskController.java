@@ -51,7 +51,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/soop") // => 이거 없애야됨
+/* @RequestMapping("/soop") */ // => 이거 없애야됨
 public class TaskController {
 
 //	@Autowired
@@ -98,7 +98,7 @@ public class TaskController {
 		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService
 				.selectAllbyprojectno(project_no);
 		model.addAttribute("members", members);
-		
+		// => feed에 members 부분을 사용함
 		
 		
 		return "task";
@@ -106,7 +106,8 @@ public class TaskController {
 
 //	@Transactional
 	@RequestMapping("/insert")
-	public String insert(@ModelAttribute TaskDTO Taskdto,
+	public String insert(/* @ModelAttribute TaskDTO Taskdto, */
+			@RequestParam("project_no") String project_no, @RequestParam("member_no") String member_no, // feed에서 받아오기
 			@ModelAttribute SignTaskAttachedFileDTO SignTaskAttachedFiledto,
 			@RequestParam(name="task_status", required = false) String task_status,
 			// projectno, memberno를 숫자로 전달하기 위해.. (링크로 주니까 자꾸 문자로 받음)
@@ -128,25 +129,33 @@ public class TaskController {
 			RedirectAttributes redirectAttributes) throws UnsupportedEncodingException {
 
 		// ** task 생성(insert) **
-		if (task_status == null) {
-			 String message = "업무 상태를 선택해주세요.";
-			 redirectAttributes.addFlashAttribute("message", message);
-			 return "redirect:/";
-		} else {
+		/*
+		 * if (task_status == null) { String message = "업무 상태를 선택해주세요.";
+		 * redirectAttributes.addFlashAttribute("message", message); return
+		 * "redirect:/"; } else {
+		 */
 			int taskstatus = Integer.parseInt(task_status);
+			int projectno = Integer.parseInt(project_no);
+			int memberno = Integer.parseInt(member_no);
+			
+			log.info("taskstatus : " + taskstatus);
+			log.info("projectno : " + projectno);
+			log.info("memberno : " + memberno);
 			
 			SignTaskAttachedFiledto.setTask_status(taskstatus); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+			SignTaskAttachedFiledto.setTask_status(projectno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+			SignTaskAttachedFiledto.setTask_status(memberno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 			// taskService.insertOne(Taskdto);
 			signTaskAttachedFileService.insertTask(SignTaskAttachedFiledto);
 			
 			
 			// ** 결재 라인 **
-			
-			if (sign_member_no == null || sign_approver == null || sign_step == 0 ) { 
-				String message = "결재자를 선택해주세요.";
-				redirectAttributes.addFlashAttribute("message", message);
-				return "redirect:/";
-			} else {
+			/*
+			 * if (sign_member_no == null || sign_approver == null || sign_step == 0 ) {
+			 * String message = "결재자를 선택해주세요.";
+			 * redirectAttributes.addFlashAttribute("message", message); return
+			 * "redirect:/"; } else {
+			 */
 				
 				log.info("" + sign_member_no);
 				log.info("" + sign_approver);
@@ -169,9 +178,9 @@ public class TaskController {
 				
 				signTaskAttachedFileService.insertSign(SignTaskAttachedFiledto);
 				
-			}
-		}
-		
+				/*
+				 * } }
+				 */
 		
 
 		// 확인용
@@ -227,7 +236,8 @@ public class TaskController {
 		// attachedfileService.insertOne(Filedto);
 		signTaskAttachedFileService.insertAttachedFile(SignTaskAttachedFiledto);
 
-		return "redirect:/soop/task"; // 새로고침을 위한 URL로 리다이렉트
+		/* return "redirect:/soop/task"; */ // 새로고침을 위한 URL로 리다이렉트
+		return "redirect:feed"; // 새로고침을 위한 URL로 리다이렉트
 	}
 
 	@GetMapping("/update") // 띄우기
@@ -357,18 +367,18 @@ public class TaskController {
 				log.debug("업데이트 쿼리 실행 후: {}", filedto);
 		
 		
-		return "redirect:/soop/task";
+				/* return "redirect:/soop/task"; */
+		return "redirect:/task";
 	}
 
-	/*
-	 * @GetMapping("/taskinfo")
-	 * 
-	 * @ResponseBody public SignDTO info(@RequestParam("member_no") int member_no) {
-	 * log.info("나와라 {} " , member_no); SignDTO dto =
-	 * signservice.selectOneByMno(member_no); return dto;
-	 * 
-	 * }
-	 */
+	
+//	  @GetMapping("/taskinfo")
+//	  @ResponseBody 
+//	  public SignDTO info(@RequestParam("member_no") int member_no) {
+//		  log.info("나와라 {} " , member_no); 
+//		  SignDTO dto =signservice.selectOneByMno(member_no); return dto;
+//	  }
+	 
 
 	@GetMapping("/delete")
 	public String delete(@ModelAttribute TaskDTO dto, @ModelAttribute AttachedFileDTO filedto,
@@ -384,11 +394,12 @@ public class TaskController {
 		// sign 삭제
 		signservice.deleteOne(task_no);
 		
-		return "redirect:/soop/task";
+		/* return "redirect:/soop/task"; */
+		return "redirect:/task";
 	}
 
 	// 파일 다운로드
-	@RequestMapping("/download")
+	@RequestMapping("/task/download")
 	@ResponseBody // 사용자에게 전달
 	public byte[] download(HttpServletRequest req, @RequestParam("fileName") String fileName, // 파라미터값으로 파일 이름을(aa.PNG)
 																								// 받아서 fileName이라는

@@ -347,7 +347,8 @@ $(document).ready(function(){
 	//let member_no = 1;
 	
 	$.ajax({
-		url: "/soop/taskinfo" , 
+		/* url: "/soop/taskinfo" ,  */
+		url: "/taskinfo" , 
 		data : {"member_no": member_no},
 		success : function (data){
 			console.log(data);
@@ -362,6 +363,31 @@ $(document).ready(function(){
 	}
 </script>
 
+<!-- sign 생성을 위해 기본값 전달 -->
+<script type="text/javascript">
+ function newtask(e){
+	console.log($(e).parent().prev().prev().prev().html());
+	let member_no = $(e).parent().prev().prev().prev().html();
+	
+	//let member_no = ${signdto.member_no};
+	//let member_no = 1;
+	
+	$.ajax({
+		/* url: "/soop/taskinfo" ,  */
+		url: "/taskinfo" , 
+		data : {"member_no": member_no},
+		success : function (data){
+			console.log(data);
+			
+			$("#sign_approver_up").val(data.sign_approver);
+			$("#sign_member_no_up").val(data.sign_member_no);
+			$("#sign_step_up").val(data.sign_step);
+			
+		}
+			
+	});
+	}
+</script>
 
 <!-- 리다이렉트로 넘어온 메세지  -->
 <script>
@@ -434,9 +460,10 @@ $(document).ready(function(){
 							<i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;새 업무 작성
 						</button>
                     </div>
-		            <!-- 업무 생성 모달 -->
+                    
+		            <!-- 업무 생성 모달 => task controller --> 
 					<!-- 일단 업무 생성 구현 용으로 project_no member_no을 임의로 지정 -->
-					<form action="insert" id="insertForm" name="insertForm" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
+					<form action="insert?project_no=${pno}&member_no=${mno}" id="insertForm" name="insertForm" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
 					<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
 					  <div class="modal-dialog modal-lg">
 					    <div class="modal-content">
@@ -447,8 +474,8 @@ $(document).ready(function(){
 					      <div class="modal-body">
 					        	<table class="table">
 					         			<!-- link에 ?로 주는 대신 hidden으로 줘보기(자꾸 데이터 형식이 안맞아서 나는 오류를 해결하기 위해) -->
-							        	<input type="hidden" name="project_no" id="project_no" value="1">
-							        	<input type="hidden" name="member_no" id="member_no" value="1"> 
+							        	<input type="hidden" name="project_no" id="project_no" value="${pno}">
+							        	<input type="hidden" name="member_no" id="member_no" value="${mno}"> 
 								<tr>
 									<td colspan="8">업무 제목</td>
 									<td><input class="form-control" id="taskName" type="text" name="task_title"></td>
@@ -563,8 +590,8 @@ $(document).ready(function(){
 					
 								<!-- <a href=""><button></button></a> -->
 									<!-- Calender -->
-									<label for="from">시작일</label>
-									<input type="text" id="from" name="task_start_date">
+									<!-- <label for="from">시작일</label>
+									<input type="text" id="from" name="task_start_date"> -->
 					
 								<td>
 									<!-- calendar -->
@@ -600,7 +627,7 @@ $(document).ready(function(){
 					      </div>
 					      <div class="modal-footer">
 					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					        <button type="submit" id="insert_btn" class="btn btn-primary">업무 생성</button>
+					        <button type="submit" id="insert_btn" class="btn btn-primary" onclick="newtask(this)">업무 생성</button>
 					      </div>
 					    </div>
 					  </div>
