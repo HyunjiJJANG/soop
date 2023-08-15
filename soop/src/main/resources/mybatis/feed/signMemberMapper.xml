@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
+  
 <mapper namespace="kr.co.jhta.soop.dao.SignMemberDAO">
 	<select id="selectAllSignByTno" parameterType="int" resultType="kr.co.jhta.soop.dto.SignMemberDTO">
 		SELECT s.sign_step, s.sign_approver, s.sign_status, m.profile_path 

@@ -5,6 +5,7 @@
     
 <mapper namespace="kr.co.jhta.soop.dao.MemberProjectMemberDAO">
 
+
 	<select id="selectAllProjectByEmail" parameterType="String" resultType="int">
 		SELECT pm.project_no
 		FROM project_member pm
