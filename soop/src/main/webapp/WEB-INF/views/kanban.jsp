@@ -53,6 +53,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+
+
 <style type="text/css">
 .sortable_list, .sortable_list0 {
 	border: 1px solid #eee;
@@ -501,9 +507,9 @@ $(document).ready(function() {
 								<select id="mySelect" style="margin-top: 50px;">
 									<option>모든 프로젝트</option>
 								</select>
-								<button id="showSelected" style="margin-left: 10px; style="color: #fff;">선택된 프로젝트 보기</button>
+								<button id="showSelected" class="btn btn-primary btn-sm" style="margin-left: 10px; color: #fff; background-color: #78C2AD; border: none" >선택된 프로젝트 보기</button>
 								<div id="result"></div>						
-							
+															
 								<ul id="sortable0" class="sortable_list connectedSortable" style="margin-top: 50px;">							
 									<c:forEach var="tasklist" items="${dto }">																		
 										<c:if test="${tasklist.task_status == 0}">
