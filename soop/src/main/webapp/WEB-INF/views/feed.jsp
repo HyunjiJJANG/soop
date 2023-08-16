@@ -79,7 +79,7 @@
 						}
 					});
 				});
-	
+
 	// 파트너 초대 메일 비동기화 방식으로 보내기
 		$("#btnInvitation").on("click", function() {// 메일 입력 유효성 검사
 			var email = $("#email").val(); //사용자의 이메일 입력값
@@ -220,7 +220,7 @@
 </script>
 <script>
 // Range calendar (수정)
-  $( function() {
+/*   $( function() {
 	    var dateFormat = "yy-mm-dd",
 	    startvalue = $( "#startvalue" )
 	        .datepicker({
@@ -257,7 +257,7 @@
 	 
 	      return date;
 	    }
-	  } );
+	  } ); */
 </script>
 
 <!-- 생성/수정 모달에 데이터 값 넘기기 -->
@@ -339,7 +339,7 @@ $(document).ready(function(){
 </script>
 
 <!-- sign 수정을 위해 기본값 전달 -->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
  function test(e){
 	console.log($(e).parent().prev().prev().prev().html());
 	let member_no = $(e).parent().prev().prev().prev().html();
@@ -362,27 +362,39 @@ $(document).ready(function(){
 			
 	});
 	}
-</script>
+</script> -->
 
 <!-- sign 생성을 위해 기본값 전달 -->
 <script type="text/javascript">
- function newtask(e){
-	console.log($(e).parent().prev().prev().prev().html());
-	let member_no = $(e).parent().prev().prev().prev().html();
+ function newtask(event){
+
+	var member_no = $("#member_no").val();
+	var sign_approver = $("#sign_approver").val().trim();
+	var sign_member_no = $("#sign_member_no").val().trim();
+	var sign_step = $("#sign_step").val().trim();
+	var project_no = $("#project_no").val();
 	
-	//let member_no = ${signdto.member_no};
-	//let member_no = 1;
+	console.log("member_no"+member_no);
+	console.log("project_no"+project_no);
 	
 	$.ajax({
 		/* url: "/soop/taskinfo" ,  */
 		url: "/taskinfo" , 
-		data : {"member_no": member_no},
+		data : {
+			"member_no": member_no,
+			"sign_member_no": sign_member_no,
+			"sign_approver": sign_approver,
+			"sign_step": sign_step
+			
+		},
 		success : function (data){
 			console.log(data);
 			
-			$("#sign_approver_up").val(data.sign_approver);
-			$("#sign_member_no_up").val(data.sign_member_no);
-			$("#sign_step_up").val(data.sign_step);
+			
+			$("#member_no").val(data.member_no);
+			$("#sign_approver").val(data.sign_approver);
+			$("#sign_member_no").val(data.sign_member_no);
+			$("#sign_step").val(data.sign_step);
 			
 		}
 			
@@ -453,187 +465,21 @@ $(document).ready(function(){
 			<br /><br /><br /><br /><br /><br /><br /><br />
 			<input type="hidden" id="name" name="member_name" value="${name }"/>
 			<input type="hidden" id="project_no" name="project_no" value="${project_no }"/>
+			<input type="hidden" id="member_no" name="member_no" value="${member_no }"/>
 			<!-- 업무 리스트 card -->
 			<div class="col-md-6">
 				<div class="card" style="left: 0px;">	
 					<div class="card-header">
+					
+						<!-- 잠시 추가 -->
+					<%-- 	<input type="text" name="member_no" id="member_no" value="${mno}" /> --%>
+						
                         <button class="btn btn-primary col-md-12" type="button" id="insert_modal" name="insert_modal" data-no="${dto.task_no}" data-bs-toggle="modal" data-bs-target="#insertModal"> <!-- 소진 추가 -->
 							<i class="fa-solid fa-pen-to-square"></i>&nbsp;&nbsp;새 업무 작성
 						</button>
                     </div>
                     
-		            <!-- 업무 생성 모달 => task controller --> 
-					<!-- 일단 업무 생성 구현 용으로 project_no member_no을 임의로 지정 -->
-					<form action="insert?project_no=${pno}&member_no=${mno}" id="insertForm" name="insertForm" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
-					<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-lg">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h1 class="modal-title fs-5" id="insertModalLabel">업무 생성</h1>
-					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					      </div>
-					      <div class="modal-body">
-					        	<table class="table">
-					         			<!-- link에 ?로 주는 대신 hidden으로 줘보기(자꾸 데이터 형식이 안맞아서 나는 오류를 해결하기 위해) -->
-							        	<input type="text" name="project_no" id="project_no" value="${pno}">
-							        	<input type="text" name="member_no" id="member_no" value="${mno}"> 
-								<tr>
-									<td colspan="8">업무 제목</td>
-									<td><input class="form-control" id="taskName" type="text" name="task_title"></td>
-									<br />
-								</tr>
-								<tr><td colspan="8">업무 상태	&nbsp; &nbsp;
-											<td>
-											<select name="task_status_select" id="task_status_select" class="form-select" aria-label="Default select example">
-												<option selected>------업무 상태 선택-----</option>
-												<!-- <option selected value="0">--업무 상태 선택--</option> -->
-												<option value="0">발의중</option>
-												<option value="1">진행중</option>
-												<option value="2">일시중지</option>
-												<option value="3">완료</option>
-												</select>
-												<!-- 컨트롤러에 task_status 넘겨주는 역할 -->
-												<input type="hidden" name="task_status" id="task_status" value="">
-													<script>
-														  document.getElementById("task_status_select").addEventListener("change", function () {
-														    var selectedValue = this.value;
-														    document.getElementById("task_status").value = selectedValue;
-														  });
-													</script>
-												
-											</td>
-											
-								</tr>
-								<tr>
-					
-									<table class="table" id="tb" >
-									<p>결재 라인</p>
-										<tr>
-											<th>1단계</th>
-											<th>2단계</th>
-											<th>3단계</th>
-										</tr>
-										<tr> 
-											<td>
-									            <select name="sign_approval" id="selectMembersCreate1" class="form-select" aria-label="Default select example">
-									              <option selected value="">------결재자 선택-----</option>
-									              <c:forEach var="member" items="${members}">
-									                <option data-memberno="${member.member_no}" data-membername="${member.name}" data-projectno="${member.project_no}" data-step="1">${member.name}</option>
-									              </c:forEach>
-									            </select>
-														<!-- 값 넘기기 위한.. hidden -->
-														<input type="hidden" name="sign_approver" id="sign_approver" value="">
-														<input type="hidden" name="sign_member_no" id="sign_member_no" value="">
-														<input type="hidden" name="sign_step" id="sign_step" value=""><!-- 일단 1단계라서 1 줌 -->
-														<!-- 선택하지 않았을 때 경고 메시지 -->
-					       							<!-- 	<p id="sign_alert" style="color: red; display: none;">결재자를 선택하세요.</p> -->
-											</td>
-											
-											<script>
-					
-											
-													  // select 요소의 change 이벤트를 감지하여 value를 설정하는 함수
-													  document.getElementById("selectMembersCreate1").addEventListener("change", function () {
-													    var selectedOption = this.options[this.selectedIndex];
-													    var memberNo = selectedOption.getAttribute("data-memberno");
-													    var memberName = selectedOption.getAttribute("data-membername");
-													    var projectNo = selectedOption.getAttribute("data-projectno");
-													    var step = selectedOption.getAttribute("data-step");
-													
-													    // 값을 hidden input 요소에 설정
-													    document.getElementById("sign_approver").value = memberName;
-													    document.getElementById("sign_member_no").value = memberNo;
-													    document.getElementById("sign_step").value = step;
-													
-													    // 선택된 값 출력
-													    console.log("선택된 결재자: " + memberName);
-													    console.log("sign_approver : " + sign_approver);
-													    console.log("선택된 결재자 번호: " + memberNo);
-													    console.log("선택된 프로젝트 번호: " + projectNo);
-													    console.log("선택된 단계: " + step);
-													    
-					/* 							        // 선택되지 않았을 때 경고 메시지 띄우기
-												        var signAlert = document.getElementById("sign_alert");
-												        if (memberNo === "") {
-												            signAlert.style.display = "block"; // 경고 메시지 표시
-												        } else {
-												            signAlert.style.display = "none";  // 경고 메시지 감추기
-												        }
-												        
-												        String errorType = request.getParameter("error");
-												        if ("missingFields".equals(errorType)) {
-												            out.println("<p style=\"color: red;\">결재자와 업무 상태를 입력하세요.</p>");
-												        } */
-											            
-													  });
-											</script>
-															<%-- 						<td>
-									            <select name="sign_approval" id="selectMembersCreate2" class="form-select" aria-label="Default select example">
-									              <option value="">------결재자 선택-----</option>
-									              <c:forEach var="member" items="${members}">
-									                <option value="${member.member_no}" data-membername="${member.name}" data-step="2">${member.name}</option>
-									              </c:forEach>
-									            </select>
-											</td>
-											<td>
-									            <select name="sign_approval" id="selectMembersCreate3" class="form-select" aria-label="Default select example">
-									              <option value="">------결재자 선택-----</option>
-									              <c:forEach var="member" items="${members}">
-									                <option value="${member.member_no}" data-membername="${member.name}" data-step="3" >${member.name}</option>
-									              </c:forEach>
-									            </select>
-											</td> --%>
-										</tr>
-									</table>
-									<br />
-								</tr>
-								<tr>
-					
-								<!-- <a href=""><button></button></a> -->
-									<!-- Calender -->
-									<!-- <label for="from">시작일</label>
-									<input type="text" id="from" name="task_start_date"> -->
-					
-								<td>
-									<!-- calendar -->
-									
-										<!-- Calendar에 기본값 주기 위한 셋팅 -->
-										<c:set var="ymd" value="<%=new java.util.Date()%>" />
-					
-									<label for="from">시작일</label>&nbsp; &nbsp;
-									<input type="text" id="from" name="task_start_date" value="<%-- <fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/> --%>">
-									&nbsp; &nbsp;
-									<label for="to">마감일</label>&nbsp; &nbsp;
-									<input type="text" id="to" name="task_end_date" value="<%-- <fmt:formatDate value="${ymd}" pattern="yyyy-MM-dd"/> --%>">
-									&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
-									</td>
-								</tr>
-								<br /><br />
-								<tr>	
-									<!-- 첨부파일 -->
-									<!-- controller로 file 넘김 -->
-									<td>
-									<input type="file" name="file" onchange="checkFileSize(this);"/> 
-									</td>
-								</tr>
-								<tr>
-									<br />
-									<br />
-									<td>업무 내용</td>
-									<br />
-									<br />
-									<td><textarea class="form-control" id="taskContext" rows="10" name="task_content"></textarea></td>
-								</tr>
-							</table>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-					        <button type="submit" id="insert_btn" class="btn btn-primary" onclick="newtask(this)">업무 생성</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-					</form><!-- 업무 생성 모달 end -->
+		            
                     
                     <div class="card-body table-border-style">
                         <div class="table-responsive">
@@ -806,6 +652,8 @@ $(document).ready(function(){
                         </div>
                     </div>
                 </div>
+                </div> <!-- 안닫혀있길래 닫음 - 소진 -->
+
 	    
 	    <!-- 새 멤버 초대 버튼 -->
 	    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo" style="position: fixed; top: 193px; right: 46px; width: 288px;">
@@ -911,6 +759,179 @@ $(document).ready(function(){
 	    </div>
 	  </div>
 </div>
+
+<!-- 업무 생성 모달 -->
+<!-- 일단 업무 생성 구현 용으로 project_no member_no을 임의로 지정 -->
+<form action="insert" id="insertForm" name="insertForm" method="post" modelAttribute="uploadFile" enctype="multipart/form-data">
+<div class="modal fade" id="insertModal" tabindex="-1" aria-labelledby="insertModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="insertModalLabel">업무 생성</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        	<table class="table">
+         			<!-- link에 ?로 주는 대신 hidden으로 줘보기(자꾸 데이터 형식이 안맞아서 나는 오류를 해결하기 위해) -->
+		        	<input type="hidden" name="project_no" id="project_no" value="1">
+		        	<input type="hidden" name="member_no" id="member_no" value="1"> 
+			<tr>
+				<td colspan="8">업무 제목</td>
+				<td><input class="form-control" id="taskName" type="text" name="task_title"></td>
+				<br />
+			</tr>
+			<tr><td colspan="8">업무 상태	&nbsp; &nbsp;
+						<td>
+						<select name="task_status_select" id="task_status_select" class="form-select" aria-label="Default select example">
+							<option selected>------업무 상태 선택-----</option>
+							<!-- <option selected value="0">--업무 상태 선택--</option> -->
+							<option value="0">발의중</option>
+							<option value="1">진행중</option>
+							<option value="2">일시중지</option>
+							<option value="3">완료</option>
+							</select>
+							<!-- 컨트롤러에 task_status 넘겨주는 역할 -->
+							<input type="hidden" name="task_status" id="task_status" value="">
+								<script>
+									  document.getElementById("task_status_select").addEventListener("change", function () {
+									    var selectedValue = this.value;
+									    document.getElementById("task_status").value = selectedValue;
+									  });
+								</script>
+							
+						</td>
+						
+			</tr>
+			<tr>
+
+				<table class="table" id="tb" >
+				<p>결재 라인</p>
+					<tr>
+						<th>1단계</th>
+						<th>2단계</th>
+						<th>3단계</th>
+					</tr>
+					<tr> 
+						<td>
+				            <select name="sign_approval" id="selectMembersCreate1" class="form-select" aria-label="Default select example">
+				              <option selected value="">------결재자 선택-----</option>
+				              <c:forEach var="member" items="${members}">
+				                <option data-memberno="${member.member_no}" data-membername="${member.name}" data-projectno="${member.project_no}" data-step="1">${member.name}</option>
+				              </c:forEach>
+				            </select>
+									<!-- 값 넘기기 위한.. hidden -->
+									<input type="hidden" name="sign_approver" id="sign_approver" value="">
+									<input type="hidden" name="sign_member_no" id="sign_member_no" value="">
+									<input type="hidden" name="sign_step" id="sign_step" value=""><!-- 일단 1단계라서 1 줌 -->
+									<!-- 선택하지 않았을 때 경고 메시지 -->
+       							<!-- 	<p id="sign_alert" style="color: red; display: none;">결재자를 선택하세요.</p> -->
+						</td>
+						
+						<script>
+
+						
+								  // select 요소의 change 이벤트를 감지하여 value를 설정하는 함수
+								  document.getElementById("selectMembersCreate1").addEventListener("change", function () {
+								    var selectedOption = this.options[this.selectedIndex];
+								    var memberNo = selectedOption.getAttribute("data-memberno");
+								    var memberName = selectedOption.getAttribute("data-membername");
+								    var projectNo = selectedOption.getAttribute("data-projectno");
+								    var step = selectedOption.getAttribute("data-step");
+								
+								    // 값을 hidden input 요소에 설정
+								    document.getElementById("sign_approver").value = memberName;
+								    document.getElementById("sign_member_no").value = memberNo;
+								    document.getElementById("sign_step").value = step;
+								
+								    // 선택된 값 출력
+								    console.log("선택된 결재자: " + memberName);
+								    console.log("sign_approver : " + sign_approver);
+								    console.log("선택된 결재자 번호: " + memberNo);
+								    console.log("선택된 프로젝트 번호: " + projectNo);
+								    console.log("선택된 단계: " + step);
+								    
+/* 							        // 선택되지 않았을 때 경고 메시지 띄우기
+							        var signAlert = document.getElementById("sign_alert");
+							        if (memberNo === "") {
+							            signAlert.style.display = "block"; // 경고 메시지 표시
+							        } else {
+							            signAlert.style.display = "none";  // 경고 메시지 감추기
+							        }
+							        
+							        String errorType = request.getParameter("error");
+							        if ("missingFields".equals(errorType)) {
+							            out.println("<p style=\"color: red;\">결재자와 업무 상태를 입력하세요.</p>");
+							        } */
+						            
+								  });
+						</script>
+										<%-- 						<td>
+				            <select name="sign_approval" id="selectMembersCreate2" class="form-select" aria-label="Default select example">
+				              <option value="">------결재자 선택-----</option>
+				              <c:forEach var="member" items="${members}">
+				                <option value="${member.member_no}" data-membername="${member.name}" data-step="2">${member.name}</option>
+				              </c:forEach>
+				            </select>
+						</td>
+						<td>
+				            <select name="sign_approval" id="selectMembersCreate3" class="form-select" aria-label="Default select example">
+				              <option value="">------결재자 선택-----</option>
+				              <c:forEach var="member" items="${members}">
+				                <option value="${member.member_no}" data-membername="${member.name}" data-step="3" >${member.name}</option>
+				              </c:forEach>
+				            </select>
+						</td> --%>
+					</tr>
+				</table>
+				<br />
+			</tr>
+			<tr>
+
+<!-- 			<a href=""><button></button></a>
+				Calender
+				<label for="from">시작일</label>
+				<input type="text" id="from" name="task_start_date">
+ -->
+			<td>
+				<!-- calendar -->
+				
+					<!-- Calendar에 기본값 주기 위한 셋팅 -->
+					<c:set var="ymd" value="<%=new java.util.Date()%>" />
+
+				<label for="from">시작일</label>&nbsp; &nbsp;
+				<input type="text" id="from" name="task_start_date" value="">
+				&nbsp; &nbsp;
+				<label for="to">마감일</label>&nbsp; &nbsp;
+				<input type="text" id="to" name="task_end_date" value="">
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
+				</td>
+			</tr>
+			<br /><br />
+			<tr>	
+				<!-- 첨부파일 -->
+				<!-- controller로 file 넘김 -->
+				<td>
+				<input type="file" name="file" onchange="checkFileSize(this);"/> 
+				</td>
+			</tr>
+			<tr>
+				<br />
+				<br />
+				<td>업무 내용</td>
+				<br />
+				<br />
+				<td><textarea class="form-control" id="taskContext" rows="10" name="task_content"></textarea></td>
+			</tr>
+		</table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="submit" id="insert_btn" class="btn btn-primary">업무 생성</button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>			
 
 <script src="assets/js/plugins/apexcharts.min.js"></script>
 <script src="assets/js/pages/chart-apex.js"></script>

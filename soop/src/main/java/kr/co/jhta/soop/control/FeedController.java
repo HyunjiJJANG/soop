@@ -26,6 +26,7 @@ import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectService;
 import kr.co.jhta.soop.service.ProjectTaskService;
 import kr.co.jhta.soop.service.SignMemberService;
+import kr.co.jhta.soop.service.SignTaskAttachedFileService;
 import kr.co.jhta.soop.service.TaskService;
 import kr.co.jhta.soop.util.Criteria;
 import kr.co.jhta.soop.util.Pagenation;
@@ -61,6 +62,9 @@ public class FeedController {
 	
 	@Autowired
 	MemberProjectProjectmemberService memberProjectProjectmemberService;
+	
+	@Autowired
+	SignTaskAttachedFileService signTaskAttachedFileService;
 
 	// side nav에 프로젝트명 클릭하면 해당 프로젝트 업무 리스트가 있는 피드로 이동
 	@GetMapping("/feed")
@@ -73,6 +77,7 @@ public class FeedController {
 		pmno.setProject_no(project_no);
 
 		model.addAttribute("project_no", project_no);
+		model.addAttribute("member_no", member_no);
 		model.addAttribute("name", memberService.selectOneByName(member_no)); // 새 멤버초대하기 메일 제목에 name 들어갈 수 있게
 		model.addAttribute("memberDTO", memberService.selectOne(member_no)); // nav에 name 들어갈 수 있게
 		model.addAttribute("projectMemberDTO", projectMemberService.selectOne(pmno));
@@ -147,11 +152,19 @@ public class FeedController {
 
 		// 메인 화면에 해당 업무 상세 보여주기
 		model.addAttribute("feedTaskDTO", feedTaskService.selectOneTaskDetailByTno(task_no));
-		model.addAttribute("signDTO", signMemberService.selectAllSignByTno(task_no));
+		model.addAttribute("signDTO", signMemberService.selectOne(task_no));
 		model.addAttribute("commentDTO", commentService.selectAllCommentByTno(task_no));
 		model.addAttribute("pno", project_no);
 		model.addAttribute("mno", member_no);
 		model.addAttribute("tno", task_no);
+		
+		// 업무 수정 모달에 데이터 전달
+		model.addAttribute("dto", signTaskAttachedFileService.selectOne(task_no));
+		
+		// 업무 수정 모달에 결재자 정보 전달
+		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService
+				.selectAllbyprojectno(project_no);
+		model.addAttribute("members", members);
 
 		return "taskDetail";
 

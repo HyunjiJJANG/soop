@@ -107,7 +107,7 @@ public class TaskController {
 //	@Transactional
 	@RequestMapping("/insert")
 	public String insert(/* @ModelAttribute TaskDTO Taskdto, */
-			@RequestParam("project_no") int project_no, @RequestParam("member_no") int member_no, // feed에서 받아오기
+			@RequestParam("project_no") String project_no, @RequestParam("member_no") String member_no, // feed에서 받아오기
 			@ModelAttribute SignTaskAttachedFileDTO SignTaskAttachedFiledto,
 			@RequestParam(name="task_status", required = false) String task_status,
 			// projectno, memberno를 숫자로 전달하기 위해.. (링크로 주니까 자꾸 문자로 받음)
@@ -135,16 +135,16 @@ public class TaskController {
 		 * "redirect:/"; } else {
 		 */
 			int taskstatus = Integer.parseInt(task_status);
-//			int projectno = Integer.parseInt(project_no);
-//			int memberno = Integer.parseInt(member_no);
+			int projectno = Integer.parseInt(project_no);
+			int memberno = Integer.parseInt(member_no);
 			
 			log.info("taskstatus : " + taskstatus);
-			log.info("projectno : " + project_no);
-			log.info("memberno : " + member_no);
+			log.info("projectno : " + projectno);
+			log.info("memberno : " + memberno);
 			
 			SignTaskAttachedFiledto.setTask_status(taskstatus); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-			SignTaskAttachedFiledto.setTask_status(project_no); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-			SignTaskAttachedFiledto.setTask_status(member_no); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+			SignTaskAttachedFiledto.setTask_status(projectno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+			SignTaskAttachedFiledto.setTask_status(memberno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 			// taskService.insertOne(Taskdto);
 			signTaskAttachedFileService.insertTask(SignTaskAttachedFiledto);
 			
@@ -237,7 +237,7 @@ public class TaskController {
 		signTaskAttachedFileService.insertAttachedFile(SignTaskAttachedFiledto);
 
 		/* return "redirect:/soop/task"; */ // 새로고침을 위한 URL로 리다이렉트
-		return "redirect:feed"; // 새로고침을 위한 URL로 리다이렉트
+		return "redirect:feed?project_no="+project_no+"&member_no="+member_no; // 새로고침을 위한 URL로 리다이렉트
 	}
 
 	@GetMapping("/update") // 띄우기
@@ -270,7 +270,11 @@ public class TaskController {
 			@RequestParam(name = "file", required = false) MultipartFile file, @ModelAttribute UploadFile uploadfile,
 			@RequestParam(name = "sign_member_no_up", required = false) int sign_member_no,
 			@RequestParam(name = "sign_approver_up", required=false) String sign_approver, // required=true 반드시 요청에 포함되도록
-			@RequestParam(name="sign_step_up", required=false)int sign_step
+			@RequestParam(name="sign_step_up", required=false)int sign_step,
+			@RequestParam(name="task_no")int task_no,
+			@RequestParam(name="project_no")int project_no,
+			@RequestParam(name="member_no")int member_no
+			
 	) {
 
 		// ** task 수정 (update) **
@@ -368,21 +372,30 @@ public class TaskController {
 		
 		
 				/* return "redirect:/soop/task"; */
-		return "redirect:/task";
+		return "redirect:/taskDetail?project_no="+project_no+"&member_no="+member_no+"&task_no="+task_no;
 	}
 
 	
-//	  @GetMapping("/taskinfo")
-//	  @ResponseBody 
-//	  public SignDTO info(@RequestParam("member_no") int member_no) {
-//		  log.info("나와라 {} " , member_no); 
-//		  SignDTO dto =signservice.selectOneByMno(member_no); return dto;
-//	  }
+	  @GetMapping("/taskinfo")
+	  @ResponseBody 
+	  public SignDTO info(@RequestParam("member_no") int member_no,
+			  @RequestParam("sign_member_no") int sign_member_no,
+			  @RequestParam("sign_approver") int sign_approver,
+			  @RequestParam("sign_step") int sign_step) {
+		  log.info("나와라 member_no {} " , member_no); 
+		  log.info("나와라 sign_member_no {} " , sign_member_no); 
+		  log.info("나와라 sign_approver {} " , sign_approver); 
+		  log.info("나와라 sign_step {} " , sign_step); 
+		  SignDTO dto =signservice.selectOneByMno(member_no); 
+		  return dto;
+	  }
 	 
 
 	@GetMapping("/delete")
 	public String delete(@ModelAttribute TaskDTO dto, @ModelAttribute AttachedFileDTO filedto,
-			@RequestParam("task_no")int task_no) {
+			@RequestParam("task_no")int task_no,
+			@RequestParam("project_no")int project_no,
+			@RequestParam("member_no")int member_no) {
 
 		taskService.deleteOne(dto);
 
@@ -395,7 +408,7 @@ public class TaskController {
 		signservice.deleteOne(task_no);
 		
 		/* return "redirect:/soop/task"; */
-		return "redirect:/task";
+		return "redirect:feed?project_no="+project_no+"&member_no="+member_no;
 	}
 
 	// 파일 다운로드

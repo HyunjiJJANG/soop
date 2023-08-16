@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.jhta.soop.dao.SignMemberDAO;
 import kr.co.jhta.soop.dto.SignDTO;
+import kr.co.jhta.soop.dto.SignMemberDTO;
 
 @Service
 public class SignMemberMysqlService implements SignMemberService {
@@ -18,5 +19,12 @@ public class SignMemberMysqlService implements SignMemberService {
 	public List<SignDTO> selectAllSignByTno(int task_no) {
 		return dao.selectAllSignByTno(task_no);
 	}
+
+	@Override
+	public SignMemberDTO selectOne(int task_no) {
+		return dao.selectOne(task_no);
+	}
+
+
 
 }
