@@ -348,7 +348,7 @@
     const data = {
       //labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
       datasets: [{
-        label: 'hello gantt chart',
+        label: '보여주기/숨기기',
         
         data: mglist,
         
@@ -384,10 +384,10 @@
         const {ctx, data, chartArea: { top, bottom, left, right }, scales: { x, y} } = chart;
         
       	/*  const colors=['rgba(255, 26, 104, 1) - 빨강','rgba(255, 159, 64, 1) - 보류색','rgba(75, 192, 192, 1) - 완료색']; */
-        // 아이콘 "진행중 - \uf110 / 완료 - \uf087"
-        // 프로젝트상태 - 0 : 진행 / - 1 : 완료
-	  	const icons=['\uf110','\uf14a','\uf14a','\uf14a'];
-      	const colors=['rgba(255, 159, 64, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)','rgba(75, 192, 192, 1)'];
+        // 아이콘 "진행중 - \uf110 / 완료 - \uf087" \uf14a
+        // 프로젝트상태 - 0 : 진행 / - 1 : 완료 / - 2 : 보류
+	  	const icons=['\uf110','\uf087','\uf14a'];
+      	const colors=['rgba(89, 228, 131, 1)','rgba(164, 164, 164, 1)','rgba(216, 106, 96, 1)'];
       
         const angle = Math.PI / 180;
         
@@ -451,8 +451,8 @@
             		day: 'd'
             	}
             },           
-            min: '2023-07-01',	// x축 : 차트 처음 시작일
-            max: '2023-07-31'	// x축 : 차트 끝 종료일
+            min: '2023-08-01',	// x축 : 차트 처음 시작일
+            max: '2023-08-31'	// x축 : 차트 끝 종료일
           }                  
         },
         plugins:{ 
