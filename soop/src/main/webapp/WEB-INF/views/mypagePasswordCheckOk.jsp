@@ -388,7 +388,7 @@ img.rounded {
 	<body>
 		<div class="pcoded-main-container">
 			<div class="pcoded-content">
-				<div class="row" style="margin-top: 50px; margin-left: 200px;">
+				<div class="row" style="margin-top: 150px; margin-left: 200px;">
 					<div class="col-xl-10 col-md-12"
 						style="margin-top: 40px; height: 2000px;">
 						<div class="card table-card">
@@ -479,7 +479,7 @@ img.rounded {
 										</div>
 										<hr class="pill" />
 										<div class=id="MypageH6" >
-											<h5 style="margin-right: 663px;">회원정보 수정</h5>
+											<h3 style="margin-right: 663px; margin-top:30px;">회원정보 수정</h3>
 										</div>
 										<div style="margin-top: 5px; margin-bottom: 5px;">
 											<hr />
@@ -510,7 +510,6 @@ img.rounded {
 													</div>
 												</div>
 											</div>
-
 											<div class="col-1">
 											
 												<input type="button" class="btn btn-outline-primary btn-sm"

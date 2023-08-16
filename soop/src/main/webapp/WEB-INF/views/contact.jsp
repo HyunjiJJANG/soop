@@ -155,7 +155,7 @@ form {
 	text-align: left;
 	align-items: center;
 	margin-right: 50px;
-	margin-left:200px;
+	margin-left: 350px;
 	width: 1000px;
 	height: 400px;
 	overflow-y: auto;
@@ -259,9 +259,10 @@ form {
 									.forEach(function(item) {
 										var str = '<div class="col" id="searchResultList">';
 										str += '<div>';
-										str += '<img src="' + item.profile_path + '" class="card-img-top" alt="프로필 이미지" id="profileImage">';
+										str += '<img src="/data/' + item.profile_name + '" class="card-img-top" alt="프로필 이미지" id="profileImage">';
+
 										str += '<div>';
-										str += '<h5 class="card-title" style="margin-top: 10px;">'
+										str += '<h5 class="card-title-center" style="margin-top: 10px; margin-left:10px;">'
 												+ item.name + '</h5>';
 										str += '<p class="card-text">'
 												+ item.email + '</p>';
@@ -276,7 +277,11 @@ form {
 									searchResultList.join(''));
 						} else {
 
-							$('#profileCard').empty();
+							$('#profileCard')
+									.empty()
+									.html(
+											'<h2 style="width: 724px;margin-left: 170px;">입력하신 이름은 프로젝트에 존재하지 않습니다.</h2>');
+
 						}
 					},
 					error : function(xhr, textStatus, errorThrown) {
@@ -327,7 +332,8 @@ form {
 											class="nav-link "><span class="pcoded-micon"><i
 													class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
 										</li>
-										<li class="nav-item"><a href="chart-apex.html"
+										<li class="nav-item"><a
+											href="contact?email=${memberDTO.email }&project_no=${pno}&member_no=${mno}"
 											class="nav-link "><span class="pcoded-micon"><i
 													class="fa-regular fa-address-book"></i></span><span
 												class="pcoded-mtext">주소록</span></a></li>
@@ -352,32 +358,33 @@ form {
 							<div class="card table-card">
 								<div class="card-header" style="padding-bottom: 0px;">
 									<h3>주소록</h3>
-											<div id="searchDiv">
-												<input type="text" id="searchInput" name="searchInput"
-													required> <label id="searchLable">이름🔍</label> <span
-													id="searchSpan"></span>
+									<div id="searchDiv">
+										<input type="text" id="searchInput" name="searchInput"
+											required> <label id="searchLable">이름🔍</label> <span
+											id="searchSpan"></span>
 									</div>
 								</div>
 								<div class="card-body p-0">
 									<div class="table-responsive">
-										<div class="card-text">
-												<div class="search-result-container">
-													<div class="row" id="profileCard">
-														<c:forEach var="memberProjectMemberdto" items="${list}">
-															<div class="col" id="searchResultList">
+										<div class="card-text" style="margin-left: 150px;">
+											<div class="search-result-container">
+												<div class="row" id="profileCard"
+													style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px">
+													<c:forEach var="memberProjectMemberdto" items="${list}">
+														<div class="col" id="searchResultList">
+															<div>
+																<img src="/data/${memberProjectMemberdto.profile_name }"
+																	class="card-img-top" alt="프로필 이미지" id="profileImage">
 																<div>
-																	<img src="/data/${memberProjectMemberdto.profile_name }"
-																		class="card-img-top" alt="프로필 이미지" id="profileImage">
-																	<div>
-																		<h5 class="card-title" style="margin-top: 10px;">${memberProjectMemberdto.name }</h5>
-																		<p class="card-text">${memberProjectMemberdto.email }</p>
-																	</div>
+																	<h5 class="card-title-center" style="margin-top: 10px;">${memberProjectMemberdto.name }</h5>
+																	<p class="card-text-center" style="margin-top: 10px;">${memberProjectMemberdto.email }</p>
 																</div>
 															</div>
-														</c:forEach>
-													</div>
+														</div>
+													</c:forEach>
 												</div>
-										
+											</div>
+
 										</div>
 									</div>
 								</div>

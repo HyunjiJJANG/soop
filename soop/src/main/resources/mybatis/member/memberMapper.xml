@@ -27,7 +27,7 @@
 	<insert id="insertOne" parameterType="MemberDTO">
 		INSERT INTO member (email, password, name, profile_name, profile_path, enabled )
 		VALUES
-		(#{email},#{password},#{name},'profile.jpg','C:\Users\jhta\git\soop\soop\src\main\webapp\data\profile.jpg',1
+		(#{email},#{password},#{name},'profile.png','C:\Users\jhta\git\soop\soop\src\main\webapp\data\profile.png',1
 		)
 	</insert>
 	
@@ -37,7 +37,7 @@
 	<insert id="oAuth2UserinsertOne" parameterType="MemberDTO">
 		INSERT INTO member (email, password, name, profile_name, profile_path, enabled )
 		VALUES
-		(#{email},#{password},#{name},'profile.jpg','C:\Users\jhta\git\soop\soop\src\main\webapp\data\profile.jpg',#{enabled})
+		(#{email},#{password},#{name},'profile.png','C:\Users\jhta\git\soop\soop\src\main\webapp\data\profile.png',#{enabled})
 	</insert>
 	
 
