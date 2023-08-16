@@ -201,18 +201,285 @@ $(function() {
 </script>
 
 <script>
+
+	
+
 	$(document).ready(function() {
 	  // 버튼을 클릭하면 선택된 옵션의 값을 보여줍니다.
+	  
+	  var member_no = $(this)[0].baseURI.match(/\d+$/)[0];	  
+	  var addedProjectTitles = [];
+	  
 	  $("#showSelected").click(function() {
+			  
+	        $.ajax({	        	
+	        	 url: "<c:url value='/tasksByProject' />",
+	            type: "get",
+	            data: {	            		            		                
+	                "member_no": member_no	                
+	            },	            	            
+	            dataType : "text",
+	            contentType: "application/json;charset=utf-8",
+	            success: function(data) {	
+	            	
+	                data = JSON.parse(data); 	                
+	            	console.log(data);	 
+	            	
+	                $(data).each(function(index){	
+	                	
+                		console.log($(this).prop("project_title"));	
+                		var projectTitle = $(this).prop("project_title"); //추가
+                		var projectNo = $(this).prop("project_no"); // 프로젝트 번호
+                		
+                        if (addedProjectTitles.indexOf(projectTitle) === -1) {
+/*                             $("#mySelect").append("<option>" + projectTitle + "</option>");
+                            addedProjectTitles.push(projectTitle); */
+                            $("#mySelect").append("<option value='" + projectNo + "'>" + projectTitle + "</option>");
+                            addedProjectTitles.push(projectTitle);
+                        }
+		                //$("#mySelect").append("<option>"+$(this).prop("project_title")+"</option>");	                		
+	                		                		                	                			                	
+	                	// $("#result").text("선택된 옵션: " + $(this).prop("project_title"));
+	                });
+	                //alert("성공");
+	                
+	              /*   var selectedOption = $("#mySelect option:selected").text();
+	        	    $("#result").text("선택된 옵션: " + selectedOption);
+	        	     */
+	              },
+	              error: function(data) {
+	            	  alert("실패")
+/* 	                  console.log('에러'+ data);
+	                  console.log('에러'+ JSON.stringify(data));
+	                  console.log(JSON.stringify(data)) */
+	              }
+	            });	// ajax end 
+		
 	    var selectedOption = $("#mySelect option:selected").text();
 	    $("#result").text("선택된 옵션: " + selectedOption);
+  
+    
 	  });
 	});
 </script>
 
+<script>
+$(document).ready(function() {
+    
+	// 프로젝트 선택 박스에 대한 이벤트 리스너
+    $("#mySelect").on("change", function() {   	
+        
+    	var project_title = $("#mySelect option:selected").text(); // 선택된 프로젝트 제목 가져오기 
+    	/* var project_title = $("#mySelect option:selected").text(); // 선택된 프로젝트 제목 가져오기 */
+		var member_no = $(this)[0].baseURI.match(/\d+$/)[0];
+    	var project_no = $(this).val();
+  	
+        // 선택된 프로젝트의 업무를 가져오기 위한 AJAX 요청 전송
+	
+        alert("project_title : " + project_title);
+        alert("member_no : " + member_no);
+        alert("project_no : " + project_no);
+        
+        $.ajax({
+            url: '/tasksByprojectTitle',
+            type: 'GET',
+            data: {
+            	member_no: member_no,
+            	project_no: project_no,
+            	project_title: project_title
+            },
+            dataType : "text",
+            contentType: "application/json;charset=utf-8",
+            success: function(data) {
+            	
+                alert("project에서 task데이터 가져오기 성공");
+                
+                data = JSON.parse(data); 	                
+            	console.log(data);	
+            		
+            	updateTaskLists(data);
+          	
+            },
+            error: function(data) {
+            	alert("project에서 task데이터 가져오기 실패");
+            }
+        });
+    });
+
+    // 업무 목록을 새로운 업무로 업데이트하는 함수
+    function updateTaskLists(tasks) {
+        // 기존 업무 목록 비우기
+        $(".sortable_list").empty();
+
+        // 업무를 반복하며 해당하는 업무 목록에 추가
+        $.each(tasks, function(index, task) {
+            var taskListId = "sortable" + task.task_status;
+            $("#" + taskListId).append(createTaskItem(task));
+        });
+        
+        $( ".sortable_list" ).sortable({
+        	receive: function(event, ui) {
+        		console.log("before_업무상태값 : " + ui.item.find("input[name='task_status']").val()); //내가 클릭한 카드의 업무상태값
+        		var beforeTaskStatus = ui.sender[0].id//내가 클릭한 카드의 열의 위치
+    	        console.log("현재 열의 위치 : " + beforeTaskStatus)
+    	        var presentTaskStatus = this.id
+    	        console.log("변경된 열의 위치 : " + presentTaskStatus)	       
+    	        // 업무상태값
+    	        // 0 - 발의
+    	        // 1 - 진행
+    	        // 2 - 보류
+    	        // 3 - 완료
+    	        
+    	       var changeStatus;	/* 바뀐 업무상태값 변수 */
+            
+    	        if(beforeTaskStatus != presentTaskStatus){
+    	        	if(presentTaskStatus == "sortable0"){
+    		        	ui.item.find("td").eq(9).html("발의")		        			        	
+     		        	changeStatus = $("table").eq(0).next().val("0");    
+    		        	console.log("after_업무상태값 : " + $("table").eq(0).next().val());
+    					
+    	        	}else if(presentTaskStatus == "sortable1"){
+    	        		ui.item.find("td").eq(9).html("진행")
+    	        		changeStatus = $("table").eq(1).next().val("1");
+    	        		console.log("after_업무상태값 : " + $("table").eq(1).next().val());
+    	        		
+    	        	}else if(presentTaskStatus == "sortable2"){
+    	        		ui.item.find("td").eq(9).html("보류")
+    	        		changeStatus = $("table").eq(2).next().val("2");
+    	        		console.log("after_업무상태값 : " + $("table").eq(2).next().val());
+    	        		
+    	        	}else if(presentTaskStatus == "sortable3"){
+    	        		ui.item.find("td").eq(9).html("완료")
+    	        		changeStatus = $("table").eq(3).next().val("3");
+    	        		console.log("after_업무상태값 : " + $("table").eq(3).next().val());
+    	        	}
+    		        	
+    	        }	// if문 end
+    	        
+    	        // ajax 변수
+    	        // 변동된 정보를 업데이트
+    	        var task_status = changeStatus.val();	        
+    	        var member_no = ui.item.find("td").eq(4).text();
+    	        var task_no = ui.item.find("td").eq(2).text();
+    	        
+    	        console.log("member_no : " + ui.item.find("td").eq(4).text())
+    	        console.log("task_no : " + ui.item.find("td").eq(2).text())
+    	        console.log("task_status : " + task_status)
+    	        
+    	        if(task_status == undefined){
+    	        	task_status = 0;
+    	        }
+    	        	        
+    	        $.ajax({	        	
+    	        	 url: "<c:url value='/chageTaskStatus' />",
+    	            type: "get",
+    	            data: {	            		            	
+    	                "task_status": task_status,
+    	                "member_no": member_no,
+    	                "task_no": task_no
+    	            },	            	            
+    	            dataType : "text",
+    	            contentType: "application/json;charset=utf-8",
+    	            success: function(data) {	            	
+    	                console.log("성공");
+    	                alert("성공");
+    	              },
+    	              error: function(data) {
+    	                  console.log('에러'+ data);
+    	                  console.log('에러'+ JSON.stringify(data));
+    	                  console.log(JSON.stringify(data))
+    	              }
+    	            });	// ajax end   
+    	        
+    	        
+        	
+        	}	// receive end     	
+        });
+        
+      
+    }
+
+    // 업무 아이템 HTML을 생성하는 함수
+    function createTaskItem(task) {
+        var tableHTML = '<li class="ui-state-default">' +
+        '<table>' +
+        
+        '<tr>' +
+        '<th style="display: none;">프로젝트 번호 : </th>' +
+        '<td style="display: none;">' + task.project_no + '</td>' +
+        '</tr>' +
+        
+        '<tr>' +
+        '<th style="display: none;">프로젝트 제목 : </th>' +
+        '<td style="display: none;">' + task.project_title + '</td>' +
+        '</tr>' +
+        
+        '<tr>' +
+        '<th style="display: none;">업무 번호 : </th>' +
+        '<td style="display: none;">' + task.task_no + '</td>' +
+        '</tr>' +
+        
+        '<tr>' +
+        '<th>업무 제목 : </th>' +
+        '<td>' + task.task_title + '</td>' +
+        '</tr>' +
+        
+        '<tr>' +
+        '<th style="display: none;">업무생성자번호 : </th>' +
+        '<td style="display: none;">' + task.member_no + '</td>' +
+        '</tr>' +
+        
+        '<tr>' +
+        '<th style="display: none;">업무생성자이름 : </th>' +
+        '<td style="display: none;">' + task.name + '</td>' +
+        '</tr>' +
+        
+        '<tr>' +
+        '<th style="display: none;">업무등록일 : </th>' +
+        '<td style="display: none;">' + task.task_register_date + '</td>' +
+        '</tr>' +
+        
+        '<tr>' +
+        '<th style="display: none;">업무시작일 : </th>' +
+        '<td style="display: none;">' + task.task_start_date + '</td>' +
+        '</tr>' +
+        
+        '<tr>' +
+        '<th style="display: none;">업무종료일 : </th>' +
+        '<td style="display: none;">' + task.task_end_date + '</td>' +
+        '</tr>' +
+        
+        '<tr>' +
+        '<th>업무 상태 :</th>' +
+        '<td>';
+        
+    if (task.task_status == 0) {
+        tableHTML += '<c:out value="발의"></c:out>';
+    } else if (task.task_status == 1) {
+        tableHTML += '<c:out value="진행"></c:out>';
+    } else if (task.task_status == 2) {
+        tableHTML += '<c:out value="보류"></c:out>';
+    } else if (task.task_status == 3) {
+        tableHTML += '<c:out value="완료"></c:out>';
+    }
+    
+    tableHTML += '</td>' +
+        '</tr>' +
+        
+        '</table>' +
+        '<input type="hidden" name="task_status" value="' + task.task_status + '" />' +
+        '</li>';
+    
+    return tableHTML;
+    }
+});
+</script>
+
+
+
 </head>
 <body>
-	
+
 	<div class="pcoded-main-container">
 		
 		<div class="pcoded-content">
@@ -229,27 +496,15 @@ $(function() {
 						
 						<div class="card-body p-0">
 						
-							<div class="table-responsive">
-							
-								
-								<h3>여기에 프로젝트별로 업무 보여주기</h3>
-
-								${dto}
-								<select id="mySelect">
-									<c:if test=""></c:if>
-									<c:forEach var="project" items="${dto }">										
-									  <option value="project.project_no">${project.project_title }</option>							
-									</c:forEach>
+							<div class="table-responsive">				    	
+					    		
+								<select id="mySelect" style="margin-top: 50px;">
+									<option>모든 프로젝트</option>
 								</select>
-								
-								<button id="showSelected">선택된 프로젝트 보기</button>
-								
-								<div id="result"></div>
-								
-								
-								
+								<button id="showSelected" style="margin-left: 10px; style="color: #fff;">선택된 프로젝트 보기</button>
+								<div id="result"></div>						
 							
-								<ul id="sortable0" class="sortable_list connectedSortable">							
+								<ul id="sortable0" class="sortable_list connectedSortable" style="margin-top: 50px;">							
 									<c:forEach var="tasklist" items="${dto }">																		
 										<c:if test="${tasklist.task_status == 0}">
 											<li class="ui-state-default">								
@@ -303,7 +558,7 @@ $(function() {
 									</c:forEach>
 								</ul>
 								     
-								<ul id="sortable1" class="sortable_list connectedSortable">
+								<ul id="sortable1" class="sortable_list connectedSortable" style="margin-top: 50px;">
 									<c:forEach var="tasklist" items="${dto }">
 										<c:if test="${tasklist.task_status == 1}">
 											<li class="ui-state-default">								
@@ -357,7 +612,7 @@ $(function() {
 									</c:forEach>
 								</ul>     
 								     
-								<ul id="sortable2" class="sortable_list connectedSortable">
+								<ul id="sortable2" class="sortable_list connectedSortable" style="margin-top: 50px;">
 									<c:forEach var="tasklist" items="${dto }">
 										<c:if test="${tasklist.task_status == 2}">
 											<li class="ui-state-default">								
@@ -411,7 +666,7 @@ $(function() {
 									</c:forEach>
 								</ul> 
 								
-								<ul id="sortable3" class="sortable_list connectedSortable">
+								<ul id="sortable3" class="sortable_list connectedSortable" style="margin-top: 50px;">
 									<c:forEach var="tasklist" items="${dto }">
 										<c:if test="${tasklist.task_status == 3}">
 											<li class="ui-state-default">								
