@@ -42,4 +42,5 @@ public int selectMemberByMemberNo(String email);
 
 public int selectMnoByEmail(String email);
 
+
 }

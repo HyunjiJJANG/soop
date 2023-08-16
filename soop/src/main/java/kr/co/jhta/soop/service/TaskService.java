@@ -14,11 +14,11 @@ public interface TaskService {
 
 	public void updateOne(TaskDTO dto);
 
-	public void deleteOne(int task_no);
-
-	
+	public void deleteOne(TaskDTO dto);
 
 	public int countTask(int project_no);
 	
 	public void updateFavorite(int task_no);
+	
+	public void deleteFavorite(int task_no);
 }

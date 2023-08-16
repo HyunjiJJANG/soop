@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO;
 import kr.co.jhta.soop.dto.ProjectMemberNo;
 import kr.co.jhta.soop.service.CommentService;
 import kr.co.jhta.soop.service.FeedTaskService;
+import kr.co.jhta.soop.service.MemberProjectProjectmemberService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectMemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
@@ -56,6 +58,9 @@ public class FeedController {
 
 	@Autowired
 	TaskService taskService;
+	
+	@Autowired
+	MemberProjectProjectmemberService memberProjectProjectmemberService;
 
 	// side nav에 프로젝트명 클릭하면 해당 프로젝트 업무 리스트가 있는 피드로 이동
 	@GetMapping("/feed")
@@ -114,6 +119,12 @@ public class FeedController {
 			DaysLeft = "D-" + diffDays;
 		}
 		model.addAttribute("countDays", DaysLeft);
+		
+		// 생성 모달에 값을 넘기기 위한 => members로 생성 모달에 project_no와 member_no를 함께 띄움
+		List<MemberProjectProjectmemberDTO> members = memberProjectProjectmemberService
+				.selectAllbyprojectno(project_no);
+		model.addAttribute("members", members);
+		
 
 		return "feed";
 	}

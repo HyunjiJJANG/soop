@@ -11,6 +11,7 @@ import kr.co.jhta.soop.dto.AttachedFileDTO;
 @Mapper
 public interface AttachedFileDAO {
 	
+	
 	public List<AttachedFileDTO> selectAll();
 	
 	public AttachedFileDTO selectOne(int file_no);

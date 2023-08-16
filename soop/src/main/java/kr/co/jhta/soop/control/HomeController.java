@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -129,7 +130,7 @@ public class HomeController {
 	// 관심업무 삭제
 	@GetMapping("/deleteFavoriteOne")
 	public void deleteFavoriteOne(@RequestParam("task_no")int task_no) {
-		taskService.deleteOne(task_no);
+		taskService.deleteFavorite(task_no);
 		
 	}
 	

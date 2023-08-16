@@ -9,13 +9,15 @@ public interface SignService {
 	public List<SignDTO> selectAll();
 
 	public SignDTO selectOne(int sign_no);
+	
+	public SignDTO selectOneByMno(int sign_member_no);
 
 	public void insertOne(SignDTO dto);
 
 	public void updateOne(SignDTO dto);
-
-	public void deleteOne(int sign_no);
 	
 	public List<SignDTO> selectAllSignByTno(int task_no);
+
+	public void deleteOne(int task_no);
 
 }

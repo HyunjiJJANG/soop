@@ -11,7 +11,12 @@ import kr.co.jhta.soop.dto.TaskDTO;
 @Mapper
 public interface TaskDAO {
 
+
 	public List<TaskDTO> selectAll(int project_no);
+
+	
+	public List<TaskDTO> selectAll();
+
 
 	public TaskDTO selectOne(int task_no);
 
@@ -19,9 +24,11 @@ public interface TaskDAO {
 
 	public void updateOne(TaskDTO dto);
 
-	public void deleteOne(int task_no);
-
 	public int countTask(int project_no);
+
+	public void deleteOne(TaskDTO dto);
+
+	public void deleteFavorite(int task_no);
 	
 	public void updateFavorite(int task_no);
 }
