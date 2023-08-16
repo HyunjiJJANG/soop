@@ -41,7 +41,7 @@ public class GanttController {
 			@RequestParam("member_no")int member_no) { // @RequestParam("member_no")int member_no 추가하기 -1
 				
 		// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
-				model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
+		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));
 				
 		model.addAttribute("no", member_no); // test 후 member_no 로변경하기 -2
 		model.addAttribute("memberDTO", memberService.selectOne(member_no));

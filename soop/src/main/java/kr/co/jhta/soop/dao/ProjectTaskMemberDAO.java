@@ -2,12 +2,10 @@ package kr.co.jhta.soop.dao;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import kr.co.jhta.soop.dto.ProjectMemberDTO;
 import kr.co.jhta.soop.dto.ProjectTaskMemberDTO;
 
 @Repository
@@ -25,6 +23,9 @@ public interface ProjectTaskMemberDAO {
 	public void myprojectUpdateTaskStatus(HashMap<String, Integer> map);
 	
 	// 프로젝트별로 업무 보여주기
-	public List<ProjectTaskMemberDTO> TasksByProject(int project_no);
+	public List<ProjectTaskMemberDTO> TasksByProject(int member_no);
+	
+	// 프로젝트 checkbox목록에서 프로젝트 클릭시 해당 프로젝트에 있는 업무가져오는 용도 
+	public List<ProjectTaskMemberDTO> getTasksByProject(HashMap<String, Object> projectTask);
 	
 }

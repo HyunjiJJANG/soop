@@ -360,6 +360,7 @@ function deleteFavorite(task_no){
                 <div class="card table-card" style="height:370px;">
                     <div class="card-header">
                         <h5>참여 중인 프로젝트</h5>
+
                             <select id="projectStatusOption" onchange="projectStatusSelect();" style="width:30%;float:right;" class="form-select" aria-label="Default select example">
 								<option value="3">전체</option>
 								<option value="0">진행</option>
