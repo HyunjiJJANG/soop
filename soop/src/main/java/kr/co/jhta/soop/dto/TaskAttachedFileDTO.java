@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class TaskDTO {
+public class TaskAttachedFileDTO {
 
-	
+
 	private int task_no;
 	private int project_no;
 	private int member_no;
@@ -21,8 +21,11 @@ public class TaskDTO {
 	private int task_status;
 	private String task_start_date;
 	private String task_end_date;
-	private String task_favorite;
-
+	
+	private int file_no;
+	private String file_type;
+	private String file_name;
+	private String file_path;
+	private String file_register_date;
+		
 }
-
-

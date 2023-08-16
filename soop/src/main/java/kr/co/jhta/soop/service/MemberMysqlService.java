@@ -17,7 +17,6 @@ public class MemberMysqlService implements MemberService{
 
 	@Override
 	public List<MemberDTO> selectAll() {
-
 		return dao.selectAll();
 	}
 
@@ -64,7 +63,6 @@ public class MemberMysqlService implements MemberService{
 		
 	}
 
-
 	@Override
 	public MemberDTO selectMemberByEmail(String email) {
 		
@@ -97,9 +95,7 @@ public class MemberMysqlService implements MemberService{
 	@Override
 
 	public void oAuth2UserinsertOne(MemberDTO dto) {
-		
 		dao.oAuth2UserinsertOne(dto);
-		
 	}
 
 
