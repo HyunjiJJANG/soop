@@ -107,7 +107,7 @@ public class TaskController {
 //	@Transactional
 	@RequestMapping("/insert")
 	public String insert(/* @ModelAttribute TaskDTO Taskdto, */
-			@RequestParam("project_no") String project_no, @RequestParam("member_no") String member_no, // feed에서 받아오기
+			@RequestParam("project_no") int project_no, @RequestParam("member_no") int member_no, // feed에서 받아오기
 			@ModelAttribute SignTaskAttachedFileDTO SignTaskAttachedFiledto,
 			@RequestParam(name="task_status", required = false) String task_status,
 			// projectno, memberno를 숫자로 전달하기 위해.. (링크로 주니까 자꾸 문자로 받음)
@@ -135,16 +135,16 @@ public class TaskController {
 		 * "redirect:/"; } else {
 		 */
 			int taskstatus = Integer.parseInt(task_status);
-			int projectno = Integer.parseInt(project_no);
-			int memberno = Integer.parseInt(member_no);
+//			int projectno = Integer.parseInt(project_no);
+//			int memberno = Integer.parseInt(member_no);
 			
 			log.info("taskstatus : " + taskstatus);
-			log.info("projectno : " + projectno);
-			log.info("memberno : " + memberno);
+			log.info("projectno : " + project_no);
+			log.info("memberno : " + member_no);
 			
 			SignTaskAttachedFiledto.setTask_status(taskstatus); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-			SignTaskAttachedFiledto.setTask_status(projectno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-			SignTaskAttachedFiledto.setTask_status(memberno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+			SignTaskAttachedFiledto.setTask_status(project_no); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+			SignTaskAttachedFiledto.setTask_status(member_no); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 			// taskService.insertOne(Taskdto);
 			signTaskAttachedFileService.insertTask(SignTaskAttachedFiledto);
 			

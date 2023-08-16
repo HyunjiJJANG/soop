@@ -474,8 +474,8 @@ $(document).ready(function(){
 					      <div class="modal-body">
 					        	<table class="table">
 					         			<!-- link에 ?로 주는 대신 hidden으로 줘보기(자꾸 데이터 형식이 안맞아서 나는 오류를 해결하기 위해) -->
-							        	<input type="hidden" name="project_no" id="project_no" value="${pno}">
-							        	<input type="hidden" name="member_no" id="member_no" value="${mno}"> 
+							        	<input type="text" name="project_no" id="project_no" value="${pno}">
+							        	<input type="text" name="member_no" id="member_no" value="${mno}"> 
 								<tr>
 									<td colspan="8">업무 제목</td>
 									<td><input class="form-control" id="taskName" type="text" name="task_title"></td>
