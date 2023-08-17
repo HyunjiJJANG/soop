@@ -3,9 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!doctype html>
-<html lang="en">
+<html>
 <head>
 <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+<link rel="stylesheet" type="text/css" href="assets/css/nav.css">
+<jsp:include page="nav.jsp" />
 <script src="https://kit.fontawesome.com/a613319909.js"
 	crossorigin="anonymous"></script>
 <meta charset="utf-8">
