@@ -362,8 +362,7 @@ $(document).ready(function(){
                                     		<div style="float: left;"><i class="fa-solid fa-user-tie">&nbsp;담당자</i>&nbsp;&nbsp;&nbsp;</div>
 											<!-- 결재 라인 보이는 곳 -->
 											<div class="align-middle">
-												<img src="/data/${signDTO.profile_name}"
-													alt="user image" class="img-radius wid-40 align-top m-r-15">
+												<%-- <img src="/data/${signDTO.profile_name}" alt="user image" class="img-radius wid-40 align-top m-r-15"> --%>
 													<span style="font-size: 15px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											</div>
 			                                    		
@@ -372,20 +371,15 @@ $(document).ready(function(){
 
                                     <tr>
                                     	<td colspan="2">
-<<<<<<< HEAD
                                     		${feedTaskDTO.task_content}
-=======
-                                    		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
                                     		<!-- 해당 업무 첨부파일 보이는 곳 -->
-											<a href="/task/download?file_name=${feedTaskDTO.file_name}" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}</a>
->>>>>>> branch 'jhskbwhj' of https://github.com/HyunjiJJANG/soop.git
                                     	</td>
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">
                                     	<td colspan="2">
                                     		<i class="fa-solid fa-file-arrow-down">&nbsp;첨부파일</i>&nbsp;&nbsp;&nbsp;
                                     		<!-- 해당 업무 첨부파일 보이는 곳 -->
-											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a>
+											<a href="/task/download?file_name=${feedTaskDTO.file_name}" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}</a>
                                     	</td>
                                     </tr>
                                 </tbody>
