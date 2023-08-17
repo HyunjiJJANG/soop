@@ -11,6 +11,7 @@
 <meta name="keywords" content="">
 <meta name="author" content="Phoenixcoded" />
 <title>FEED : SOOP</title>
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 <!-- fontawesome -->
 <script src="https://kit.fontawesome.com/a613319909.js"	crossorigin="anonymous"></script>
 <!-- Favicon icon -->
@@ -215,6 +216,27 @@ $(document).ready(function(){
 	};
 </script>
 
+
+<style>
+	#signapprovervalue1 {
+		width: 60%;
+		margin-left: auto;
+	}
+	#statusvalue {
+		width: 60%;
+		margin-left: auto;
+	}
+	
+    #modal-table {
+	margin-top: -9%;
+  	margin-left: auto;
+    }
+    
+    .modal-header {
+    background-color: #D5F5E3; 
+  	}
+</style>
+
 </head>
 <body>
 	<jsp:include page="nav.jsp" />
@@ -246,10 +268,10 @@ $(document).ready(function(){
                               <a href="feed?project_no=${pno}&member_no=${mno}" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-message" style="color: #707272;"></i></span><span class="pcoded-mtext">피드</span></a>
                           </li>
                           <li class="nav-item">
-                              <a href="form_elements.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span><span class="pcoded-mtext">일정</span></a>
+                              <a href="gantt?member_no=${memberDTO.member_no }" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span><span class="pcoded-mtext">일정</span></a>
                           </li>
                           <li class="nav-item">
-                              <a href="tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
+                              <a href="kanban?member_no=${memberDTO.member_no }" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
                           </li>
                           <li class="nav-item">
                               <a href="contact?email=${memberDTO.email }&project_no=${pno}&member_no=${mno}" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-address-book"></i></span><span class="pcoded-mtext">주소록</span></a>
@@ -438,31 +460,20 @@ $(document).ready(function(){
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				        	<table class="table">
+				        	<table class="table" id="modal-table">
 							<tr>
-								<td colspan="8">업무 제목</td>
-								<td><input class="form-control" id="titlevalue" type="text" name="task_title"></td>
+								<td colspan="8"><p style="font-weight: bold; font-size: 16px;">업무 제목</p></td>
+								<td><input class="form-control" id="titlevalue" type="text" name="task_title" style="font-size: 16px;"></td>
 								<br />
 							</tr>
-							<!-- <tr><td colspan="8">업무 상태	&nbsp; &nbsp;
-								<td>
-								<select name="task_status" id="statusvalue" class="form-select" aria-label="Default select example">
-									<option selected>------업무 상태 선택-----</option>
-									<option value="0">발의됨</option>
-									<option value="1">진행중</option>
-									<option value="2">일시중지</option>
-									<option value="3">완료</option>
-								</td>
-							</td>
-							</tr> -->
-							<tr><td colspan="8">업무 상태	&nbsp; &nbsp;
+							<tr><td colspan="8"><p style="font-weight: bold; font-size: 16px;">업무 상태</p>	&nbsp; &nbsp;
 										<td>
 										<select name="task_status" id="statusvalue" class="form-select" aria-label="Default select example">
 											<option selected>------업무 상태 선택-----</option>
 					<!-- 						<option selected value="100">--업무 상태 선택--</option> -->
-											<option value="0">발의중</option>
-											<option value="1">진행중</option>
-											<option value="2">일시중지</option>
+											<option value="0">발의</option>
+											<option value="1">진행</option>
+											<option value="2">검토</option>
 											<option value="3">완료</option>
 											</select>
 											<!-- 컨트롤러에 task_status 넘겨주는 역할 -->
@@ -479,16 +490,10 @@ $(document).ready(function(){
 							</tr>
 							<tr>
 				
-								<table class="table" id="tb" >
-								<p>결재 라인</p>
-									<tr>
-										<th>1단계</th>
-										<th>2단계</th>
-										<th>3단계</th>
-									</tr>
-									<tr>
-									<tr> 
-										<td>
+								<td colspan="8">
+												<p style="font-weight: bold; font-size: 16px;">담당자</p>
+											</td>
+											<td>
 								            <select name="sign_approver" id="signapprovervalue1" class="form-select" aria-label="Default select example" value="">
 											<option value="">------담당자 선택-----</option>
 								              <c:forEach var="member" items="${members}">
@@ -530,40 +535,29 @@ $(document).ready(function(){
 												  
 													
 										</script>
-														<%-- 						<td>
-								            <select name="sign_approval" id="selectMembersCreate2" class="form-select" aria-label="Default select example">
-								              <option value="">------결재자 선택-----</option>
-								              <c:forEach var="member" items="${members}">
-								                <option value="${member.member_no}" data-membername="${member.name}" data-step="2">${member.name}</option>
-								              </c:forEach>
-								            </select>
-										</td>
-										<td>
-								            <select name="sign_approval" id="selectMembersCreate3" class="form-select" aria-label="Default select example">
-								              <option value="">------결재자 선택-----</option>
-								              <c:forEach var="member" items="${members}">
-								                <option value="${member.member_no}" data-membername="${member.name}" data-step="3" >${member.name}</option>
-								              </c:forEach>
-								            </select>
-										</td> --%>
 									</tr>
-								</table>
+							
 								<br />
 							</tr>
 							<tr>
-							<td>
+							 	<th>
+					 				<p style="font-weight: bold; font-size: 16px;">날짜 선택</p>
+					 			</th>
+								<td colspan="8">
 								<!-- calendar -->
-								<label for="from2">시작일</label>&nbsp; &nbsp;
+								<label for="from2" style="font-size: 16px;">시작일</label>&nbsp; &nbsp;
 								<input type="text" id="startvalue" name="task_start_date" >
 								&nbsp; &nbsp;
-								<label for="to2">마감일</label>&nbsp; &nbsp;
+								<label for="to2" style="font-size: 16px;">마감일</label>&nbsp; &nbsp;
 								<input type="text" id="endvalue" name="task_end_date">
 								&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
 								</td>
 							</tr>	
-							<br /><br />
 							<tr>	
-							<td>
+							<th>
+								<p style="font-weight: bold; font-size: 16px;">첨부파일</p>
+							</th>
+								<td colspan="8">
 								<!-- 첨부파일 -->
 								<!-- controller로 file 넘김 -->
 								<input type="file" name="file" id="fileInput" onchange="hideFileDto(); checkFileSize(this);"/>
@@ -577,14 +571,12 @@ $(document).ready(function(){
 												</td>
 							</tr>
 							<tr>
+								<td colspan="8"><p style="font-weight: bold; font-size: 16px;">업무 내용</p></td>
 								<br />
 								<br />
-								<td>업무 내용</td>
-								<br />
-								<br />
-								<td><textarea class="form-control" id="contentvalue" rows="10" name="task_content" ></textarea></td>
+								<td><textarea class="form-control" id="contentvalue" rows="10" name="task_content" style="font-size: 16px;"></textarea></td>
 							</tr>
-							
+										
 						</table>
 				      </div>
 				      
