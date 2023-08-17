@@ -327,7 +327,7 @@ form {
 											class="nav-link "><span class="pcoded-micon"><i
 													class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
 										</li>
-										<li class="nav-item"><a href="chart-apex.html"
+										<li class="nav-item"><a href="contact?email=${memberDTO.email }&project_no=${pno}&member_no=${mno}"
 											class="nav-link "><span class="pcoded-micon"><i
 													class="fa-regular fa-address-book"></i></span><span
 												class="pcoded-mtext">주소록</span></a></li>

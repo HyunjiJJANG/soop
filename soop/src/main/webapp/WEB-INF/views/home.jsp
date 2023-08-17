@@ -193,12 +193,16 @@
 	// 첨부파일 다운로드 버튼 클릭시 파일 다운로드 하기
 	$(function() {
 	    $("#fileDownload").click(function(){
-	    	var fileName = $("input:radio[id='fileName']:checked").val();
+	    	var fileName = $("input:radio[id='fileName']:checked").val().trim();
 	        if (fileName) {
-	            console.log("선택한 파일이름: " + fileName);
+	            console.log("선택한 파일이름:" + fileName);
 	            $.ajax({
 	            	type : "GET",
-	            	url : "/download?fileName="+fileName
+	            	url : "/download",
+	            	data : {
+	            		"fileName" : fileName
+	            	},
+	            	
 	            });
 	            alert("다운로드가 완료되었습니다.");
 	        } else {
