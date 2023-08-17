@@ -340,13 +340,13 @@
                         <td>프로젝트 기간</td>
                         <td>
                            <div class="input-group" >
-                              <input type="text" class="form-control" name="project_start_date" id="project_start_date" placeholder="시작일">
+                              <input type="text" class="form-control" name="project_start_date" id="project_start_date" value="2023-08-21">
                               <label for="project_start_date" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>
                            </div>                        
                         </td>
                         <td>
                            <div class="input-group">
-                              <input type="text" class="form-control datepicker" name="project_end_date" id="project_end_date" placeholder="종료일">
+                              <input type="text" class="form-control datepicker" name="project_end_date" id="project_end_date" value="2023-09-21">
                               <label for="project_end_date" class="input-group-text"><i class="fa-solid fa-calendar"></i></label>   
                            </div>
                         </td>
