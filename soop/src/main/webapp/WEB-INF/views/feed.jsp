@@ -728,8 +728,8 @@ $(document).ready(function(){
       		
         	<table class="table" id="modal-table">
          			<!-- link에 ?로 주는 대신 hidden으로 줘보기(자꾸 데이터 형식이 안맞아서 나는 오류를 해결하기 위해) -->
-		        	<input type="hidden" name="project_no" id="project_no" value="1">
-		        	<input type="hidden" name="member_no" id="member_no" value="1"> 
+		        	<!-- <input type="hidden" name="project_no" id="project_no" value="1">
+		        	<input type="hidden" name="member_no" id="member_no" value="1"> --> 
 			<tr>
 				<td colspan="8"><p style="font-weight: bold; font-size: 16px;">업무 제목</p></td>
 				<td><input class="form-control" id="taskName" type="text" name="task_title" style="font-size: 16px;"></td>
