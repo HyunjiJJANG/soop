@@ -13,5 +13,8 @@ import kr.co.jhta.soop.dto.TaskMemberFileDTO;
 public interface TaskMemberFileDAO {
 
 	List<TaskMemberFileDTO> selectAllProjectFile(int member_no);
+	
+	List<TaskMemberFileDTO> selectProjectFile(TaskMemberFileDTO dto);
+	
 
 }

@@ -21,5 +21,11 @@ public class TaskMemberFileMysqlService implements TaskMemberFileService {
 		return dao.selectAllProjectFile(member_no);
 	}
 
+	@Override
+	public List<TaskMemberFileDTO> selectProjectFile(TaskMemberFileDTO dto) {
+		
+		return dao.selectProjectFile(dto);
+	}
+
 
 }
