@@ -19,6 +19,6 @@ public interface HistoryDAO {
 
 	public void updateOne(HistoryDTO dto);
 
-	public void deleteOne(int history_no);
+	public void deleteOne(HistoryDTO dto);
 
 }

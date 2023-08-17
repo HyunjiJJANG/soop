@@ -390,7 +390,7 @@ a {
 
 
 
-											<tr>
+											<%-- <tr>
 												<td colspan="5">
 													<nav aria-label="Page navigation example">
 														<ul class="pagination">
@@ -411,7 +411,7 @@ a {
 													</nav>
 
 												</td>
-											</tr>
+											</tr> --%>
 											</tbody>
 										</table>
 

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.jhta.soop.dto.HistoryDTO;
 import kr.co.jhta.soop.dto.ProjectTaskMemberDTO;
+import kr.co.jhta.soop.service.HistoryService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
 import kr.co.jhta.soop.service.ProjectTaskMemberService;
@@ -30,6 +32,9 @@ public class KanbanController {
 	
 	@Autowired
 	ProjectProjectMemberMemberService projectProjectMemberMemberService;
+	
+	@Autowired
+	HistoryService historyService;
 	
 	@GetMapping("/kanban")
 	public String myKanban(
@@ -62,7 +67,6 @@ public class KanbanController {
 		map.put("member_no", member_no);
 		map.put("task_status", task_status); 
 		map.put("task_no", task_no); 
-		
 		kanban_PTMservice.myprojectUpdateTaskStatus(map);
 		
 	}

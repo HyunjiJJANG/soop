@@ -39,10 +39,12 @@ public class HistoryMysqlService implements HistoryService {
 		
 	}
 
+	
+
 	@Override
-	public void deleteOne(int history_no) {
-		dao.deleteOne(history_no);
-		
+	public void deleteOne(HistoryDTO dto) {
+		dao.deleteOne(dto);
+
 	}
 
 }

@@ -14,5 +14,5 @@ public interface HistoryService {
 
 	public void updateOne(HistoryDTO dto);
 
-	public void deleteOne(int history_no);
+	public void deleteOne(HistoryDTO dto);
 }
