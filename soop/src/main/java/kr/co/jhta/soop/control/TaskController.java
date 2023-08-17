@@ -143,8 +143,8 @@ public class TaskController {
 			log.info("memberno : " + memberno);
 			
 			SignTaskAttachedFiledto.setTask_status(taskstatus); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-			SignTaskAttachedFiledto.setTask_status(projectno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-			SignTaskAttachedFiledto.setTask_status(memberno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+			//SignTaskAttachedFiledto.setProject_no(projectno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+			//SignTaskAttachedFiledto.setMember_no(memberno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 			// taskService.insertOne(Taskdto);
 			signTaskAttachedFileService.insertTask(SignTaskAttachedFiledto);
 			
@@ -414,10 +414,10 @@ public class TaskController {
 	// 파일 다운로드
 	@RequestMapping("/task/download")
 	@ResponseBody // 사용자에게 전달
-	public byte[] download(HttpServletRequest req, @RequestParam("fileName") String fileName, // 파라미터값으로 파일 이름을(aa.PNG)
-																								// 받아서 fileName이라는
-																								// String 변수에 담아주기
-			HttpServletResponse resp) {
+	public byte[] download(HttpServletRequest req, 
+			/* @RequestParam("fileName") String fileName, */// 파라미터값으로 파일 이름을(aa.PNG)
+			@RequestParam("file_name") String file_name,
+		HttpServletResponse resp) {
 		// /data 디렉토리에 저장되어 있다.
 
 		String filePath = req.getSession().getServletContext().getRealPath("/data");
@@ -426,7 +426,7 @@ public class TaskController {
 		System.out.println("/data 디렉토리의 절대 경로 : " + filePath);
 
 		// 다운로드 받을 파일의 절대 경로
-		String absFilePath = filePath + "/" + fileName;
+		String absFilePath = filePath + "/" + file_name;
 
 		System.out.println("다운로드 받을 파일의 절대 경로 : " + absFilePath);
 
@@ -445,6 +445,8 @@ public class TaskController {
 			resp.setContentLength(b.length);
 			// 파일의 종류
 			resp.setContentType("image/jpeg");
+			resp.setContentType("text/plain"); // 텍스트 파일의 MIME 타입인 "text/plain"으로 변경
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

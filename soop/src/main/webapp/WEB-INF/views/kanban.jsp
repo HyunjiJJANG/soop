@@ -65,6 +65,7 @@
 	float: left;
 	margin-right: 10px;
 	margin-top: 100px;
+	
 }
 
 .sortable_list li, .sortable_list1 li {
@@ -72,6 +73,7 @@
 	padding: 5px;
 	font-size: 1.0em;
 	width: 250px;
+	
 }
 
 #kanbanDiv {
@@ -116,7 +118,7 @@ $(function() {
 	        		changeStatus = $("table").eq(1).next().val("1");
 	        		
 	        	}else if(presentTaskStatus == "sortable2"){
-	        		ui.item.find("td").eq(9).html("보류")
+	        		ui.item.find("td").eq(9).html("검토")
 	        		// 업무상태값을 변경
 	        		changeStatus = $("table").eq(2).next().val("2");
 	        		
@@ -263,7 +265,7 @@ $(document).ready(function() {
     	        		changeStatus = $("table").eq(1).next().val("1");
     	        		
     	        	}else if(presentTaskStatus == "sortable2"){
-    	        		ui.item.find("td").eq(9).html("보류")
+    	        		ui.item.find("td").eq(9).html("검토")
     	        		changeStatus = $("table").eq(2).next().val("2");
     	        		
     	        	}else if(presentTaskStatus == "sortable3"){
@@ -307,7 +309,7 @@ $(document).ready(function() {
 
     // 업무 아이템 HTML을 생성하는 함수
     function createTaskItem(task) {
-        var tableHTML = '<li class="ui-state-default">' +
+        var tableHTML = '<li  class="list-group-item list-group-item-action">' +
         '<table>' +
         
         '<tr>' +
@@ -364,7 +366,7 @@ $(document).ready(function() {
     } else if (task.task_status == 1) {
         tableHTML += '<c:out value="진행"></c:out>';
     } else if (task.task_status == 2) {
-        tableHTML += '<c:out value="보류"></c:out>';
+        tableHTML += '<c:out value="검토"></c:out>';
     } else if (task.task_status == 3) {
         tableHTML += '<c:out value="완료"></c:out>';
     }
@@ -408,10 +410,13 @@ $(document).ready(function() {
 								<button id="showSelected" class="btn btn-primary btn-sm" style="margin-left: 10px; color: #fff; background-color: #78C2AD; border: none" >선택된 프로젝트 보기</button>
 								<div id="result"></div>						
 															
-								<ul id="sortable0" class="sortable_list connectedSortable" style="margin-top: 50px;">							
+								<ul id="sortable0" class="sortable_list connectedSortable" style="margin-top: 50px; background-color: white;" >
+								<div style=" margin-top: 10px; margin-bottom: 10px;">
+								<span style="font-size: large; font-weight: bold; margin-left: 130px;">발의</span>	
+								</div>					
 									<c:forEach var="tasklist" items="${dto }">																		
 										<c:if test="${tasklist.task_status == 0}">
-											<li class="ui-state-default">								
+											<li class="list-group-item list-group-item-action list-group-item-warning">								
 												<table>					
 												    <tr>				    	
 												    	<th style=" display: none;" >프로젝트 번호 : </th>
@@ -419,14 +424,15 @@ $(document).ready(function() {
 												    </tr>
 													<tr>
 												    	<th style=" display: none;">프로젝트 제목 : </th>
-												    	<td style=" display: none;">${tasklist.project_title }</td>
+												    	<%-- <td style=" display: none;">${tasklist.project_title }</td> --%>
+												    	<td>[${tasklist.project_title }]</td>
 												    </tr>
 												    <tr>
 												    	<th style=" display: none;">업무 번호 : </th>
 												    	<td style=" display: none;">${tasklist.task_no }</td>
 												    </tr>
 												    <tr>
-												    	<th>업무 제목 : </th>
+												    	<th style=" display: none;">업무 제목 : </th>
 												    	<td>${tasklist.task_title }</td>
 												    </tr>
 												    <tr>
@@ -450,8 +456,9 @@ $(document).ready(function() {
 												    	<td style=" display: none;">${tasklist.task_end_date }</td>
 												    </tr>													
 													<tr>
-														<th>업무 상태 :</th>
-														<td>
+														<th style=" display: none;">업무 상태 :</th>
+														<!-- <td> -->
+														<td style=" display: none;">
 															<c:out value="발의"></c:out>
 														</td>
 													</tr>			    		
@@ -463,24 +470,28 @@ $(document).ready(function() {
 								</ul>
 								     
 								<ul id="sortable1" class="sortable_list connectedSortable" style="margin-top: 50px;">
+								<div style=" margin-top: 10px; margin-bottom: 10px;">
+								<span style="font-size: large; font-weight: bold; margin-left: 130px;">진행</span>	
+								</div>	
 									<c:forEach var="tasklist" items="${dto }">
 										<c:if test="${tasklist.task_status == 1}">
-											<li class="ui-state-default">								
+											<li   class="list-group-item list-group-item-action list-group-item-info">							
 												<table>					
-												    <tr>				    	
+												   <tr>				    	
 												    	<th style=" display: none;" >프로젝트 번호 : </th>
 												    	<td style=" display: none;">${tasklist.project_no }</td>
 												    </tr>
 													<tr>
 												    	<th style=" display: none;">프로젝트 제목 : </th>
-												    	<td style=" display: none;">${tasklist.project_title }</td>
+												    	<%-- <td style=" display: none;">${tasklist.project_title }</td> --%>
+												    	<td>[${tasklist.project_title }]</td>
 												    </tr>
 												    <tr>
 												    	<th style=" display: none;">업무 번호 : </th>
 												    	<td style=" display: none;">${tasklist.task_no }</td>
 												    </tr>
 												    <tr>
-												    	<th>업무 제목 : </th>
+												    	<th style=" display: none;">업무 제목 : </th>
 												    	<td>${tasklist.task_title }</td>
 												    </tr>
 												    <tr>
@@ -502,10 +513,10 @@ $(document).ready(function() {
 												    <tr>
 												    	<th style=" display: none;">업무종료일 : </th>
 												    	<td style=" display: none;">${tasklist.task_end_date }</td>
-												    </tr>
+												    </tr>												
 													<tr>
-														<th>업무 상태 :</th>
-															<td>
+														<th style=" display: none;">업무 상태 :</th>
+															<td style=" display: none;">
 															<c:out value="진행"></c:out>
 														</td>
 													</tr>				    		
@@ -517,24 +528,28 @@ $(document).ready(function() {
 								</ul>     
 								     
 								<ul id="sortable2" class="sortable_list connectedSortable" style="margin-top: 50px;">
+								<div style=" margin-top: 10px; margin-bottom: 10px;">
+								<span style="font-size: large; font-weight: bold; margin-left: 130px;">검토</span>	
+								</div>	
 									<c:forEach var="tasklist" items="${dto }">
 										<c:if test="${tasklist.task_status == 2}">
-											<li class="ui-state-default">								
+											<li   class="list-group-item list-group-item-action list-group-item-danger">								
 												<table>					
-												    <tr>				    	
+												   <tr>				    	
 												    	<th style=" display: none;" >프로젝트 번호 : </th>
 												    	<td style=" display: none;">${tasklist.project_no }</td>
 												    </tr>
 													<tr>
 												    	<th style=" display: none;">프로젝트 제목 : </th>
-												    	<td style=" display: none;">${tasklist.project_title }</td>
+												    	<%-- <td style=" display: none;">${tasklist.project_title }</td> --%>
+												    	<td>[${tasklist.project_title }]</td>
 												    </tr>
 												    <tr>
 												    	<th style=" display: none;">업무 번호 : </th>
 												    	<td style=" display: none;">${tasklist.task_no }</td>
 												    </tr>
 												    <tr>
-												    	<th>업무 제목 : </th>
+												    	<th style=" display: none;">업무 제목 : </th>
 												    	<td>${tasklist.task_title }</td>
 												    </tr>
 												    <tr>
@@ -556,11 +571,11 @@ $(document).ready(function() {
 												    <tr>
 												    	<th style=" display: none;">업무종료일 : </th>
 												    	<td style=" display: none;">${tasklist.task_end_date }</td>
-												    </tr>
+												    </tr>												
 													<tr>
-														<th>업무 상태 :</th>
-															<td>
-															<c:out value="보류"></c:out>
+														<th style=" display: none;">업무 상태 :</th>
+															<td style=" display: none;">
+															<c:out value="검토"></c:out>
 														</td>
 													</tr>				    							    		
 												</table>
@@ -571,24 +586,28 @@ $(document).ready(function() {
 								</ul> 
 								
 								<ul id="sortable3" class="sortable_list connectedSortable" style="margin-top: 50px;">
+								<div style=" margin-top: 10px; margin-bottom: 10px;">
+								<span style="font-size: large; font-weight: bold; margin-left: 130px;">완료</span>	
+								</div>	
 									<c:forEach var="tasklist" items="${dto }">
 										<c:if test="${tasklist.task_status == 3}">
-											<li class="ui-state-default">								
+											<li class="list-group-item list-group-item-action list-group-item-dark">								
 												<table>					
-												    <tr>				    	
+												   <tr>				    	
 												    	<th style=" display: none;" >프로젝트 번호 : </th>
 												    	<td style=" display: none;">${tasklist.project_no }</td>
 												    </tr>
 													<tr>
 												    	<th style=" display: none;">프로젝트 제목 : </th>
-												    	<td style=" display: none;">${tasklist.project_title }</td>
+												    	<%-- <td style=" display: none;">${tasklist.project_title }</td> --%>
+												    	<td>[${tasklist.project_title }]</td>
 												    </tr>
 												    <tr>
 												    	<th style=" display: none;">업무 번호 : </th>
 												    	<td style=" display: none;">${tasklist.task_no }</td>
 												    </tr>
 												    <tr>
-												    	<th>업무 제목 : </th>
+												    	<th style=" display: none;">업무 제목 : </th>
 												    	<td>${tasklist.task_title }</td>
 												    </tr>
 												    <tr>
@@ -610,10 +629,10 @@ $(document).ready(function() {
 												    <tr>
 												    	<th style=" display: none;">업무종료일 : </th>
 												    	<td style=" display: none;">${tasklist.task_end_date }</td>
-												    </tr>
+												    </tr>												
 													<tr>
-														<th>업무 상태 :</th>
-														<td>
+														<th style=" display: none;">업무 상태 :</th>
+														<td style=" display: none;">
 															<c:out value="완료"></c:out>
 														</td>
 													</tr>						    		

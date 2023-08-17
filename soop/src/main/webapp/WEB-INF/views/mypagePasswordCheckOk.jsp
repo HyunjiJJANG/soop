@@ -425,7 +425,7 @@ img.rounded {
 														style="top: 160px; left: 160px;">
 												</a>
 												</label> <input type="file" name="profileImage"
-													id="profileImageInput" style="display: none;" /> <input
+													id="profileImageInput" style="display: none;"/> <input
 													type="hidden" name="email" id="email"
 													value="${memberDTO.email }">
 												<!-- email 값을 변경해주세요 -->
@@ -608,7 +608,7 @@ img.rounded {
 												</div>
 											</div>
 											<div class="col-1">
-												<input type="button" class="btn btn-outline-success btn-sm"
+												<input type="button" class="btn btn-outline-primary btn-sm"
 													value="변경" id="passwordChange"
 													style="height: 45px; margin-top: 15px; width: 73px;" />
 
@@ -663,12 +663,12 @@ img.rounded {
 												</div>
 											</div>
 											<div class="col-1">
-												<input type="button" class="btn btn-outline-success btn-sm"
+												<input type="button" class="btn btn-outline-primary btn-sm"
 													value="변경" id="passwordChangeOk"
 													style="height: 45px; margin-top: 15px; width: 73px;" />
 											</div>
 											<div class="col-1">
-												<input type="button" class="btn btn-outline-success btn-sm"
+												<input type="button" class="btn btn-outline-primary btn-sm"
 													value="입력 취소" id="passwordChangeCancel"
 													style="height: 45px; margin-top: 15px; margin-left: 60px; width: 73px;" />
 											</div>

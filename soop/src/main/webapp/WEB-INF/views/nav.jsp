@@ -110,6 +110,14 @@
 
 
 </script>
+
+<style>
+  .modal-header {
+    background-color: #D5F5E3; 
+  }
+
+</style>
+
 </head>
 <body>
 	<input type="hidden" id="member_no" name="member_no" value="${member_no}" />
@@ -192,9 +200,9 @@
 				<fmt:formatDate value="${ymd}" pattern="yyyy년 MM월 dd일 E요일" />
 			</h6>
 		</div>
-		<div class="collapse navbar-collapse">
+	<div class="collapse navbar-collapse">
 			<ul class="navbar-nav ml-auto">
-				<li>
+				<%-- <li>
 					<div class="dropdown">
 						<a class="dropdown-toggle" href="#" data-toggle="dropdown">
 							<i class="icon feather icon-bell"></i>
@@ -264,12 +272,13 @@
 									</div>
 								</li>
 							</ul>
+							
 							<div class="noti-footer">
 								<a href="/historyList?member_no=${memberDTO.member_no }&email=${memberDTO.email}">모든 히스토리 보기</a>
 							</div>
 						</div>
 					</div>
-				</li>
+				</li> --%>
 				<li>
 					<div class="dropdown drp-user">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -287,11 +296,11 @@
 										<i class="feather icon-user" style="color: #707272;"></i>마이페이지
 									</a>
 								</li>
-								<li>
+								<!-- <li>
 									<a href="" class="dropdown-item">
 										<i class="fa-regular fa-address-book" style="color: #707272;"></i>주소록
 									</a>
-								</li>
+								</li> -->
 								<li>
 									<a href="/logout" class="dropdown-item">
 										<i class="feather icon-log-out" style="color: #707272;"></i>로그아웃
@@ -302,7 +311,7 @@
 					</div>
 				</li>
 			</ul>
-		</div>
+		</div> 
 	</header>
 	<!-- [ Header ] end -->
 	
