@@ -235,6 +235,8 @@ $(document).ready(function(){
 	}
 </style>
 
+<jsp:include page="nav.jsp" />
+
 </head>
 <body>
 
@@ -431,11 +433,11 @@ $(document).ready(function(){
 			</tr>
 			<tr>
 
-			<a href=""><button></button></a>
-				<!-- Calender -->
+<!-- 			<a href=""><button></button></a>
+				Calender
 				<label for="from">시작일</label>
 				<input type="text" id="from" name="task_start_date">
-
+ -->
 			<td>
 				<!-- calendar -->
 				
@@ -649,5 +651,7 @@ $(document).ready(function(){
   </div>
 </div>
 </form>
+<!-- 업무 수정 모달 end-->
+
 </body>
 </html>
