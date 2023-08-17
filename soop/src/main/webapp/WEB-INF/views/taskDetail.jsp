@@ -181,23 +181,21 @@ $(document).ready(function(){
 <!-- sign 수정을 위해 기본값 전달 -->
 <script type="text/javascript">
  function test(e){
-
-		var member_no = $("#member_no").val();
-
-		var sign_approver = $("#sign_approver").val().trim();
-		var sign_member_no = $("#sign_member_no").val().trim();
-		var sign_step = $("#sign_step").val().trim();
-		var project_no = $("#project_no").val();
-	 
+	console.log($(e).parent().prev().prev().prev().html());
+	let member_no = $(e).parent().prev().prev().prev().html();
+	
+	//let member_no = ${signdto.member_no};
+	//let member_no = 1;
+	
 	$.ajax({
-		url: "/taskinfo" , 
+		url: "/soop/taskinfo" , 
 		data : {"member_no": member_no},
 		success : function (data){
 			console.log(data);
 			
-			$("#sign_approver_up").val(sign_approver);
-			$("#sign_member_no_up").val(sign_member_no);
-			$("#sign_step_up").val(sign_step);
+			$("#sign_approver_up").val(data.sign_approver);
+			$("#sign_member_no_up").val(data.sign_member_no);
+			$("#sign_step_up").val(data.sign_step);
 			
 		}
 			
@@ -363,7 +361,6 @@ $(document).ready(function(){
                                     	<td colspan="2">
                                     		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
                                     		<!-- 해당 업무 첨부파일 보이는 곳 -->
-											<%-- <a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a> --%>
 											<a href="/task/download?file_name=${feedTaskDTO.file_name}" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}</a>
                                     	</td>
                                     </tr>

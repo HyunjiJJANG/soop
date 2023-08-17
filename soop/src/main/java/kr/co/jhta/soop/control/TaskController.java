@@ -417,9 +417,7 @@ public class TaskController {
 	public byte[] download(HttpServletRequest req, 
 			/* @RequestParam("fileName") String fileName, */// 파라미터값으로 파일 이름을(aa.PNG)
 			@RequestParam("file_name") String file_name,
-																								// 받아서 fileName이라는
-																								// String 변수에 담아주기
-			HttpServletResponse resp) {
+		HttpServletResponse resp) {
 		// /data 디렉토리에 저장되어 있다.
 
 		String filePath = req.getSession().getServletContext().getRealPath("/data");
@@ -447,6 +445,8 @@ public class TaskController {
 			resp.setContentLength(b.length);
 			// 파일의 종류
 			resp.setContentType("image/jpeg");
+			resp.setContentType("text/plain"); // 텍스트 파일의 MIME 타입인 "text/plain"으로 변경
+			
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
