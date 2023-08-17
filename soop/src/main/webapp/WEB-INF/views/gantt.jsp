@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-<link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
 <script src="https://kit.fontawesome.com/a613319909.js"
 	crossorigin="anonymous"></script>
 <meta charset="utf-8">
@@ -111,7 +111,7 @@
 	float: right;
 }
 </style>
-
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 <!-- 프로젝트 상태표시 -->
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
