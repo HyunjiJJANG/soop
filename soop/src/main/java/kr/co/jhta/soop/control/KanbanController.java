@@ -67,6 +67,7 @@ public class KanbanController {
 		map.put("member_no", member_no);
 		map.put("task_status", task_status); 
 		map.put("task_no", task_no); 
+		
 		kanban_PTMservice.myprojectUpdateTaskStatus(map);
 		
 	}

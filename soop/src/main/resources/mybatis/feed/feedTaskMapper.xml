@@ -13,10 +13,10 @@
 		FROM project p
 		JOIN project_member pm
 		ON p.project_no = pm.project_no
-		JOIN task_favorite t
+		JOIN task t
 		ON p.project_no = t.project_no
 		WHERE pm.member_no = #{member_no} and
-		t.favorite = 1
+		t.task_favorite = 1
 	</select>
 	
 	<!-- task 리스트 불러오기 -->

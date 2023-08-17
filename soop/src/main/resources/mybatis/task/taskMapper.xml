@@ -12,14 +12,14 @@
 	
 
 	<select id="updateFavorite" parameterType="int">
-		UPDATE task_favorite
-		SET favorite = 1
+		UPDATE task
+		SET task_favorite = 1
 		WHERE task_no = #{task_no}
 	</select>
 
 	<update id="deleteFavorite" parameterType="int">
-		UPDATE task_favorite
-		SET favorite = 0
+		UPDATE task
+		SET task_favorite = 0
 		WHERE task_no = #{task_no}
 	</update>
 	

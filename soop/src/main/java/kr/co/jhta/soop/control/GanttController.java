@@ -45,6 +45,7 @@ public class GanttController {
 				
 		model.addAttribute("no", member_no); // test 후 member_no 로변경하기 -2
 		model.addAttribute("memberDTO", memberService.selectOne(member_no));
+		
 		return "gantt";
 	}
 		
