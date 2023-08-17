@@ -414,7 +414,9 @@ public class TaskController {
 	// 파일 다운로드
 	@RequestMapping("/task/download")
 	@ResponseBody // 사용자에게 전달
-	public byte[] download(HttpServletRequest req, @RequestParam("fileName") String fileName, // 파라미터값으로 파일 이름을(aa.PNG)
+	public byte[] download(HttpServletRequest req, 
+			/* @RequestParam("fileName") String fileName, */// 파라미터값으로 파일 이름을(aa.PNG)
+			@RequestParam("file_name") String file_name,
 																								// 받아서 fileName이라는
 																								// String 변수에 담아주기
 			HttpServletResponse resp) {
@@ -426,7 +428,7 @@ public class TaskController {
 		System.out.println("/data 디렉토리의 절대 경로 : " + filePath);
 
 		// 다운로드 받을 파일의 절대 경로
-		String absFilePath = filePath + "/" + fileName;
+		String absFilePath = filePath + "/" + file_name;
 
 		System.out.println("다운로드 받을 파일의 절대 경로 : " + absFilePath);
 
