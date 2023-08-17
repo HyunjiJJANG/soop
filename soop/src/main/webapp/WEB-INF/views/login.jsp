@@ -162,13 +162,13 @@ form {
 /* 이미지가 왼쪽으로 */
 .global-container {
 	position: fixed;
-	right: 350px;
+	right: 400px;
 	top: 50px;
 }
 
 #Login_Logo {
 	position: fixed;
-	left: 320px;
+	left: 350px;
 	top: 200px;
 	width: 600px;
 	height: 400px;
@@ -278,9 +278,9 @@ form {
 
 				</div>
 				<div id="Login_Logo">
-					<h2>쉽고,</h2>
+					<h2 style="text-align: laft; font-weight: bold; ">쉽고,</h2>
 					<br />
-					<h2>빠른 업무 관리의 시작 SOOP</h2>
+					<h2 style="text-align: laft; font-weight: bold; ">빠른 업무 관리의 시작 SOOP</h2>
 					<br /> <img src="/images/LoginLogo.png" alt="LoginLogo"
 						style="width: 500px; height: 300px;" />
 

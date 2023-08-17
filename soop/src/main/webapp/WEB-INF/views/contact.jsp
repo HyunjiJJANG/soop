@@ -165,7 +165,7 @@ form {
 	position: relative;
 	width: 200px;
 	margin-left: 1000px;
-	margin-top: 10px;
+	margin-top: 70px;
 	margin-bottom: 10px;
 }
 
@@ -254,12 +254,12 @@ form {
 					success : function(result) {
 						if (result && result.length >= 1) {
 							var searchResultList = [];
-
+							
 							result
 									.forEach(function(item) {
 										var str = '<div class="col" id="searchResultList">';
 										str += '<div>';
-										str += '<img src="' + item.profile_path + '" class="card-img-top" alt="프로필 이미지" id="profileImage">';
+										str += '<img src="/data/' + item.profile_name + '" class="card-img-top" alt="프로필 이미지" id="profileImage">';
 										str += '<div>';
 										str += '<h5 class="card-title" style="margin-top: 10px;">'
 												+ item.name + '</h5>';
@@ -319,15 +319,17 @@ form {
 											class="nav-link "><span class="pcoded-micon"><i
 													class="fa-regular fa-message" style="color: #707272;"></i></span><span
 												class="pcoded-mtext">피드</span></a></li>
-										<li class="nav-item"><a href="form_elements.html"
-											class="nav-link "><span class="pcoded-micon"><i
+										<li class="nav-item"><a
+											href="gantt?member_no=${member_no }" class="nav-link "><span
+												class="pcoded-micon"><i
 													class="fa-solid fa-calendar-days"></i></span><span
 												class="pcoded-mtext">일정</span></a></li>
-										<li class="nav-item"><a href="tbl_bootstrap.html"
-											class="nav-link "><span class="pcoded-micon"><i
-													class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
-										</li>
-										<li class="nav-item"><a href="contact?email=${memberDTO.email }&project_no=${pno}&member_no=${mno}"
+										<li class="nav-item"><a
+											href="kanban?member_no=${member_no }" class="nav-link "><span
+												class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span
+												class="pcoded-mtext">할일</span></a></li>
+										<li class="nav-item"><a
+											href="contact?email=${memberDTO.email }&project_no=${pno}&member_no=${mno}"
 											class="nav-link "><span class="pcoded-micon"><i
 													class="fa-regular fa-address-book"></i></span><span
 												class="pcoded-mtext">주소록</span></a></li>
@@ -357,42 +359,50 @@ form {
 								<div class="card-body p-0">
 									<div class="table-responsive">
 										<div class="card-text">
-					
-												<div class="search-result-container">
-											<div id="searchDiv">
-												<input type="text" id="searchInput" name="searchInput"
-													required> <label id="searchLable">이름🔍</label> <span
-													id="searchSpan"></span>
-											</div>
-													<div class="row row-cols-1 row-cols-md-3 g-6 "
+
+											<div class="search-result-container">
+												<div id="searchDiv">
+													<input type="text" id="searchInput" name="searchInput"
+														required> <label id="searchLable">이름🔍</label> <span
+														id="searchSpan"></span>
+												</div>
+												<!-- <div class="row row-cols-1 row-cols-md-3 g-6 "
 														id="profileCard" style="height: 600px; width: 800px;">
-									</div>
-								</div>
-								<div class="card-body p-0">
-									<div class="table-responsive">
-										<div class="card-text">
-												<div class="search-result-container">
-													<div class="row" id="profileCard">
-														<c:forEach var="memberProjectMemberdto" items="${list}">
-															<div class="col" id="searchResultList">
-																<div>
-																	<img src="/data/${memberProjectMemberdto.profile_name }"
-																		class="card-img-top" alt="프로필 이미지" id="profileImage">
-																	<div>
-																		<h5 class="card-title" style="margin-top: 10px;">${memberProjectMemberdto.name }</h5>
-																		<p class="card-text">${memberProjectMemberdto.email }</p>
+									</div> -->
+											</div>
+											<div class="card-body p-0">
+												<div class="table-responsive">
+													<div class="card-text" style="margin-left: 150px;">
+														<div class="search-result-container">
+															<div class="row" id="profileCard"
+																style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px">
+																<c:forEach var="memberProjectMemberdto" items="${list}">
+																	<div class="col" id="searchResultList">
+																		<div>
+																			<img
+																				src="/data/${memberProjectMemberdto.profile_name }"
+																				class="card-img-top" alt="프로필 이미지" id="profileImage">
+																			<div>
+																				<h5 class="card-title-center"
+																					style="margin-top: 10px;">${memberProjectMemberdto.name }</h5>
+																				<p class="card-text-center"
+																					style="margin-top: 10px;">${memberProjectMemberdto.email }</p>
+																			</div>
+																		</div>
 																	</div>
-																</div>
+																</c:forEach>
 															</div>
-														</c:forEach>
+														</div>
+
 													</div>
 												</div>
-										
+											</div>
 										</div>
+
 									</div>
 								</div>
 							</div>
-					
+						</div>
 					</div>
 				</div>
 			</div>

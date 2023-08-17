@@ -399,13 +399,15 @@ $(document).ready(function(){
                               <a href="gantt?member_no=${member_no }" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-calendar-days"></i></span><span class="pcoded-mtext">일정</span></a>
                           </li>
                           <li class="nav-item">
-                              <a href="kanban?member_no=${memberDTO.member_no }" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
+
+                              <a href="kanban?member_no=${member_no }" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span class="pcoded-mtext">할일</span></a>
+
                           </li>
                           <li class="nav-item">
                               <a href="contact?email=${memberDTO.email }&project_no=${pno}&member_no=${mno}" class="nav-link "><span class="pcoded-micon"><i class="fa-regular fa-address-book"></i></span><span class="pcoded-mtext">주소록</span></a>
                           </li>
                           <li class="nav-item">
-                              <a href="map-google.html" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-file-arrow-down"></i></span><span class="pcoded-mtext">첨부파일</span></a>
+                              <a href="fileList?project_no=${pno}&member_no=${mno}" class="nav-link "><span class="pcoded-micon"><i class="fa-solid fa-file-arrow-down"></i></span><span class="pcoded-mtext">첨부파일</span></a>
                           </li>
 
                       </ul>
@@ -730,6 +732,7 @@ $(document).ready(function(){
          			<!-- link에 ?로 주는 대신 hidden으로 줘보기(자꾸 데이터 형식이 안맞아서 나는 오류를 해결하기 위해) -->
 		        	<!-- <input type="hidden" name="project_no" id="project_no" value="1">
 		        	<input type="hidden" name="member_no" id="member_no" value="1"> --> 
+
 			<tr>
 				<td colspan="8"><p style="font-weight: bold; font-size: 16px;">업무 제목</p></td>
 				<td><input class="form-control" id="taskName" type="text" name="task_title" style="font-size: 16px;"></td>
@@ -740,9 +743,12 @@ $(document).ready(function(){
 						<select name="task_status_select" id="task_status_select" class="form-select" aria-label="Default select example">
 							<option selected>------업무 상태 선택-----</option>	
 							<!-- <option selected value="0">--업무 상태 선택--</option> -->
+
+
 							<option value="0">발의</option>
 							<option value="1">진행</option>
 							<option value="2">검토</option>
+
 							<option value="3">완료</option>
 							</select>
 							<!-- 컨트롤러에 task_status 넘겨주는 역할 -->
