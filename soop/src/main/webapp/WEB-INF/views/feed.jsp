@@ -729,6 +729,9 @@ $(document).ready(function(){
       <div class="modal-body">
       		
         	<table class="table" id="modal-table">
+        	<input type="hidden" id="name" name="member_name" value="${name }"/>
+			<input type="hidden" id="project_no" name="project_no" value="${project_no }"/>
+			<input type="hidden" id="member_no" name="member_no" value="${member_no }"/>
          			<!-- link에 ?로 주는 대신 hidden으로 줘보기(자꾸 데이터 형식이 안맞아서 나는 오류를 해결하기 위해) -->
 		        	<!-- <input type="hidden" name="project_no" id="project_no" value="1">
 		        	<input type="hidden" name="member_no" id="member_no" value="1">  -->
@@ -747,7 +750,6 @@ $(document).ready(function(){
 							<option value="0">발의</option>
 							<option value="1">진행</option>
 							<option value="2">검토</option>
-
 							<option value="3">완료</option>
 							</select>
 							<!-- 컨트롤러에 task_status 넘겨주는 역할 -->
