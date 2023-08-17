@@ -54,5 +54,10 @@ public class SignTaskAttachedFileMysqlService implements SignTaskAttachedFileSer
 		dao.updateSign(dto);
 		
 	}
+
+	@Override
+	public void updateAttachedfile(SignTaskAttachedFileDTO dto) {
+		dao.updateAttachedfile(dto);
+	}
 	
 }

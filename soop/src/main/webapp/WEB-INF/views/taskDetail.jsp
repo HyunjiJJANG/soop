@@ -381,9 +381,14 @@ $(document).ready(function(){
                                     </tr>
                                     <tr>
                                     	<td colspan="2">
-                                    		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
+	                                    		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
                                     		<!-- 해당 업무 첨부파일 보이는 곳 -->
+											<%-- <a href="/task/download?file_name=${feedTaskDTO.file_name}" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}</a> --%>
 											<a href="/task/download?file_name=${feedTaskDTO.file_name}" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}</a>
+<%-- 											<c:if test="${not empty feedTaskDTO.file_name}">
+	                                    		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
+											    <a href="/task/download?file_name=${feedTaskDTO.file_name}" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}</a>
+											</c:if> --%>
                                     	</td>
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">
@@ -563,7 +568,8 @@ $(document).ready(function(){
 								<input type="file" name="file" id="fileInput" onchange="hideFileDto(); checkFileSize(this);"/>
 								    <!-- 기존 첨부파일 정보를 출력할 div 영역 -->
 												<div id="filedto">
-													<c:forEach var="file" items="${filedto}">
+													<%-- <c:forEach var="file" items="${filedto}"> --%>
+													<c:forEach var="file" items="${SignTaskAttachedFiledto}">
 														<p>${file.file_name}</p>
 														<p>${file.file_path}</p>
 													</c:forEach>
