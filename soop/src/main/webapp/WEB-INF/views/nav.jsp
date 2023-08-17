@@ -110,6 +110,14 @@
 
 
 </script>
+
+<style>
+  .modal-header {
+    background-color: #D5F5E3; 
+  }
+
+</style>
+
 </head>
 <body>
 	<input type="hidden" id="member_no" name="member_no" value="${member_no}" />
