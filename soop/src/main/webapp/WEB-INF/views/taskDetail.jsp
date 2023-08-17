@@ -361,7 +361,8 @@ $(document).ready(function(){
                                     	<td colspan="2">
                                     		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
                                     		<!-- 해당 업무 첨부파일 보이는 곳 -->
-											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a>
+											<%-- <a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a> --%>
+											<a href="/task/download?file_name=${feedTaskDTO.file_name}" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}</a>
                                     	</td>
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">

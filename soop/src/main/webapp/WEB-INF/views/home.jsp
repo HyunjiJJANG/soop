@@ -198,11 +198,15 @@
 	            console.log("선택한 파일이름:" + fileName);
 	            $.ajax({
 	            	type : "GET",
+
 	            	url : "/download",
 	            	data : {
 	            		"fileName" : fileName
 	            	},
 	            	
+
+	            	url : "download?fileName="+fileName
+
 	            });
 	            alert("다운로드가 완료되었습니다.");
 	        } else {
