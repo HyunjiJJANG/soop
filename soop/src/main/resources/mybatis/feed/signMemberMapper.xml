@@ -14,7 +14,7 @@
 	</select>
 	
 	<select id="selectOne" parameterType="int" resultType="kr.co.jhta.soop.dto.SignMemberDTO">
-		SELECT s.sign_step, s.sign_approver, s.sign_status, m.profile_path 
+		SELECT s.sign_step, s.sign_approver, s.sign_status, m.profile_path, m.profile_name
 		FROM sign s
 		INNER JOIN member m ON s.sign_approver = m.name
 		WHERE s.task_no = #{task_no}

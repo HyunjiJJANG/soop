@@ -66,7 +66,6 @@ public class HistoryController {
 		model.addAttribute("memberDTO", memberService.selectOne(member_no));
 		log.info("" + historyService.selectAll(dto));
 		model.addAttribute("member_no", member_no);
-
 		model.addAttribute("map", map);
 
 		return "history";

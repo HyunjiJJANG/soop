@@ -533,15 +533,6 @@ function deleteFavorite(task_no){
 					<div class="card table-card" style="height: 730px;">
 						<div class="card-header">
 							<h5>캘린더</h5>
-							<div class="card-header-right">
-								<a href="insertProject" data-bs-toggle="modal"
-									data-bs-target="#scheduleModal">
-									<button type="button"
-										class="btn btn-primary btn-sm scheduleAdd">
-										<i class="fa-regular fa-pen-to-square" style="color: #fff;"></i>&nbsp;&nbsp;일정추가
-									</button>
-								</a>
-							</div>
 						</div>
 						<div id="calendar"
 							style="float: left; padding-left: 10px; padding-right: 10px;"></div>
