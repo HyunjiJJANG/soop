@@ -143,8 +143,8 @@ public class TaskController {
 			log.info("memberno : " + memberno);
 			
 			SignTaskAttachedFiledto.setTask_status(taskstatus); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-			SignTaskAttachedFiledto.setTask_status(projectno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
-			SignTaskAttachedFiledto.setTask_status(memberno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+			//SignTaskAttachedFiledto.setProject_no(projectno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
+			//SignTaskAttachedFiledto.setMember_no(memberno); // 파라미터로 넘겨온 task_status 값을 dto에 셋팅
 			// taskService.insertOne(Taskdto);
 			signTaskAttachedFileService.insertTask(SignTaskAttachedFiledto);
 			
