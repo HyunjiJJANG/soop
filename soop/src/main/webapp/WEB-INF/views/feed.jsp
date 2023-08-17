@@ -733,6 +733,7 @@ $(document).ready(function(){
 		        	<!-- <input type="hidden" name="project_no" id="project_no" value="1">
 		        	<input type="hidden" name="member_no" id="member_no" value="1"> --> 
 
+
 			<tr>
 				<td colspan="8"><p style="font-weight: bold; font-size: 16px;">업무 제목</p></td>
 				<td><input class="form-control" id="taskName" type="text" name="task_title" style="font-size: 16px;"></td>
@@ -741,14 +742,10 @@ $(document).ready(function(){
 			<tr><td colspan="8"><p style="font-weight: bold; font-size: 16px;">업무 상태</p>	&nbsp; &nbsp;
 						<td>
 						<select name="task_status_select" id="task_status_select" class="form-select" aria-label="Default select example">
-							<option selected>------업무 상태 선택-----</option>	
-							<!-- <option selected value="0">--업무 상태 선택--</option> -->
-
-
+							<option selected>------업무 상태 선택-----</option>
 							<option value="0">발의</option>
 							<option value="1">진행</option>
 							<option value="2">검토</option>
-
 							<option value="3">완료</option>
 							</select>
 							<!-- 컨트롤러에 task_status 넘겨주는 역할 -->
