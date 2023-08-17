@@ -118,7 +118,7 @@ $(function() {
 	        		changeStatus = $("table").eq(1).next().val("1");
 	        		
 	        	}else if(presentTaskStatus == "sortable2"){
-	        		ui.item.find("td").eq(9).html("보류")
+	        		ui.item.find("td").eq(9).html("검토")
 	        		// 업무상태값을 변경
 	        		changeStatus = $("table").eq(2).next().val("2");
 	        		
