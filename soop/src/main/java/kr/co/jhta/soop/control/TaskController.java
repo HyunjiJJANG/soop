@@ -366,9 +366,10 @@ public class TaskController {
 				// 파일 넘버를 task_no로 셋팅 (230728 11:18)
 				filedto.setFile_no(taskdto.getTask_no());
 				
-				log.debug("업데이트 쿼리 실행 전: {}", filedto);
+				log.debug("업데이트 쿼리 실행 전: {}", SignTaskAttachedFiledto);
 				attachedfileService.updateOne(filedto);
-				log.debug("업데이트 쿼리 실행 후: {}", filedto);
+				// signTaskAttachedFileService.updateAttachedfile(SignTaskAttachedFiledto);
+				log.debug("업데이트 쿼리 실행 후: {}", SignTaskAttachedFiledto);
 		
 		
 				/* return "redirect:/soop/task"; */

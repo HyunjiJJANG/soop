@@ -52,6 +52,12 @@
 		SET member_no = #{sign_member_no}, sign_step = #{sign_step}, sign_approver = #{sign_approver}, sign_status = #{sign_status}, sign_date = DATE_ADD(NOW(), INTERVAL 9 HOUR) 
 		WHERE task_no = #{task_no}
 	</update>
+	
+	<update id="updateAttachedfile" parameterType="kr.co.jhta.soop.dto.SignTaskAttachedFileDTO">
+		UPDATE attached_file
+		SET file_type = #{file_type}, file_name = #{file_name}, file_path = #{file_path}, file_register_date = DATE_ADD(NOW(), INTERVAL 9 HOUR) 
+		WHERE file_no = #{file_no}
+	</update>
 
 
 </mapper>

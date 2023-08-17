@@ -317,6 +317,7 @@ $(document).ready(function(){
 
 						<div class="card-header-right">
 	                        <div class="btn-group card-option">
+									<c:if test="${mno eq feedTaskDTO.member_no}">
 	                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	                                <i class="feather icon-more-horizontal"></i>
 	                            </button>
@@ -329,9 +330,10 @@ $(document).ready(function(){
 			                            	<li class="dropdown-item"><a href="" onclick="deleteFavorite(${})"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무 해제</a></li>
 										</c:otherwise>
 									</c:choose> --%>
-								
-	                                <li class="dropdown-item"><a href="#!" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-status="${dto.task_status}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-filename="${dto.file_name}" data-signappover1="${dto.sign_approver}"  data-bs-toggle="modal" data-bs-target="#updateModal" onclick="test(this)"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;수정</a></li>
-	                                <li class="dropdown-item"><a href="delete?task_no=${tno}&project_no=${pno}&member_no=${mno}"><i class="feather icon-trash"></i>&nbsp;&nbsp;삭제</a></li>
+									
+		                                <li class="dropdown-item"><a href="#!" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-status="${dto.task_status}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-filename="${dto.file_name}" data-signappover1="${dto.sign_approver}"  data-bs-toggle="modal" data-bs-target="#updateModal" onclick="test(this)"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;수정</a></li>
+		                                <li class="dropdown-item"><a href="delete?task_no=${tno}&project_no=${pno}&member_no=${mno}"><i class="feather icon-trash"></i>&nbsp;&nbsp;삭제</a></li>
+	                                </c:if>
 	                            </ul>
 	                        </div>
 	                    </div>
@@ -371,15 +373,16 @@ $(document).ready(function(){
 
                                     <tr>
                                     	<td colspan="2">
-                                    		${feedTaskDTO.task_content}
-                                    		<!-- 해당 업무 첨부파일 보이는 곳 -->
+	                                    		${feedTaskDTO.task_content}
                                     	</td>
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">
                                     	<td colspan="2">
                                     		<i class="fa-solid fa-file-arrow-down">&nbsp;첨부파일</i>&nbsp;&nbsp;&nbsp;
                                     		<!-- 해당 업무 첨부파일 보이는 곳 -->
+                                    		<c:if test="${not empty feedTaskDTO.file_name}">
 											<a href="/task/download?file_name=${feedTaskDTO.file_name}" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}</a>
+											</c:if>
                                     	</td>
                                     </tr>
                                 </tbody>
@@ -554,7 +557,8 @@ $(document).ready(function(){
 								<input type="file" name="file" id="fileInput" onchange="hideFileDto(); checkFileSize(this);"/>
 								    <!-- 기존 첨부파일 정보를 출력할 div 영역 -->
 												<div id="filedto">
-													<c:forEach var="file" items="${filedto}">
+													<%-- <c:forEach var="file" items="${filedto}"> --%>
+													<c:forEach var="file" items="${SignTaskAttachedFiledto}">
 														<p>${file.file_name}</p>
 														<p>${file.file_path}</p>
 													</c:forEach>
