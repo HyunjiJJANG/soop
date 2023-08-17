@@ -19,6 +19,7 @@
 	integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
 	crossorigin="anonymous"></script>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="assets/css/main.css">
 <title>고객센터</title>
 </head>
 <body>
