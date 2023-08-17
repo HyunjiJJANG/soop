@@ -35,8 +35,10 @@ public class FileController {
 	@GetMapping("/fileList")
 	public String fileShow(@RequestParam("member_no") int member_no, @RequestParam("project_no") int project_no,
 			Model model) {
-
-		List<TaskMemberFileDTO> flist = taskMemberFileService.selectAllProjectFile(member_no);
+		TaskMemberFileDTO taskMemberFileDTO = new TaskMemberFileDTO();
+		taskMemberFileDTO.setProject_no(project_no);
+		taskMemberFileDTO.setMember_no(member_no);
+		List<TaskMemberFileDTO> flist = taskMemberFileService.selectProjectFile(taskMemberFileDTO);
 		model.addAttribute("list", flist);
 		// side nav에 해당 회원이 참여중인 프로젝트 리스트 보여주기
 		model.addAttribute("projectList", projectProjectMemberMemberService.selectAllProjectTitle(member_no));

@@ -174,19 +174,18 @@
 							<tr>
 								<td>
 									<ul class="nav pcoded-inner-navbar sidenav-inner">
-
 										<li class="nav-item"><a
 											href="feed?project_no=${pno}&member_no=${mno}"
 											class="nav-link "><span class="pcoded-micon"><i
 													class="fa-regular fa-message" style="color: #707272;"></i></span><span
 												class="pcoded-mtext">피드</span></a></li>
 										<li class="nav-item"><a
-											href="gantt?member_no=${member_no }" class="nav-link "><span
+											href="gantt?member_no=${mno }" class="nav-link "><span
 												class="pcoded-micon"><i
 													class="fa-solid fa-calendar-days"></i></span><span
 												class="pcoded-mtext">일정</span></a></li>
 										<li class="nav-item"><a
-											href="kanban?member_no=${member_no }" class="nav-link "><span
+											href="kanban?member_no=${mno }" class="nav-link "><span
 												class="pcoded-micon"><i class="fa-solid fa-list-ul"></i></span><span
 												class="pcoded-mtext">할일</span></a></li>
 										<li class="nav-item"><a
@@ -199,7 +198,6 @@
 											class="nav-link "><span class="pcoded-micon"><i
 													class="fa-solid fa-file-arrow-down"></i></span><span
 												class="pcoded-mtext">첨부파일</span></a></li>
-
 									</ul>
 								</td>
 
@@ -210,10 +208,12 @@
 			</nav>
 
 
-			<br /><br /><br />
+			<br />
+			<br />
+			<br />
 			<div class="row" style="margin-top: 50px;">
 				<!-- 파일함 -->
-				<div class="col-xl-12 col-md-12" >
+				<div class="col-xl-12 col-md-12">
 					<div class="card table-card" style="height: 700px;">
 						<div class="card-header">
 							<h5>파일함</h5>
