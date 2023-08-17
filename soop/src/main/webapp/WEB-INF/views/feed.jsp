@@ -785,7 +785,7 @@ $(document).ready(function(){
 						<select name="task_status_select" id="task_status_select" class="form-select" aria-label="Default select example">
 							<option selected>------업무 상태 선택-----</option>
 							<!-- <option selected value="0">--업무 상태 선택--</option> -->
-							<option value="0">발의중</option>
+							 							<option value="0">발의중</option>
 							<option value="1">진행중</option>
 							<option value="2">일시중지</option>
 							<option value="3">완료</option>
