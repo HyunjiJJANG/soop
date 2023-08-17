@@ -491,7 +491,7 @@ $(document).ready(function(){
 									<tr> 
 										<td>
 								            <select name="sign_approver" id="signapprovervalue1" class="form-select" aria-label="Default select example" value="">
-											<option value="">------결재자 선택-----</option>
+											<option value="">------담당자 선택-----</option>
 								              <c:forEach var="member" items="${members}">
 								                <option data-memberno="${member.member_no}" data-membername="${member.name}" data-projectno="${member.project_no}" data-step="1">${member.name}</option>
 								              </c:forEach>
