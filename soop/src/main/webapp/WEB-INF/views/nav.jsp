@@ -134,7 +134,7 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="/historyList?member_no=${memberDTO.member_no }&email=${memberDTO.email}" class="nav-link ">
+						<a href="/historyList?member_no=${memberDTO.member_no }" class="nav-link ">
 							<span class="pcoded-micon"><i class="fa-solid fa-clock-rotate-left"></i></span>
 							<span class="pcoded-mtext">히스토리</span>
 						</a>
