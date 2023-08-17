@@ -181,21 +181,23 @@ $(document).ready(function(){
 <!-- sign 수정을 위해 기본값 전달 -->
 <script type="text/javascript">
  function test(e){
-	console.log($(e).parent().prev().prev().prev().html());
-	let member_no = $(e).parent().prev().prev().prev().html();
-	
-	//let member_no = ${signdto.member_no};
-	//let member_no = 1;
-	
+
+		var member_no = $("#member_no").val();
+
+		var sign_approver = $("#sign_approver").val().trim();
+		var sign_member_no = $("#sign_member_no").val().trim();
+		var sign_step = $("#sign_step").val().trim();
+		var project_no = $("#project_no").val();
+	 
 	$.ajax({
-		url: "/soop/taskinfo" , 
+		url: "/taskinfo" , 
 		data : {"member_no": member_no},
 		success : function (data){
 			console.log(data);
 			
-			$("#sign_approver_up").val(data.sign_approver);
-			$("#sign_member_no_up").val(data.sign_member_no);
-			$("#sign_step_up").val(data.sign_step);
+			$("#sign_approver_up").val(sign_approver);
+			$("#sign_member_no_up").val(sign_member_no);
+			$("#sign_step_up").val(sign_step);
 			
 		}
 			
