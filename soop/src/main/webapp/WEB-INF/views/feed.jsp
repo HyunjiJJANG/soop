@@ -518,10 +518,10 @@ $(document).ready(function(){
 	                                        	<a href="taskDetail?project_no=${pno}&member_no=${mno}&task_no=${feedListDTO.task_no}">${feedListDTO.task_title}</a>
 	                                        </td>
 	                                        <td width="50">
-	                                        	<div class="input-group" style="width: 100px; border: 1px solid #78C2AD; border-radius: 30px;">
-	                                        		<img src="/data/${feedListDTO.profile_name}" alt="user image" class="img-radius wid-30"/>&nbsp;&nbsp;&nbsp;
-	                                    			<span style="padding-top:3px;">${feedListDTO.name}</span>
-                                    			</div>
+	                                        <div class="align-middle">
+												<img src="/data/${feedListDTO.profile_name}" alt="user image" class="img-radius wid-40 align-top m-r-15">
+													<span style="font-size: 15px;">${feedListDTO.name}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											</div>
 	                                        </td>
 	                                        <td width="50">${feedListDTO.task_register_date}</td>
 	                                    </tr>

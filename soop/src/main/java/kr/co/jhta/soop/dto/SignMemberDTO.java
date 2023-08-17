@@ -20,5 +20,6 @@ public class SignMemberDTO {
 	private String sign_date;
 	
 	private String profile_path;
+	private String profile_name;
 	private String name;
 }

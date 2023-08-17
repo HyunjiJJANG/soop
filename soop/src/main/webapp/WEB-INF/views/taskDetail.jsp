@@ -272,21 +272,35 @@ $(document).ready(function(){
 			<div class="col-xl-8 col-md-12">
 				<div class="card table-card" style="left: 250px;">
 					<div class="card-header">
-						<div class="d-inline-block align-middle">
-							<img src="/data/${feedTaskDTO.profile_name}" alt="user image" class="img-radius wid-40 align-top m-r-15">
-							<div class="d-inline-block" style="position: absolute; top: 35%;">
-								<span style="font-size: 15px; font-weight: bold;">${feedTaskDTO.name}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;								
-								<span style="font-size: 15px;"><i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_register_date}</span>
-                             </div>
-                        </div>
-                        <div class="card-header-right">
+						<c:if test="${feedTaskDTO.task_status eq '0'}">
+							<label class="badge badge-light-info">발의</label>
+						</c:if>
+						<c:if test="${feedTaskDTO.task_status eq '1'}">
+							<label class="badge badge-light-success">진행</label>
+						</c:if>
+						<c:if test="${feedTaskDTO.task_status eq '2'}">
+							<label class="badge badge-light-warning">검토</label>
+						</c:if>
+						<c:if test="${feedTaskDTO.task_status eq '3'}">
+							<label class="badge badge-light-secondary">완료</label>
+						</c:if>
+						<c:if test="${feedTaskDTO.task_status eq '4'}">
+							<label class="badge badge-light-danger">보류</label>
+						</c:if>
+						<div class="row m-b-0">
+							<input type="hidden" name="task_no"
+								value="${feedTaskDTO.task_no}" />
+							<h4>${feedTaskDTO.task_title}</h4>
+						</div>
+
+						<div class="card-header-right">
 	                        <div class="btn-group card-option">
 	                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	                                <i class="feather icon-more-horizontal"></i>
 	                            </button>
 	                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
 									<%-- <c:choose>
-										<c:when test="${favorite eq 0}">
+										<c:when test="${task_favorite eq 0}">
 			                            	<li class="dropdown-item"><a href="favorite?project_no=${pno}&member_no=${mno}&task_no=${tno}"><i class="fa-solid fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무 등록</a></li>
 										</c:when>
 										<c:otherwise>
@@ -305,68 +319,45 @@ $(document).ready(function(){
                             <table class="table mb-0" >
                                 <thead style="border-color: transparent;">
                                     <tr>
-                                    	<td width="10;">
-                                    		<c:if test="${feedTaskDTO.task_status eq '0'}">
-                                       			<label class="badge badge-light-info">발의</label>
-                                       		</c:if>
-                                       		<c:if test="${feedTaskDTO.task_status eq '1'}">
-                                       			<label class="badge badge-light-success">진행</label>
-                                       		</c:if>
-                                       		<c:if test="${feedTaskDTO.task_status eq '2'}">
-                                       			<label class="badge badge-light-warning">검토</label>
-                                       		</c:if>
-                                       		<c:if test="${feedTaskDTO.task_status eq '3'}">
-                                       			<label class="badge badge-light-secondary">완료</label>
-                                       		</c:if>
-                                       		<c:if test="${feedTaskDTO.task_status eq '4'}">
-                                       			<label class="badge badge-light-danger">보류</label>
-                                       		</c:if>
-                                    	</td>
-                                        <td>
-                                        	<div class="row m-b-0">
-                                        		<input type="hidden" name="task_no" value="${feedTaskDTO.task_no}"/>
-                                        		<h4>${feedTaskDTO.task_title}</h4>
-                                        	</div>
-                                        </td>
+										<td colspan="2">
+											<div class="align-middle">
+												<img src="/data/${feedTaskDTO.profile_name}"
+													alt="user image" class="img-radius wid-40 align-top m-r-15">
+													<span style="font-size: 15px; font-weight: bold;">${feedTaskDTO.name}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<span style="font-size: 15px; float:right">
+														<i class="fa-regular fa-clock"></i>&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_register_date}</span>
+											</div>
+										</td>
+										
                                     </tr>
                                 </thead>
                                 <tbody style="border-color: transparent;">
                                     <tr>
-                                    	<td colspan="2"><i class="fa-regular fa-calendar"></i>&nbsp;&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_start_date}부터&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_end_date}까지</td>
+                                    	<td colspan="2"><i class="fa-solid fa-calendar">&nbsp;업무기한</i>&nbsp;&nbsp;&nbsp;&nbsp;${feedTaskDTO.task_start_date}&nbsp;&nbsp;&nbsp; ~ &nbsp;&nbsp;&nbsp;${feedTaskDTO.task_end_date}</td>
                                     </tr>
                                     <tr>
                                     	<td colspan="2">
-                                    		<div style="float: left;"><i class="fa-solid fa-file-signature"></i>&nbsp;&nbsp;&nbsp;</div>
+                                    		<div style="float: left;"><i class="fa-solid fa-user-tie">&nbsp;담당자</i>&nbsp;&nbsp;&nbsp;</div>
 											<!-- 결재 라인 보이는 곳 -->
-                                   			<%-- <c:forEach var="signDTO" items="${signDTO}"> --%>
-                                   				<%-- <c:choose>
-		                                    		<c:when test="${signDTO.sign_status eq '1'}"> --%>
-			                                    		<div class="input-group" style="width: 140px; border: 1px solid #78C2AD; background-color: #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
-			                                    			<img src="${signDTO.profile_path}" alt="user image" class="img-radius wid-30">
-			                                    			<span style="padding-top:3px; padding-left:20px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-			                                    			<span style="padding-top:5px; padding-left:10px;"><i class="fa-regular fa-circle-check" style="font-size: 20px; color: red;"></i></span>
-			                                    		</div>
-		                                    		<%-- </c:when> --%>
-		                                    		<%-- <c:otherwise>
-		                                    			<div class="input-group" style="width: 140px; border: 1px solid #78C2AD; border-radius: 30px; float:left; margin-right: 20px;">
-			                                    			<img src="${signDTO.profile_path}" alt="user image" class="img-radius wid-30">
-			                                    			<span style="padding-top:3px; padding-left:20px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-			                                    		</div>
-		                                    		</c:otherwise> --%>
-	                                    	<%-- 	</c:choose> --%>
-                                   			<%-- </c:forEach> --%>
+											<div class="align-middle">
+												<img src="/data/${signDTO.profile_name}"
+													alt="user image" class="img-radius wid-40 align-top m-r-15">
+													<span style="font-size: 15px;">${signDTO.sign_approver}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											</div>
+			                                    		
                                     	</td>
                                     </tr>
+
                                     <tr>
                                     	<td colspan="2">
-                                    		<i class="fa-solid fa-file-arrow-down"></i>&nbsp;&nbsp;&nbsp;
-                                    		<!-- 해당 업무 첨부파일 보이는 곳 -->
-											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a>
+                                    		${feedTaskDTO.task_content}
                                     	</td>
                                     </tr>
                                     <tr style="border-bottom: #DEE2E6;">
                                     	<td colspan="2">
-                                    		${feedTaskDTO.task_content}
+                                    		<i class="fa-solid fa-file-arrow-down">&nbsp;첨부파일</i>&nbsp;&nbsp;&nbsp;
+                                    		<!-- 해당 업무 첨부파일 보이는 곳 -->
+											<a href="#" class="btn btn-outline-primary btn-sm" style="border-radius: 20px;">${feedTaskDTO.file_name}.${feedTaskDTO.file_type}</a>
                                     	</td>
                                     </tr>
                                 </tbody>
