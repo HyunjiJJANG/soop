@@ -118,7 +118,7 @@ $(function() {
 	        		changeStatus = $("table").eq(1).next().val("1");
 	        		
 	        	}else if(presentTaskStatus == "sortable2"){
-	        		ui.item.find("td").eq(9).html("보류")
+	        		ui.item.find("td").eq(9).html("검토")
 	        		// 업무상태값을 변경
 	        		changeStatus = $("table").eq(2).next().val("2");
 	        		
@@ -265,7 +265,7 @@ $(document).ready(function() {
     	        		changeStatus = $("table").eq(1).next().val("1");
     	        		
     	        	}else if(presentTaskStatus == "sortable2"){
-    	        		ui.item.find("td").eq(9).html("보류")
+    	        		ui.item.find("td").eq(9).html("검토")
     	        		changeStatus = $("table").eq(2).next().val("2");
     	        		
     	        	}else if(presentTaskStatus == "sortable3"){
@@ -366,7 +366,7 @@ $(document).ready(function() {
     } else if (task.task_status == 1) {
         tableHTML += '<c:out value="진행"></c:out>';
     } else if (task.task_status == 2) {
-        tableHTML += '<c:out value="보류"></c:out>';
+        tableHTML += '<c:out value="검토"></c:out>';
     } else if (task.task_status == 3) {
         tableHTML += '<c:out value="완료"></c:out>';
     }
@@ -529,7 +529,7 @@ $(document).ready(function() {
 								     
 								<ul id="sortable2" class="sortable_list connectedSortable" style="margin-top: 50px;">
 								<div style=" margin-top: 10px; margin-bottom: 10px;">
-								<span style="font-size: large; font-weight: bold; margin-left: 130px;">일시정지</span>	
+								<span style="font-size: large; font-weight: bold; margin-left: 130px;">검토</span>	
 								</div>	
 									<c:forEach var="tasklist" items="${dto }">
 										<c:if test="${tasklist.task_status == 2}">
@@ -575,7 +575,7 @@ $(document).ready(function() {
 													<tr>
 														<th style=" display: none;">업무 상태 :</th>
 															<td style=" display: none;">
-															<c:out value="보류"></c:out>
+															<c:out value="검토"></c:out>
 														</td>
 													</tr>				    							    		
 												</table>
