@@ -192,7 +192,7 @@
 			</a>
 		</div>
 		<div class="collapse navbar-collapse" style="padding-left: 20px;">
-			<h4 style="width: 500px; color: black"> ${memberDTO.name} 님 환영합니다 :) &nbsp;<span class="pcoded-micon"><i class="fa-regular fa-face-smile"></i></span></h4>
+			<h4 style="width: 500px; color: black"> ${memberDTO.name} 님 환영합니다:) &nbsp;<span class="pcoded-micon"><i class="fa-regular fa-face-smile"></i></span></h4>
 		</div>
 		<div class="collapse navbar-collapse" style="padding-left: 200px;">
 			<h6 style="width: 700px;" align="right">
