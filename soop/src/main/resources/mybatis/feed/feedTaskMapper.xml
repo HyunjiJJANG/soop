@@ -8,15 +8,13 @@
 	<!-- 메인페이지 관심업무 task 리스트 불러오기 -->
 	<select id="selectAllTaskListByMno"
 		resultType="kr.co.jhta.soop.dto.FeedTaskDTO" parameterType="int">
-		SELECT
-		p.project_no, p.project_title, t.task_title, t.task_no, t.task_status
-		FROM project p
-		JOIN project_member pm
-		ON p.project_no = pm.project_no
+		SELECT p.project_no, p.project_title, t.task_title, tf.task_no, t.task_status
+		FROM task_favorite tf
 		JOIN task t
-		ON p.project_no = t.project_no
-		WHERE pm.member_no = #{member_no} and
-		t.task_favorite = 1
+		ON tf.task_no = t.task_no
+		JOIN project p
+		ON t.project_no = p.project_no
+		WHERE tf.member_no = #{member_no}
 	</select>
 	
 	<!-- task 리스트 불러오기 -->

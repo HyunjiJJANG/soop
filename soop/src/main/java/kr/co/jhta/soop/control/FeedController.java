@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.jhta.soop.dto.MemberProjectProjectmemberDTO;
 import kr.co.jhta.soop.dto.ProjectMemberNo;
+import kr.co.jhta.soop.dto.TaskMemberNo;
 import kr.co.jhta.soop.service.CommentService;
 import kr.co.jhta.soop.service.FeedTaskService;
 import kr.co.jhta.soop.service.MemberProjectProjectmemberService;
@@ -27,6 +28,7 @@ import kr.co.jhta.soop.service.ProjectService;
 import kr.co.jhta.soop.service.ProjectTaskService;
 import kr.co.jhta.soop.service.SignMemberService;
 import kr.co.jhta.soop.service.SignTaskAttachedFileService;
+import kr.co.jhta.soop.service.TaskFavoriteService;
 import kr.co.jhta.soop.service.TaskService;
 import kr.co.jhta.soop.util.Criteria;
 import kr.co.jhta.soop.util.Pagenation;
@@ -65,6 +67,9 @@ public class FeedController {
 	
 	@Autowired
 	SignTaskAttachedFileService signTaskAttachedFileService;
+	
+	@Autowired
+	TaskFavoriteService taskFavoriteService;
 
 	// side nav에 프로젝트명 클릭하면 해당 프로젝트 업무 리스트가 있는 피드로 이동
 	@GetMapping("/feed")
@@ -158,6 +163,12 @@ public class FeedController {
 		model.addAttribute("mno", member_no);
 		model.addAttribute("tno", task_no);
 		
+		// 해당 업무 관심업무 등록 여부
+		TaskMemberNo tmno = new TaskMemberNo();
+		tmno.setTask_no(task_no);
+		tmno.setMember_no(member_no);
+		model.addAttribute("favorite", taskFavoriteService.selectOneFav(tmno));
+		
 		// 업무 수정 모달에 데이터 전달
 		model.addAttribute("dto", signTaskAttachedFileService.selectOne(task_no));
 		
@@ -184,11 +195,23 @@ public class FeedController {
 		return list;
 	}
 
-	@GetMapping("/favorite")
-	public String taskFavorite(@RequestParam("project_no") int project_no, @RequestParam("member_no") int member_no,
+	@GetMapping("/insertFav")
+	public String insertFav(@RequestParam("project_no") int project_no, @RequestParam("member_no") int member_no,
 			@RequestParam("task_no") int task_no) {
+		TaskMemberNo tmno = new TaskMemberNo();
+		tmno.setTask_no(task_no);
+		tmno.setMember_no(member_no);
+		taskFavoriteService.insertFav(tmno);
 
-		taskService.updateFavorite(task_no);
+		return "redirect:taskDetail?project_no=" + project_no + "&member_no=" + member_no + "&task_no=" + task_no;
+	}
+	@GetMapping("/deleteFav")
+	public String deleteFav(@RequestParam("project_no") int project_no, @RequestParam("member_no") int member_no,
+			@RequestParam("task_no") int task_no) {
+		TaskMemberNo tmno = new TaskMemberNo();
+		tmno.setTask_no(task_no);
+		tmno.setMember_no(member_no);
+		taskFavoriteService.deleteFav(tmno);
 
 		return "redirect:taskDetail?project_no=" + project_no + "&member_no=" + member_no + "&task_no=" + task_no;
 	}

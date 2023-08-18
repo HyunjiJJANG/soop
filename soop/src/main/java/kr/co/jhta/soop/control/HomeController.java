@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import kr.co.jhta.soop.dto.MemoDTO;
+import kr.co.jhta.soop.dto.TaskMemberNo;
 import kr.co.jhta.soop.service.FeedService;
 import kr.co.jhta.soop.service.MemberService;
 import kr.co.jhta.soop.service.MemoService;
 import kr.co.jhta.soop.service.ProjectProjectMemberMemberService;
+import kr.co.jhta.soop.service.TaskFavoriteService;
 import kr.co.jhta.soop.service.TaskMemberFileService;
 import kr.co.jhta.soop.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +49,9 @@ public class HomeController {
 	
 	@Autowired
 	TaskService taskService;
+	
+	@Autowired
+	TaskFavoriteService taskFavoriteService;
 	
 	// 메모 수정
 	@PostMapping("/home")
@@ -130,8 +135,12 @@ public class HomeController {
 	
 	// 관심업무 삭제
 	@GetMapping("/deleteFavoriteOne")
-	public void deleteFavoriteOne(@RequestParam("task_no")int task_no) {
-		taskService.deleteFavorite(task_no);
+	public void deleteFavoriteOne(@RequestParam("task_no")int task_no,
+								@RequestParam("member_no")int member_no) {
+		TaskMemberNo tmno = new TaskMemberNo();
+		tmno.setTask_no(task_no);
+		tmno.setMember_no(member_no);
+		taskFavoriteService.deleteFav(tmno);
 		
 	}
 	

@@ -11,17 +11,17 @@
 	</select>
 	
 
-	<select id="updateFavorite" parameterType="int">
+<!-- 	<select id="updateFavorite" parameterType="int">
 		UPDATE task
 		SET task_favorite = 1
 		WHERE task_no = #{task_no}
-	</select>
+	</select> -->
 
-	<update id="deleteFavorite" parameterType="int">
+<!-- 	<update id="deleteFavorite" parameterType="int">
 		UPDATE task
 		SET task_favorite = 0
 		WHERE task_no = #{task_no}
-	</update>
+	</update> -->
 	
 	
 	<insert id="insertOne" parameterType="kr.co.jhta.soop.dto.TaskDTO">

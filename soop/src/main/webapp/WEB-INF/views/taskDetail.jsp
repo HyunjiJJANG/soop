@@ -294,6 +294,16 @@ $(document).ready(function(){
 			<div class="col-xl-8 col-md-12">
 				<div class="card table-card" style="left: 250px;">
 					<div class="card-header">
+						<c:choose>
+							<c:when test="${favorite eq 0}">
+                            	<a href="insertFav?project_no=${pno}&member_no=${mno}&task_no=${tno}"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무 등록</a>
+							</c:when>
+							<c:otherwise>
+                            	<a href="deleteFav?project_no=${pno}&member_no=${mno}&task_no=${tno}"><i class="fa-solid fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무 해제</a>
+							</c:otherwise>
+						</c:choose>
+						<br /><br />
+						
 						<c:if test="${feedTaskDTO.task_status eq '0'}">
 							<label class="badge badge-light-info">발의</label>
 						</c:if>
@@ -309,32 +319,22 @@ $(document).ready(function(){
 						<c:if test="${feedTaskDTO.task_status eq '4'}">
 							<label class="badge badge-light-danger">보류</label>
 						</c:if>
-						<div class="row m-b-0">
-							<input type="hidden" name="task_no"
-								value="${feedTaskDTO.task_no}" />
+							<input type="hidden" name="task_no"	value="${feedTaskDTO.task_no}" />
 							<h4>${feedTaskDTO.task_title}</h4>
-						</div>
+						
 
 						<div class="card-header-right">
 	                        <div class="btn-group card-option">
 									<c:if test="${mno eq feedTaskDTO.member_no}">
-	                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	                                <i class="feather icon-more-horizontal"></i>
-	                            </button>
-	                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-									<%-- <c:choose>
-										<c:when test="${task_favorite eq 0}">
-			                            	<li class="dropdown-item"><a href="favorite?project_no=${pno}&member_no=${mno}&task_no=${tno}"><i class="fa-solid fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무 등록</a></li>
-										</c:when>
-										<c:otherwise>
-			                            	<li class="dropdown-item"><a href="" onclick="deleteFavorite(${})"><i class="fa-regular fa-star"></i>&nbsp;&nbsp;홈 화면에 관심업무 해제</a></li>
-										</c:otherwise>
-									</c:choose> --%>
+			                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			                                <i class="feather icon-more-horizontal"></i>
+			                            </button>
+			                            <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
 									
-		                                <li class="dropdown-item"><a href="#!" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-status="${dto.task_status}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-filename="${dto.file_name}" data-signappover1="${dto.sign_approver}"  data-bs-toggle="modal" data-bs-target="#updateModal" onclick="test(this)"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;수정</a></li>
-		                                <li class="dropdown-item"><a href="delete?task_no=${tno}&project_no=${pno}&member_no=${mno}"><i class="feather icon-trash"></i>&nbsp;&nbsp;삭제</a></li>
+			                                <li class="dropdown-item"><a href="#!" data-no="${dto.task_no}" data-title="${dto.task_title}" data-content="${dto.task_content}" data-status="${dto.task_status}" data-start="${dto.task_start_date}" data-end="${dto.task_end_date}" data-filename="${dto.file_name}" data-signappover1="${dto.sign_approver}"  data-bs-toggle="modal" data-bs-target="#updateModal" onclick="test(this)"><i class="fa-solid fa-pencil"></i>&nbsp;&nbsp;수정</a></li>
+			                                <li class="dropdown-item"><a href="delete?task_no=${tno}&project_no=${pno}&member_no=${mno}"><i class="feather icon-trash"></i>&nbsp;&nbsp;삭제</a></li>
+	                            		</ul>
 	                                </c:if>
-	                            </ul>
 	                        </div>
 	                    </div>
                 	</div>
