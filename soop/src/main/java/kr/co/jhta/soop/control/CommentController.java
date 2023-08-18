@@ -22,6 +22,7 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 	
+	
 	@Autowired
 	CmtService cmtService;
 	
