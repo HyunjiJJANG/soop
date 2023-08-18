@@ -422,13 +422,14 @@ public class TaskController {
 		// /data 디렉토리에 저장되어 있다.
 
 		String filePath2 = req.getSession().getServletContext().getRealPath("/");
+		String filePath3 = req.getSession().getServletContext().getRealPath("/var/jenkins_home/newdata/data");
 		String filePath  = req.getServletContext().getRealPath("/"); 
 		// 파일의 절대 경로를 구할 수 있다.
-		System.out.println("/data 디렉토리의 절대 경로 : " + filePath);
+		System.out.println("/data 디렉토리의 절대 경로 : " + filePath3);
 
 		// 다운로드 받을 파일의 절대 경로
-		log.info("수정한 다운로드 파일 경로"+filePath);
-		String absFilePath = filePath + "/" + file_name;
+		log.info("수정한 다운로드 파일 경로"+filePath3);
+		String absFilePath = filePath3 + "/" + file_name;
 
 		System.out.println("다운로드 받을 파일의 절대 경로 : " + absFilePath);
 
