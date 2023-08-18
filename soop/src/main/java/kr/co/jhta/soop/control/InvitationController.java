@@ -75,10 +75,48 @@ public class InvitationController {
 			message.setSubject("[SOOP] " + name + "님이 SOOP으로 초대했습니다.");
 			
 			// 메일내용
-			sb.append("<br>아래 링크를 들어가셔서 초대코드를 입력해주세요.<br><br>"
-					+ "<div>http://localhost:8081/inviteMailCheck</div>"
-					+ "<br><br><div style='font-size: 18px; font-weight: bold; color: #FF0000;'>초대코드 : "+ key +"</div>"
-					+ "<br><div style='font-size: 18px; font-weight: bold;'>" + inviteMessage + "</div>");
+			sb.append(
+			"<div style=\"border: 2px solid #7EAA92; border-radius: 10px; background-color: #ffffff;\">\n"
+			+ "<div class=\"mail_view_contents\">\n"
+			+ "<div class=\"mail_view_contents_inner\" data-translate-body-15340=\"\">\n" + "<div>\n" + "\n"
+			+ "<!--  -->\n" + "\n"
+			+ "<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #ffffff;\" bgcolor=\"#ffffff\">\n"
+			+ "  <tbody><tr><td>\n"
+			+ "      <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"640\" style=\"border-top: 70px solid #ffffff; border-left: 10px solid #ffffff; border-right: 10px solid #ffffff; margin: 0 auto; height: 100%; background: #ffffff; width: 640px !important;\" height=\"100%\">\n"
+			+ "        <tbody><tr><td width=\"15\"></td><td>\n" + "            <!-- contents -->\n"
+			+ "            <table align=\"left\" width=\"590\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width: 590px !important;\">\n"
+			+ "              <tbody><tr><td height=\"30\" colspan=\"3\"></td></tr>\n"
+			+ "              <tr><td width=\"25\"></td><td align=\"left\" valign=\"top\">\n"
+			+ "                </td><td width=\"25\"></td></tr>\n"
+			+ "              <tr><td height=\"22\" colspan=\"3\"></td></tr>\n"
+			+ "              <tr><td width=\"25\"></td><td align=\"left\" style=\"display: block; padding: 0; color: #3a3a3a; font-size: 32px; font-style: normal; font-weight: 500; letter-spacing: -0.76px; line-height: 120%;\">\n"
+			+ "                  <strong style=\"color: #368fff;\">초대코드 인증</strong>을 해주세요.\n"
+			+ "                </td><td width=\"25\"></td></tr>\n"
+			+ "              <tr><td height=\"22\" colspan=\"3\"></td></tr>\n"
+			+ "              <tr><td width=\"25\"></td><td align=\"left\" style=\"color: #3a3a3a; font-size: 16px; line-height: 150%;\">\n"
+			+ "                  안녕하세요. SOOP입니다.<br>\n"
+			+ "                  초대코드를 인증받으시려면 아래 링크로 들어가셔서 초대코드를 입력해주세요. <br/>"
+			+ "http://localhost:8081/inviteMailCheck <br/>"
+			+ "<br/><strong style=\"color: #00A558;\">초대코드 : "
+			+ key + "</strong><br>\n" 
+			+ "<tr><td width=\"25\"></td><td align=\"left\" style=\"color: #3a3a3a; font-size: 16px; line-height: 150%;\">\n"
+			+ "                  <div style=\"margin:20px 0 20px 0;\">\n"
+			+ "                  </div>\n <strong> "+ inviteMessage+"</strong>\n"
+			+ "                </td><td width=\"25\"></td></tr>\n"
+			+ "              <tr><td height=\"40\" colspan=\"3\"></td></tr>\n" + "            </tbody></table>\n"
+			+ "            <!-- //contents -->\n" + "          </td><td width=\"15\"></td></tr>\n"
+			+ "        <tr><td height=\"15\" colspan=\"3\"></td></tr>\n" + "      </tbody></table>\n"
+			+ "    </td></tr>\n" + "</tbody></table>\n"
+			+ "<table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"background-color: #ffffff;\" bgcolor=\"#ffffff\">\n"
+			+ "  <tbody><tr><td>\n"
+			+ "      <table align=\"center\" border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"margin: 0 auto; width: 640px !important;\" width=\"640\">\n"
+			+ "  <tbody><tr><td height=\"30\"></td></tr>\n"
+			+ "  <tr><td align=\"center\" style=\"color: #969696; letter-spacing: -0.3px; font-size: 12px; line-height: 180%;\">\n"
+			+ "      본 메일은 발신전용 메일이므로 회신이 되지 않습니다. 문의사항은 SOOP 고객센터를 이용해주세요.<br>\n" + "      <br><br>\n"
+			+ "      (주)SOOP ㅣ 대표 중앙HTA ㅣ 사업자등록번호 104-81-59383<br>  서울특별시 종로구 율곡로10길 105 디아망 4F(봉익동 10-1 디아망 4F)<br>\n"
+			+ "     COPYRIGHT(C) HTA CO., LTD. ALL RIGHTS RESERVED.\n" + "    </td></tr>\n"
+			+ "  <tr><td height=\"30\"></td></tr>\n" + "</tbody></table>\n" + "\n" + "    </td></tr>\n"
+			+ "</tbody></table>\n" + "\n" + "\n" + "\n" + "</div></div></div>\n" + "</div>");
 			
 			htmlStr = sb.toString();
 
