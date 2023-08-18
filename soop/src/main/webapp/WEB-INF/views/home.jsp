@@ -366,13 +366,14 @@
   
 
 // 관심업무 해제하기
-function deleteFavorite(task_no){	
+function deleteFavorite(task_no, member_no){	
 		console.log("관심업무 해제 클릭");
 			$.ajax({
 				type: "GET",
 				url: "/deleteFavoriteOne",
 				data: {
-					"task_no" : task_no
+					"task_no" : task_no,
+					"member_no" : member_no
 				}
 			});
 }
@@ -574,7 +575,7 @@ function deleteFavorite(task_no){
 											<c:forEach var="tdto" items="${taskList}">
 												<tr>
 													<td><a href=""
-														onclick="deleteFavorite(${tdto.task_no})"><i
+														onclick="deleteFavorite(${tdto.task_no}, ${member_no})"><i
 															class="fa-solid fa-star" style="color: #78C2AD;"></i></a></td>
 													<td>
 														<div class="d-inline-block align-middle">
