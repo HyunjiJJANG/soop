@@ -24,6 +24,7 @@
 	</update> -->
 	
 	
+	
 	<insert id="insertOne" parameterType="kr.co.jhta.soop.dto.TaskDTO">
 		INSERT INTO task(project_no, member_no, task_title, task_register_date, task_content, task_status, task_start_date, task_end_date)
  		VALUES (#{project_no}, #{member_no}, #{task_title}, DATE_ADD(NOW(), INTERVAL 9 HOUR), #{task_content}, #{task_status}, #{task_start_date}, #{task_end_date}) 

@@ -12,6 +12,7 @@
 		INSERT INTO task_favorite
 		VALUES (#{task_no}, #{member_no})
 	</insert>
+	
 	<delete id="deleteFav" parameterType="TaskMemberNo">
 		DELETE FROM task_favorite
 		WHERE task_no = #{task_no} and member_no = #{member_no}
