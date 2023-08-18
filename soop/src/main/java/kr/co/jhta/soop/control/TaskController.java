@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -77,6 +77,9 @@ public class TaskController {
 
 	@Autowired
 	SignService signservice;
+	
+	@Value("${spring.servlet.multipart.location}")
+	private String path;
 
 	@RequestMapping("/task")
 	public String register(Model model) {
@@ -420,12 +423,12 @@ public class TaskController {
 			@RequestParam("file_name") String file_name,
 		HttpServletResponse resp) {
 		// /data 디렉토리에 저장되어 있다.
-
+		String path1 = path + "1.PNG";
 		String filePath2 = req.getSession().getServletContext().getRealPath("/");
 		String filePath3 = req.getSession().getServletContext().getRealPath("/var/jenkins_home/newdata/data");
 		String filePath  = req.getServletContext().getRealPath("/"); 
 		// 파일의 절대 경로를 구할 수 있다.
-		System.out.println("/data 디렉토리의 절대 경로 : " + filePath3);
+		System.out.println("/data 디렉토리의 절대 경로 : " + path1);
 
 		// 다운로드 받을 파일의 절대 경로
 		log.info("수정한 다운로드 파일 경로"+filePath3);
