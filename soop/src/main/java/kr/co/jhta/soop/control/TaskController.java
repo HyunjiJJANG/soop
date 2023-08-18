@@ -421,8 +421,8 @@ public class TaskController {
 		HttpServletResponse resp) {
 		// /data 디렉토리에 저장되어 있다.
 
-		String filePath = req.getSession().getServletContext().getRealPath("data/1.PNG");
-
+		String filePath2 = req.getSession().getServletContext().getRealPath("/");
+		String filePath  = req.getServletContext().getRealPath("/"); 
 		// 파일의 절대 경로를 구할 수 있다.
 		System.out.println("/data 디렉토리의 절대 경로 : " + filePath);
 
