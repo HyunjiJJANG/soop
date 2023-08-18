@@ -830,10 +830,10 @@ $(document).ready(function(){
 					<c:set var="ymd" value="<%=new java.util.Date()%>" />
 
 				&nbsp;&nbsp;&nbsp;&nbsp;<label for="from" style="font-size: 16px;">시작일</label>&nbsp; &nbsp;
-				<input type="text" id="from" name="task_start_date" value="">
+				<input type="text" id="from" name="task_start_date" value="2023-08-21">
 				&nbsp; &nbsp;
 				<label for="to" style="font-size: 16px;">마감일</label>&nbsp; &nbsp;
-				<input type="text" id="to" name="task_end_date" value="">
+				<input type="text" id="to" name="task_end_date" value="2023-09-21">
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp;
 				</td>
 			</tr>
