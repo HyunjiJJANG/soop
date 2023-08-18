@@ -331,8 +331,8 @@ public class TaskController {
 				// 서버에 저장할 실제 디렉토리 경로 구하기
 				HttpSession session = req.getSession(); // http 객체 얻어오기
 				ServletContext application = session.getServletContext(); // session으로부터 servlet context 얻어오기
-				
-				String filePath = application.getRealPath("/data"); // 데이터의 실제 경로
+				String filePath = path;
+				//String filePath = application.getRealPath("/data"); // 데이터의 실제 경로
 				log.info("파일이 저장될 실제 경로 : {} " + filePath); // 해당 경로로 탐색기에서 테스트 했을 때, data 폴더에 밀어넣은 이미지 나옴
 				
 				// 매개변수로 전달 받은 파일 객체

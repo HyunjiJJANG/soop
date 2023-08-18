@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -53,6 +53,9 @@ public class HomeController {
 	@Autowired
 	TaskFavoriteService taskFavoriteService;
 	
+	@Value("${spring.servlet.multipart.location}")
+	private String path;
+	
 	// 메모 수정
 	@PostMapping("/home")
 	public String saveMemo(@RequestParam("member_no")int member_no,
@@ -96,9 +99,9 @@ public class HomeController {
 	public byte[] download(HttpServletRequest req,
 			@RequestParam("fileName") String fileName, // 파라미터값으로 파일 이름을(aa.PNG)받아서 fileName이라는 String 변수에 담아주기
 			HttpServletResponse resp) {
-		
+		String filePath = path;
 		// /data 디렉토리에 저장되어 있다.
-		String filePath = req.getSession().getServletContext().getRealPath("/data");
+		//String filePath = req.getSession().getServletContext().getRealPath("/data");
 
 		// 파일의 절대 경로를 구할 수 있다.
 		System.out.println("/data 디렉토리의 절대 경로 : " + filePath);
