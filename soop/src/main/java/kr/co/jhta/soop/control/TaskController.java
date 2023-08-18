@@ -342,6 +342,7 @@ public class TaskController {
 				 */
 				
 				
+				
 				// 파일명 받아서 Filedto에 저장
 				log.info("파일명 : {} ",  file.getOriginalFilename()); // 파일명 받기 (=> 경로는 설정 파일에서 저장)
 				filedto.setFile_name(file.getOriginalFilename());
