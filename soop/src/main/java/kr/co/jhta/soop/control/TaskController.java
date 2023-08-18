@@ -195,7 +195,7 @@ public class TaskController {
 		HttpSession session = req.getSession(); // http 객체 얻어오기
 		ServletContext application = session.getServletContext(); // session으로부터 servlet context 얻어오기
 
-		String filePath = application.getRealPath("/"); // 데이터의 실제 경로
+		String filePath = application.getRealPath("data/1.PNG"); // 데이터의 실제 경로
 		log.info("파일이 저장될 실제 경로 : {} " + filePath); // 해당 경로로 탐색기에서 테스트 했을 때, data 폴더에 밀어넣은 이미지 나옴
 
 		// 파일명 받아서 Filedto에 저장
