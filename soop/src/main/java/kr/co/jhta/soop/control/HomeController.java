@@ -123,7 +123,7 @@ public class HomeController {
 			resp.setContentLength(b.length);
 			// 파일의 종류
 			resp.setContentType("image/jpeg");
-
+			resp.setContentType("text/plain"); // 텍스트 파일의 MIME 타입인 "text/plain"으로 변경
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
