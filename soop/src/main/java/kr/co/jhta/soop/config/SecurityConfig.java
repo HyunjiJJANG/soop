@@ -74,7 +74,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.defaultSuccessUrl("/home")
 				//.defaultSuccessUrl("/home")
 				// 로그인 실패하면 /clogin?error=true
-				.failureUrl("/clogin?loginMessage=error")
+				.failureUrl("/?loginMessage=error")
 				.and()
 					.logout()
 					// logout 요청이 오면 clogout url로 가고
@@ -83,12 +83,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						.logoutSuccessUrl("/")
 				.and()
 				.oauth2Login()
-				.loginPage("/clogin")
+				.loginPage("/")
 				// OAuth2 로그인 성공 후 사용자 정보를 가져오는 설정을 담당
 				.defaultSuccessUrl("/home")
 				//.successHandler(customHandler)
 				// 로그인 실패하면 /clogin?error=true
-				.failureUrl("/clogin?error=true")
+				.failureUrl("/?loginMessage=error")
 				.userInfoEndpoint()
 				.userService(userDetailService);
 						// 소셜 로그인 성공시 진행할 OAuth2UserService 인터페이스를구현한 객체를 등록 //즉 사용자가 정보를 가져온

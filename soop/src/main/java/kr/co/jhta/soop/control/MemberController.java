@@ -235,7 +235,7 @@ public class MemberController {
 		memberDto.setPassword(passwordEncoder.encode(password));
 		memberService.updateOne(memberDto);
 		redirectAttributes.addFlashAttribute("message", "비밀번호 변경이 완료되었습니다.");
-		return "redirect:/clogin";
+		return "redirect:/";
 	}
 
 	// 커스텀 로그아웃
