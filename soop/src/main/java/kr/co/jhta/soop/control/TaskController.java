@@ -197,8 +197,15 @@ public class TaskController {
 		// 서버에 저장할 실제 디렉토리 경로 구하기
 		HttpSession session = req.getSession(); // http 객체 얻어오기
 		ServletContext application = session.getServletContext(); // session으로부터 servlet context 얻어오기
+		String filePath = path;
+		System.out.println("/data 디렉토리의 절대 경로 : " + filePath);
 
-		String filePath = application.getRealPath("/data"); // 데이터의 실제 경로
+		// 다운로드 받을 파일의 절대 경로
+		//log.info("수정한 다운로드 파일 경로"+filePath3);
+		
+		
+		
+		//String filePath = application.getRealPath("/data"); // 데이터의 실제 경로
 		log.info("파일이 저장될 실제 경로 : {} " + filePath); // 해당 경로로 탐색기에서 테스트 했을 때, data 폴더에 밀어넣은 이미지 나옴
 
 		// 파일명 받아서 Filedto에 저장
@@ -209,7 +216,7 @@ public class TaskController {
 		try {
 			// 파일 객체로 만들기 => 파일 경로에 / 와 파일 이름을 붙여서 객체로 만듦
 			// 저장될 경로 + "/" + 파일명
-			File f = new File(filePath + "/" + file.getOriginalFilename());
+			File f = new File(filePath + "//" + file.getOriginalFilename());
 			// 임시 경로에 보관 중인 파일을 실제 위치에 저장
 			file.transferTo(f);
 		} catch (IllegalStateException e) {
@@ -423,16 +430,16 @@ public class TaskController {
 			@RequestParam("file_name") String file_name,
 		HttpServletResponse resp) {
 		// /data 디렉토리에 저장되어 있다.
-		String path1 = path +"//"+ "1.PNG";
-		String filePath2 = req.getSession().getServletContext().getRealPath("/");
-		String filePath3 = req.getSession().getServletContext().getRealPath("/var/jenkins_home/newdata/data");
-		String filePath  = req.getServletContext().getRealPath("/"); 
+		//String filePath2 = req.getSession().getServletContext().getRealPath("/");
+		//String filePath3 = req.getSession().getServletContext().getRealPath("/var/jenkins_home/newdata/data");
+		//String filePath  = req.getServletContext().getRealPath("/"); 
 		// 파일의 절대 경로를 구할 수 있다.
-		System.out.println("/data 디렉토리의 절대 경로 : " + path1);
+		String filePath = path;
+		System.out.println("/data 디렉토리의 절대 경로 : " + filePath);
 
 		// 다운로드 받을 파일의 절대 경로
-		log.info("수정한 다운로드 파일 경로"+filePath3);
-		String absFilePath = filePath3 + "/" + file_name;
+		//log.info("수정한 다운로드 파일 경로"+filePath3);
+		String absFilePath = filePath + "//" + file_name;
 
 		System.out.println("다운로드 받을 파일의 절대 경로 : " + absFilePath);
 
