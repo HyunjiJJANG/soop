@@ -427,6 +427,7 @@ public class TaskController {
 		System.out.println("/data 디렉토리의 절대 경로 : " + filePath);
 
 		// 다운로드 받을 파일의 절대 경로
+		log.info("수정한 다운로드 파일 경로"+filePath);
 		String absFilePath = filePath + "/" + file_name;
 
 		System.out.println("다운로드 받을 파일의 절대 경로 : " + absFilePath);
