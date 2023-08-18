@@ -216,7 +216,7 @@ public class TaskController {
 		try {
 			// 파일 객체로 만들기 => 파일 경로에 / 와 파일 이름을 붙여서 객체로 만듦
 			// 저장될 경로 + "/" + 파일명
-			File f = new File(filePath + "//" + file.getOriginalFilename());
+			File f = new File(filePath + "/" + file.getOriginalFilename());
 			// 임시 경로에 보관 중인 파일을 실제 위치에 저장
 			file.transferTo(f);
 		} catch (IllegalStateException e) {
@@ -439,7 +439,7 @@ public class TaskController {
 
 		// 다운로드 받을 파일의 절대 경로
 		//log.info("수정한 다운로드 파일 경로"+filePath3);
-		String absFilePath = filePath + "//" + file_name;
+		String absFilePath = filePath + "/" + file_name;
 
 		System.out.println("다운로드 받을 파일의 절대 경로 : " + absFilePath);
 
