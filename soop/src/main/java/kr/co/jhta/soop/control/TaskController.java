@@ -423,7 +423,7 @@ public class TaskController {
 			@RequestParam("file_name") String file_name,
 		HttpServletResponse resp) {
 		// /data 디렉토리에 저장되어 있다.
-		String path1 = path +"/"+ "1.PNG";
+		String path1 = path +"//"+ "1.PNG";
 		String filePath2 = req.getSession().getServletContext().getRealPath("/");
 		String filePath3 = req.getSession().getServletContext().getRealPath("/var/jenkins_home/newdata/data");
 		String filePath  = req.getServletContext().getRealPath("/"); 
