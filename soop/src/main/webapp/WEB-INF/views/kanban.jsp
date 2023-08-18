@@ -429,7 +429,7 @@
 
 									'<tr>'
 									+ '<th style="display: none;">업무생성자이름 : </th>'
-									+ '<td style="display: none;">'
+									+ '<td>업무 생성자 :'
 									+ task.name
 									+ '</td>'
 									+ '</tr>'
@@ -564,7 +564,7 @@ function redirectIfSelectedValue() {
 													</tr>
 													<tr>
 														<th style="display: none;">업무생성자이름 :</th>
-														<td style="display: none;">${tasklist.name }</td>
+														<td>업무 생성자 : ${tasklist.name }</td>
 													</tr>
 													<tr>
 														<th style="display: none;">업무등록일 :</th>
@@ -625,7 +625,7 @@ function redirectIfSelectedValue() {
 													</tr>
 													<tr>
 														<th style="display: none;">업무생성자이름 :</th>
-														<td style="display: none;">${tasklist.name }</td>
+														<td>업무 생성자 : ${tasklist.name }</td>
 													</tr>
 													<tr>
 														<th style="display: none;">업무등록일 :</th>
@@ -685,7 +685,7 @@ function redirectIfSelectedValue() {
 													</tr>
 													<tr>
 														<th style="display: none;">업무생성자이름 :</th>
-														<td style="display: none;">${tasklist.name }</td>
+														<td>업무 생성자 : ${tasklist.name }</td>
 													</tr>
 													<tr>
 														<th style="display: none;">업무등록일 :</th>
@@ -745,7 +745,7 @@ function redirectIfSelectedValue() {
 													</tr>
 													<tr>
 														<th style="display: none;">업무생성자이름 :</th>
-														<td style="display: none;">${tasklist.name }</td>
+														<td>업무 생성자 : ${tasklist.name }</td>
 													</tr>
 													<tr>
 														<th style="display: none;">업무등록일 :</th>
